@@ -1,4 +1,23 @@
+# ****************************************
+# Confounder Handling Simulation Study
+# 
+# Controls the GUI of the Shiny app, interfaces with the simulation code
+# Provides three things:
+#    (1) UI Code
+#    (2) Server Code
+#    (3) Call to 'shinyApp' function
+# 
+# Emma Tarmey
+#
+# Started:          31/01/2024
+# Most Recent Edit: 07/02/2024
+# ****************************************
+
+
+library(dagitty)
 library(dplyr)
+library(ggdag)
+library(ggplot2)
 library(shiny)
 library(shinycssloaders)
 
@@ -71,29 +90,47 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   
-  # Reactive plot with input variable bins
-  output$distPlot <- renderPlot({
+  # Reactive plot
+  output$distPlot <- renderPlot(
+    expr = {
     
     # generate some number of normal distribution observations
-    x <- seq(from = -5, to = 5, length.out = input$samples)
-    y <- dnorm(x, mean = 0, sd = 1)
+    #x <- seq(from = -5, to = 5, length.out = input$samples)
+    #y <- dnorm(x, mean = 0, sd = 1)
     
     # demonstrate progress spinner
-    Sys.sleep(0.2)
+    #Sys.sleep(0.2)
     
-    plot(x = x,
-         y = y,
-         xlab = "Values",
-         main = "Normal PDF")
+    # TODO: fix this here!
+    dagitty("dag{y <- z -> x}") %>% tidy_dagitty() %>% ggdag()
+    
+    #tidy_dagitty(dag)
+    #ggdag(dag, layout = "circle")
+    
+    
+    # # generate DAG
+    # dagified <- dagify(x ~ z,
+    #                    y ~ z,
+    #                    exposure = "x",
+    #                    outcome = "y"
+    # )
+    # 
+    # # tidy DAG
+    # tidy_dagitty(dagified)
+    # 
+    # # display DAG
+    # ggdag(dagified, layout = "circle")
+
   })
   
-  # React
+  # Reactive outputs
   output$checkGroup <- renderPrint({ input$checkGroup })
   output$radio      <- renderPrint({ input$radio })
   output$numeric    <- renderPrint({ input$numeric })
   output$dropdown   <- renderPrint({ input$dropdown })
   output$bins       <- renderPrint({ input$bins })
   output$value      <- renderPrint({ as.logical(input$action %% 2) })
+
 }
 
-shinyApp(ui = ui, server = server)
+shinyApp(ui = ui, server = server)shinyApp
