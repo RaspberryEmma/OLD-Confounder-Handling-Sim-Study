@@ -6,7 +6,12 @@
 # Emma Tarmey
 #
 # Started:          31/01/2024
-# Most Recent Edit: 07/02/2024
+# Most Recent Edit: 08/02/2024
 # ****************************************
 
+# fix wd issue
+setwd( dirname(rstudioapi::getSourceEditorContext()$path) )
+
+# launch app
 shiny::runApp("sim_frontend")
+

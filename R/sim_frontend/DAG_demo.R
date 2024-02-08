@@ -20,5 +20,9 @@ library(shinycssloaders)
 # tidy_dagitty(dagified)
 # ggdag(dagified, layout = "circle")
 
-dagitty("dag{y <- z -> x}") %>% tidy_dagitty() %>% ggdag()
+"dag{y <- z -> x}" %>% dagitty() %>% tidy_dagitty() %>% ggdag()
+
+png( paste("../plots/example", "_DAG.png", sep = "") )
+"dag{y <- z -> x}" %>% dagitty() %>% tidy_dagitty() %>% ggdag()
+dev.off()
 

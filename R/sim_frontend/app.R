@@ -10,14 +10,14 @@
 # Emma Tarmey
 #
 # Started:          31/01/2024
-# Most Recent Edit: 07/02/2024
+# Most Recent Edit: 08/02/2024
 # ****************************************
 
 
-library(dagitty)
 library(dplyr)
 library(ggdag)
 library(ggplot2)
+library(igraph)
 library(shiny)
 library(shinycssloaders)
 
@@ -34,36 +34,25 @@ ui <- fluidPage(
         
       helpText("Do something."),
       
-      checkboxGroupInput("checkGroup",
-                         label = "Checkbox group",
-                         choices = list("Choice 1" = 1,
-                                        "Choice 2" = 2,
-                                        "Choice 3" = 3),
+      checkboxGroupInput(inputId = "checkGroup",
+                         label   = "Statistical Methods",
+                         choices = list("Stepwide Regression" = 1,
+                                        "Change-in-Estimate"  = 2,
+                                        "TMLEs"               = 3),
                          selected = 1),
       
-      radioButtons("radio",
-                   label = "Radio buttons",
-                   choices = list("Choice 1" = 1, "Choice 2" = 2,
-                                  "Choice 3" = 3),selected = 1),
+      numericInput(inputId = "n_node",
+                   label   = "n_node",
+                   value   = 1),
       
-      numericInput("numeric",
-                   label = "Numeric input",
-                   value = 1),
+      numericInput(inputId = "n_obs",
+                   label   = "n_obs",
+                   value   = 100),
       
-      selectInput("dropdown",
-                  label = "Dropdown menu",
-                  choices = list("A",
-                                 "B",
-                                 "C",
-                                 "D"),
-                  selected = "A"),
-        
-      # Input: Slider for the number of bins ----
-      sliderInput(inputId = "samples",
-                  label = "Slider input",
-                  min = 1,
-                  max = 100,
-                  value = 10),
+      numericInput(inputId = "SE_req",
+                   label   = "SE_req",
+                   value   = 0.05),
+      
       
       actionButton("action", label = "Action")
       
@@ -76,12 +65,12 @@ ui <- fluidPage(
       plotOutput(outputId = "distPlot") %>% withSpinner(color="#0dc5c1"),
       
       # Output: Extracting all variables
-      fluidRow(column(2, verbatimTextOutput("checkGroup")),
-               column(3, verbatimTextOutput("radio")),
-               column(4, verbatimTextOutput("numeric")),
-               column(5, verbatimTextOutput("dropdown")),
-               column(6, verbatimTextOutput("samples")),
-               column(7, verbatimTextOutput("value"))
+      fluidRow(column(1, verbatimTextOutput("checkGroup")),
+               column(2, verbatimTextOutput("n_node")),
+               column(3, verbatimTextOutput("n_obs")),
+               column(4, verbatimTextOutput("SE_req")),
+               column(5, verbatimTextOutput("value")),
+               column(6, verbatimTextOutput("wd"))
       ),
     )
   )
@@ -89,48 +78,32 @@ ui <- fluidPage(
 
 
 server <- function(input, output) {
+  # Perform computations here
+  outputDAG <- reactive({
+    ?graph
+    gd <- graph( n = input$n_node, edges = c() )
+    gd
+  })
   
   # Reactive plot
-  output$distPlot <- renderPlot(
-    expr = {
-    
-    # generate some number of normal distribution observations
-    #x <- seq(from = -5, to = 5, length.out = input$samples)
-    #y <- dnorm(x, mean = 0, sd = 1)
-    
+  output$distPlot <- renderPlot({
     # demonstrate progress spinner
-    #Sys.sleep(0.2)
+    Sys.sleep(0.2)
     
-    # TODO: fix this here!
-    dagitty("dag{y <- z -> x}") %>% tidy_dagitty() %>% ggdag()
-    
-    #tidy_dagitty(dag)
-    #ggdag(dag, layout = "circle")
-    
-    
-    # # generate DAG
-    # dagified <- dagify(x ~ z,
-    #                    y ~ z,
-    #                    exposure = "x",
-    #                    outcome = "y"
-    # )
-    # 
-    # # tidy DAG
-    # tidy_dagitty(dagified)
-    # 
-    # # display DAG
-    # ggdag(dagified, layout = "circle")
-
+    gd <- outputDAG()
+    plot(gd)
   })
   
   # Reactive outputs
   output$checkGroup <- renderPrint({ input$checkGroup })
-  output$radio      <- renderPrint({ input$radio })
-  output$numeric    <- renderPrint({ input$numeric })
-  output$dropdown   <- renderPrint({ input$dropdown })
-  output$bins       <- renderPrint({ input$bins })
+  output$n_node     <- renderPrint({ input$n_node })
+  output$n_obs      <- renderPrint({ input$n_obs })
+  output$SE_req     <- renderPrint({ input$SE_req })
   output$value      <- renderPrint({ as.logical(input$action %% 2) })
+  output$wd         <- renderPrint({ getwd() })
 
 }
 
-shinyApp(ui = ui, server = server)shinyApp
+shinyApp(ui = ui, server = server)
+
+
