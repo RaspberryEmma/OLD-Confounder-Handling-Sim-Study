@@ -12,9 +12,11 @@
 # Emma Tarmey
 #
 # Started:          31/01/2024
-# Most Recent Edit: 13/02/2024
+# Most Recent Edit: 14/02/2024
 # ****************************************
 
+# simulation-proper
+source("../simulation.R")
 
 library(dplyr)
 library(ggdag)
@@ -26,8 +28,8 @@ library(shinycssloaders)
 
 # initial conditions
 n_node_init <- 3
-n_obs_init  <- 100
-n_rep_init  <- 1000
+n_obs_init  <- 50
+n_rep_init  <- 100
 SE_req_init <- 0.05
 
 
@@ -85,6 +87,11 @@ ui <- fluidPage(
       headerPanel(""),
       p("Workind Directory (testing)"),
       verbatimTextOutput("wd"),
+      
+      # Node Labels
+      headerPanel(""),
+      p("Node Labels (testing)"),
+      verbatimTextOutput("labels"),
     )
   )
 )
@@ -96,6 +103,16 @@ server <- function(input, output) {
   DAG_data      <- reactiveValues(data = NULL)
   DAG_data$data <- data.frame( matrix(0, nrow = n_node_init, ncol = n_node_init) )
   
+  # Initialise DAG node labels (wlog, 'y' is always first)
+  DAG_data$labels <- reactiveValues(data = NULL)
+  DAG_data$labels <- c("y", paste("X", 1:(n_node_init-1), sep = ""))
+  
+  # Dynamic DAG node labels
+  DAG_labels <- reactive({
+    labels <- c("y")
+    if (input$n_node > 1) { labels <- c("y", paste("X", 1:(input$n_node-1), sep = "")) }
+    labels
+  })
   
   # Edit DAG input data table dimensions
   observeEvent(
@@ -126,7 +143,9 @@ server <- function(input, output) {
         # make no changes
       }
       
-      DAG_data$data <- data.frame( DAG_matrix )
+      # update DAG data
+      DAG_data$data <- ( DAG_matrix %>% data.frame() %>% setNames( DAG_labels() ) )
+
     }
   )
   
@@ -160,20 +179,30 @@ server <- function(input, output) {
     Sys.sleep(0.2)
     
     gd <- outputDAG()
-    plot(gd)
+    plot(gd, layout = layout_as_tree(gd))
   })
   
   # Run simulation when button is pressed
   observeEvent(
     eventExpr   = {input$run_sim},
     handlerExpr = {
-      source("../simulation.R")
-      run()
+      data <- generate_dataset(graph = outputDAG(), n_obs = input$n_obs, labels = DAG_labels())
+      data %>% dim()  %>% print()
+      data %>% head() %>% print()
+      writeLines("\n")
+      
+      # TODO - fix this!
+      png( paste("../../plots/synthetic_data_corr.png", sep = "") )
+      p <- data %>% cor() %>% ggcorrplot::ggcorrplot() +
+        ggtitle( paste("Synthetic Data Correlation Plot", sep = "") )
+      p
+      dev.off()
     }
   )
   
   # Testing!
-  output$wd <- renderPrint({ getwd() })
+  output$wd     <- renderPrint({ getwd() })
+  output$labels <- renderPrint({ DAG_labels() })
 
 }
 
