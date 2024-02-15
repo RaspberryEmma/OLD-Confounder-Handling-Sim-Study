@@ -187,8 +187,10 @@ server <- function(input, output) {
     eventExpr   = {input$run_sim},
     handlerExpr = {
       data <- generate_dataset(graph = outputDAG(), n_obs = input$n_obs, labels = DAG_labels())
-      data %>% dim()  %>% print()
-      data %>% head() %>% print()
+      outputDAG() %>% as_adj() %>% print()
+      writeLines("\n")
+      data        %>% dim()    %>% print()
+      data        %>% head()   %>% print()
       writeLines("\n")
       
       # TODO - fix this!
