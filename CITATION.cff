@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+
+message: "If you use this software, please cite it as below."
+
+authors:
+  - family-names: Tarmey
+    given-names:  Emma
+    orcid: https://orcid.org/0009-0000-7214-4976
+
+title: "Confounder Handling Simulation Study"
+version: 1.0.0
+date-released: 2024-02-16

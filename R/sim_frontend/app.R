@@ -160,7 +160,11 @@ server <- function(input, output) {
   
   # Reactive DAG input table
   output$DAG_table = DT::renderDT(
-    expr     = { DAG_data$data },
+    expr     = {
+      display           <- DAG_data$data
+      rownames(display) <- DAG_labels()
+      display
+    },
     server   = FALSE,
     editable = TRUE,
     options  = list(dom = "t") # see "https://datatables.net/reference/option/dom"
@@ -186,19 +190,7 @@ server <- function(input, output) {
   observeEvent(
     eventExpr   = {input$run_sim},
     handlerExpr = {
-      data <- generate_dataset(graph = outputDAG(), n_obs = input$n_obs, labels = DAG_labels())
-      outputDAG() %>% as_adj() %>% print()
-      writeLines("\n")
-      data        %>% dim()    %>% print()
-      data        %>% head()   %>% print()
-      writeLines("\n")
-      
-      # TODO - fix this!
-      png( paste("../../plots/synthetic_data_corr.png", sep = "") )
-      p <- data %>% cor() %>% ggcorrplot::ggcorrplot() +
-        ggtitle( paste("Synthetic Data Correlation Plot", sep = "") )
-      p
-      dev.off()
+      run(graph = outputDAG(), n_obs = input$n_obs, labels = DAG_labels())
     }
   )
   
