@@ -45,12 +45,12 @@ ui <- fluidPage(
         
       helpText("Simulation Parameters"),
       
-      checkboxGroupInput(inputId = "checkGroup",
+      checkboxGroupInput(inputId = "model_methods",
                          label   = "Statistical Methods",
-                         choices = list("Stepwide Regression" = 1,
-                                        "Change-in-Estimate"  = 2,
-                                        "TMLEs"               = 3),
-                         selected = 1),
+                         choices = list("Stepwide Regression" = "stepwise",
+                                        "Change-in-Estimate"  = "change_in_est",
+                                        "TMLEs"               = "TMLEs"),
+                         selected = "stepwise"),
       
       numericInput(inputId = "n_node",
                    label   = "n_node",
@@ -85,7 +85,7 @@ ui <- fluidPage(
       
       # Working Directory
       headerPanel(""),
-      p("Workind Directory (testing)"),
+      p("Working Directory (testing)"),
       verbatimTextOutput("wd"),
       
       # Node Labels
@@ -110,7 +110,8 @@ server <- function(input, output) {
   # Dynamic DAG node labels
   DAG_labels <- reactive({
     labels <- c("y")
-    if (input$n_node > 1) { labels <- c("y", paste("X", 1:(input$n_node-1), sep = "")) }
+    if (input$n_node == 2) { labels <- c("y", "X") }
+    if (input$n_node  > 2) { labels <- c("y", "X", paste("Z", 1:( input$n_node - 2 ), sep = "")) }
     labels
   })
   
@@ -190,7 +191,10 @@ server <- function(input, output) {
   observeEvent(
     eventExpr   = {input$run_sim},
     handlerExpr = {
-      run(graph = outputDAG(), n_obs = input$n_obs, labels = DAG_labels())
+      run(graph         = outputDAG(),
+          n_obs         = input$n_obs,
+          labels        = DAG_labels(),
+          model_methods = input$model_methods)
     }
   )
   
