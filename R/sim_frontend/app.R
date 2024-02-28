@@ -2,7 +2,7 @@
 # Confounder Handling Simulation Study
 # 
 # Controls the GUI of the Shiny app, interfaces with the simulation code
-# Provides three things:
+# Provides the following:
 #    (1) UI Code
 #    (2) Server Code
 #    (3) Call to 'shinyApp' function
@@ -12,7 +12,7 @@
 # Emma Tarmey
 #
 # Started:          31/01/2024
-# Most Recent Edit: 14/02/2024
+# Most Recent Edit: 28/02/2024
 # ****************************************
 
 # simulation-proper
@@ -49,7 +49,7 @@ ui <- fluidPage(
                          label   = "Statistical Methods",
                          choices = list("Stepwide Regression" = "stepwise",
                                         "Change-in-Estimate"  = "change_in_est",
-                                        "TMLEs"               = "TMLEs"),
+                                        "LASSO"               = "LASSO"),
                          selected = "stepwise"),
       
       numericInput(inputId = "n_node",
@@ -68,7 +68,11 @@ ui <- fluidPage(
                    label   = "SE_req",
                    value   = SE_req_init),
       
-      actionButton("run_sim", label = "Run Simulation")
+      helpText("Run 1 Iteration to Test Outputs"),
+      actionButton("run_once", label = "Run 1 Iteration"),
+      
+      helpText("Run Full Simulation"),
+      actionButton("run_sim",  label = "Run Simulation")
       
     ),
     
@@ -187,12 +191,24 @@ server <- function(input, output) {
     plot(gd, layout = layout_as_tree(gd))
   })
   
+  # Run one test iteration of sim when button is pressed
+  observeEvent(
+    eventExpr   = {input$run_once},
+    handlerExpr = {
+      run_once(graph         = outputDAG(),
+               n_obs         = input$n_obs,
+               labels        = DAG_labels(),
+               model_methods = input$model_methods)
+    }
+  )
+  
   # Run simulation when button is pressed
   observeEvent(
     eventExpr   = {input$run_sim},
     handlerExpr = {
       run(graph         = outputDAG(),
           n_obs         = input$n_obs,
+          n_rep         = input$n_rep,
           labels        = DAG_labels(),
           model_methods = input$model_methods)
     }
