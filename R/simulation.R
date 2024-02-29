@@ -10,11 +10,11 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 28/02/2024
+# Most Recent Edit: 29/02/2024
 # ****************************************
 
 
-# TODO: implement unmeasuredness
+# TODO: FIX LISTS, implement results measurement. implement data generation features
 
 normalise <- function(column = NULL) {
   return ( (column - min(column)) / (max(column) - min(column)) )
@@ -39,51 +39,15 @@ generate_dataset <- function(graph = NULL, n_obs = NULL, labels = NULL) {
 
 
 run_once <- function(graph = NULL, n_obs = NULL, labels = NULL, model_methods = NULL) {
-  print("running!")
-  
-  # generate data
-  data <- generate_dataset(graph = graph, n_obs = n_obs, labels = labels)
-  data        %>% dim()    %>% print()
-  writeLines("\nData")
-  data        %>% head()   %>% print()
-  writeLines("\ny")
-  data[,  1]  %>% head()   %>% print()
-  writeLines("\nX")
-  data[, -1]  %>% head()   %>% print()
-  writeLines("\n")
-  
   # fit models
   print(model_methods)
   
-  models <- c()
-  for (method in model_methods) {
-    model = switch(method,
-                   "stepwise"      = step(object    = lm(y ~ ., data = data), # all variable base
-                                          direction = "both"),
-                   
-                   "change_in_est" = chest::chest_glm(crude  = "y ~ X",          # exposure and outcome
-                                                      xlist  = labels[-c(1, 2)], # all Z's as potential
-                                                      family = quasibinomial,    # data is normalised, but still non-binary
-                                                      data   = data),
-                   
-                   "LASSO"         = glmnet::glmnet(x            = data[, -1], # exposure and all other covariates
-                                                    y            = data[,  1], # outcome
-                                                    alpha        = 1,          # LASSO penalty
-                                                    family.train = "gaussian", # objective function
-                                                    intercept    = F)
-    )
-    models <- c(models, model)
-  }
-  
-  print(models)
-  
-  writeLines("\n")
-  
-  print("finished!")
-  writeLines("\n")
+  # run one iteration
+  run(graph = graph, n_obs = n_obs, n_rep = 1, labels = labels, model_methods = model_methods, messages = TRUE)
 }
 
-run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_methods = NULL) {
+
+run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_methods = NULL, messages = FALSE) {
   print("running!")
   
   for (i in 1:n_rep) {
@@ -93,30 +57,61 @@ run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_m
     # generate data
     data <- generate_dataset(graph = graph, n_obs = n_obs, labels = labels)
   
-    # fit models
-    models <- c()
-    for (method in model_methods) {
+    # generate penalty.factor sequence using variable labels
+    # ensure exposures (variables marked with 'X') are always included
+    labels.no.y <- labels[-1]
+    penalty.factor <- rep(1, length(labels.no.y))
+    for (i in 1:length(labels.no.y)) {
+      if ( sjmisc::str_contains(labels.no.y[i], "X") ) { penalty.factor[i] <- 0 }
+    }
+    
+    models <- vector(mode="list", length=length(model_methods))
+    
+    for (i in 1:length(model_methods)) {
+      method <- model_methods[i]
       model = switch(method,
-                     "stepwise"      = step(object    = lm(y ~ ., data = data), # all variable base
-                                            direction = "both"),
+                     "stepwise"      = step(object    = lm(y ~ ., data = data),                  # all variable base
+                                            direction = "both",                                  # stepwise, not fwd or bwd
+                                            scope     = list(upper = "y ~ .", lower = "y ~ X")), # exposure X always included
                      
-                     "change_in_est" = chest::chest_glm(crude  = "y ~ X",          # exposure and outcome
+                     "change_in_est" = chest::chest_glm(crude  = "y ~ X",          # exposure and outcome always included
                                                         xlist  = labels[-c(1, 2)], # all Z's as potential
                                                         family = quasibinomial,    # data is normalised, but still non-binary
                                                         data   = data),
                      
-                     "LASSO"         = glmnet::glmnet(x            = data[, -1], # exposure and all other covariates
-                                                      y            = data[,  1], # outcome
-                                                      alpha        = 1,          # LASSO penalty
-                                                      family.train = "gaussian", # objective function
-                                                      intercept    = F)
-      ) %>% ddpcr::quiet() # suppress excess output
-      models <- c(models, model)
+                     "LASSO"         = glmnet::glmnet(x              = data[, -1],     # exposure and all other covariates
+                                                      y              = data[,  1],     # outcome
+                                                      alpha          = 1,              # LASSO penalty
+                                                      family.train   = "gaussian",     # objective function
+                                                      intercept      = F,
+                                                      penalty.factor = penalty.factor) # exposure X always included
+                     
+      ) %>% ddpcr::quiet(., all = messages)  # suppress excess output
+      models[[i]] <- model
+    }
+    
+    View(models)
+    
+    if (messages) {
+      data        %>% dim()    %>% print()
+      writeLines("\nData")
+      data        %>% head()   %>% print()
+      writeLines("\ny")
+      data[,  1]  %>% head()   %>% print()
+      writeLines("\nX")
+      data[, -1]  %>% head()   %>% print()
+      writeLines("\n")
+      
+      print("Penalty Factors (for LASSO)")
+      print(labels.no.y)
+      print(penalty.factor)
+      writeLines("\n")
+      
+      for (i in 1:length(model_methods)) { print(models[[i]]) }
+      writeLines("\n")
     }
   }
   
-  
-  writeLines("\n")
   print("finished!")
   writeLines("\n")
 }
