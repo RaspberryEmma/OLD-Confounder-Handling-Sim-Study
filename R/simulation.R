@@ -10,45 +10,137 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 29/02/2024
+# Most Recent Edit: 14/03/2024
 # ****************************************
 
 
-# TODO: FIX LISTS, implement results measurement. implement data generation features
+# TODO: implement benchmark, implement data generation features
 
 normalise <- function(column = NULL) {
   return ( (column - min(column)) / (max(column) - min(column)) )
 }
 
+r_squared <- function(model          = NULL,
+                      optimal_lambda = NULL,
+                      model_method   = NULL,
+                      test_data      = NULL) {
+  
+  test_X <- test_data[, -1]
+  test_y <- test_data[,  1]
+  
+  mean_y <- mean(test_y)
+  pred_y <- c()
+  
+  if (model_method == "LASSO") {
+    pred_y <- predict( model, s = optimal_lambda, newx = as.matrix(test_X) )
+  }
+  else {
+    pred_y <- predict( model, test_X )
+  }
+  
+  
+  SSR <- sum((test_y - pred_y))
+  SST <- sum((test_y - mean_y))
+  
+  R2  <- (1 - (SSR / SST))
+  return (R2)
+}
+
+bias <- function(model = NULL, data = NULL) {
+  return (NULL)
+}
+
+benchmark <- function(model_method = NULL, data = NULL) {
+  time <- NaN
+  
+  data_X <- data[, -1]
+  data_y <- data[,  1]
+  
+  if (model_method == "stepwise") {
+    
+    bench <- rbenchmark::benchmark(
+      step(object    = lm(y ~ ., data = data),                  # all variable base
+           direction = "both",                                  # stepwise, not fwd or bwd
+           scope     = list(upper = "y ~ .", lower = "y ~ X")), # exposure X always included
+      
+      columns = c('test', 'elapsed', 'replications')
+    ) %>% ddpcr::quiet(., all = TRUE)
+  }
+  else if (model_method == "LASSO") {
+    
+    bench <- rbenchmark::benchmark(
+      glmnet::cv.glmnet(x              = as.matrix(data_X), # exposure and all other covariates
+                        y              = data_y,          # outcome
+                        alpha          = 1,               # LASSO penalty
+                        family.train   = "gaussian",      # objective function
+                        intercept      = F), 
+      
+      glmnet::glmnet(x              = as.matrix(data_X), # exposure and all other covariates
+                     y              = data_y,            # outcome
+                     alpha          = 1,                 # LASSO penalty
+                     family.train   = "gaussian",        # objective function
+                     intercept      = F),
+      
+      columns = c('test', 'elapsed', 'replications')
+    ) %>% ddpcr::quiet(., all = TRUE)
+  }
+  
+  # TODO - fix here!
+  View(bench)
+  
+  return (time)
+}
+
 generate_dataset <- function(graph = NULL, n_obs = NULL, labels = NULL) {
+  # generate data from DAG
   # requires spacejam package, which is no longer on CRAN
   DAG.data <- spacejam::generate.dag.data(g        = graph,
                                           n        = n_obs,
                                           basesd   = 1.0,
                                           basemean = 0.0)
   
-  dataset           <- data.frame(DAG.data$X)
-  oracle.solution   <- DAG.data$funclist
+  # coerce to dataframe
+  dataset <- data.frame(DAG.data$X)
+  
+  # cast to double
+  dataset <- mutate_all(dataset, function(x) as.numeric(as.character(x)))
+  
+  # apply labels
   colnames(dataset) <- labels
   
   # force 0 <= y <= 1
   dataset[,  1] <- normalise( dataset[,  1] )
+
+  # extact true coef values
+  oracle.solution   <- DAG.data$funclist
   
   return (dataset)
 }
 
 
-run_once <- function(graph = NULL, n_obs = NULL, labels = NULL, model_methods = NULL) {
+run_once <- function(graph = NULL, n_obs = NULL, labels = NULL, model_methods = NULL, results_methods = NULL) {
   # fit models
   print(model_methods)
   
   # run one iteration
-  run(graph = graph, n_obs = n_obs, n_rep = 1, labels = labels, model_methods = model_methods, messages = TRUE)
+  run(graph = graph, n_obs = n_obs, n_rep = 1, labels = labels, model_methods = model_methods, results_methods = results_methods, messages = TRUE)
 }
 
 
-run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_methods = NULL, messages = FALSE) {
+run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_methods = NULL, results_methods = NULL, messages = FALSE) {
   print("running!")
+  
+  # constants
+  M <- length(model_methods)
+  R <- length(results_methods)
+  
+  # initialize results array
+  # dim = (#methods * #results * #iterations)
+  results <- array(data = NaN,
+                   dim  = c(M, R, n_rep),
+                   dimnames = list(model_methods, results_methods, 1:n_rep))
+  print(results)
+  print(dim(results))
   
   for (i in 1:n_rep) {
     # progress
@@ -56,43 +148,99 @@ run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_m
     
     # generate data
     data <- generate_dataset(graph = graph, n_obs = n_obs, labels = labels)
-  
+    
+    data_X <- data[, -1]
+    data_y <- data[,  1]
+    
+    writeLines("\nData")
+    data   %>% head()   %>% print()
+    data   %>% typeof() %>% print()
+    writeLines("\nTest y")
+    data_y %>% head()   %>% print()
+    data_y %>% typeof() %>% print()
+    writeLines("\nTest X")
+    data_X %>% head()   %>% print()
+    data_X %>% typeof() %>% print()
+    
+    as.matrix(data_X) %>% head() %>% print()
+    
     # generate penalty.factor sequence using variable labels
     # ensure exposures (variables marked with 'X') are always included
     labels.no.y <- labels[-1]
     penalty.factor <- rep(1, length(labels.no.y))
-    for (i in 1:length(labels.no.y)) {
-      if ( sjmisc::str_contains(labels.no.y[i], "X") ) { penalty.factor[i] <- 0 }
+    for (label in 1:length(labels.no.y)) {
+      if ( sjmisc::str_contains(labels.no.y[label], "X") ) { penalty.factor[label] <- 0 }
     }
     
-    models <- vector(mode="list", length=length(model_methods))
-    
-    for (i in 1:length(model_methods)) {
-      method <- model_methods[i]
-      model = switch(method,
-                     "stepwise"      = step(object    = lm(y ~ ., data = data),                  # all variable base
-                                            direction = "both",                                  # stepwise, not fwd or bwd
-                                            scope     = list(upper = "y ~ .", lower = "y ~ X")), # exposure X always included
-                     
-                     "change_in_est" = chest::chest_glm(crude  = "y ~ X",          # exposure and outcome always included
-                                                        xlist  = labels[-c(1, 2)], # all Z's as potential
-                                                        family = quasibinomial,    # data is normalised, but still non-binary
-                                                        data   = data),
-                     
-                     "LASSO"         = glmnet::glmnet(x              = data[, -1],     # exposure and all other covariates
-                                                      y              = data[,  1],     # outcome
-                                                      alpha          = 1,              # LASSO penalty
-                                                      family.train   = "gaussian",     # objective function
-                                                      intercept      = F,
-                                                      penalty.factor = penalty.factor) # exposure X always included
-                     
-      ) %>% ddpcr::quiet(., all = messages)  # suppress excess output
-      models[[i]] <- model
+    # fit all models and record all results
+    for (m in 1:M) {
+      method <- model_methods[m]
+      
+      if (method == "stepwise") {
+        model <- step(object    = lm(y ~ ., data = data),                 # all variable base
+                      direction = "both",                                 # stepwise, not fwd or bwd
+                      scope     = list(upper = "y ~ .", lower = "y ~ X")) # exposure X always included
+      }
+      else if (method == "change_in_est") {
+        model <- chest::chest_glm(crude  = "y ~ X",          # exposure and outcome always included
+                                  xlist  = labels[-c(1, 2)], # all Z's as potential
+                                  family = quasibinomial,    # data is normalised, but still non-binary
+                                  data   = data) 
+      }
+      else if (method == "LASSO") {
+        # Find optimal lambda parameter via cross-validation
+        print("FINDING LAMBDA")
+        cv_model <- glmnet::cv.glmnet(x              = as.matrix(data_X), # exposure and all other covariates
+                                      y              = data_y,          # outcome
+                                      alpha          = 1,               # LASSO penalty
+                                      family.train   = "gaussian",      # objective function
+                                      intercept      = F,
+                                      penalty.factor = penalty.factor)  # exposure X always included
+        
+        optimal_lambda <- cv_model$lambda.min
+        print(optimal_lambda)
+        
+        # Fit LASSO model with single optimal lambda parameter
+        print("FITTING LASSO")
+        model <- glmnet::glmnet(x              = as.matrix(data_X), # exposure and all other covariates
+                                y              = data_y,            # outcome
+                                alpha          = 1,                 # LASSO penalty
+                                lambda         = optimal_lambda,    # use optimised lambda parameter
+                                family.train   = "gaussian",        # objective function
+                                intercept      = F,
+                                penalty.factor = penalty.factor)    # exposure X always included
+      }
+      #%>% ddpcr::quiet(., all = messages)  # suppress excess output
+      
+      # Testing
+      writeLines("\n\n")
+      print(paste("Summary of ", method, " model", sep = ''))
+      print(summary(model))
+      print(coef(model))
+      
+      # Generate test set
+      test_data <- generate_dataset(graph = graph, n_obs = n_obs, labels = labels)
+      
+      # Record results
+      for (r in 1:R) {
+        # TODO: implement results measurement!
+        result = results_methods[r]
+        
+        result_value <- switch(result,
+                               "r-squared" = r_squared(model          = model,
+                                                       optimal_lambda = optimal_lambda,
+                                                       model_method   = method,
+                                                       test_data      = test_data),
+                               "bias"      = bias(model, test_data),
+                               "benchmark" = benchmark(method, test_data))
+        
+        results[m, r, i] <- result_value
+      }
     }
     
-    View(models)
     
     if (messages) {
+      print("Data-set Size")
       data        %>% dim()    %>% print()
       writeLines("\nData")
       data        %>% head()   %>% print()
@@ -106,11 +254,14 @@ run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_m
       print(labels.no.y)
       print(penalty.factor)
       writeLines("\n")
-      
-      for (i in 1:length(model_methods)) { print(models[[i]]) }
-      writeLines("\n")
     }
   }
+  
+  writeLines("\n")
+  print("Results Table")
+  results_aggr <- apply(results, c(1,2), mean)
+  print(results_aggr)
+  writeLines("\n")
   
   print("finished!")
   writeLines("\n")

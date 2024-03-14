@@ -12,7 +12,7 @@
 # Emma Tarmey
 #
 # Started:          31/01/2024
-# Most Recent Edit: 28/02/2024
+# Most Recent Edit: 07/03/2024
 # ****************************************
 
 # simulation-proper
@@ -51,6 +51,13 @@ ui <- fluidPage(
                                         "Change-in-Estimate"  = "change_in_est",
                                         "LASSO"               = "LASSO"),
                          selected = "stepwise"),
+      
+      checkboxGroupInput(inputId = "results_methods",
+                         label   = "Results Methods",
+                         choices = list("R^2(y, X)"  = "r-squared",
+                                        "Bias"       = "bias",
+                                        "Benchmark"  = "benchmark"),
+                         selected = "r-squared"),
       
       numericInput(inputId = "n_node",
                    label   = "n_node",
@@ -195,10 +202,11 @@ server <- function(input, output) {
   observeEvent(
     eventExpr   = {input$run_once},
     handlerExpr = {
-      run_once(graph         = outputDAG(),
-               n_obs         = input$n_obs,
-               labels        = DAG_labels(),
-               model_methods = input$model_methods)
+      run_once(graph           = outputDAG(),
+               n_obs           = input$n_obs,
+               labels          = DAG_labels(),
+               model_methods   = input$model_methods,
+               results_methods = input$results_methods)
     }
   )
   
@@ -206,11 +214,12 @@ server <- function(input, output) {
   observeEvent(
     eventExpr   = {input$run_sim},
     handlerExpr = {
-      run(graph         = outputDAG(),
-          n_obs         = input$n_obs,
-          n_rep         = input$n_rep,
-          labels        = DAG_labels(),
-          model_methods = input$model_methods)
+      run(graph           = outputDAG(),
+          n_obs           = input$n_obs,
+          n_rep           = input$n_rep,
+          labels          = DAG_labels(),
+          model_methods   = input$model_methods,
+          results_methods = input$results_methods)
     }
   )
   
