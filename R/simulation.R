@@ -10,11 +10,11 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 14/03/2024
+# Most Recent Edit: 18/03/2024
 # ****************************************
 
 
-# TODO: implement benchmark, implement data generation features
+# TODO: implement data generation features
 
 normalise <- function(column = NULL) {
   return ( (column - min(column)) / (max(column) - min(column)) )
@@ -46,8 +46,16 @@ r_squared <- function(model          = NULL,
   return (R2)
 }
 
-bias <- function(model = NULL, data = NULL) {
-  return (NULL)
+param_bias <- function(param_values, true_value) {
+  return (mean(param_values) - true_value)
+}
+
+bias <- function(model = NULL, true_values = NULL) {
+  total_bias <- 0
+  
+  # TODO - implement
+  
+  return (total_bias)
 }
 
 benchmark <- function(model_method = NULL, data = NULL) {
@@ -58,36 +66,27 @@ benchmark <- function(model_method = NULL, data = NULL) {
   
   if (model_method == "stepwise") {
     
-    bench <- rbenchmark::benchmark(
-      step(object    = lm(y ~ ., data = data),                  # all variable base
-           direction = "both",                                  # stepwise, not fwd or bwd
-           scope     = list(upper = "y ~ .", lower = "y ~ X")), # exposure X always included
-      
-      columns = c('test', 'elapsed', 'replications')
-    ) %>% ddpcr::quiet(., all = TRUE)
+    bench <- microbenchmark::microbenchmark(
+      step(object = lm(y ~ ., data = data), direction = "both", scope = list(upper = "y ~ .", lower = "y ~ X")),
+      times = 1 # repetitions at higher level!
+    ) %>% invisible()
+    
   }
   else if (model_method == "LASSO") {
     
-    bench <- rbenchmark::benchmark(
-      glmnet::cv.glmnet(x              = as.matrix(data_X), # exposure and all other covariates
-                        y              = data_y,          # outcome
-                        alpha          = 1,               # LASSO penalty
-                        family.train   = "gaussian",      # objective function
-                        intercept      = F), 
-      
-      glmnet::glmnet(x              = as.matrix(data_X), # exposure and all other covariates
-                     y              = data_y,            # outcome
-                     alpha          = 1,                 # LASSO penalty
-                     family.train   = "gaussian",        # objective function
-                     intercept      = F),
-      
-      columns = c('test', 'elapsed', 'replications')
-    ) %>% ddpcr::quiet(., all = TRUE)
+    bench <- microbenchmark::microbenchmark(
+      glmnet::cv.glmnet(x = as.matrix(data_X), y = data_y, alpha = 1,family.train = "gaussian", intercept = F),
+      glmnet::glmnet(x = as.matrix(data_X), y = data_y,alpha = 1,family.train = "gaussian",intercept = F),
+      times = 1 # repetitions at higher level!
+    ) %>% invisible()
+    
   }
   
-  # TODO - fix here!
-  View(bench)
+  writeLines("\nBenchmark:")
+  print(bench)
+  writeLines("\n")
   
+  time <- mean(bench$time)
   return (time)
 }
 
@@ -210,7 +209,6 @@ run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_m
                                 intercept      = F,
                                 penalty.factor = penalty.factor)    # exposure X always included
       }
-      #%>% ddpcr::quiet(., all = messages)  # suppress excess output
       
       # Testing
       writeLines("\n\n")
@@ -225,14 +223,22 @@ run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_m
       for (r in 1:R) {
         # TODO: implement results measurement!
         result = results_methods[r]
+        result_value <- NaN
         
-        result_value <- switch(result,
-                               "r-squared" = r_squared(model          = model,
-                                                       optimal_lambda = optimal_lambda,
-                                                       model_method   = method,
-                                                       test_data      = test_data),
-                               "bias"      = bias(model, test_data),
-                               "benchmark" = benchmark(method, test_data))
+        if (result == "r-squared") {
+          result_value <- r_squared(model          = model,
+                                    optimal_lambda = optimal_lambda,
+                                    model_method   = method,
+                                    test_data      = test_data)
+        }
+        else if (result == "bias") {
+          result_value <- bias(model       = model,
+                               true_values = NULL)
+        }
+        else if (result == "benchmark") {
+          result_value <- benchmark(model_method = method,
+                                    data         = test_data)
+        }
         
         results[m, r, i] <- result_value
       }
@@ -257,14 +263,32 @@ run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_m
     }
   }
   
+  # Generate Results Table
   writeLines("\n")
   print("Results Table")
   results_aggr <- apply(results, c(1,2), mean)
   print(results_aggr)
   writeLines("\n")
   
+  # Generate pre-sets table
+  presets <- data.frame(
+    preset <- c("n_rep", "n_obs"),
+    value  <- c(n_rep, n_obs)
+  )
+  
+  # Record current date time
+  date_string <- Sys.time()
+  
+  # Save input
+  write.csv((graph %>% as_adjacency_matrix() %>% as.matrix()), paste("../../data/", date_string, "-input-DAG.csv", sep = ""))
+  
+  # Save pre-sets
+  write.csv(presets, paste("../../data/", date_string, "-presets.csv", sep = ""))
+  
+  # Save output
+  write.csv(results_aggr, paste("../../data/", date_string, "-results-table.csv", sep = ""))
+  
   print("finished!")
-  writeLines("\n")
 }
 
 

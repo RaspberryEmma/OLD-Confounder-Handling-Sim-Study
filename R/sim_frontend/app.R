@@ -12,7 +12,7 @@
 # Emma Tarmey
 #
 # Started:          31/01/2024
-# Most Recent Edit: 07/03/2024
+# Most Recent Edit: 18/03/2024
 # ****************************************
 
 # simulation-proper
@@ -29,7 +29,7 @@ library(shinycssloaders)
 # initial conditions
 n_node_init <- 3
 n_obs_init  <- 50
-n_rep_init  <- 100
+n_rep_init  <- 10
 SE_req_init <- 0.05
 
 
