@@ -26,7 +26,6 @@ library(microbenchmark)
 library(shiny)
 library(shinycssloaders)
 library(sjmisc)
-library(spacejam) # deprecated!
 
 # fix wd issue
 setwd( dirname(rstudioapi::getSourceEditorContext()$path) )
@@ -40,11 +39,12 @@ n_rep_init  <- 10
 SE_req_init <- 0.05
 
 # intialise DAG
-DAG_adj_matrix           <- read.csv("../data/key-input-DAG.csv") %>% as.matrix()
+coef_data                <- read.csv("../data/key-input-coef-data.csv")
+DAG_adj_matrix           <- read.csv("../data/key-input-adjacency-matrix.csv") %>% as.matrix()
 DAG_labels               <- DAG_adj_matrix[, 1]
 rownames(DAG_adj_matrix) <- DAG_labels
 DAG_adj_matrix           <- DAG_adj_matrix[, -1]
-DAG_graph      <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
+DAG_graph                <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
 
 # models to fit and results metrics to measure
 model_methods   <- c("stepwise", "LASSO")
@@ -52,11 +52,11 @@ results_methods <- c("r-squared", "benchmark")
 
 # simulation procedure call
 run(graph           = DAG_graph,
+    coef_data       = coef_data,
     n_obs           = n_obs_init,
     n_rep           = n_rep_init,
     labels          = DAG_labels,
     model_methods   = model_methods,
     results_methods = results_methods)
-
 
 

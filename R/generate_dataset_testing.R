@@ -29,6 +29,9 @@ coef_data <- data.frame(
 n_obs  <- 50
 labels <- c("Y", "X", "Z1", "Z2", "Z3")
 print(coef_data)
-example <- generate_dataset_bespoke(coef_data = coef_data, n_obs = n_obs, labels = labels)
+
+# running test
+example <- generate_dataset(coef_data = coef_data, n_obs = n_obs, labels = labels)
 print(head(example))
+
 

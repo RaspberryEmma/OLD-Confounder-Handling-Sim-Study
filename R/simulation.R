@@ -13,7 +13,6 @@
 # Most Recent Edit: 19/03/2024
 # ****************************************
 
-# TODO: implement bespoke data generation function (remove spacejam)
 
 # all external libraries
 library(chest)
@@ -27,8 +26,6 @@ library(microbenchmark)
 library(shiny)
 library(shinycssloaders)
 library(sjmisc)
-library(spacejam) # deprecated!
-
 
 
 normalise <- function(column = NULL) {
@@ -97,10 +94,6 @@ benchmark <- function(model_method = NULL, data = NULL) {
     
   }
   
-  writeLines("\nBenchmark:")
-  print(bench)
-  writeLines("\n")
-  
   time <- mean(bench$time)
   return (time)
 }
@@ -109,16 +102,10 @@ all_priors_exist <- function(i = NULL, dataset = NULL, i_coef = NULL) {
   all_exist   <- TRUE
   priors_of_i <- which(!is.na(i_coef))
   
-  print(i_coef)
-  print(priors_of_i)
-  
   # check all columns corresponding to priors within the dataset
   # if any such columns contain NAs, then not all priors exist
   for (p in priors_of_i) {
-    if (sum(is.na(dataset[, p])) != 0) {
-      print(paste(p, " - ", sum(is.na(dataset[, p]))))
-      all_exist = FALSE
-    }
+    if (sum(is.na(dataset[, p])) != 0) { all_exist = FALSE }
   }
   
   return (all_exist)
@@ -166,6 +153,10 @@ generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
           dataset[, i] <- rowSums( cbind(dataset[, i], var_p), na.rm = TRUE)
         }
         
+        # error term
+        error        <- rnorm(n = n_obs, mean = 0, sd = 1) # normal errors
+        dataset[, i] <- rowSums( cbind(dataset[, i], error), na.rm = TRUE)
+        
         # remove i from "caused" list
         caused <- caused[ !caused == i]
       }
@@ -183,16 +174,24 @@ generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
 }
 
 
-run_once <- function(graph = NULL, n_obs = NULL, labels = NULL, model_methods = NULL, results_methods = NULL, using_shiny = FALSE) {
+run_once <- function(graph = NULL, coef_data = NULL, n_obs = NULL, labels = NULL, model_methods = NULL, results_methods = NULL, using_shiny = FALSE) {
   # fit models
   print(model_methods)
   
   # run one iteration
-  run(graph = graph, n_obs = n_obs, n_rep = 1, labels = labels, model_methods = model_methods, results_methods = results_methods, using_shiny = FALSE, messages = TRUE)
+  run(graph = graph,
+      coef_data       = coef_data,
+      n_obs           = n_obs,
+      n_rep           = 1,
+      labels          = labels,
+      model_methods   = model_methods,
+      results_methods = results_methods,
+      using_shiny     = using_shiny,
+      messages        = TRUE)
 }
 
 
-run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_methods = NULL, results_methods = NULL, using_shiny = FALSE, messages = FALSE) {
+run <- function(graph = NULL, coef_data = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_methods = NULL, results_methods = NULL, using_shiny = FALSE, messages = FALSE) {
   print("running!")
   
   # constants
@@ -204,30 +203,16 @@ run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_m
   results <- array(data = NaN,
                    dim  = c(M, R, n_rep),
                    dimnames = list(model_methods, results_methods, 1:n_rep))
-  print(results)
-  print(dim(results))
   
   for (i in 1:n_rep) {
     # progress
-    print( paste("Running ", i, "/", n_rep, sep = "") )
+    message( paste("\n\nRunning Iteration ", i, "/", n_rep, "\n", sep = "") )
     
     # generate data
-    data <- generate_dataset(graph = graph, n_obs = n_obs, labels = labels)
+    data <- generate_dataset(coef_data = coef_data, n_obs = n_obs, labels = labels)
     
     data_X <- data[, -1]
     data_y <- data[,  1]
-    
-    writeLines("\nData")
-    data   %>% head()   %>% print()
-    data   %>% typeof() %>% print()
-    writeLines("\nTest y")
-    data_y %>% head()   %>% print()
-    data_y %>% typeof() %>% print()
-    writeLines("\nTest X")
-    data_X %>% head()   %>% print()
-    data_X %>% typeof() %>% print()
-    
-    as.matrix(data_X) %>% head() %>% print()
     
     # generate penalty.factor sequence using variable labels
     # ensure exposures (variables marked with 'X') are always included
@@ -254,19 +239,15 @@ run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_m
       }
       else if (method == "LASSO") {
         # Find optimal lambda parameter via cross-validation
-        print("FINDING LAMBDA")
         cv_model <- glmnet::cv.glmnet(x              = as.matrix(data_X), # exposure and all other covariates
                                       y              = data_y,          # outcome
                                       alpha          = 1,               # LASSO penalty
                                       family.train   = "gaussian",      # objective function
                                       intercept      = F,
                                       penalty.factor = penalty.factor)  # exposure X always included
-        
         optimal_lambda <- cv_model$lambda.min
-        print(optimal_lambda)
         
         # Fit LASSO model with single optimal lambda parameter
-        print("FITTING LASSO")
         model <- glmnet::glmnet(x              = as.matrix(data_X), # exposure and all other covariates
                                 y              = data_y,            # outcome
                                 alpha          = 1,                 # LASSO penalty
@@ -276,14 +257,8 @@ run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_m
                                 penalty.factor = penalty.factor)    # exposure X always included
       }
       
-      # Testing
-      writeLines("\n\n")
-      print(paste("Summary of ", method, " model", sep = ''))
-      print(summary(model))
-      print(coef(model))
-      
       # Generate test set
-      test_data <- generate_dataset(graph = graph, n_obs = n_obs, labels = labels)
+      test_data <- generate_dataset(coef_data = coef_data, n_obs = n_obs, labels = labels)
       
       # Record results
       for (r in 1:R) {
@@ -336,28 +311,33 @@ run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_m
   print(results_aggr)
   writeLines("\n")
   
-  # Generate pre-sets table
-  presets <- data.frame(
+  # Sim parameters
+  params <- data.frame(
     preset <- c("n_rep", "n_obs"),
     value  <- c(n_rep, n_obs)
   )
   
   # Generate representative DAG data-set
-  representative_data <- generate_dataset(graph = graph, n_obs = n_obs, labels = labels)
+  representative_data <- generate_dataset(coef_data = coef_data, n_obs = n_obs, labels = labels)
   
   # Record current date time
   date_string <- Sys.time()
   
   if (using_shiny) { setwd("..") }
   
-  # Save pre-sets
-  write.csv(presets, paste("../data/", date_string, "-presets.csv", sep = ""))
+  message("\nSaving results to file\n")
   
-  # Save input
-  write.csv((graph %>% as_adjacency_matrix() %>% as.matrix()), paste("../data/", date_string, "-input-DAG.csv", sep = ""))
+  # Save sim parameters
+  write.csv(params, paste("../data/", date_string, "-sim-parameters.csv", sep = ""))
+  
+  # Save adjacency matrix
+  write.csv((graph %>% as_adjacency_matrix() %>% as.matrix()), paste("../data/", date_string, "-adjacency-matrix.csv", sep = ""))
+  
+  # Save coef data
+  write.csv(coef_data, paste("../data/", date_string, "-coef-data.csv", sep = ""), row.names = FALSE)
   
   # Save one data-set
-  write.csv(representative_data, paste("../data/", date_string, "-DAG-data.csv", sep = ""))
+  write.csv(representative_data, paste("../data/", date_string, "-dataset.csv", sep = ""))
   
   # Save output
   write.csv(results_aggr, paste("../data/", date_string, "-results-table.csv", sep = ""))
