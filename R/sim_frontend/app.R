@@ -18,13 +18,19 @@
 # simulation-proper
 source("../simulation.R")
 
+# all external libraries
+library(chest)
 library(dplyr)
+library(DT)
 library(ggdag)
 library(ggplot2)
+library(glmnet)
 library(igraph)
+library(microbenchmark)
 library(shiny)
 library(shinycssloaders)
-
+library(sjmisc)
+library(spacejam) # deprecated!
 
 # initial conditions
 n_node_init <- 3
@@ -206,7 +212,8 @@ server <- function(input, output) {
                n_obs           = input$n_obs,
                labels          = DAG_labels(),
                model_methods   = input$model_methods,
-               results_methods = input$results_methods)
+               results_methods = input$results_methods,
+               using_shiny     = TRUE)
     }
   )
   
@@ -219,7 +226,8 @@ server <- function(input, output) {
           n_rep           = input$n_rep,
           labels          = DAG_labels(),
           model_methods   = input$model_methods,
-          results_methods = input$results_methods)
+          results_methods = input$results_methods,
+          using_shiny     = TRUE)
     }
   )
   

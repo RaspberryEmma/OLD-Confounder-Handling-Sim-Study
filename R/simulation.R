@@ -10,11 +10,26 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 18/03/2024
+# Most Recent Edit: 19/03/2024
 # ****************************************
 
+# TODO: implement bespoke data generation function (remove spacejam)
 
-# TODO: implement data generation features
+# all external libraries
+library(chest)
+library(dplyr)
+library(DT)
+library(ggdag)
+library(ggplot2)
+library(glmnet)
+library(igraph)
+library(microbenchmark)
+library(shiny)
+library(shinycssloaders)
+library(sjmisc)
+library(spacejam) # deprecated!
+
+
 
 normalise <- function(column = NULL) {
   return ( (column - min(column)) / (max(column) - min(column)) )
@@ -117,16 +132,16 @@ generate_dataset <- function(graph = NULL, n_obs = NULL, labels = NULL) {
 }
 
 
-run_once <- function(graph = NULL, n_obs = NULL, labels = NULL, model_methods = NULL, results_methods = NULL) {
+run_once <- function(graph = NULL, n_obs = NULL, labels = NULL, model_methods = NULL, results_methods = NULL, using_shiny = FALSE) {
   # fit models
   print(model_methods)
   
   # run one iteration
-  run(graph = graph, n_obs = n_obs, n_rep = 1, labels = labels, model_methods = model_methods, results_methods = results_methods, messages = TRUE)
+  run(graph = graph, n_obs = n_obs, n_rep = 1, labels = labels, model_methods = model_methods, results_methods = results_methods, using_shiny = FALSE, messages = TRUE)
 }
 
 
-run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_methods = NULL, results_methods = NULL, messages = FALSE) {
+run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_methods = NULL, results_methods = NULL, using_shiny = FALSE, messages = FALSE) {
   print("running!")
   
   # constants
@@ -276,17 +291,27 @@ run <- function(graph = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_m
     value  <- c(n_rep, n_obs)
   )
   
+  # Generate representative DAG data-set
+  representative_data <- generate_dataset(graph = graph, n_obs = n_obs, labels = labels)
+  
   # Record current date time
   date_string <- Sys.time()
   
-  # Save input
-  write.csv((graph %>% as_adjacency_matrix() %>% as.matrix()), paste("../../data/", date_string, "-input-DAG.csv", sep = ""))
+  if (using_shiny) { setwd("..") }
   
   # Save pre-sets
-  write.csv(presets, paste("../../data/", date_string, "-presets.csv", sep = ""))
+  write.csv(presets, paste("../data/", date_string, "-presets.csv", sep = ""))
+  
+  # Save input
+  write.csv((graph %>% as_adjacency_matrix() %>% as.matrix()), paste("../data/", date_string, "-input-DAG.csv", sep = ""))
+  
+  # Save one data-set
+  write.csv(representative_data, paste("../data/", date_string, "-DAG-data.csv", sep = ""))
   
   # Save output
-  write.csv(results_aggr, paste("../../data/", date_string, "-results-table.csv", sep = ""))
+  write.csv(results_aggr, paste("../data/", date_string, "-results-table.csv", sep = ""))
+  
+  if (using_shiny) { setwd("sim_frontend") }
   
   print("finished!")
 }
