@@ -105,28 +105,79 @@ benchmark <- function(model_method = NULL, data = NULL) {
   return (time)
 }
 
-generate_dataset <- function(graph = NULL, n_obs = NULL, labels = NULL) {
-  # generate data from DAG
-  # requires spacejam package, which is no longer on CRAN
-  DAG.data <- spacejam::generate.dag.data(g        = graph,
-                                          n        = n_obs,
-                                          basesd   = 1.0,
-                                          basemean = 0.0)
+all_priors_exist <- function(i = NULL, dataset = NULL, i_coef = NULL) {
+  all_exist   <- TRUE
+  priors_of_i <- which(!is.na(i_coef))
   
-  # coerce to dataframe
-  dataset <- data.frame(DAG.data$X)
+  print(i_coef)
+  print(priors_of_i)
   
-  # cast to double
-  dataset <- mutate_all(dataset, function(x) as.numeric(as.character(x)))
+  # check all columns corresponding to priors within the dataset
+  # if any such columns contain NAs, then not all priors exist
+  for (p in priors_of_i) {
+    if (sum(is.na(dataset[, p])) != 0) {
+      print(paste(p, " - ", sum(is.na(dataset[, p]))))
+      all_exist = FALSE
+    }
+  }
   
-  # apply labels
+  return (all_exist)
+}
+
+generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
+  # initialize
+  n_node            <- length(labels)
+  dataset           <- data.frame(matrix(NA, nrow = n_obs, ncol = n_node))
   colnames(dataset) <- labels
+  
+  # separate un-caused and caused
+  indices <- c(1:n_node)
+  uncaused <- c()
+  caused   <- c()
+  for (i in indices) {
+    if (coef_data$cause[i] == 0) {
+      uncaused <- c(uncaused, i)
+    }
+    else {
+      caused <- c(caused, i)
+    }
+  }
+  
+  # generate un-caused variables
+  for (i in uncaused) {
+    dataset[, i] <- rnorm(n = n_obs, mean = 0, sd = 1)
+  }
+  
+  # iteratively generate caused variables
+  while( sum(is.na(dataset)) != 0 ) { # while not all data-set has been generated
+    for (i in caused) {
+      
+      if ( all_priors_exist(i, dataset, coef_data[i, -c(1, 2)]) ) {
+        # generate column i with corresponding beta values
+        priors_of_i  <- which(!is.na(coef_data[i, -c(1, 2)]))
+        
+        # intercept
+        dataset[, i] <- rep(coef_data$intercept[i], times = n_obs)
+        
+        # add beta_p * var_p for all priors p
+        for (p in priors_of_i) {
+          coef_p       <- coef_data[i, p+2]
+          var_p        <- coef_p * dataset[, p]
+          dataset[, i] <- rowSums( cbind(dataset[, i], var_p), na.rm = TRUE)
+        }
+        
+        # remove i from "caused" list
+        caused <- caused[ !caused == i]
+      }
+      else {
+        # do not generate
+      }
+      
+    }
+  }
   
   # force 0 <= y <= 1
   dataset[,  1] <- normalise( dataset[,  1] )
-
-  # extact true coef values
-  oracle.solution   <- DAG.data$funclist
   
   return (dataset)
 }
