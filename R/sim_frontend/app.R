@@ -6,8 +6,6 @@
 #    (1) UI Code
 #    (2) Server Code
 #    (3) Call to 'shinyApp' function
-#
-# TODO: implement data-set generation, have "run simulation" button do that
 # 
 # Emma Tarmey
 #
