@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          31/01/2024
-# Most Recent Edit: 18/03/2024
+# Most Recent Edit: 21/03/2024
 # ****************************************
 
 # simulation-proper
@@ -58,10 +58,10 @@ ui <- fluidPage(
       
       checkboxGroupInput(inputId = "results_methods",
                          label   = "Results Methods",
-                         choices = list("R^2(y, X)"  = "r-squared",
+                         choices = list("R^2(y, X)"  = "r_squared",
                                         "Bias"       = "bias",
                                         "Benchmark"  = "benchmark"),
-                         selected = "r-squared"),
+                         selected = "r_squared"),
       
       numericInput(inputId = "n_node",
                    label   = "n_node",

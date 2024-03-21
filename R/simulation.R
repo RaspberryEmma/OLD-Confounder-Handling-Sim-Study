@@ -266,7 +266,7 @@ run <- function(graph = NULL, coef_data = NULL, n_obs = NULL, n_rep = NULL, labe
         result = results_methods[r]
         result_value <- NaN
         
-        if (result == "r-squared") {
+        if (result == "r_squared") {
           result_value <- r_squared(model          = model,
                                     optimal_lambda = optimal_lambda,
                                     model_method   = method,
