@@ -1,15 +1,15 @@
 # ****************************************
 # Confounder Handling Simulation Study
-# 
+#
 # Isolated form of more flexible wider-sim
 # Provides the following:
 #    (1) Pre-set conditions, such as the DAG of interest and n_obs
 #    (2) Call to simulation procedure
 #    (3) Interpretation of results and plotting
-# 
+#
 # Emma Tarmey
 #
-# Started:          19/03/2024
+# Started:          19/03/2024 # nolint
 # Most Recent Edit: 21/03/2024
 # ****************************************
 
@@ -28,7 +28,7 @@ library(shinycssloaders)
 library(sjmisc)
 
 # fix wd issue
-setwd( dirname(rstudioapi::getSourceEditorContext()$path) )
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 # simulation-proper code
 source("simulation.R")
@@ -39,8 +39,9 @@ n_rep_init  <- 10
 SE_req_init <- 0.05
 
 # intialise DAG
-coef_data                <- read.csv("../data/key-input-coef-data.csv")
-DAG_adj_matrix           <- read.csv("../data/key-input-adjacency-matrix.csv") %>% as.matrix()
+coef_data      <- read.csv("../data/key-input-coef-data.csv")
+DAG_adj_matrix <- read.csv("../data/key-input-adjacency-matrix.csv") %>% as.matrix()
+
 DAG_labels               <- DAG_adj_matrix[, 1]
 rownames(DAG_adj_matrix) <- DAG_labels
 DAG_adj_matrix           <- DAG_adj_matrix[, -1]

@@ -1,11 +1,11 @@
 # ****************************************
 # Confounder Handling Simulation Study
-# 
+#
 # Examining Results and Plotting
-# 
+#
 # Emma Tarmey
 #
-# Started:          19/03/2024
+# Started:          19/03/2024 # nolint
 # Most Recent Edit: 21/03/2024
 # ****************************************
 
@@ -81,5 +81,3 @@ dev.off()
 #  ggtitle( paste("Results Plot \n", date_string, sep = "") )
 #p
 #dev.off()
-
-

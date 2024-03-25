@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 19/03/2024
+# Most Recent Edit: 25/03/2024
 # ****************************************
 
 
@@ -44,15 +44,56 @@ r_squared <- function(model          = NULL,
   pred_y <- c()
   
   if (model_method == "LASSO") {
-    pred_y <- predict( model, s = optimal_lambda, newx = as.matrix(test_X) )
+    pred_y <- predict( model, s = optimal_lambda, newx = as.matrix(test_X) ) %>% as.vector()
   }
   else {
-    pred_y <- predict( model, test_X )
+    pred_y <- predict( model, test_X ) %>% as.vector()
   }
+
+  # TESTING
+  writeLines(paste("\n", model_method, " R2"))
+  writeLines("\nVectors")
+  print("test y")
+  test_y %>% length() %>% print()
+  test_y %>% head() %>% print()
+  print("pred y")
+  pred_y %>% length() %>% print()
+  pred_y %>% head() %>% print()
+  print("mean of test y")
+  mean_y %>% head() %>% print()
+  
+  writeLines("\nSSR:")
+  (test_y - pred_y) %>% length() %>% print()
+  (test_y - pred_y) %>% head() %>% print()
+  (test_y - pred_y)^2 %>% head() %>% print()
+  sum((test_y - pred_y)^2) %>% head() %>% print()
+
+  writeLines("\nSST:")
+  (test_y - mean_y) %>% length() %>% print()
+  (test_y - mean_y) %>% head() %>% print()
+  (test_y - mean_y)^2 %>% head() %>% print()
+  sum((test_y - mean_y)^2) %>% head() %>% print()
+  
+  writeLines("\nR2:")
+  SSR <- sum( (test_y - pred_y)^2 )
+  SST <- sum( (test_y - mean_y)^2 )
+  (SSR / SST)       %>% print()
+  (1 - (SSR / SST)) %>% print()
+  
+  writeLines("\nPackage Solution:")
+  if(model_method == "stepwise") {
+    View(model)
+    model$r.squared %>% print()
+  }
+  else if (model_method == "LASSO") {
+    model$dev.ratio %>% print()
+  }
+  writeLines("\n")
   
   
-  SSR <- sum((test_y - pred_y))
-  SST <- sum((test_y - mean_y))
+  # note to self - check TODO
+  SSR <- sum( (pred_y - mean_y)^2 )
+  SST <- sum( (test_y - mean_y)^2 )
   
   R2  <- (1 - (SSR / SST))
   return (R2)
@@ -218,7 +259,7 @@ run <- function(graph = NULL, coef_data = NULL, n_obs = NULL, n_rep = NULL, labe
     # ensure exposures (variables marked with 'X') are always included
     labels.no.y <- labels[-1]
     penalty.factor <- rep(1, length(labels.no.y))
-    for (label in 1:length(labels.no.y)) {
+    for (label in seq_along(labels.no.y)) {
       if ( sjmisc::str_contains(labels.no.y[label], "X") ) { penalty.factor[label] <- 0 }
     }
     
@@ -313,8 +354,8 @@ run <- function(graph = NULL, coef_data = NULL, n_obs = NULL, n_rep = NULL, labe
   
   # Sim parameters
   params <- data.frame(
-    preset <- c("n_rep", "n_obs"),
-    value  <- c(n_rep, n_obs)
+    preset <- c("n_rep", "n_obs"), # nolint: object_usage_linter.
+    value  <- c(n_rep, n_obs) # nolint: object_usage_linter.
   )
   
   # Generate representative DAG data-set

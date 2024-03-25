@@ -15,3 +15,4 @@ setwd( dirname(rstudioapi::getSourceEditorContext()$path) )
 # launch app
 shiny::runApp("sim_frontend")
 
+
