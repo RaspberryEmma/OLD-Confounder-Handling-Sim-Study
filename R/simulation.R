@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 25/03/2024
+# Most Recent Edit: 26/03/2024
 # ****************************************
 
 
@@ -40,62 +40,25 @@ r_squared <- function(model          = NULL,
   test_X <- test_data[, -1]
   test_y <- test_data[,  1]
   
-  mean_y <- mean(test_y)
   pred_y <- c()
-  
   if (model_method == "LASSO") {
     pred_y <- predict( model, s = optimal_lambda, newx = as.matrix(test_X) ) %>% as.vector()
   }
   else {
     pred_y <- predict( model, test_X ) %>% as.vector()
   }
-
-  # TESTING
-  writeLines(paste("\n", model_method, " R2"))
-  writeLines("\nVectors")
-  print("test y")
-  test_y %>% length() %>% print()
-  test_y %>% head() %>% print()
-  print("pred y")
-  pred_y %>% length() %>% print()
-  pred_y %>% head() %>% print()
-  print("mean of test y")
-  mean_y %>% head() %>% print()
   
-  writeLines("\nSSR:")
-  (test_y - pred_y) %>% length() %>% print()
-  (test_y - pred_y) %>% head() %>% print()
-  (test_y - pred_y)^2 %>% head() %>% print()
-  sum((test_y - pred_y)^2) %>% head() %>% print()
-
-  writeLines("\nSST:")
-  (test_y - mean_y) %>% length() %>% print()
-  (test_y - mean_y) %>% head() %>% print()
-  (test_y - mean_y)^2 %>% head() %>% print()
-  sum((test_y - mean_y)^2) %>% head() %>% print()
-  
-  writeLines("\nR2:")
-  SSR <- sum( (test_y - pred_y)^2 )
-  SST <- sum( (test_y - mean_y)^2 )
-  (SSR / SST)       %>% print()
-  (1 - (SSR / SST)) %>% print()
-  
-  writeLines("\nPackage Solution:")
-  if(model_method == "stepwise") {
-    View(model)
-    model$r.squared %>% print()
+  R2 <- NULL
+  if (model_method == "stepwise") {
+    SSR <- sum((pred_y - test_y)^2)
+    SST <- sum((test_y - mean(test_y))^2)
+    R2  <- (1 - (SSR / SST))
   }
   else if (model_method == "LASSO") {
-    model$dev.ratio %>% print()
+    # see documentation: https://glmnet.stanford.edu/reference/glmnet.html
+    R2 <- model$dev.ratio
   }
-  writeLines("\n")
   
-  
-  # note to self - check TODO
-  SSR <- sum( (pred_y - mean_y)^2 )
-  SST <- sum( (test_y - mean_y)^2 )
-  
-  R2  <- (1 - (SSR / SST))
   return (R2)
 }
 
@@ -120,7 +83,8 @@ benchmark <- function(model_method = NULL, data = NULL) {
   if (model_method == "stepwise") {
     
     bench <- microbenchmark::microbenchmark(
-      step(object = lm(y ~ ., data = data), direction = "both", scope = list(upper = "y ~ .", lower = "y ~ X")),
+      step(object = lm(y ~ ., data = data), direction = "both",
+           scope = list(upper = "y ~ .", lower = "y ~ X")),
       times = 1 # repetitions at higher level!
     ) %>% invisible()
     
@@ -128,8 +92,10 @@ benchmark <- function(model_method = NULL, data = NULL) {
   else if (model_method == "LASSO") {
     
     bench <- microbenchmark::microbenchmark(
-      glmnet::cv.glmnet(x = as.matrix(data_X), y = data_y, alpha = 1,family.train = "gaussian", intercept = F),
-      glmnet::glmnet(x = as.matrix(data_X), y = data_y,alpha = 1,family.train = "gaussian",intercept = F),
+      glmnet::cv.glmnet(x = as.matrix(data_X), y = data_y, alpha = 1,
+                        family.train = "gaussian", intercept = F),
+      glmnet::glmnet(x = as.matrix(data_X), y = data_y,alpha = 1,
+                     family.train = "gaussian",intercept = F),
       times = 1 # repetitions at higher level!
     ) %>% invisible()
     
@@ -177,7 +143,7 @@ generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
   }
   
   # iteratively generate caused variables
-  while( sum(is.na(dataset)) != 0 ) { # while not all data-set has been generated
+  while( sum(is.na(dataset)) != 0 ) { # while not all cols have been generated
     for (i in caused) {
       
       if ( all_priors_exist(i, dataset, coef_data[i, -c(1, 2)]) ) {

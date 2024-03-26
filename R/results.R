@@ -5,8 +5,8 @@
 #
 # Emma Tarmey
 #
-# Started:          19/03/2024 # nolint
-# Most Recent Edit: 21/03/2024
+# Started:          19/03/2024
+# Most Recent Edit: 26/03/2024
 # ****************************************
 
 # all external libraries
@@ -21,19 +21,43 @@ library(microbenchmark)
 library(shiny)
 library(shinycssloaders)
 library(sjmisc)
-library(tidyverse)
 
 
 # fix wd issue
 setwd( dirname(rstudioapi::getSourceEditorContext()$path) )
 
 
+detect_most_recent_timestamp <- function() {
+  timestamp <- 0.0
+  
+  # extract all file names from data firectory
+  files <- list.files("../data")
+  
+  # look only at timestamps
+  files <- substr(files, start = 1, stop = 19)
+  
+  # filter invalid POSIX timestamps with regex
+  # pattern: "YYYY-MM-DD HH:MM:SS" 
+  files <- grep(pattern = "[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}",
+                x       = files,
+                value   = TRUE)
+  
+  # find most recent timestamp (highest epoch)
+  filestamp <- NULL
+  for (file in files) {
+    filestamp <- as.integer(as.POSIXct( file ))
+    if (filestamp > timestamp) { timestamp <- filestamp }
+  }
+  
+  # reconvert to string, cut off timezone marker
+  timestamp <- as.POSIXct(timestamp, origin = '1970-01-01') %>% substr(., start = 1, stop = 19)
+  
+  return (timestamp)
+}
+
+
 # detect most recent time string
-recent_date_string <- "2024-03-21 15:50:52"
-
-
-# record current date time string
-date_string <- Sys.time()
+date_string <- detect_most_recent_timestamp()
 
 
 # import
