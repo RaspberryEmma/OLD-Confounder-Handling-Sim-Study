@@ -1,0 +1,3 @@
+"","r_squared","param_bias","blocked_paths","benchmark"
+"stepwise",0.587822997442345,NA,NA,3595927
+"LASSO",0.632005852479572,NA,NA,10531240.6

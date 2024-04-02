@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 26/03/2024
+# Most Recent Edit: 02/04/2024
 # ****************************************
 
 
@@ -32,14 +32,17 @@ normalise <- function(column = NULL) {
   return ( (column - min(column)) / (max(column) - min(column)) )
 }
 
+
 r_squared <- function(model          = NULL,
                       optimal_lambda = NULL,
                       model_method   = NULL,
                       test_data      = NULL) {
   
+  # test-training data split
   test_X <- test_data[, -1]
   test_y <- test_data[,  1]
   
+  # generate predicted value vector for each model type
   pred_y <- c()
   if (model_method == "LASSO") {
     pred_y <- predict( model, s = optimal_lambda, newx = as.matrix(test_X) ) %>% as.vector()
@@ -48,6 +51,7 @@ r_squared <- function(model          = NULL,
     pred_y <- predict( model, test_X ) %>% as.vector()
   }
   
+  # find R2 value for each model type
   R2 <- NULL
   if (model_method == "stepwise") {
     SSR <- sum((pred_y - test_y)^2)
@@ -62,17 +66,45 @@ r_squared <- function(model          = NULL,
   return (R2)
 }
 
-param_bias <- function(param_values, true_value) {
-  return (mean(param_values) - true_value)
+
+errors <- function(fitted_params = NULL, true_params = NULL) {
+  P <- length(true_params)
+  param_errors <- rep(0, times = P)
+  
+  for (i in 1:P) {
+    param_errors[i] <- fitted_params[i] - true_params[i]
+  }
+  
+  return (param_errors)
 }
 
-bias <- function(model = NULL, true_values = NULL) {
-  total_bias <- 0
-  
-  # TODO - implement
-  
-  return (total_bias)
+
+param_bias <- function() {
+  return (NaN)
 }
+
+
+# TODO: implement!
+blocked_paths <- function(graph = NULL) {
+  paths <- 0
+  
+  # convert graph to dagitty DAG
+  DAG <- NULL
+  
+  # count open paths of DAG
+  open_DAG_paths <- NaN
+  
+  # count open paths in final model
+  open_model_paths <- NaN
+  
+  # find blocked paths
+  # if none blocked, paths = 0
+  # if all blocked, paths = open_DAG_paths
+  paths <- open_DAG_paths - open_model_paths
+  
+  return (paths)
+}
+
 
 benchmark <- function(model_method = NULL, data = NULL) {
   time <- NaN
@@ -105,6 +137,7 @@ benchmark <- function(model_method = NULL, data = NULL) {
   return (time)
 }
 
+
 all_priors_exist <- function(i = NULL, dataset = NULL, i_coef = NULL) {
   all_exist   <- TRUE
   priors_of_i <- which(!is.na(i_coef))
@@ -117,6 +150,7 @@ all_priors_exist <- function(i = NULL, dataset = NULL, i_coef = NULL) {
   
   return (all_exist)
 }
+
 
 generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
   # initialize
@@ -207,6 +241,8 @@ run <- function(graph = NULL, coef_data = NULL, n_obs = NULL, n_rep = NULL, labe
   
   # initialize results array
   # dim = (#methods * #results * #iterations)
+  # we have bias per parameter in final model
+  # TODO: implement here!
   results <- array(data = NaN,
                    dim  = c(M, R, n_rep),
                    dimnames = list(model_methods, results_methods, 1:n_rep))
@@ -269,7 +305,6 @@ run <- function(graph = NULL, coef_data = NULL, n_obs = NULL, n_rep = NULL, labe
       
       # Record results
       for (r in 1:R) {
-        # TODO: implement results measurement!
         result = results_methods[r]
         result_value <- NaN
         
@@ -279,10 +314,17 @@ run <- function(graph = NULL, coef_data = NULL, n_obs = NULL, n_rep = NULL, labe
                                     model_method   = method,
                                     test_data      = test_data)
         }
-        else if (result == "bias") {
-          result_value <- bias(model       = model,
-                               true_values = NULL)
+        
+        # TODO: fix here!
+        # dimensions of object must change!
+        else if (result == "param_bias") {
+          result_value <- param_bias()
         }
+        
+        else if (result == "blocked_paths") {
+          result_value <- blocked_paths()
+        }
+        
         else if (result == "benchmark") {
           result_value <- benchmark(model_method = method,
                                     data         = test_data)
