@@ -10,9 +10,12 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 02/04/2024
+# Most Recent Edit: 03/04/2024
 # ****************************************
 
+
+# clear R memory
+rm(list=ls())
 
 # all external libraries
 library(chest)

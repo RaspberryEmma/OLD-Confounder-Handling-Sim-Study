@@ -6,8 +6,12 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 26/03/2024
+# Most Recent Edit: 03/04/2024
 # ****************************************
+
+
+# clear R memory
+rm(list=ls())
 
 # all external libraries
 library(chest)
@@ -30,7 +34,7 @@ setwd( dirname(rstudioapi::getSourceEditorContext()$path) )
 detect_most_recent_timestamp <- function() {
   timestamp <- 0.0
   
-  # extract all file names from data firectory
+  # extract all file names from data directory
   files <- list.files("../data")
   
   # look only at timestamps
@@ -105,3 +109,5 @@ dev.off()
 #  ggtitle( paste("Results Plot \n", date_string, sep = "") )
 #p
 #dev.off()
+
+

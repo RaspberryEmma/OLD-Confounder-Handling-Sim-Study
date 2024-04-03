@@ -10,9 +10,12 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 02/04/2024
+# Most Recent Edit: 03/04/2024
 # ****************************************
 
+
+# clear R memory
+rm(list=ls())
 
 # all external libraries
 library(chest)
@@ -30,6 +33,49 @@ library(sjmisc)
 
 normalise <- function(column = NULL) {
   return ( (column - min(column)) / (max(column) - min(column)) )
+}
+
+
+dagitty_from_adjacency_matrix <- function(adj_DAG  = NULL,
+                                          exposure = NULL,
+                                          outcome  = NULL) {
+  # number of covariates
+  labels <- colnames(adj_DAG)
+  n_node <- length(labels)
+  
+  # convert to numeric
+  adj_DAG <- matrix( as.numeric(adj_DAG), ncol = n_node)
+  
+  # initialise strings
+  newline        <- ""
+  dagitty_string <- "dag{ "
+  
+  # for every covariate, check whether we need a new arrow unto any other covariate
+  for (i in seq_along(labels)) {
+    
+    ## covariates with no parents or children
+    if ( sum(adj_DAG[, i] + adj_DAG[i, ]) == 0 ){
+      newline        <- paste(labels[i], ";", sep = " ")
+      dagitty_string <- paste(dagitty_string, newline, sep = "")
+    }
+    
+    # covariates with parents and/or children (i = row, j = col)
+    for(j in seq_along(labels)) {
+      # edge i->j exists
+      if ((adj_DAG[i,j] == 1) & (adj_DAG[j,i] == 0)) {
+        newline         <- paste(labels[i], "->", labels[j], "; ", sep=" ")
+        dagitty_string  <- paste(dagitty_string, newline, sep = "")
+      }
+    }
+  }
+  
+  # close string
+  newline        <- "}"
+  dagitty_string <- dagitty_string  <- paste(dagitty_string, newline, sep = "")
+  print(dagitty_string)
+  
+  # return dagitty object
+  return ( dagitty::dagitty(dagitty_string) )
 }
 
 
@@ -84,23 +130,21 @@ param_bias <- function() {
 }
 
 
-# TODO: implement!
-blocked_paths <- function(graph = NULL) {
-  paths <- 0
+# TODO: continue work here!
+blocked_paths <- function(model = NULL, adj_DAG = NULL) {
+  paths <- NaN
   
   # convert graph to dagitty DAG
-  DAG <- NULL
+  dagitty_DAG <- dagitty_from_adjacency_matrix(adj_DAG)
   
   # count open paths of DAG
-  open_DAG_paths <- NaN
+  open_DAG_paths <- dagitty::paths( dagitty_DAG,
+                                    from = "X",
+                                    to   = "y")
+  print(open_DAG_paths)
   
   # count open paths in final model
   open_model_paths <- NaN
-  
-  # find blocked paths
-  # if none blocked, paths = 0
-  # if all blocked, paths = open_DAG_paths
-  paths <- open_DAG_paths - open_model_paths
   
   return (paths)
 }
@@ -322,7 +366,10 @@ run <- function(graph = NULL, coef_data = NULL, n_obs = NULL, n_rep = NULL, labe
         }
         
         else if (result == "blocked_paths") {
-          result_value <- blocked_paths()
+          adj_DAG           <- as_adj(graph = graph)
+          colnames(adj_DAG) <- labels
+          result_value      <- blocked_paths(model = model,
+                                             adj_DAG = adj_DAG)
         }
         
         else if (result == "benchmark") {
