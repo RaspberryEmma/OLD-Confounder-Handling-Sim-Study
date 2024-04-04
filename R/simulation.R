@@ -129,21 +129,81 @@ param_bias <- function() {
 }
 
 
-# TODO: continue work here!
-blocked_paths <- function(model = NULL, adj_DAG = NULL) {
-  paths <- NaN
+find_vars_in_model <- function(model_method = NULL, model = NULL) {
+  vars <- c()
+  
+  if (model_method == "LASSO") {
+    vars <- rownames(model$beta)
+    vars <- vars[vars != "X"]
+  }
+  else {
+    vars <- names(model$coefficients)
+    vars <- vars[vars != "(Intercept)"]
+    vars <- vars[vars != "X"]
+  }
+  
+  return (vars)
+}
+
+
+find_vars_in_path <- function(path = NULL) {
+  vars <- strsplit(path, "\\s+")[[1]]
+  vars <- vars[vars != "<-"]
+  vars <- vars[vars != "->"]
+  
+  return (vars)
+}
+
+
+open_paths <- function(adj_DAG = NULL) {
+  # convert graph to dagitty DAG
+  dagitty_DAG <- dagitty_from_adjacency_matrix(adj_DAG)
+  
+  # count open paths of DAG
+  DAG_paths <- dagitty::paths( dagitty_DAG,
+                               from = "X",
+                               to   = "y")
+  open_DAG_paths <- DAG_paths$paths[ DAG_paths$open ]
+  
+  # remove direct "X -> y" association from open paths
+  open_DAG_paths <- open_DAG_paths[open_DAG_paths != "X -> y"]
+  
+  return(length(open_DAG_paths))
+}
+
+
+blocked_paths <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
+  paths <- 0
   
   # convert graph to dagitty DAG
   dagitty_DAG <- dagitty_from_adjacency_matrix(adj_DAG)
   
   # count open paths of DAG
-  open_DAG_paths <- dagitty::paths( dagitty_DAG,
-                                    from = "X",
-                                    to   = "y")
-  #print(open_DAG_paths)
+  DAG_paths <- dagitty::paths( dagitty_DAG,
+                               from = "X",
+                               to   = "y")
+  open_DAG_paths <- DAG_paths$paths[ DAG_paths$open ]
   
-  # count open paths in final model
-  open_model_paths <- NaN
+  # remove direct "X -> y" association from open paths
+  open_DAG_paths <- open_DAG_paths[open_DAG_paths != "X -> y"]
+  
+  # identify all covariates included in model
+  vars_in_model <- find_vars_in_model(model_method = model_method, model = model)
+  
+  # determine whether open paths are blocked properly in model
+  for (path in open_DAG_paths) {
+    vars_on_path <- find_vars_in_path(path)
+    
+    # detect if path is blocked by whether path var is included in model
+    blocked <- FALSE
+    for (path_var in vars_on_path) {
+      if (path_var %in% vars_in_model) { blocked <- TRUE }
+    }
+    
+    if (blocked) {
+      paths <- (paths+1)
+    }
+  }
   
   return (paths)
 }
@@ -402,16 +462,22 @@ run <- function(graph           = NULL,
         }
         
         # TODO: fix here!
-        # dimensions of object must change!
         else if (result == "param_bias") {
           result_value <- param_bias()
+        }
+        
+        else if (result == "open_paths") {
+          adj_DAG           <- as_adj(graph = graph)
+          colnames(adj_DAG) <- labels
+          result_value      <- open_paths(adj_DAG = adj_DAG)
         }
         
         else if (result == "blocked_paths") {
           adj_DAG           <- as_adj(graph = graph)
           colnames(adj_DAG) <- labels
-          result_value      <- blocked_paths(model = model,
-                                             adj_DAG = adj_DAG)
+          result_value      <- blocked_paths(model_method = method,
+                                             model        = model,
+                                             adj_DAG      = adj_DAG)
         }
         
         else if (result == "benchmark") {

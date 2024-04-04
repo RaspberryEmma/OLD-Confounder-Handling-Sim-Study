@@ -53,7 +53,7 @@ DAG_graph                <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "
 
 # models to fit and results metrics to measure
 model_methods   <- c("linear", "stepwise", "LASSO")
-results_methods <- c("r_squared", "param_bias", "blocked_paths", "benchmark")
+results_methods <- c("r_squared", "param_bias", "open_paths", "blocked_paths", "benchmark")
 
 # simulation procedure call
 run(graph           = DAG_graph,
