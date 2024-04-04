@@ -13,10 +13,6 @@
 # Most Recent Edit: 04/04/2024
 # ****************************************
 
-
-# clear R memory
-rm(list=ls())
-
 # all external libraries
 library(chest)
 library(dplyr)
@@ -29,6 +25,7 @@ library(microbenchmark)
 library(shiny)
 library(shinycssloaders)
 library(sjmisc)
+library(tidyr)
 
 
 normalise <- function(column = NULL) {
