@@ -98,14 +98,14 @@ r_squared <- function(model          = NULL,
   
   # find R2 value for each model type
   R2 <- NULL
-  if (model_method == "stepwise") {
+  if (model_method == "LASSO") {
+    # see documentation: https://glmnet.stanford.edu/reference/glmnet.html
+    R2 <- model$dev.ratio
+  }
+  else {
     SSR <- sum((pred_y - test_y)^2)
     SST <- sum((test_y - mean(test_y))^2)
     R2  <- (1 - (SSR / SST))
-  }
-  else if (model_method == "LASSO") {
-    # see documentation: https://glmnet.stanford.edu/reference/glmnet.html
-    R2 <- model$dev.ratio
   }
   
   return (R2)
@@ -155,17 +155,22 @@ benchmark <- function(model_method = NULL, data = NULL) {
   data_X <- data[, -1]
   data_y <- data[,  1]
   
-  if (model_method == "stepwise") {
-    
+  if (model_method == "linear") {
+    bench <- microbenchmark::microbenchmark(
+      model <- lm(y ~ ., data = data),
+      times = 1 # repetitions at higher level!
+    ) %>% invisible()
+  }
+  
+  else if (model_method == "stepwise") {
     bench <- microbenchmark::microbenchmark(
       step(object = lm(y ~ ., data = data), direction = "both",
            scope = list(upper = "y ~ .", lower = "y ~ X")),
       times = 1 # repetitions at higher level!
     ) %>% invisible()
-    
   }
+  
   else if (model_method == "LASSO") {
-    
     bench <- microbenchmark::microbenchmark(
       glmnet::cv.glmnet(x = as.matrix(data_X), y = data_y, alpha = 1,
                         family.train = "gaussian", intercept = F),
@@ -173,7 +178,6 @@ benchmark <- function(model_method = NULL, data = NULL) {
                      family.train = "gaussian",intercept = F),
       times = 1 # repetitions at higher level!
     ) %>% invisible()
-    
   }
   
   time <- mean(bench$time)
@@ -351,7 +355,10 @@ run <- function(graph           = NULL,
     for (m in 1:M) {
       method <- model_methods[m]
       
-      if (method == "stepwise") {
+      if (method == "linear") {
+        model <- lm(y ~ ., data = data)
+      }
+      else if (method == "stepwise") {
         model <- step(object    = lm(y ~ ., data = data),                 # all variable base
                       direction = "both",                                 # stepwise, not fwd or bwd
                       scope     = list(upper = "y ~ .", lower = "y ~ X")) # exposure X always included
@@ -411,7 +418,6 @@ run <- function(graph           = NULL,
           result_value <- benchmark(model_method = method,
                                     data         = test_data)
         }
-        
         results[m, r, i] <- result_value
       }
     }

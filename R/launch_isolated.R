@@ -37,9 +37,10 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 source("simulation.R")
 
 # top-level simulation parameters
-n_obs_init  <- 200
-n_rep_init  <- 10
-SE_req_init <- 0.05
+n_obs_init      <- 200
+n_rep_init      <- 10
+SE_req_init     <- 0.05
+data_split_init <- 0.75
 
 # intialise DAG
 coef_data      <- read.csv("../data/key-input-coef-data.csv")
@@ -51,7 +52,7 @@ DAG_adj_matrix           <- DAG_adj_matrix[, -1]
 DAG_graph                <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
 
 # models to fit and results metrics to measure
-model_methods   <- c("stepwise", "LASSO")
+model_methods   <- c("linear", "stepwise", "LASSO")
 results_methods <- c("r_squared", "param_bias", "blocked_paths", "benchmark")
 
 # simulation procedure call
@@ -62,6 +63,6 @@ run(graph           = DAG_graph,
     labels          = DAG_labels,
     model_methods   = model_methods,
     results_methods = results_methods,
-    data_split      = 0.75)
+    data_split      = data_split_init)
 
 
