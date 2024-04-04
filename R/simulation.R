@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 03/04/2024
+# Most Recent Edit: 04/04/2024
 # ****************************************
 
 
@@ -72,7 +72,6 @@ dagitty_from_adjacency_matrix <- function(adj_DAG  = NULL,
   # close string
   newline        <- "}"
   dagitty_string <- dagitty_string  <- paste(dagitty_string, newline, sep = "")
-  print(dagitty_string)
   
   # return dagitty object
   return ( dagitty::dagitty(dagitty_string) )
@@ -141,7 +140,7 @@ blocked_paths <- function(model = NULL, adj_DAG = NULL) {
   open_DAG_paths <- dagitty::paths( dagitty_DAG,
                                     from = "X",
                                     to   = "y")
-  print(open_DAG_paths)
+  #print(open_DAG_paths)
   
   # count open paths in final model
   open_model_paths <- NaN
@@ -259,9 +258,14 @@ generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
 }
 
 
-run_once <- function(graph = NULL, coef_data = NULL, n_obs = NULL, labels = NULL, model_methods = NULL, results_methods = NULL, using_shiny = FALSE) {
-  # fit models
-  print(model_methods)
+run_once <- function(graph           = NULL,
+                     coef_data       = NULL,
+                     n_obs           = NULL,
+                     labels          = NULL,
+                     model_methods   = NULL,
+                     results_methods = NULL,
+                     data_split      = NULL,
+                     using_shiny     = FALSE) {
   
   # run one iteration
   run(graph = graph,
@@ -271,12 +275,22 @@ run_once <- function(graph = NULL, coef_data = NULL, n_obs = NULL, labels = NULL
       labels          = labels,
       model_methods   = model_methods,
       results_methods = results_methods,
+      data_split      - data_split,
       using_shiny     = using_shiny,
       messages        = TRUE)
 }
 
 
-run <- function(graph = NULL, coef_data = NULL, n_obs = NULL, n_rep = NULL, labels = NULL, model_methods = NULL, results_methods = NULL, using_shiny = FALSE, messages = FALSE) {
+run <- function(graph           = NULL,
+                coef_data       = NULL,
+                n_obs           = NULL,
+                n_rep           = NULL,
+                labels          = NULL,
+                model_methods   = NULL,
+                results_methods = NULL,
+                data_split      = NULL,
+                using_shiny     = FALSE,
+                messages        = FALSE) {
   print("running!")
   
   # constants
@@ -295,9 +309,33 @@ run <- function(graph = NULL, coef_data = NULL, n_obs = NULL, n_rep = NULL, labe
     # progress
     message( paste("\n\nRunning Iteration ", i, "/", n_rep, "\n", sep = "") )
     
-    # generate data
-    data <- generate_dataset(coef_data = coef_data, n_obs = n_obs, labels = labels)
+    # generate data according to split parameter
+    # if NULL, use the same data for testing and training
+    if(is.null(data_split)) {
+      # generate training data
+      data <- generate_dataset(coef_data = coef_data, n_obs = n_obs, labels = labels)
+      
+      # test on same data
+      test_data <- data
+      
+      # record this data
+      representative_data <- data
+    }
+    else {
+      train_split <- ceiling(data_split * n_obs)
+      test_split  <- (n_obs - train_split)
+      
+      # generate training data
+      data <- generate_dataset(coef_data = coef_data, n_obs = train_split, labels = labels)
+      
+      # generate seperate testing data
+      test_data <- generate_dataset(coef_data = coef_data, n_obs = test_split, labels = labels)
+      
+      # record this data
+      representative_data <- rbind(data, test_data)
+    }
     
+    # seperate outcome from all other covariates
     data_X <- data[, -1]
     data_y <- data[,  1]
     
@@ -343,9 +381,6 @@ run <- function(graph = NULL, coef_data = NULL, n_obs = NULL, n_rep = NULL, labe
                                 intercept      = F,
                                 penalty.factor = penalty.factor)    # exposure X always included
       }
-      
-      # Generate test set
-      test_data <- generate_dataset(coef_data = coef_data, n_obs = n_obs, labels = labels)
       
       # Record results
       for (r in 1:R) {
@@ -409,12 +444,11 @@ run <- function(graph = NULL, coef_data = NULL, n_obs = NULL, n_rep = NULL, labe
   
   # Sim parameters
   params <- data.frame(
-    preset <- c("n_rep", "n_obs"), # nolint: object_usage_linter.
-    value  <- c(n_rep, n_obs) # nolint: object_usage_linter.
+    preset <- c("n_rep", "n_obs", "data_split"),
+    value  <- c(n_rep, n_obs, data_split)
   )
   
-  # Generate representative DAG data-set
-  representative_data <- generate_dataset(coef_data = coef_data, n_obs = n_obs, labels = labels)
+  
   
   # Record current date time
   date_string <- Sys.time()

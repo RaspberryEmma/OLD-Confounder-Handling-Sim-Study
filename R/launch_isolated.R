@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 03/04/2024
+# Most Recent Edit: 04/04/2024
 # ****************************************
 
 
@@ -37,7 +37,7 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 source("simulation.R")
 
 # top-level simulation parameters
-n_obs_init  <- 50
+n_obs_init  <- 200
 n_rep_init  <- 10
 SE_req_init <- 0.05
 
@@ -61,6 +61,7 @@ run(graph           = DAG_graph,
     n_rep           = n_rep_init,
     labels          = DAG_labels,
     model_methods   = model_methods,
-    results_methods = results_methods)
+    results_methods = results_methods,
+    data_split      = 0.75)
 
 
