@@ -6,7 +6,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 04/04/2024
+# Most Recent Edit: 05/04/2024
 # ****************************************
 
 # all external libraries
@@ -38,20 +38,22 @@ detect_most_recent_timestamp <- function() {
   files <- substr(files, start = 1, stop = 19)
   
   # filter invalid POSIX timestamps with regex
-  # pattern: "YYYY-MM-DD HH:MM:SS" 
-  files <- grep(pattern = "[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}",
+  # pattern: "YYYY-MM-DD HH-MM-SS" 
+  files <- grep(pattern = "[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}-[0-9]{1,2}-[0-9]{1,2}",
                 x       = files,
                 value   = TRUE)
   
   # find most recent timestamp (highest epoch)
   filestamp <- NULL
   for (file in files) {
-    filestamp <- as.integer(as.POSIXct( file ))
+    filestamp <- as.integer(as.POSIXct( file, format = "%Y-%m-%d %H-%M-%S" ))
     if (filestamp > timestamp) { timestamp <- filestamp }
   }
   
   # reconvert to string, cut off timezone marker
-  timestamp <- as.POSIXct(timestamp, origin = '1970-01-01') %>% substr(., start = 1, stop = 19)
+  timestamp <- as.POSIXct( timestamp, origin = '1970-01-01') %>% substr(., start = 1, stop = 19)
+  
+  timestamp <- gsub(":", "-", timestamp)
   
   return (timestamp)
 }

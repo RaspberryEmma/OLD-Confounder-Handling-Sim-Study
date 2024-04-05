@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 04/04/2024
+# Most Recent Edit: 05/04/2024
 # ****************************************
 
 # all external libraries
@@ -520,7 +520,8 @@ run <- function(graph           = NULL,
   
   
   # Record current date time
-  date_string <- Sys.time()
+  # replace : with - for windows compatibility
+  date_string <- gsub(":", "-", Sys.time())
   
   if (using_shiny) { setwd("..") }
   
