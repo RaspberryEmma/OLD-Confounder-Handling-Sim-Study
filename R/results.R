@@ -88,7 +88,7 @@ generate_all_plots <- function() {
   gd <- graph_from_adjacency_matrix( adjmatrix = as.matrix(DAG), mode = c("directed"))
   plot(gd,
        layout = layout_as_tree(gd),
-       main   = paste("DAG of Interest \n", date_string, sep = ""))
+       main   = paste("DAG of Interest \n", date_string, sep = "")) %>% print()
   dev.off()
   
   
@@ -96,7 +96,7 @@ generate_all_plots <- function() {
   png( paste("../plots/", date_string, "_synthetic_data_correlation_plot.png", sep = "") )
   p <- data %>% cor() %>% ggcorrplot::ggcorrplot() +
     ggtitle( paste("Synthetic Data Correlation Plot \n", date_string, sep = "") )
-  p
+  p %>% print()
   dev.off()
 }
 
