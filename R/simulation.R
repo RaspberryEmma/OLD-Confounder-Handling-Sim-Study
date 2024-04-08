@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 05/04/2024
+# Most Recent Edit: 08/04/2024
 # ****************************************
 
 # all external libraries
@@ -109,20 +109,57 @@ r_squared <- function(model          = NULL,
 }
 
 
+# TODO: fix to ensure matches!  use names!
+# calculates individual error terms per coefficient
 errors <- function(fitted_params = NULL, true_params = NULL) {
   P <- length(true_params)
   param_errors <- rep(0, times = P)
   
-  for (i in 1:P) {
-    param_errors[i] <- fitted_params[i] - true_params[i]
-  }
+  #for (i in 1:P) {
+  #  param_errors[i] <- fitted_params[i] - true_params[i]
+  #}
   
   return (param_errors)
 }
 
 
-param_bias <- function() {
-  return (NaN)
+param_bias <- function(model_method = NULL,
+                       model        = NULL,
+                       true_values  = NULL) {
+  
+  coefs <- c()
+  
+  if (model_method == "LASSO") {
+    # extract coefficients
+    model_betas  <- as.data.frame(as.matrix(model$beta))
+    coefs        <- model_betas$s0
+    
+    # infer intercept term
+    zeroes    <- matrix(rep(0, times = (ncol(true_values) - 1)), nrow = 1)
+    intercept <- predict( model, s = model$lambda, newx = zeroes )
+    intercept <- intercept[1, "s1"]
+    names(intercept) <- NULL
+    
+    # combine results into names vector
+    coefs <- c(intercept, coefs)
+    names(coefs) <- c("(Intercept)", rownames(model$beta))
+  }
+  else {
+    coefs <- model$coefficients
+  }
+  
+  message("\nBeta Coefficients")
+  print(model_method)
+  print("Fitted:")
+  print(coefs)
+  print("True:")
+  print(true_values[1, ])
+  print("Error:")
+  param_error <- errors(coefs, true_values[1, ])
+  print(param_error)
+  message("\n")
+  
+  return (sum(param_error))
 }
 
 
@@ -230,9 +267,9 @@ benchmark <- function(model_method = NULL, data = NULL) {
   else if (model_method == "LASSO") {
     bench <- microbenchmark::microbenchmark(
       glmnet::cv.glmnet(x = as.matrix(data_X), y = data_y, alpha = 1,
-                        family.train = "gaussian", intercept = F),
+                        family.train = "gaussian", intercept = T),
       glmnet::glmnet(x = as.matrix(data_X), y = data_y,alpha = 1,
-                     family.train = "gaussian",intercept = F),
+                     family.train = "gaussian",intercept = T),
       times = 1 # repetitions at higher level!
     ) %>% invisible()
   }
@@ -299,7 +336,8 @@ generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
         }
         
         # error term
-        error        <- rnorm(n = n_obs, mean = 0, sd = 1) # normal errors
+        # error sd is quite important
+        error        <- rnorm(n = n_obs, mean = 0, sd = 1)
         dataset[, i] <- rowSums( cbind(dataset[, i], error), na.rm = TRUE)
         
         # remove i from "caused" list
@@ -420,19 +458,19 @@ run <- function(graph           = NULL,
                       direction = "both",                                 # stepwise, not fwd or bwd
                       scope     = list(upper = "y ~ .", lower = "y ~ X")) # exposure X always included
       }
-      else if (method == "change_in_est") {
-        model <- chest::chest_glm(crude  = "y ~ X",          # exposure and outcome always included
-                                  xlist  = labels[-c(1, 2)], # all Z's as potential
-                                  family = quasibinomial,    # data is normalised, but still non-binary
-                                  data   = data) 
-      }
+      # else if (method == "change_in_est") {
+      #   model <- chest::chest_glm(crude  = "y ~ X",          # exposure and outcome always included
+      #                             xlist  = labels[-c(1, 2)], # all Z's as potential
+      #                             family = quasibinomial,    # data is normalised, but still non-binary
+      #                             data   = data) 
+      # }
       else if (method == "LASSO") {
         # Find optimal lambda parameter via cross-validation
         cv_model <- glmnet::cv.glmnet(x              = as.matrix(data_X), # exposure and all other covariates
                                       y              = data_y,          # outcome
                                       alpha          = 1,               # LASSO penalty
                                       family.train   = "gaussian",      # objective function
-                                      intercept      = F,
+                                      intercept      = T,
                                       penalty.factor = penalty.factor)  # exposure X always included
         optimal_lambda <- cv_model$lambda.min
         
@@ -442,7 +480,7 @@ run <- function(graph           = NULL,
                                 alpha          = 1,                 # LASSO penalty
                                 lambda         = optimal_lambda,    # use optimised lambda parameter
                                 family.train   = "gaussian",        # objective function
-                                intercept      = F,
+                                intercept      = T,
                                 penalty.factor = penalty.factor)    # exposure X always included
       }
       
@@ -458,9 +496,10 @@ run <- function(graph           = NULL,
                                     test_data      = test_data)
         }
         
-        # TODO: fix here!
         else if (result == "param_bias") {
-          result_value <- param_bias()
+          result_value <- param_bias(model_method = method,
+                                     model        = model,
+                                     true_values  = coef_data[, -c(1, 3)]) # all beta terms
         }
         
         else if (result == "open_paths") {
