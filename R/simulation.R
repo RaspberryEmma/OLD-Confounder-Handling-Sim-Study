@@ -112,13 +112,25 @@ r_squared <- function(model          = NULL,
 # TODO: fix to ensure matches!  use names!
 # calculates individual error terms per coefficient
 errors <- function(fitted_params = NULL, true_params = NULL) {
+  # interpret no-causal-link as beta = 0
+  true_params[is.na(true_params)] <- 0
   P <- length(true_params)
-  param_errors <- rep(0, times = P)
   
-  #for (i in 1:P) {
-  #  param_errors[i] <- fitted_params[i] - true_params[i]
-  #}
+  param_errors <- as.vector( rep(NaN, times = P) )
+  names(param_errors) <- names(true_params)
   
+  for (param in names(true_params)) {
+    # if model has selected variable
+    if (param %in% names(fitted_params)) {
+      param_errors[param] <- fitted_params[param] - true_params[param]
+    }
+    # interpret non-selection as beta = 0
+    else {
+      param_errors[param] <- 0.0 - true_params[param]
+    }
+  }
+  
+  param_errors <- unlist(param_errors)
   return (param_errors)
 }
 
@@ -147,6 +159,9 @@ param_bias <- function(model_method = NULL,
   else {
     coefs <- model$coefficients
   }
+  
+  # fix intercept name differences
+  names(coefs)[names(coefs) == "(Intercept)"] <- "intercept"
   
   message("\nBeta Coefficients")
   print(model_method)

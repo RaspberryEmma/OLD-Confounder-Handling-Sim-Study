@@ -44,33 +44,33 @@ SE_req_init     <- 0.05
 data_split_init <- 0.75
 
 
-# DAG 1
-
-# intialise DAG
-coef_data      <- read.csv("../data/key-input-coef-data-1.csv")
-DAG_adj_matrix <- read.csv("../data/key-input-adjacency-matrix-1.csv") %>% as.matrix()
-
-DAG_labels               <- DAG_adj_matrix[, 1]
-rownames(DAG_adj_matrix) <- DAG_labels
-DAG_adj_matrix           <- DAG_adj_matrix[, -1]
-DAG_graph                <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
-
-# models to fit and results metrics to measure
-model_methods   <- c("linear", "stepwise", "LASSO")
-results_methods <- c("r_squared", "param_bias", "open_paths", "blocked_paths", "benchmark")
-
-# simulation procedure call
-run(graph           = DAG_graph,
-    coef_data       = coef_data,
-    n_obs           = n_obs_init,
-    n_rep           = n_rep_init,
-    labels          = DAG_labels,
-    model_methods   = model_methods,
-    results_methods = results_methods,
-    data_split      = data_split_init)
-
-# generate results plots
-generate_all_plots()
+# # DAG 1
+# 
+# # intialise DAG
+# coef_data      <- read.csv("../data/key-input-coef-data-1.csv")
+# DAG_adj_matrix <- read.csv("../data/key-input-adjacency-matrix-1.csv") %>% as.matrix()
+# 
+# DAG_labels               <- DAG_adj_matrix[, 1]
+# rownames(DAG_adj_matrix) <- DAG_labels
+# DAG_adj_matrix           <- DAG_adj_matrix[, -1]
+# DAG_graph                <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
+# 
+# # models to fit and results metrics to measure
+# model_methods   <- c("linear", "stepwise", "LASSO")
+# results_methods <- c("r_squared", "param_bias", "open_paths", "blocked_paths", "benchmark")
+# 
+# # simulation procedure call
+# run(graph           = DAG_graph,
+#     coef_data       = coef_data,
+#     n_obs           = n_obs_init,
+#     n_rep           = n_rep_init,
+#     labels          = DAG_labels,
+#     model_methods   = model_methods,
+#     results_methods = results_methods,
+#     data_split      = data_split_init)
+# 
+# # generate results plots
+# generate_all_plots()
 
 
 # DAG 2
@@ -100,5 +100,6 @@ run(graph           = DAG_graph,
 
 # generate results plots
 generate_all_plots()
+
 
 
