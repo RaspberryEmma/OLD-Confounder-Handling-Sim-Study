@@ -86,7 +86,7 @@ generate_all_plots <- function() {
   
   
   # plot DAG
-  png(paste("../plots/", date_string, "_DAG_plot.png"))
+  png(paste("../plots/", date_string, "_DAG_plot.png", sep = ""))
   gd <- graph_from_adjacency_matrix( adjmatrix = as.matrix(DAG), mode = c("directed"))
   plot(gd,
        layout = layout_as_tree(gd),

@@ -141,19 +141,7 @@ param_bias <- function(model_method = NULL,
   coefs <- c()
   
   if (model_method == "LASSO") {
-    # extract coefficients
-    model_betas  <- as.data.frame(as.matrix(model$beta))
-    coefs        <- model_betas$s0
-    
-    # infer intercept term
-    zeroes    <- matrix(rep(0, times = (ncol(true_values) - 1)), nrow = 1)
-    intercept <- predict( model, s = model$lambda, newx = zeroes )
-    intercept <- intercept[1, "s1"]
-    names(intercept) <- NULL
-    
-    # combine results into named vector
-    coefs <- c(intercept, coefs)
-    names(coefs) <- c("(Intercept)", rownames(model$beta))
+    coefs <- lasso_coefs(model = model, n_var = ncol(true_values))
   }
   else {
     coefs <- model$coefficients
@@ -399,6 +387,43 @@ benchmark <- function(model_method = NULL, data = NULL) {
 }
 
 
+stepwise_fill_in_blanks <- function(coefs = NULL, labels = NULL) {
+  names(coefs)[names(coefs) == "(Intercept)"] <- "intercept"
+  
+  for (label in labels) {
+    # if a given variable doesn't exist, create as NaN
+    if (!(label %in% names(coefs))) {
+      coefs[label] <- NaN
+    }
+  }
+  
+  # assert variable ordering
+  coefs <- coefs[order(factor(names(coefs), levels = labels))]
+  names(coefs)[names(coefs) == "intercept"] <- "(Intercept)"
+  
+  return (coefs)
+}
+
+
+lasso_coefs <- function(model = NULL, n_var = NULL) {
+  # extract coefficients
+  model_betas  <- as.data.frame(as.matrix(model$beta))
+  coefs        <- model_betas$s0
+  
+  # infer intercept term
+  zeroes    <- matrix(rep(0, times = (n_var - 1)), nrow = 1)
+  intercept <- predict( model, s = model$lambda, newx = zeroes )
+  intercept <- intercept[1, "s1"]
+  names(intercept) <- NULL
+  
+  # combine results into named vector
+  coefs <- c(intercept, coefs)
+  names(coefs) <- c("(Intercept)", rownames(model$beta))
+  
+  return (coefs)
+}
+
+
 all_priors_exist <- function(i = NULL, dataset = NULL, i_coef = NULL) {
   all_exist   <- TRUE
   priors_of_i <- which(!is.na(i_coef))
@@ -484,6 +509,7 @@ run_once <- function(graph           = NULL,
                      model_methods   = NULL,
                      results_methods = NULL,
                      data_split      = NULL,
+                     record_results  = NULL,
                      using_shiny     = FALSE) {
   
   # run one iteration
@@ -496,6 +522,7 @@ run_once <- function(graph           = NULL,
       results_methods = results_methods,
       data_split      - data_split,
       using_shiny     = using_shiny,
+      record_results  = record_results,
       messages        = TRUE)
 }
 
@@ -508,21 +535,29 @@ run <- function(graph           = NULL,
                 model_methods   = NULL,
                 results_methods = NULL,
                 data_split      = NULL,
+                record_results  = NULL,
                 using_shiny     = FALSE,
                 messages        = FALSE) {
+  
   print("running!")
   
   # constants
+  beta_names <- colnames(coef_data)[-c(1, 3)]
+  B <- length(beta_names) # number of betas
   M <- length(model_methods)
   R <- length(results_methods)
   
   # initialize results array
   # dim = (#methods * #results * #iterations)
-  # we have bias per parameter in final model
-  # TODO: implement here!
-  results <- array(data = NaN,
-                   dim  = c(M, R, n_rep),
+  results <- array(data     = NaN,
+                   dim      = c(M, R, n_rep),
                    dimnames = list(model_methods, results_methods, 1:n_rep))
+  
+  # initialize coefficients array
+  # dim = (#methods * #betas * #iterations)
+  model_coefs <- array(data     = NaN,
+                       dim      = c(M, B, n_rep),
+                       dimnames = list(model_methods, beta_names, 1:n_rep) )
   
   for (i in 1:n_rep) {
     # progress
@@ -572,19 +607,21 @@ run <- function(graph           = NULL,
       
       if (method == "linear") {
         model <- lm(y ~ ., data = data)
+        
+        # Record coefficients
+        model_coefs[m, , i] <- model$coefficients
       }
+      
       else if (method == "stepwise") {
         model <- step(object    = lm(y ~ ., data = data),                # all variable base
                       direction = "both",                                # stepwise, not fwd or bwd
                       scope     = list(upper = "y ~ .", lower = "y ~ X") # exposure X always included
                       ) %>% invisible()
+        
+        # Record coefficients
+        model_coefs[m, , i] <- stepwise_fill_in_blanks(model$coefficients, beta_names)
       }
-      # else if (method == "change_in_est") {
-      #   model <- chest::chest_glm(crude  = "y ~ X",          # exposure and outcome always included
-      #                             xlist  = labels[-c(1, 2)], # all Z's as potential
-      #                             family = quasibinomial,    # data is normalised, but still non-binary
-      #                             data   = data) 
-      # }
+
       else if (method == "LASSO") {
         # Find optimal lambda parameter via cross-validation
         cv_model <- glmnet::cv.glmnet(x              = as.matrix(data_X), # exposure and all other covariates
@@ -603,6 +640,9 @@ run <- function(graph           = NULL,
                                 family.train   = "gaussian",        # objective function
                                 intercept      = T,
                                 penalty.factor = penalty.factor)    # exposure X always included
+        
+        # Record coefficients
+        model_coefs[m, , i] <-  lasso_coefs(model = model, n_var = length(beta_names))
       }
       
       # Record results
@@ -667,6 +707,7 @@ run <- function(graph           = NULL,
         }
         results[m, r, i] <- result_value
       }
+      
     }
     
     
@@ -689,10 +730,20 @@ run <- function(graph           = NULL,
   }
   
   # Generate Results Table
+  results_aggr <- apply(results, c(1,2), mean)
   writeLines("\n")
   print("Results Table")
-  results_aggr <- apply(results, c(1,2), mean)
   print(results_aggr)
+  writeLines("\n")
+  
+  # Generate Coefficients Table
+  coefs_aggr  <- apply(model_coefs, c(1,2), mean)
+  true_values <- coef_data[1, -c(1, 3)]
+  rownames(true_values) <- c("true_values")
+  coefs_aggr <- rbind(true_values, coefs_aggr)
+  writeLines("\n")
+  print("Coefficients Table")
+  print(coefs_aggr)
   writeLines("\n")
   
   # Sim parameters
@@ -701,32 +752,35 @@ run <- function(graph           = NULL,
     value  <- c(n_rep, n_obs, data_split)
   )
   
-  
-  
-  # Record current date time
-  # replace : with - for windows compatibility
-  date_string <- gsub(":", "-", Sys.time())
-  
-  if (using_shiny) { setwd("..") }
-  
-  message("\nSaving results to file\n")
-  
-  # Save sim parameters
-  write.csv(params, paste("../data/", date_string, "-sim-parameters.csv", sep = ""))
-  
-  # Save adjacency matrix
-  write.csv((graph %>% as_adjacency_matrix() %>% as.matrix()), paste("../data/", date_string, "-adjacency-matrix.csv", sep = ""))
-  
-  # Save coef data
-  write.csv(coef_data, paste("../data/", date_string, "-coef-data.csv", sep = ""), row.names = FALSE)
-  
-  # Save one data-set
-  write.csv(representative_data, paste("../data/", date_string, "-dataset.csv", sep = ""))
-  
-  # Save output
-  write.csv(results_aggr, paste("../data/", date_string, "-results-table.csv", sep = ""))
-  
-  if (using_shiny) { setwd("sim_frontend") }
+  if (record_results) {
+    # Record current date time
+    # replace : with - for windows compatibility
+    date_string <- gsub(":", "-", Sys.time())
+    
+    if (using_shiny) { setwd("..") }
+    
+    message("\nSaving results to file\n")
+    
+    # Save sim parameters
+    write.csv(params, paste("../data/", date_string, "-sim-parameters.csv", sep = ""))
+    
+    # Save adjacency matrix
+    write.csv((graph %>% as_adjacency_matrix() %>% as.matrix()), paste("../data/", date_string, "-adjacency-matrix.csv", sep = ""))
+    
+    # Save coef data
+    write.csv(coef_data, paste("../data/", date_string, "-coef-data.csv", sep = ""), row.names = FALSE)
+    
+    # Save one data-set
+    write.csv(representative_data, paste("../data/", date_string, "-dataset.csv", sep = ""))
+    
+    # Save coefficients
+    write.csv(representative_data, paste("../data/", date_string, "-model-coefs.csv", sep = ""))
+    
+    # Save results measures
+    write.csv(results_aggr, paste("../data/", date_string, "-results-table.csv", sep = ""))
+    
+    if (using_shiny) { setwd("sim_frontend") }
+  }
   
   print("finished!")
 }

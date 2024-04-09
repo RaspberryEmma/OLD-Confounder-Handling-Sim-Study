@@ -1,0 +1,4 @@
+"","r_squared","param_bias","causal_effect_precision","causal_effect_bias","coverage","open_paths","blocked_paths","z_inclusion","benchmark"
+"linear",0.889743813565989,-4.32101165577801,NA,-0.946822020672871,0,3,3,1,879255.6
+"stepwise",0.889611146979546,-4.32059320491256,NA,-0.94700188304437,0,3,3,1,4509052.6
+"LASSO",0.998306643379458,-4.47412141670154,NA,-0.895956678176831,NA,3,3,1,8766253.2
