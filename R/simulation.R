@@ -151,7 +151,7 @@ param_bias <- function(model_method = NULL,
     intercept <- intercept[1, "s1"]
     names(intercept) <- NULL
     
-    # combine results into names vector
+    # combine results into named vector
     coefs <- c(intercept, coefs)
     names(coefs) <- c("(Intercept)", rownames(model$beta))
   }
@@ -179,8 +179,23 @@ param_bias <- function(model_method = NULL,
 
 
 # TODO: implement!
-precision <- function() {
+causal_effect_precision <- function() {
   return (NaN)
+}
+
+
+causal_effect_bias <- function(model_method = NULL, model = NULL, true_value  = NULL) {
+  error <- 0.0
+  
+  if (model_method == "LASSO") {
+    model_betas  <- as.data.frame(as.matrix(model$beta))
+    error <- (model_betas['X', 's0'] - true_value)
+  }
+  else {
+    error <- (model$coefficients['X'] - true_value)
+  }
+  
+  return (error)
 }
 
 
@@ -296,25 +311,50 @@ z_inclusion <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
 
 
 # TODO: implement for LASSO
-coverage <- function(model_method = NULL, model = NULL) {
+coverage <- function(model_method = NULL, model = NULL, true_value = NULL) {
   within_CI <- 0.0
   
   if (model_method == "LASSO") {
-    within_CI <- NaN
+    # extract coefficients
+    model_betas  <- as.data.frame(as.matrix(model$beta))
+    beta_x       <- model_betas['X', 's0']
+    
+    # determine critical t-value
+    # standard 95% CI is assumed
+    t_val <- qt(p = 0.975, df = (model$nobs - 2))
+    
+    # TODO: FIX HERE!
+    # determine standard error of beta_x
+    # SE = std / sqrt(n_obs)
+    se_x <- NaN / sqrt(model$nobs)
+    
+    # determine lower and upper bounds of CI
+    lower <- beta_x - (t_val * se_x)
+    upper <- beta_x + (t_val * se_x)
+    
+    # TESTING
+    # print(beta_x)
+    # print(true_value)
+    # print(t_val)
+    # print(se_x)
+    within_CI <- NaN # remove when implemented
+    #stop("coverage LASSO")
+    
+    #if ((true_value > lower) && (true_value < upper)) {
+    #  within_CI <- 1.0
+    #}
+    
   }
   else {
-    coefs <- model$coefficients
-    tau   <- coefs["X"]
-    CI    <- confint(model, 'X', level=0.95)
+    CI    <- confint(model, 'X', level = 0.95)
     
-    if ((tau > CI[1]) && (tau < CI[2])) {
+    if ((true_value > CI[1]) && (true_value < CI[2])) {
       within_CI <- 1.0
     }
     
     writeLines("\n")
-    print(coefs)
-    print(tau)
     print(CI)
+    print(true_value)
     print(within_CI)
     writeLines("\n")
   }
@@ -417,7 +457,7 @@ generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
         
         # error term
         # error sd is quite important
-        error        <- rnorm(n = n_obs, mean = 0, sd = 1)
+        error        <- rnorm(n = n_obs, mean = 0, sd = 0.1)
         dataset[, i] <- rowSums( cbind(dataset[, i], error), na.rm = TRUE)
         
         # remove i from "caused" list
@@ -583,8 +623,14 @@ run <- function(graph           = NULL,
                                      true_values  = coef_data[, -c(1, 3)]) # all beta terms
         }
         
-        else if (result == "precision") {
-          result_value <- precision()
+        else if (result == "causal_effect_precision") {
+          result_value <- causal_effect_precision()
+        }
+        
+        else if (result == "causal_effect_bias") {
+          result_value <- causal_effect_bias(model_method = method,
+                               model        = model,
+                               true_value   = coef_data[1, "X"])
         }
         
         else if (result == "open_paths") {
@@ -611,7 +657,8 @@ run <- function(graph           = NULL,
         
         else if (result == "coverage") {
           result_value      <- coverage(model_method = method,
-                                        model        = model)
+                                        model        = model,
+                                        true_value   = coef_data[1, "X"])
         }
         
         else if (result == "benchmark") {
