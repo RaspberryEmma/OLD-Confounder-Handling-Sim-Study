@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 08/04/2024
+# Most Recent Edit: 09/04/2024
 # ****************************************
 
 # all external libraries
@@ -109,7 +109,6 @@ r_squared <- function(model          = NULL,
 }
 
 
-# TODO: fix to ensure matches!  use names!
 # calculates individual error terms per coefficient
 errors <- function(fitted_params = NULL, true_params = NULL) {
   # interpret no-causal-link as beta = 0
@@ -163,18 +162,25 @@ param_bias <- function(model_method = NULL,
   # fix intercept name differences
   names(coefs)[names(coefs) == "(Intercept)"] <- "intercept"
   
-  message("\nBeta Coefficients")
-  print(model_method)
-  print("Fitted:")
-  print(coefs)
-  print("True:")
-  print(true_values[1, ])
-  print("Error:")
   param_error <- errors(coefs, true_values[1, ])
-  print(param_error)
-  message("\n")
+  
+  # message("\nBeta Coefficients")
+  # print(model_method)
+  # print("Fitted:")
+  # print(coefs)
+  # print("True:")
+  # print(true_values[1, ])
+  # print("Error:")
+  # print(param_error)
+  # message("\n")
   
   return (sum(param_error))
+}
+
+
+# TODO: implement!
+precision <- function() {
+  return (NaN)
 }
 
 
@@ -209,9 +215,7 @@ open_paths <- function(adj_DAG = NULL) {
   dagitty_DAG <- dagitty_from_adjacency_matrix(adj_DAG)
   
   # count open paths of DAG
-  DAG_paths <- dagitty::paths( dagitty_DAG,
-                               from = "X",
-                               to   = "y")
+  DAG_paths      <- dagitty::paths(dagitty_DAG, from = "X", to = "y")
   open_DAG_paths <- DAG_paths$paths[ DAG_paths$open ]
   
   # remove direct "X -> y" association from open paths
@@ -228,9 +232,7 @@ blocked_paths <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
   dagitty_DAG <- dagitty_from_adjacency_matrix(adj_DAG)
   
   # count open paths of DAG
-  DAG_paths <- dagitty::paths( dagitty_DAG,
-                               from = "X",
-                               to   = "y")
+  DAG_paths      <- dagitty::paths(dagitty_DAG, from = "X", to = "y")
   open_DAG_paths <- DAG_paths$paths[ DAG_paths$open ]
   
   # remove direct "X -> y" association from open paths
@@ -255,6 +257,69 @@ blocked_paths <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
   }
   
   return (paths)
+}
+
+
+z_inclusion <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
+  included <- 0.0
+  
+  # identify all covariates included in model
+  vars_in_model <- find_vars_in_model(model_method = model_method, model = model)
+  
+  # convert graph to dagitty DAG
+  dagitty_DAG <- dagitty_from_adjacency_matrix(adj_DAG)
+  
+  # determine correct Z set (vars_to_include)
+  DAG_paths       <- dagitty::paths(dagitty_DAG, from = "X", to = "y")
+  open_DAG_paths  <- DAG_paths$paths[ DAG_paths$open ]
+  
+  vars_to_include <- c()
+  for (path in open_DAG_paths) {
+    vars_on_path <- find_vars_in_path(path)
+    vars_to_include <- union(vars_to_include, vars_on_path)
+  }
+  vars_to_include <- vars_to_include[vars_to_include != "X"]
+  vars_to_include <- vars_to_include[vars_to_include != "y"]
+  
+  # determine whether the correct set is fully included within the model
+  if (all(vars_to_include %in% vars_in_model)) {
+    included <- 1.0
+  }
+  
+  # TESTING
+  #print(vars_to_include)
+  #print(vars_in_model)
+  #print(included)
+  
+  return (included)
+}
+
+
+# TODO: implement for LASSO
+coverage <- function(model_method = NULL, model = NULL) {
+  within_CI <- 0.0
+  
+  if (model_method == "LASSO") {
+    within_CI <- NaN
+  }
+  else {
+    coefs <- model$coefficients
+    tau   <- coefs["X"]
+    CI    <- confint(model, 'X', level=0.95)
+    
+    if ((tau > CI[1]) && (tau < CI[2])) {
+      within_CI <- 1.0
+    }
+    
+    writeLines("\n")
+    print(coefs)
+    print(tau)
+    print(CI)
+    print(within_CI)
+    writeLines("\n")
+  }
+  
+  return (within_CI)
 }
 
 
@@ -469,9 +534,10 @@ run <- function(graph           = NULL,
         model <- lm(y ~ ., data = data)
       }
       else if (method == "stepwise") {
-        model <- step(object    = lm(y ~ ., data = data),                 # all variable base
-                      direction = "both",                                 # stepwise, not fwd or bwd
-                      scope     = list(upper = "y ~ .", lower = "y ~ X")) # exposure X always included
+        model <- step(object    = lm(y ~ ., data = data),                # all variable base
+                      direction = "both",                                # stepwise, not fwd or bwd
+                      scope     = list(upper = "y ~ .", lower = "y ~ X") # exposure X always included
+                      ) %>% invisible()
       }
       # else if (method == "change_in_est") {
       #   model <- chest::chest_glm(crude  = "y ~ X",          # exposure and outcome always included
@@ -517,6 +583,10 @@ run <- function(graph           = NULL,
                                      true_values  = coef_data[, -c(1, 3)]) # all beta terms
         }
         
+        else if (result == "precision") {
+          result_value <- precision()
+        }
+        
         else if (result == "open_paths") {
           adj_DAG           <- as_adj(graph = graph)
           colnames(adj_DAG) <- labels
@@ -529,6 +599,19 @@ run <- function(graph           = NULL,
           result_value      <- blocked_paths(model_method = method,
                                              model        = model,
                                              adj_DAG      = adj_DAG)
+        }
+        
+        else if (result == "z_inclusion") {
+          adj_DAG           <- as_adj(graph = graph)
+          colnames(adj_DAG) <- labels
+          result_value      <- z_inclusion(model_method = method,
+                                           model        = model,
+                                           adj_DAG      = adj_DAG)
+        }
+        
+        else if (result == "coverage") {
+          result_value      <- coverage(model_method = method,
+                                        model        = model)
         }
         
         else if (result == "benchmark") {

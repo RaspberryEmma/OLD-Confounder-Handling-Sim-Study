@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 08/04/2024
+# Most Recent Edit: 09/04/2024
 # ****************************************
 
 # clear R memory
@@ -57,7 +57,7 @@ data_split_init <- 0.75
 # 
 # # models to fit and results metrics to measure
 # model_methods   <- c("linear", "stepwise", "LASSO")
-# results_methods <- c("r_squared", "param_bias", "open_paths", "blocked_paths", "benchmark")
+# results_methods <- c("r_squared", "param_bias", "precision", "open_paths", "blocked_paths", "benchmark")
 # 
 # # simulation procedure call
 # run(graph           = DAG_graph,
@@ -86,7 +86,9 @@ DAG_graph                <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "
 
 # models to fit and results metrics to measure
 model_methods   <- c("linear", "stepwise", "LASSO")
-results_methods <- c("r_squared", "param_bias", "open_paths", "blocked_paths", "benchmark")
+results_methods <- c("r_squared", "param_bias", "precision",
+                     "coverage", "open_paths", "blocked_paths",
+                     "z_inclusion", "benchmark")
 
 # simulation procedure call
 run(graph           = DAG_graph,
