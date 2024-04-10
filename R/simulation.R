@@ -94,7 +94,14 @@ mse <- function(model          = NULL,
   }
   
   else if (model_method == "least_angle") {
-    value <- NaN
+    # separate outcome from other covariates
+    test_X    <- test_data[, -1]
+    test_y    <- test_data[,  1]
+    
+    model_stats <- summary(model)
+    pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
+    residuals   <- test_y - pred_y
+    value       <- mean(residuals^2)
   }
   
   else {
@@ -120,21 +127,18 @@ r_squared <- function(model          = NULL,
     pred_y <- predict( model, s = optimal_lambda, newx = as.matrix(test_X) ) %>% as.vector()
   }
   else if (model_method == "least_angle") {
-    # NaN
+    model_stats <- summary(model)
+    pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
   }
   else {
     pred_y <- predict( model, test_X ) %>% as.vector()
   }
   
-  # find R2 value for each model type
   R2 <- NULL
+  
   if (model_method == "LASSO") {
     # see documentation: https://glmnet.stanford.edu/reference/glmnet.html
     R2 <- model$dev.ratio
-  }
-  
-  else if (model_method == "least_angle") {
-    R2 <- NaN
   }
   
   else {
@@ -231,6 +235,13 @@ find_vars_in_model <- function(model_method = NULL, model = NULL) {
     vars <- rownames(model$beta)
     vars <- vars[vars != "X"]
   }
+  
+  else if (model_method == "least_angle") {
+    vars <- names(lars_coefs(model = model))
+    vars <- vars[vars != "(Intercept)"]
+    vars <- vars[vars != "X"]
+  }
+  
   else {
     vars <- names(model$coefficients)
     vars <- vars[vars != "(Intercept)"]

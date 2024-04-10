@@ -46,7 +46,7 @@ data_split_init <- 0.75
 
 # DAG 2
 
-# intialise DAG
+# initialise DAG
 coef_data      <- read.csv("../data/key-input-coef-data-2.csv")
 DAG_adj_matrix <- read.csv("../data/key-input-adjacency-matrix-2.csv") %>% as.matrix()
 
