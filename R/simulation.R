@@ -75,12 +75,34 @@ dagitty_from_adjacency_matrix <- function(adj_DAG  = NULL,
 }
 
 
+mse <- function(model          = NULL,
+                optimal_lambda = NULL,
+                model_method   = NULL,
+                test_data      = NULL) {
+  value <- NaN
+  
+  if (model_method == "LASSO") {
+    # separate outcome from other covariates
+    test_X    <- test_data[, -1]
+    test_y    <- test_data[,  1]
+    pred_y    <- predict( model, s = optimal_lambda, newx = as.matrix(test_X) ) %>% as.vector()
+    residuals <- test_y - pred_y
+    value     <- mean(residuals^2)
+  }
+  else {
+    value <- mean(model$residuals^2)
+  }
+  
+  return (value)
+}
+
+
 r_squared <- function(model          = NULL,
                       optimal_lambda = NULL,
                       model_method   = NULL,
                       test_data      = NULL) {
   
-  # test-training data split
+  # separate outcome from other covariates
   test_X <- test_data[, -1]
   test_y <- test_data[,  1]
   
@@ -650,7 +672,14 @@ run <- function(graph           = NULL,
         result = results_methods[r]
         result_value <- NaN
         
-        if (result == "r_squared") {
+        if (result == "mse") {
+          result_value <- mse(model          = model,
+                              optimal_lambda = optimal_lambda,
+                              model_method   = method,
+                              test_data      = test_data)
+        }
+        
+        else if (result == "r_squared") {
           result_value <- r_squared(model          = model,
                                     optimal_lambda = optimal_lambda,
                                     model_method   = method,

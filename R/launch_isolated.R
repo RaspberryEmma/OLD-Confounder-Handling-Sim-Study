@@ -57,7 +57,7 @@ DAG_graph                <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "
 
 # models to fit and results metrics to measure
 model_methods   <- c("linear", "stepwise", "LASSO")
-results_methods <- c("r_squared", "param_bias", "causal_effect_precision",
+results_methods <- c("mse", "r_squared", "param_bias",
                      "causal_effect_bias", "coverage", "open_paths",
                      "blocked_paths", "z_inclusion", "benchmark")
 

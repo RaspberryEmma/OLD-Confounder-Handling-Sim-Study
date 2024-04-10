@@ -6,14 +6,17 @@
 # Emma Tarmey
 #
 # Started:          09/04/2024
-# Most Recent Edit: 09/04/2024
+# Most Recent Edit: 10/04/2024
 # ****************************************
 
 # else if (method == "change_in_est") {
-#   model <- chest::chest_glm(crude  = "y ~ X",          # exposure and outcome always included
-#                             xlist  = labels[-c(1, 2)], # all Z's as potential
-#                             family = quasibinomial,    # data is normalised, but still non-binary
-#                             data   = data) 
+#   model <- chest::chest_lm(crude    = "y ~ X",          # exposure and outcome always included
+#                            xlist    = labels[-c(1, 2)], # all Z's as potential
+#                            data     = data,
+#                            indicate = TRUE)
+#   print(model)
+#   chest_plot(model) %>% print()
+#   stop("change in est modelling")
 # }
 
 
