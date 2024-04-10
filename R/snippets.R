@@ -9,6 +9,18 @@
 # Most Recent Edit: 10/04/2024
 # ****************************************
 
+
+# message("\nBeta Coefficients")
+# print(model_method)
+# print("Fitted:")
+# print(coefs)
+# print("True:")
+# print(true_values[1, ])
+# print("Error:")
+# print(param_error)
+# message("\n")
+
+
 # else if (method == "change_in_est") {
 #   model <- chest::chest_lm(crude    = "y ~ X",          # exposure and outcome always included
 #                            xlist    = labels[-c(1, 2)], # all Z's as potential
@@ -49,3 +61,5 @@
 # 
 # # generate results plots
 # generate_all_plots()
+
+

@@ -10,8 +10,10 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 09/04/2024
+# Most Recent Edit: 10/04/2024
 # ****************************************
+
+# TODO: fix deliberate NaN's!
 
 # all external libraries
 library(chest)
@@ -21,6 +23,7 @@ library(ggdag)
 library(ggplot2)
 library(glmnet)
 library(igraph)
+library(lars)
 library(microbenchmark)
 library(shiny)
 library(shinycssloaders)
@@ -89,6 +92,11 @@ mse <- function(model          = NULL,
     residuals <- test_y - pred_y
     value     <- mean(residuals^2)
   }
+  
+  else if (model_method == "least_angle") {
+    value <- NaN
+  }
+  
   else {
     value <- mean(model$residuals^2)
   }
@@ -111,6 +119,9 @@ r_squared <- function(model          = NULL,
   if (model_method == "LASSO") {
     pred_y <- predict( model, s = optimal_lambda, newx = as.matrix(test_X) ) %>% as.vector()
   }
+  else if (model_method == "least_angle") {
+    # NaN
+  }
   else {
     pred_y <- predict( model, test_X ) %>% as.vector()
   }
@@ -121,6 +132,11 @@ r_squared <- function(model          = NULL,
     # see documentation: https://glmnet.stanford.edu/reference/glmnet.html
     R2 <- model$dev.ratio
   }
+  
+  else if (model_method == "least_angle") {
+    R2 <- NaN
+  }
+  
   else {
     SSR <- sum((pred_y - test_y)^2)
     SST <- sum((test_y - mean(test_y))^2)
@@ -165,6 +181,9 @@ param_bias <- function(model_method = NULL,
   if (model_method == "LASSO") {
     coefs <- lasso_coefs(model = model, n_var = ncol(true_values))
   }
+  else if (model_method == "least_angle") {
+    coefs <- lars_coefs(model = model)
+  }
   else {
     coefs <- model$coefficients
   }
@@ -173,16 +192,6 @@ param_bias <- function(model_method = NULL,
   names(coefs)[names(coefs) == "(Intercept)"] <- "intercept"
   
   param_error <- errors(coefs, true_values[1, ])
-  
-  # message("\nBeta Coefficients")
-  # print(model_method)
-  # print("Fitted:")
-  # print(coefs)
-  # print("True:")
-  # print(true_values[1, ])
-  # print("Error:")
-  # print(param_error)
-  # message("\n")
   
   return (sum(param_error))
 }
@@ -201,6 +210,12 @@ causal_effect_bias <- function(model_method = NULL, model = NULL, true_value  = 
     model_betas  <- as.data.frame(as.matrix(model$beta))
     error <- (model_betas['X', 's0'] - true_value)
   }
+  
+  else if (model_method == "least_angle") {
+    model_betas <- lars_coefs(model = model)
+    error <- (model_betas['X'] - true_value)
+  }
+  
   else {
     error <- (model$coefficients['X'] - true_value)
   }
@@ -335,6 +350,7 @@ coverage <- function(model_method = NULL, model = NULL, true_value = NULL) {
     
     # TODO: FIX HERE!
     # determine standard error of beta_x
+    # SE =(approx) root(mse) where mse = full regression mse
     # SE = std / sqrt(n_obs)
     se_x <- NaN / sqrt(model$nobs)
     
@@ -355,6 +371,11 @@ coverage <- function(model_method = NULL, model = NULL, true_value = NULL) {
     #}
     
   }
+  
+  else if (model_method == "least_angle") {
+    within_CI <- NaN
+  }
+  
   else {
     CI    <- confint(model, 'X', level = 0.95)
     
@@ -404,6 +425,16 @@ benchmark <- function(model_method = NULL, data = NULL) {
     ) %>% invisible()
   }
   
+  else if (model_method == "least_angle") {
+    bench <- microbenchmark::microbenchmark(
+      lars(x         = as.matrix(data_X), # exposure and all other covariates
+           y         = data_y,            # outcome
+           type      = "lar",
+           intercept = TRUE),
+      times = 1 # repetitions at higher level!
+    ) %>% invisible()
+  }
+  
   time <- mean(bench$time)
   return (time)
 }
@@ -441,6 +472,19 @@ lasso_coefs <- function(model = NULL, n_var = NULL) {
   # combine results into named vector
   coefs <- c(intercept, coefs)
   names(coefs) <- c("(Intercept)", rownames(model$beta))
+  
+  return (coefs)
+}
+
+
+lars_coefs <- function(model = NULL) {
+  model_stats      <- summary(model)
+  coefs            <- coef(model, s = which.min(model_stats$Cp), mode="step")
+  intercept        <- model$mu
+  names(intercept) <- "(Intercept)"
+  
+  # combine results into named vector
+  coefs <- c(intercept, coefs)
   
   return (coefs)
 }
@@ -667,6 +711,16 @@ run <- function(graph           = NULL,
         model_coefs[m, , i] <-  lasso_coefs(model = model, n_var = length(beta_names))
       }
       
+      else if (method == "least_angle") {
+        model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                      y         = data_y,            # outcome
+                      type      = "lar",
+                      intercept = TRUE)
+        
+        # Record coefficients
+        model_coefs[m, , i] <- lars_coefs(model = model)
+      }
+      
       # Record results
       for (r in 1:R) {
         result = results_methods[r]
@@ -803,7 +857,7 @@ run <- function(graph           = NULL,
     write.csv(representative_data, paste("../data/", date_string, "-dataset.csv", sep = ""))
     
     # Save coefficients
-    write.csv(representative_data, paste("../data/", date_string, "-model-coefs.csv", sep = ""))
+    write.csv(coefs_aggr, paste("../data/", date_string, "-model-coefs.csv", sep = ""))
     
     # Save results measures
     write.csv(results_aggr, paste("../data/", date_string, "-results-table.csv", sep = ""))

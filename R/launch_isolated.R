@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 09/04/2024
+# Most Recent Edit: 10/04/2024
 # ****************************************
 
 # clear R memory
@@ -56,7 +56,7 @@ DAG_adj_matrix           <- DAG_adj_matrix[, -1]
 DAG_graph                <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
 
 # models to fit and results metrics to measure
-model_methods   <- c("linear", "stepwise", "LASSO")
+model_methods   <- c("linear", "stepwise", "LASSO", "least_angle")
 results_methods <- c("mse", "r_squared", "param_bias",
                      "causal_effect_bias", "coverage", "open_paths",
                      "blocked_paths", "z_inclusion", "benchmark")
