@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 10/04/2024
+# Most Recent Edit: 11/04/2024
 # ****************************************
 
 # TODO: fix deliberate NaN's!
@@ -831,10 +831,10 @@ run <- function(graph           = NULL,
   writeLines("\n")
   
   # Generate Coefficients Table
-  coefs_aggr  <- apply(model_coefs, c(1,2), mean)
-  true_values <- coef_data[1, -c(1, 3)]
+  coefs_aggr            <- apply(model_coefs, c(1,2), mean)
+  true_values           <- coef_data[1, -c(1, 3)]
   rownames(true_values) <- c("true_values")
-  coefs_aggr <- rbind(true_values, coefs_aggr)
+  coefs_aggr            <- rbind(true_values, coefs_aggr)
   writeLines("\n")
   print("Coefficients Table")
   print(coefs_aggr)
@@ -849,7 +849,9 @@ run <- function(graph           = NULL,
   if (record_results) {
     # Record current date time
     # replace : with - for windows compatibility
-    date_string <- gsub(":", "-", Sys.time())
+    date_string <- Sys.time()
+    date_string <- gsub(":", "-", date_string)
+    date_string <- gsub(" ", "_", date_string)
     
     if (using_shiny) { setwd("..") }
     

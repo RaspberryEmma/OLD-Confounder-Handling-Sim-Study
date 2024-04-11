@@ -38,15 +38,15 @@ detect_most_recent_timestamp <- function() {
   files <- substr(files, start = 1, stop = 19)
   
   # filter invalid POSIX timestamps with regex
-  # pattern: "YYYY-MM-DD HH-MM-SS" 
-  files <- grep(pattern = "[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}-[0-9]{1,2}-[0-9]{1,2}",
+  # pattern: "YYYY-MM-DD_HH-MM-SS" 
+  files <- grep(pattern = "[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2}_[0-9]{1,2}-[0-9]{1,2}-[0-9]{1,2}",
                 x       = files,
                 value   = TRUE)
   
   # find most recent timestamp (highest epoch)
   filestamp <- NULL
   for (file in files) {
-    filestamp <- as.integer(as.POSIXct( file, format = "%Y-%m-%d %H-%M-%S" ))
+    filestamp <- as.integer(as.POSIXct( file, format = "%Y-%m-%d_%H-%M-%S" ))
     if (filestamp > timestamp) { timestamp <- filestamp }
   }
   
@@ -54,6 +54,7 @@ detect_most_recent_timestamp <- function() {
   timestamp <- as.POSIXct( timestamp, origin = '1970-01-01') %>% substr(., start = 1, stop = 19)
   
   timestamp <- gsub(":", "-", timestamp)
+  timestamp <- gsub(" ", "_", timestamp)
   
   return (timestamp)
 }
