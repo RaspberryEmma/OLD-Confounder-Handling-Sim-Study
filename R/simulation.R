@@ -13,7 +13,7 @@
 # Most Recent Edit: 11/04/2024
 # ****************************************
 
-# TODO: fix deliberate NaN's!
+# TODO: fix deliberate NaN's, fix 2-variable case
 
 # all external libraries
 library(chest)
@@ -33,6 +33,18 @@ library(tidyr)
 
 normalise <- function(column = NULL) {
   return ( (column - min(column)) / (max(column) - min(column)) )
+}
+
+
+adjacency_matrix_from_coef_data <- function(coef_data = NULL) {
+  adj_matrix <- coef_data[, -c(1, 2)]
+  labels     <- colnames(adj_matrix)
+  
+  adj_matrix[is.na(adj_matrix)] <- 0
+  adj_matrix                    <- t(adj_matrix)
+  colnames(adj_matrix)          <- labels
+  
+  return (adj_matrix)
 }
 
 
@@ -394,11 +406,11 @@ coverage <- function(model_method = NULL, model = NULL, true_value = NULL) {
       within_CI <- 1.0
     }
     
-    writeLines("\n")
-    print(CI)
-    print(true_value)
-    print(within_CI)
-    writeLines("\n")
+    # writeLines("\n")
+    # print(CI)
+    # print(true_value)
+    # print(within_CI)
+    # writeLines("\n")
   }
   
   return (within_CI)
@@ -669,6 +681,17 @@ run <- function(graph           = NULL,
     # seperate outcome from all other covariates
     data_X <- data[, -1]
     data_y <- data[,  1]
+    
+    # if (length(beta_names) < 2) {
+    #   data_X <- data.frame(data_X)
+    #   colnames(data_X) <- c("X")
+    # }
+    
+    # TESTING
+    #print(coef_data)
+    #print(data_X)
+    #print(data_y)
+    #stop("run data split")
     
     # generate penalty.factor sequence using variable labels
     # ensure exposures (variables marked with 'X') are always included
