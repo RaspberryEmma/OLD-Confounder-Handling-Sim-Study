@@ -10,10 +10,10 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 11/04/2024
+# Most Recent Edit: 15/04/2024
 # ****************************************
 
-# TODO: fix deliberate NaN's, fix 2-variable case
+# TODO: fix deliberate NaN's
 
 # all external libraries
 library(chest)
@@ -116,6 +116,17 @@ mse <- function(model          = NULL,
     value       <- mean(residuals^2)
   }
   
+  else if (model_method == "inf_fwd_stage") {
+    # separate outcome from other covariates
+    test_X    <- test_data[, -1]
+    test_y    <- test_data[,  1]
+    
+    model_stats <- summary(model)
+    pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
+    residuals   <- test_y - pred_y
+    value       <- mean(residuals^2)
+  }
+  
   else {
     value <- mean(model$residuals^2)
   }
@@ -130,7 +141,7 @@ r_squared <- function(model          = NULL,
                       test_data      = NULL) {
   
   # separate outcome from other covariates
-  test_X <- test_data[, -1]
+  test_X <- test_data[, -1, drop = F]
   test_y <- test_data[,  1]
   
   # generate predicted value vector for each model type
@@ -139,6 +150,10 @@ r_squared <- function(model          = NULL,
     pred_y <- predict( model, s = optimal_lambda, newx = as.matrix(test_X) ) %>% as.vector()
   }
   else if (model_method == "least_angle") {
+    model_stats <- summary(model)
+    pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
+  }
+  else if (model_method == "inf_fwd_stage") {
     model_stats <- summary(model)
     pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
   }
@@ -200,6 +215,9 @@ param_bias <- function(model_method = NULL,
   else if (model_method == "least_angle") {
     coefs <- lars_coefs(model = model)
   }
+  else if (model_method == "inf_fwd_stage") {
+    coefs <- lars_coefs(model = model)
+  }
   else {
     coefs <- model$coefficients
   }
@@ -232,6 +250,11 @@ causal_effect_bias <- function(model_method = NULL, model = NULL, true_value  = 
     error <- (model_betas['X'] - true_value)
   }
   
+  else if (model_method == "inf_fwd_stage") {
+    model_betas <- lars_coefs(model = model)
+    error <- (model_betas['X'] - true_value)
+  }
+  
   else {
     error <- (model$coefficients['X'] - true_value)
   }
@@ -249,6 +272,12 @@ find_vars_in_model <- function(model_method = NULL, model = NULL) {
   }
   
   else if (model_method == "least_angle") {
+    vars <- names(lars_coefs(model = model))
+    vars <- vars[vars != "(Intercept)"]
+    vars <- vars[vars != "X"]
+  }
+  
+  else if (model_method == "inf_fwd_stage") {
     vars <- names(lars_coefs(model = model))
     vars <- vars[vars != "(Intercept)"]
     vars <- vars[vars != "X"]
@@ -349,18 +378,15 @@ z_inclusion <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
     included <- 1.0
   }
   
-  # TESTING
-  #print(vars_to_include)
-  #print(vars_in_model)
-  #print(included)
-  
   return (included)
 }
 
 
-# TODO: implement for LASSO
+# TODO: implement for LASSO and subvariants!
 coverage <- function(model_method = NULL, model = NULL, true_value = NULL) {
   within_CI <- 0.0
+  
+  lasso_variants <- c("least_angle", "inf_fwd_stage")
   
   if (model_method == "LASSO") {
     # extract coefficients
@@ -392,10 +418,9 @@ coverage <- function(model_method = NULL, model = NULL, true_value = NULL) {
     #if ((true_value > lower) && (true_value < upper)) {
     #  within_CI <- 1.0
     #}
-    
   }
   
-  else if (model_method == "least_angle") {
+  else if (model_method %in% lasso_variants) {
     within_CI <- NaN
   }
   
@@ -420,7 +445,7 @@ coverage <- function(model_method = NULL, model = NULL, true_value = NULL) {
 benchmark <- function(model_method = NULL, data = NULL) {
   time <- NaN
   
-  data_X <- data[, -1]
+  data_X <- data[, -1, drop = F]
   data_y <- data[,  1]
   
   if (model_method == "linear") {
@@ -455,6 +480,15 @@ benchmark <- function(model_method = NULL, data = NULL) {
            type      = "lar",
            intercept = TRUE),
       times = 1 # repetitions at higher level!
+    ) %>% invisible()
+  }
+  
+  else if (model_method == "inf_fwd_stage") {
+    bench <- microbenchmark::microbenchmark(
+      model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                    y         = data_y,            # outcome
+                    type      = "forward.stagewise",
+                    intercept = TRUE)
     ) %>% invisible()
   }
   
@@ -679,19 +713,8 @@ run <- function(graph           = NULL,
     }
     
     # seperate outcome from all other covariates
-    data_X <- data[, -1]
+    data_X <- data[, -1, drop = F]
     data_y <- data[,  1]
-    
-    # if (length(beta_names) < 2) {
-    #   data_X <- data.frame(data_X)
-    #   colnames(data_X) <- c("X")
-    # }
-    
-    # TESTING
-    #print(coef_data)
-    #print(data_X)
-    #print(data_y)
-    #stop("run data split")
     
     # generate penalty.factor sequence using variable labels
     # ensure exposures (variables marked with 'X') are always included
@@ -749,6 +772,16 @@ run <- function(graph           = NULL,
         model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
                       y         = data_y,            # outcome
                       type      = "lar",
+                      intercept = TRUE)
+        
+        # Record coefficients
+        model_coefs[m, , i] <- lars_coefs(model = model)
+      }
+      
+      else if (method == "inf_fwd_stage") {
+        model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                      y         = data_y,            # outcome
+                      type      = "forward.stagewise",
                       intercept = TRUE)
         
         # Record coefficients
@@ -880,11 +913,11 @@ run <- function(graph           = NULL,
     
     message("\nSaving results to file\n")
     
-    # Save sim parameters
-    write.csv(params, paste("../data/", date_string, "-sim-parameters.csv", sep = ""))
-    
-    # Save adjacency matrix
-    write.csv((graph %>% as_adjacency_matrix() %>% as.matrix()), paste("../data/", date_string, "-adjacency-matrix.csv", sep = ""))
+    # # Save sim parameters
+    # write.csv(params, paste("../data/", date_string, "-sim-parameters.csv", sep = ""))
+    # 
+    # # Save adjacency matrix
+    # write.csv((graph %>% as_adjacency_matrix() %>% as.matrix()), paste("../data/", date_string, "-adjacency-matrix.csv", sep = ""))
     
     # Save coef data
     write.csv(coef_data, paste("../data/", date_string, "-coef-data.csv", sep = ""), row.names = FALSE)

@@ -6,7 +6,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 05/04/2024
+# Most Recent Edit: 15/04/2024
 # ****************************************
 
 # all external libraries
@@ -64,17 +64,17 @@ generate_all_plots <- function() {
   # detect most recent time string
   date_string <- detect_most_recent_timestamp()
   
-  
   # import
   data    <- read.csv(paste("../data/", date_string, "-dataset.csv", sep = ""))
-  DAG     <- read.csv(paste("../data/", date_string, "-adjacency-matrix.csv", sep = ""))
+  coefs   <- read.csv(paste("../data/", date_string, "-coef-data.csv", sep = ""))
   results <- read.csv(paste("../data/", date_string, "-results-table.csv", sep = ""))
   
   
   # data pre-processing
-  labels        <- DAG[,  1]
-  DAG           <- DAG[, -1]
+  DAG           <- adjacency_matrix_from_coef_data(coefs)
+  labels        <- colnames(DAG)
   rownames(DAG) <- labels
+  data          <- data[, -1]
   
   
   # convert wide to long
@@ -87,7 +87,8 @@ generate_all_plots <- function() {
   
   
   # plot DAG
-  png(paste("../plots/", date_string, "_DAG_plot.png", sep = ""))
+  png(filename = paste("../plots/", date_string, "_DAG_plot.png", sep = ""),
+      width = 540, height = 540, units = "px")
   gd <- graph_from_adjacency_matrix( adjmatrix = as.matrix(DAG), mode = c("directed"))
   plot(gd,
        layout = layout_as_tree(gd),
@@ -96,11 +97,12 @@ generate_all_plots <- function() {
   
   
   # plot data correlation plot
-  png( paste("../plots/", date_string, "_synthetic_data_correlation_plot.png", sep = "") )
+  png(filename = paste("../plots/", date_string, "_synthetic_data_correlation_plot.png", sep = ""),
+      width = 540, height = 540, units = "px")
   p <- data %>% cor() %>% ggcorrplot::ggcorrplot() +
     ggtitle( paste("Synthetic Data Correlation Plot \n", date_string, sep = "") )
   p %>% print()
   dev.off()
+  
 }
-
 

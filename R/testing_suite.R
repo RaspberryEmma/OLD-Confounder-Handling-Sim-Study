@@ -1,12 +1,12 @@
 # ****************************************
 # Confounder Handling Simulation Study
 # 
-# Testing Suite for All Main and Helper Functions
+# Testing Suite for main and helper functions
 # 
 # Emma Tarmey
 #
 # Started:          26/03/2024
-# Most Recent Edit: 03/04/2024
+# Most Recent Edit: 15/04/2024
 # ****************************************
 
 
@@ -37,26 +37,51 @@ n_obs_init  <- 50
 n_rep_init  <- 10
 SE_req_init <- 0.05
 
-# intialise DAG
-coef_data      <- read.csv("../data/key-input-coef-data.csv")
-DAG_adj_matrix <- read.csv("../data/key-input-adjacency-matrix.csv") %>% as.matrix()
-
-DAG_labels               <- DAG_adj_matrix[, 1]
-rownames(DAG_adj_matrix) <- DAG_labels
-DAG_adj_matrix           <- DAG_adj_matrix[, -1]
-DAG_graph                <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
+# initialise DAG
+DAG_file       <- "../data/key-input-coef-data-c2.csv"
+coef_data      <- read.csv(DAG_file)
+DAG_adj_matrix <- adjacency_matrix_from_coef_data(coef_data = coef_data)
+DAG_labels     <- colnames(DAG_adj_matrix)
+DAG_graph      <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
 
 
-# TESTING dagitty_from_adjacency_matrix
-DAG_dagitty <- dagitty_from_adjacency_matrix(adj_DAG  = DAG_adj_matrix,
-                                           exposure = "X",
-                                           outcome  = "Y")#
+# # TESTING dagitty_from_adjacency_matrix
+# DAG_dagitty <- dagitty_from_adjacency_matrix(adj_DAG  = DAG_adj_matrix,
+#                                            exposure = "X",
+#                                            outcome  = "Y")#
+# 
+# plot(DAG_graph,
+#      layout = layout_as_tree(DAG_graph),
+#      main   = paste("DAG of Interest \n", sep = ""))
+# 
+# plot(DAG_dagitty,
+#      layout = layout_as_tree(DAG_graph),
+#      main   = paste("DAG of Interest \n", sep = ""))
 
-plot(DAG_graph,
-     layout = layout_as_tree(DAG_graph),
-     main   = paste("DAG of Interest \n", sep = ""))
 
-plot(DAG_dagitty,
-     layout = layout_as_tree(DAG_graph),
-     main   = paste("DAG of Interest \n", sep = ""))
+# TESTING 
+
+# generate training data
+data   <- generate_dataset(coef_data = coef_data, n_obs = 200, labels = DAG_labels)
+data_X <- data[, -1]
+data_y <- data[,  1]
+
+model_lasso <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                    y         = data_y,            # outcome
+                    type      = "lasso",
+                    intercept = TRUE)
+
+model_least_angle <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                          y         = data_y,            # outcome
+                          type      = "lar",
+                          intercept = TRUE)
+
+model_fwd_stage <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                        y         = data_y,            # outcome
+                        type      = "forward.stagewise",
+                        intercept = TRUE)
+
+View(model_lasso)
+View(model_least_angle)
+View(model_fwd_stage)
 
