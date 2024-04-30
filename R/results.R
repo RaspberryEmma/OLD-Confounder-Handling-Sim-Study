@@ -6,8 +6,9 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 15/04/2024
+# Most Recent Edit: 30/04/2024
 # ****************************************
+
 
 # all external libraries
 library(chest)
@@ -60,14 +61,13 @@ detect_most_recent_timestamp <- function() {
 }
 
 
-generate_all_plots <- function() {
-  # detect most recent time string
-  date_string <- detect_most_recent_timestamp()
+generate_all_plots <- function(case = NULL) {
+  case_string <- paste("c", case, sep = "")
   
   # import
-  data    <- read.csv(paste("../data/", date_string, "-dataset.csv", sep = ""))
-  coefs   <- read.csv(paste("../data/", date_string, "-coef-data.csv", sep = ""))
-  results <- read.csv(paste("../data/", date_string, "-results-table.csv", sep = ""))
+  data    <- read.csv(paste("../data/", case_string, "-dataset.csv", sep = ""))
+  coefs   <- read.csv(paste("../data/", case_string, "-coef-data.csv", sep = ""))
+  results <- read.csv(paste("../data/", case_string, "-results-table.csv", sep = ""))
   
   
   # data pre-processing
@@ -87,20 +87,20 @@ generate_all_plots <- function() {
   
   
   # plot DAG
-  png(filename = paste("../plots/", date_string, "_DAG_plot.png", sep = ""),
+  png(filename = paste("../plots/", case_string, "_DAG_plot.png", sep = ""),
       width = 540, height = 540, units = "px")
   gd <- graph_from_adjacency_matrix( adjmatrix = as.matrix(DAG), mode = c("directed"))
   plot(gd,
        layout = layout_as_tree(gd),
-       main   = paste("DAG of Interest \n", date_string, sep = "")) %>% print()
+       main   = paste("DAG of Interest \n", case_string, sep = "")) %>% print()
   dev.off()
   
   
   # plot data correlation plot
-  png(filename = paste("../plots/", date_string, "_synthetic_data_correlation_plot.png", sep = ""),
+  png(filename = paste("../plots/", case_string, "_synthetic_data_correlation_plot.png", sep = ""),
       width = 540, height = 540, units = "px")
   p <- data %>% cor() %>% ggcorrplot::ggcorrplot() +
-    ggtitle( paste("Synthetic Data Correlation Plot \n", date_string, sep = "") )
+    ggtitle( paste("Synthetic Data Correlation Plot \n", case_string, sep = "") )
   p %>% print()
   dev.off()
   

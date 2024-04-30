@@ -40,7 +40,7 @@ source("results.R")
 
 # top-level simulation parameters
 n_obs_init      <- 200
-n_rep_init      <- 100
+n_rep_init      <- 10 # 100
 SE_req_init     <- 0.05
 data_split_init <- 0.75
 
@@ -73,7 +73,7 @@ for (c in c_values) {
       record_results  = TRUE)
 
   # generate results plots
-  generate_all_plots()
+  generate_all_plots(case = c)
 }
 
 

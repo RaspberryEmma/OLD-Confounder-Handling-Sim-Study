@@ -100,9 +100,11 @@ mse <- function(model          = NULL,
     # separate outcome from other covariates
     test_X    <- test_data[, -1]
     test_y    <- test_data[,  1]
-    pred_y    <- predict( model, s = optimal_lambda, newx = as.matrix(test_X) ) %>% as.vector()
-    residuals <- test_y - pred_y
-    value     <- mean(residuals^2)
+    
+    model_stats <- summary(model)
+    pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
+    residuals   <- test_y - pred_y
+    value       <- mean(residuals^2)
   }
   
   else if (model_method == "least_angle") {
@@ -147,7 +149,8 @@ r_squared <- function(model          = NULL,
   # generate predicted value vector for each model type
   pred_y <- c()
   if (model_method == "LASSO") {
-    pred_y <- predict( model, s = optimal_lambda, newx = as.matrix(test_X) ) %>% as.vector()
+    model_stats <- summary(model)
+    pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
   }
   else if (model_method == "least_angle") {
     model_stats <- summary(model)
@@ -165,7 +168,12 @@ r_squared <- function(model          = NULL,
   
   if (model_method == "LASSO") {
     # see documentation: https://glmnet.stanford.edu/reference/glmnet.html
-    R2 <- model$dev.ratio
+    # R2 <- model$dev.ratio
+    
+    SSR <- sum((pred_y - test_y)^2)
+    SST <- sum((test_y - mean(test_y))^2)
+    R2  <- (1 - (SSR / SST))
+    
   }
   
   else {
@@ -210,7 +218,7 @@ param_bias <- function(model_method = NULL,
   coefs <- c()
   
   if (model_method == "LASSO") {
-    coefs <- lasso_coefs(model = model, n_var = ncol(true_values))
+    coefs <- lars_coefs(model = model)
   }
   else if (model_method == "least_angle") {
     coefs <- lars_coefs(model = model)
@@ -241,8 +249,8 @@ causal_effect_bias <- function(model_method = NULL, model = NULL, true_value  = 
   error <- 0.0
   
   if (model_method == "LASSO") {
-    model_betas  <- as.data.frame(as.matrix(model$beta))
-    error <- (model_betas['X', 's0'] - true_value)
+    model_betas <- lars_coefs(model = model)
+    error <- (model_betas['X'] - true_value)
   }
   
   else if (model_method == "least_angle") {
@@ -267,7 +275,8 @@ find_vars_in_model <- function(model_method = NULL, model = NULL) {
   vars <- c()
   
   if (model_method == "LASSO") {
-    vars <- rownames(model$beta)
+    vars <- names(lars_coefs(model = model))
+    vars <- vars[vars != "(Intercept)"]
     vars <- vars[vars != "X"]
   }
   
@@ -386,41 +395,41 @@ z_inclusion <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
 coverage <- function(model_method = NULL, model = NULL, true_value = NULL) {
   within_CI <- 0.0
   
-  lasso_variants <- c("least_angle", "inf_fwd_stage")
+  lasso_variants <- c("LASSO", "least_angle", "inf_fwd_stage")
   
-  if (model_method == "LASSO") {
-    # extract coefficients
-    model_betas  <- as.data.frame(as.matrix(model$beta))
-    beta_x       <- model_betas['X', 's0']
-    
-    # determine critical t-value
-    # standard 95% CI is assumed
-    t_val <- qt(p = 0.975, df = (model$nobs - 2))
-    
-    # TODO: FIX HERE!
-    # determine standard error of beta_x
-    # SE =(approx) root(mse) where mse = full regression mse
-    # SE = std / sqrt(n_obs)
-    se_x <- NaN / sqrt(model$nobs)
-    
-    # determine lower and upper bounds of CI
-    lower <- beta_x - (t_val * se_x)
-    upper <- beta_x + (t_val * se_x)
-    
-    # TESTING
-    # print(beta_x)
-    # print(true_value)
-    # print(t_val)
-    # print(se_x)
-    within_CI <- NaN # remove when implemented
-    #stop("coverage LASSO")
-    
-    #if ((true_value > lower) && (true_value < upper)) {
-    #  within_CI <- 1.0
-    #}
-  }
+  # if (model_method == "LASSO") {
+  #   # extract coefficients
+  #   model_betas  <- as.data.frame(as.matrix(model$beta))
+  #   beta_x       <- model_betas['X', 's0']
+  #   
+  #   # determine critical t-value
+  #   # standard 95% CI is assumed
+  #   t_val <- qt(p = 0.975, df = (model$nobs - 2))
+  #   
+  #   # TODO: FIX HERE!
+  #   # determine standard error of beta_x
+  #   # SE =(approx) root(mse) where mse = full regression mse
+  #   # SE = std / sqrt(n_obs)
+  #   se_x <- NaN / sqrt(model$nobs)
+  #   
+  #   # determine lower and upper bounds of CI
+  #   lower <- beta_x - (t_val * se_x)
+  #   upper <- beta_x + (t_val * se_x)
+  #   
+  #   # TESTING
+  #   # print(beta_x)
+  #   # print(true_value)
+  #   # print(t_val)
+  #   # print(se_x)
+  #   within_CI <- NaN # remove when implemented
+  #   #stop("coverage LASSO")
+  #   
+  #   #if ((true_value > lower) && (true_value < upper)) {
+  #   #  within_CI <- 1.0
+  #   #}
+  # }
   
-  else if (model_method %in% lasso_variants) {
+  if (model_method %in% lasso_variants) {
     within_CI <- NaN
   }
   
@@ -465,10 +474,10 @@ benchmark <- function(model_method = NULL, data = NULL) {
   
   else if (model_method == "LASSO") {
     bench <- microbenchmark::microbenchmark(
-      glmnet::cv.glmnet(x = as.matrix(data_X), y = data_y, alpha = 1,
-                        family.train = "gaussian", intercept = T),
-      glmnet::glmnet(x = as.matrix(data_X), y = data_y,alpha = 1,
-                     family.train = "gaussian",intercept = T),
+      model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                    y         = data_y,            # outcome
+                    type      = "lasso",
+                    intercept = TRUE),
       times = 1 # repetitions at higher level!
     ) %>% invisible()
   }
@@ -794,26 +803,13 @@ run <- function(graph           = NULL,
       }
 
       else if (method == "LASSO") {
-        # Find optimal lambda parameter via cross-validation
-        cv_model <- glmnet::cv.glmnet(x              = as.matrix(data_X), # exposure and all other covariates
-                                      y              = data_y,          # outcome
-                                      alpha          = 1,               # LASSO penalty
-                                      family.train   = "gaussian",      # objective function
-                                      intercept      = T,
-                                      penalty.factor = penalty.factor)  # exposure X always included
-        optimal_lambda <- cv_model$lambda.min
-        
-        # Fit LASSO model with single optimal lambda parameter
-        model <- glmnet::glmnet(x              = as.matrix(data_X), # exposure and all other covariates
-                                y              = data_y,            # outcome
-                                alpha          = 1,                 # LASSO penalty
-                                lambda         = optimal_lambda,    # use optimised lambda parameter
-                                family.train   = "gaussian",        # objective function
-                                intercept      = T,
-                                penalty.factor = penalty.factor)    # exposure X always included
+        model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                      y         = data_y,            # outcome
+                      type      = "lasso",
+                      intercept = TRUE)
         
         # Record coefficients
-        model_coefs[m, , i] <-  lasso_coefs(model = model, n_var = length(beta_names))
+        model_coefs[m, , i] <-  lars_coefs(model = model)
       }
       
       else if (method == "least_angle") {
@@ -951,33 +947,29 @@ run <- function(graph           = NULL,
   )
   
   if (record_results) {
-    # Record current date time
-    # replace : with - for windows compatibility
-    date_string <- Sys.time()
-    date_string <- gsub(":", "-", date_string)
-    date_string <- gsub(" ", "_", date_string)
+    # # Record current date time
+    # # replace : with - for windows compatibility
+    # date_string <- Sys.time()
+    # date_string <- gsub(":", "-", date_string)
+    # date_string <- gsub(" ", "_", date_string)
+    
+    case_string <- paste("c", (ncol(coef_data) - 5), sep = "")
     
     if (using_shiny) { setwd("..") }
     
     message("\nSaving results to file\n")
     
-    # # Save sim parameters
-    # write.csv(params, paste("../data/", date_string, "-sim-parameters.csv", sep = ""))
-    # 
-    # # Save adjacency matrix
-    # write.csv((graph %>% as_adjacency_matrix() %>% as.matrix()), paste("../data/", date_string, "-adjacency-matrix.csv", sep = ""))
-    
     # Save coef data
-    write.csv(coef_data, paste("../data/", date_string, "-coef-data.csv", sep = ""), row.names = FALSE)
+    write.csv(coef_data, paste("../data/", case_string, "-coef-data.csv", sep = ""), row.names = FALSE)
     
     # Save one data-set
-    write.csv(representative_data, paste("../data/", date_string, "-dataset.csv", sep = ""))
+    write.csv(representative_data, paste("../data/", case_string, "-dataset.csv", sep = ""))
     
     # Save coefficients
-    write.csv(coefs_aggr, paste("../data/", date_string, "-model-coefs.csv", sep = ""))
+    write.csv(coefs_aggr, paste("../data/", case_string, "-model-coefs.csv", sep = ""))
     
     # Save results measures
-    write.csv(results_aggr, paste("../data/", date_string, "-results-table.csv", sep = ""))
+    write.csv(results_aggr, paste("../data/", case_string, "-results-table.csv", sep = ""))
     
     if (using_shiny) { setwd("sim_frontend") }
   }
