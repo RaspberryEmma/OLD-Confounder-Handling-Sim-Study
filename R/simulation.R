@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 15/04/2024
+# Most Recent Edit: 30/04/2024
 # ****************************************
 
 # TODO: fix deliberate NaN's
@@ -618,10 +618,58 @@ generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
     }
   }
   
+  # TODO: explore here!
   # force 0 <= y <= 1
-  dataset[,  1] <- normalise( dataset[,  1] )
+  # dataset[,  1] <- normalise( dataset[,  1] )
   
   return (dataset)
+}
+
+
+generate_coef_data <- function(c = c) {
+  var_labels <- c("y", "X", "Z1")
+  
+  for (i in seq.int(from = 2, to = (c+1), length.out = c)) {
+    # add label corresponding to variable i
+    new_label <- paste("Z", i, sep = "")
+    var_labels <- c(var_labels, new_label)
+  }
+  
+  n_var <- length(var_labels)
+  
+  cause <- rep(0,  times = n_var)
+  cause[ match("y", var_labels) ] <- 1
+  if (c > 1) {
+    cause[ match("X", var_labels) ] <- 1
+  }
+  
+  intercept <- rep(NA, times = n_var)
+  intercept[ match("y", var_labels) ] <- 1
+  if (c > 1) {
+    intercept[ match("X", var_labels) ] <- 1
+  }
+  
+  # generate initial DAG table
+  coef_data <- data.frame(cause, intercept)
+  for (var in var_labels) {
+    coef_data[var] <- rep(NA, times = n_var)
+  }
+  
+  # populate table with non-NA entries corresponding to arrows in DAG
+  
+  # from X to y
+  coef_data[ match("y", var_labels),  "X" ] <- 1
+  
+  # index change guarantees dummy variable is always last
+  for (i in seq.int(from = 1, to = (c), length.out = c)) {
+    # from confounder i to y
+    coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- 1
+    
+    # from confounder i to X
+    coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- 1
+  }
+  
+  return (coef_data)
 }
 
 

@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 15/04/2024
+# Most Recent Edit: 30/04/2024
 # ****************************************
 
 # clear R memory
@@ -47,27 +47,20 @@ data_split_init <- 0.75
 
 # models to fit and results metrics to measure
 model_methods   <- c("linear", "stepwise", "LASSO", "least_angle", "inf_fwd_stage")
+
 results_methods <- c("mse", "r_squared", "param_bias",
                      "causal_effect_bias", "coverage", "open_paths",
                      "blocked_paths", "z_inclusion", "benchmark")
 
+c_values        <- c(0, 1, 2, 5, 10, 20)
 
-DAGs_to_study <- c("../data/key-input-coef-data-c0.csv",
-                   "../data/key-input-coef-data-c1.csv",
-                   "../data/key-input-coef-data-c2.csv",
-                   "../data/key-input-coef-data-c5.csv",
-                   "../data/key-input-coef-data-c10.csv",
-                   "../data/key-input-coef-data-c20.csv")
-
-
-for (DAG_file in DAGs_to_study) {
+for (c in c_values) {
   # initialise DAG
-  coef_data      <- read.csv(DAG_file)
+  coef_data      <- generate_coef_data(c = c)
   DAG_adj_matrix <- adjacency_matrix_from_coef_data(coef_data = coef_data)
   DAG_labels     <- colnames(DAG_adj_matrix)
   DAG_graph      <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
-  
-  
+
   # simulation procedure call
   run(graph           = DAG_graph,
       coef_data       = coef_data,
