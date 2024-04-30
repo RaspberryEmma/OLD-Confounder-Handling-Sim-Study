@@ -40,13 +40,13 @@ source("results.R")
 
 # top-level simulation parameters
 n_obs_init      <- 200
-n_rep_init      <- 10 # 100
+n_rep_init      <- 100
 SE_req_init     <- 0.05
 data_split_init <- 0.75
 
 
 # models to fit and results metrics to measure
-model_methods   <- c("linear", "stepwise", "LASSO", "least_angle", "inf_fwd_stage")
+model_methods   <- c("linear", "stepwise", "two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
 
 results_methods <- c("mse", "r_squared", "param_bias",
                      "causal_effect_bias", "coverage", "open_paths",

@@ -96,7 +96,10 @@ mse <- function(model          = NULL,
                 test_data      = NULL) {
   value <- NaN
   
-  if (model_method == "LASSO") {
+  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
+  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
+  
+  if (model_method %in% lasso_variants) {
     # separate outcome from other covariates
     test_X    <- test_data[, -1]
     test_y    <- test_data[,  1]
@@ -106,29 +109,6 @@ mse <- function(model          = NULL,
     residuals   <- test_y - pred_y
     value       <- mean(residuals^2)
   }
-  
-  else if (model_method == "least_angle") {
-    # separate outcome from other covariates
-    test_X    <- test_data[, -1]
-    test_y    <- test_data[,  1]
-    
-    model_stats <- summary(model)
-    pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
-    residuals   <- test_y - pred_y
-    value       <- mean(residuals^2)
-  }
-  
-  else if (model_method == "inf_fwd_stage") {
-    # separate outcome from other covariates
-    test_X    <- test_data[, -1]
-    test_y    <- test_data[,  1]
-    
-    model_stats <- summary(model)
-    pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
-    residuals   <- test_y - pred_y
-    value       <- mean(residuals^2)
-  }
-  
   else {
     value <- mean(model$residuals^2)
   }
@@ -141,6 +121,10 @@ r_squared <- function(model          = NULL,
                       optimal_lambda = NULL,
                       model_method   = NULL,
                       test_data      = NULL) {
+  R2 <- NaN
+  
+  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
+  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
   
   # separate outcome from other covariates
   test_X <- test_data[, -1, drop = F]
@@ -148,15 +132,7 @@ r_squared <- function(model          = NULL,
   
   # generate predicted value vector for each model type
   pred_y <- c()
-  if (model_method == "LASSO") {
-    model_stats <- summary(model)
-    pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
-  }
-  else if (model_method == "least_angle") {
-    model_stats <- summary(model)
-    pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
-  }
-  else if (model_method == "inf_fwd_stage") {
+  if (model_method %in% lasso_variants) {
     model_stats <- summary(model)
     pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
   }
@@ -164,23 +140,9 @@ r_squared <- function(model          = NULL,
     pred_y <- predict( model, test_X ) %>% as.vector()
   }
   
-  R2 <- NULL
-  
-  if (model_method == "LASSO") {
-    # see documentation: https://glmnet.stanford.edu/reference/glmnet.html
-    # R2 <- model$dev.ratio
-    
-    SSR <- sum((pred_y - test_y)^2)
-    SST <- sum((test_y - mean(test_y))^2)
-    R2  <- (1 - (SSR / SST))
-    
-  }
-  
-  else {
-    SSR <- sum((pred_y - test_y)^2)
-    SST <- sum((test_y - mean(test_y))^2)
-    R2  <- (1 - (SSR / SST))
-  }
+  SSR <- sum((pred_y - test_y)^2)
+  SST <- sum((test_y - mean(test_y))^2)
+  R2  <- (1 - (SSR / SST))
   
   return (R2)
 }
@@ -217,13 +179,10 @@ param_bias <- function(model_method = NULL,
   
   coefs <- c()
   
-  if (model_method == "LASSO") {
-    coefs <- lars_coefs(model = model)
-  }
-  else if (model_method == "least_angle") {
-    coefs <- lars_coefs(model = model)
-  }
-  else if (model_method == "inf_fwd_stage") {
+  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
+  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
+  
+  if (model_method %in% lasso_variants) {
     coefs <- lars_coefs(model = model)
   }
   else {
@@ -248,21 +207,13 @@ causal_effect_precision <- function() {
 causal_effect_bias <- function(model_method = NULL, model = NULL, true_value  = NULL) {
   error <- 0.0
   
-  if (model_method == "LASSO") {
+  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
+  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
+  
+  if (model_method %in% lasso_variants) {
     model_betas <- lars_coefs(model = model)
     error <- (model_betas['X'] - true_value)
   }
-  
-  else if (model_method == "least_angle") {
-    model_betas <- lars_coefs(model = model)
-    error <- (model_betas['X'] - true_value)
-  }
-  
-  else if (model_method == "inf_fwd_stage") {
-    model_betas <- lars_coefs(model = model)
-    error <- (model_betas['X'] - true_value)
-  }
-  
   else {
     error <- (model$coefficients['X'] - true_value)
   }
@@ -274,20 +225,17 @@ causal_effect_bias <- function(model_method = NULL, model = NULL, true_value  = 
 find_vars_in_model <- function(model_method = NULL, model = NULL) {
   vars <- c()
   
-  if (model_method == "LASSO") {
+  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
+  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
+  
+  if (model_method %in% lasso_variants) {
     vars <- names(lars_coefs(model = model))
     vars <- vars[vars != "(Intercept)"]
     vars <- vars[vars != "X"]
   }
   
-  else if (model_method == "least_angle") {
-    vars <- names(lars_coefs(model = model))
-    vars <- vars[vars != "(Intercept)"]
-    vars <- vars[vars != "X"]
-  }
-  
-  else if (model_method == "inf_fwd_stage") {
-    vars <- names(lars_coefs(model = model))
+  else if (model_method %in% two_step_variants) {
+    vars <- names(model$coefficients)
     vars <- vars[vars != "(Intercept)"]
     vars <- vars[vars != "X"]
   }
@@ -299,6 +247,21 @@ find_vars_in_model <- function(model_method = NULL, model = NULL) {
   }
   
   return (vars)
+}
+
+lasso_selection <- function(model_method = NULL, model = NULL, epsilon = NULL) {
+  # over-ride model_method param here due to object types
+  all_vars      <- find_vars_in_model(model_method = "LASSO", model = model)
+  all_coefs     <- lars_coefs(model = model)[-c(1, 2)]
+  vars_selected <- all_vars[ !(all_coefs < epsilon) ]
+  
+  # # TESTING
+  # message("lasso selection")
+  # print(model_method)
+  # print(all_vars)
+  # print(vars_selected)
+  
+  return (vars_selected)
 }
 
 
@@ -391,67 +354,29 @@ z_inclusion <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
 }
 
 
-# TODO: implement for LASSO and subvariants!
+# TODO: implement for one-stage lasso subvariants
 coverage <- function(model_method = NULL, model = NULL, true_value = NULL) {
   within_CI <- 0.0
   
-  lasso_variants <- c("LASSO", "least_angle", "inf_fwd_stage")
-  
-  # if (model_method == "LASSO") {
-  #   # extract coefficients
-  #   model_betas  <- as.data.frame(as.matrix(model$beta))
-  #   beta_x       <- model_betas['X', 's0']
-  #   
-  #   # determine critical t-value
-  #   # standard 95% CI is assumed
-  #   t_val <- qt(p = 0.975, df = (model$nobs - 2))
-  #   
-  #   # TODO: FIX HERE!
-  #   # determine standard error of beta_x
-  #   # SE =(approx) root(mse) where mse = full regression mse
-  #   # SE = std / sqrt(n_obs)
-  #   se_x <- NaN / sqrt(model$nobs)
-  #   
-  #   # determine lower and upper bounds of CI
-  #   lower <- beta_x - (t_val * se_x)
-  #   upper <- beta_x + (t_val * se_x)
-  #   
-  #   # TESTING
-  #   # print(beta_x)
-  #   # print(true_value)
-  #   # print(t_val)
-  #   # print(se_x)
-  #   within_CI <- NaN # remove when implemented
-  #   #stop("coverage LASSO")
-  #   
-  #   #if ((true_value > lower) && (true_value < upper)) {
-  #   #  within_CI <- 1.0
-  #   #}
-  # }
+  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
+  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
   
   if (model_method %in% lasso_variants) {
     within_CI <- NaN
   }
   
   else {
-    CI    <- confint(model, 'X', level = 0.95)
-    
+    CI <- confint(model, 'X', level = 0.95)
     if ((true_value > CI[1]) && (true_value < CI[2])) {
       within_CI <- 1.0
     }
-    
-    # writeLines("\n")
-    # print(CI)
-    # print(true_value)
-    # print(within_CI)
-    # writeLines("\n")
   }
   
   return (within_CI)
 }
 
 
-benchmark <- function(model_method = NULL, data = NULL) {
+benchmark <- function(model_method = NULL, data = NULL, times = NULL) {
   time <- NaN
   
   data_X <- data[, -1, drop = F]
@@ -460,53 +385,87 @@ benchmark <- function(model_method = NULL, data = NULL) {
   if (model_method == "linear") {
     bench <- microbenchmark::microbenchmark(
       model <- lm(y ~ ., data = data),
-      times = 1 # repetitions at higher level!
+      times = times
     ) %>% invisible()
   }
-  
+
   else if (model_method == "stepwise") {
     bench <- microbenchmark::microbenchmark(
-      step(object = lm(y ~ ., data = data), direction = "both",
-           scope = list(upper = "y ~ .", lower = "y ~ X")),
-      times = 1 # repetitions at higher level!
+      model <- step(object = lm(y ~ ., data = data), direction = "both",
+                    scope = list(upper = "y ~ .", lower = "y ~ X")),
+      times = times
     ) %>% invisible()
   }
-  
+
   else if (model_method == "LASSO") {
     bench <- microbenchmark::microbenchmark(
       model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
                     y         = data_y,            # outcome
                     type      = "lasso",
                     intercept = TRUE),
-      times = 1 # repetitions at higher level!
+      times = times
     ) %>% invisible()
   }
-  
+
   else if (model_method == "least_angle") {
     bench <- microbenchmark::microbenchmark(
-      lars(x         = as.matrix(data_X), # exposure and all other covariates
-           y         = data_y,            # outcome
-           type      = "lar",
-           intercept = TRUE),
-      times = 1 # repetitions at higher level!
+      model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                    y         = data_y,            # outcome
+                    type      = "lar",
+                    intercept = TRUE),
+      times = times
     ) %>% invisible()
   }
-  
+
   else if (model_method == "inf_fwd_stage") {
     bench <- microbenchmark::microbenchmark(
       model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
                     y         = data_y,            # outcome
                     type      = "forward.stagewise",
-                    intercept = TRUE)
+                    intercept = TRUE),
+      times = times
     ) %>% invisible()
   }
-  
+
+  else if (model_method == "two_step_LASSO") {
+    bench <- microbenchmark::microbenchmark(
+      model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                    y         = data_y,            # outcome
+                    type      = "lasso",
+                    intercept = TRUE),
+      model <- lm(y ~ ., data = data),
+      times = times
+    ) %>% invisible()
+  }
+
+  else if (model_method == "two_step_least_angle") {
+    bench <- microbenchmark::microbenchmark(
+      model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                    y         = data_y,            # outcome
+                    type      = "lar",
+                    intercept = TRUE),
+      model <- lm(y ~ ., data = data),
+      times = times
+    ) %>% invisible()
+  }
+
+  else if (model_method == "two_step_inf_fwd_stage") {
+    bench <- microbenchmark::microbenchmark(
+      model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                    y         = data_y,            # outcome
+                    type      = "forward.stagewise",
+                    intercept = TRUE),
+      model <- lm(y ~ ., data = data),
+      times = times
+    ) %>% invisible()
+  }
+
   time <- mean(bench$time)
   return (time)
 }
 
 
-stepwise_fill_in_blanks <- function(coefs = NULL, labels = NULL) {
+fill_in_blanks <- function(coefs = NULL, labels = NULL) {
   names(coefs)[names(coefs) == "(Intercept)"] <- "intercept"
   
   for (label in labels) {
@@ -524,6 +483,7 @@ stepwise_fill_in_blanks <- function(coefs = NULL, labels = NULL) {
 }
 
 
+# glmnet LASSO implementation
 lasso_coefs <- function(model = NULL, n_var = NULL) {
   # extract coefficients
   model_betas  <- as.data.frame(as.matrix(model$beta))
@@ -543,6 +503,7 @@ lasso_coefs <- function(model = NULL, n_var = NULL) {
 }
 
 
+# lars object implementation of LASSO and subvariants
 lars_coefs <- function(model = NULL) {
   model_stats      <- summary(model)
   coefs            <- coef(model, s = which.min(model_stats$Cp), mode="step")
@@ -799,7 +760,7 @@ run <- function(graph           = NULL,
                       ) %>% invisible()
         
         # Record coefficients
-        model_coefs[m, , i] <- stepwise_fill_in_blanks(model$coefficients, beta_names)
+        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
       }
 
       else if (method == "LASSO") {
@@ -812,6 +773,28 @@ run <- function(graph           = NULL,
         model_coefs[m, , i] <-  lars_coefs(model = model)
       }
       
+      else if (method == "two_step_LASSO") {
+        # fit LASSO model
+        model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                      y         = data_y,            # outcome
+                      type      = "lasso",
+                      intercept = TRUE)
+        
+        # find vars in model
+        vars_selected <- lasso_selection(model_method = method, model = model, epsilon = 0.01)
+        
+        # fit new model on the subset of covariates selected
+        formula_string <- "y ~ X"
+        for (var in vars_selected) {
+          formula_string <- paste(formula_string, " + ", var, sep = "")
+        }
+        formula <- as.formula( formula_string )
+        model   <- lm(formula = formula, data = data)
+        
+        # Record coefficients
+        model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
+      }
+      
       else if (method == "least_angle") {
         model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
                       y         = data_y,            # outcome
@@ -822,6 +805,27 @@ run <- function(graph           = NULL,
         model_coefs[m, , i] <- lars_coefs(model = model)
       }
       
+      else if (method == "two_step_least_angle") {
+        model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                      y         = data_y,            # outcome
+                      type      = "lar",
+                      intercept = TRUE)
+        
+        # find vars in model
+        vars_selected <- lasso_selection(model_method = method, model = model, epsilon = 0.01)
+        
+        # fit new model on the subset of covariates selected
+        formula_string <- "y ~ X"
+        for (var in vars_selected) {
+          formula_string <- paste(formula_string, " + ", var, sep = "")
+        }
+        formula <- as.formula( formula_string )
+        model   <- lm(formula = formula, data = data)
+        
+        # Record coefficients
+        model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
+      }
+      
       else if (method == "inf_fwd_stage") {
         model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
                       y         = data_y,            # outcome
@@ -830,6 +834,27 @@ run <- function(graph           = NULL,
         
         # Record coefficients
         model_coefs[m, , i] <- lars_coefs(model = model)
+      }
+      
+      else if (method == "two_step_inf_fwd_stage") {
+        model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                      y         = data_y,            # outcome
+                      type      = "forward.stagewise",
+                      intercept = TRUE)
+        
+        # find vars in model
+        vars_selected <- lasso_selection(model_method = method, model = model, epsilon = 0.01)
+        
+        # fit new model on the subset of covariates selected
+        formula_string <- "y ~ X"
+        for (var in vars_selected) {
+          formula_string <- paste(formula_string, " + ", var, sep = "")
+        }
+        formula <- as.formula( formula_string )
+        model   <- lm(formula = formula, data = data)
+        
+        # Record coefficients
+        model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
       }
       
       # Record results
@@ -896,14 +921,12 @@ run <- function(graph           = NULL,
         }
         
         else if (result == "benchmark") {
-          result_value <- benchmark(model_method = method,
-                                    data         = test_data)
+          result_value <- NaN # calculated afterwards
         }
         results[m, r, i] <- result_value
       }
       
     }
-    
     
     if (messages) {
       print("Data-set Size")
@@ -925,16 +948,27 @@ run <- function(graph           = NULL,
   
   # Generate Results Table
   results_aggr <- apply(results, c(1,2), mean)
-  writeLines("\n")
-  print("Results Table")
-  print(results_aggr)
-  writeLines("\n")
+  
+  # Benchmark methods after run-time
+  for (m in 1:M) {
+    method <- model_methods[m]
+    results_aggr[m, "benchmark"] <- benchmark(model_method = method,
+                                              data         = data,
+                                              times        = 10)
+  }
   
   # Generate Coefficients Table
   coefs_aggr            <- apply(model_coefs, c(1,2), mean)
   true_values           <- coef_data[1, -c(1, 3)]
   rownames(true_values) <- c("true_values")
   coefs_aggr            <- rbind(true_values, coefs_aggr)
+  
+  # Print all results
+  writeLines("\n")
+  print("Results Table")
+  print(results_aggr)
+  writeLines("\n")
+  
   writeLines("\n")
   print("Coefficients Table")
   print(coefs_aggr)
