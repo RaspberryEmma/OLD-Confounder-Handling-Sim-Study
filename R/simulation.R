@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 30/04/2024
+# Most Recent Edit: 01/05/2024
 # ****************************************
 
 # TODO: fix deliberate NaN's
@@ -623,7 +623,6 @@ generate_coef_data <- function(c = NULL, per_var_exp_y = NULL, scaling = NULL) {
   }
   
   # populate table with non-NA entries corresponding to arrows in DAG
-  
   # from X to y
   coef_data[ match("y", var_labels),  "X" ] <- 1
   
@@ -636,9 +635,8 @@ generate_coef_data <- function(c = NULL, per_var_exp_y = NULL, scaling = NULL) {
     coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- 1
   }
   
-  # Scaling and percentage-variance-in-Y
+  # Scaling and shuffling percentage-variance-in-Y
   
-  # scaling
   all_vars        <- var_labels
   vars_with_prior <- var_labels[ coef_data$cause == 1 ]
   
@@ -649,20 +647,47 @@ generate_coef_data <- function(c = NULL, per_var_exp_y = NULL, scaling = NULL) {
     
     message("\n\n")
     print(var)
+    message("Initial Coefficients:")
     print(coef_data[var_index, ])
     
+    # scale
     sum_beta     <- sum(coef_data[var_index, -c(1, 2)], na.rm = TRUE)
     scaled_betas <- (coef_data[var_index, -c(1, 2)] / sum_beta) * scaling
     hold         <- coef_data[var_index, c(1, 2)]
     new_row      <- cbind(hold, scaled_betas)
     coef_data[var_index, ] <- new_row
     
+    message("\nScaled Coefficients:")
     print(coef_data[var_index, ])
+    
+    # adjust
+    # if c=0, then we have no confounders and needn't bother
+    if (var == "y" && c!=0) {
+      betas      <- coef_data[var_index, -c(1, 2)]
+      beta_X     <- unname(betas[2])
+      beta_conf  <- sum(betas[-c(1, 2)], na.rm = TRUE)
+      
+      # solve
+      # we balance our two concerns as two simultaneous equations
+      # then solve in terms of our top-level parameters per_var_exp_y and scaling
+      new_beta_X    <- (1 / ((1 / per_var_exp_y) + 1)) * scaling
+      new_beta_conf <- (1 / per_var_exp_y) * new_beta_X
+      new_beta_Z_i  <- (1 / c) * new_beta_conf
+      
+      # reassemble vector
+      hold           <- coef_data[var_index, c(1, 2)]
+      new_betas      <- coef_data[var_index, -c(1, 2)]
+      new_betas['X'] <- new_beta_X
+      for (i in c(3:(c + 3))) { # index of confounders Z_1 to Z_c begins at 3
+        new_betas[i] <- new_beta_Z_i
+      }
+      new_row                <- cbind(hold, new_betas)
+      coef_data[var_index, ] <- new_row
+      
+      message("\nAdjusted Coefficients:")
+      print(coef_data[var_index, ])
+    }
   }
-  
-  # shuffle
-  # TODO: implement
-  # stop("generate_coef_data")
   
   return (coef_data)
 }

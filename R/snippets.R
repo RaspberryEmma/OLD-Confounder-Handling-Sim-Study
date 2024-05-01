@@ -6,7 +6,7 @@
 # Emma Tarmey
 #
 # Started:          09/04/2024
-# Most Recent Edit: 10/04/2024
+# Most Recent Edit: 01/05/2024
 # ****************************************
 
 
@@ -61,5 +61,25 @@
 # 
 # # generate results plots
 # generate_all_plots()
+
+
+
+
+# # optimise
+# opt_fun  <- function(a, b) {return (a+b)}
+# opt_A    <- rbind(c(1, 1), c(1, (-1 * per_var_exp_y)))
+# opt_b    <- c(scaling, 0)
+# opt_init <- c(beta_X, beta_conf) %>% unlist()
+# 
+# print(opt_A)
+# print(opt_b)
+# print(opt_init)
+# 
+# opt_vals <- constrOptim(theta = opt_init,
+#                         f     = opt_fun,
+#                         grad  = NULL,
+#                         ui    = opt_A,
+#                         ci    = opt_b)
+# View(opt_vals)
 
 

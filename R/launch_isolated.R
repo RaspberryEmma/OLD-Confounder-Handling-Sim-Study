@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 30/04/2024
+# Most Recent Edit: 01/05/2024
 # ****************************************
 
 # clear R memory
@@ -43,8 +43,8 @@ n_obs_init         <- 200
 n_rep_init         <- 100
 SE_req_init        <- 0.05
 data_split_init    <- 0.75
-per_var_exp_y_init <- 0.60
-scaling_init       <- 1.00
+per_var_exp_y_init <- 0.40 # percentage of variance in Y explained by confounders before noise
+scaling_init       <- 1.00 # scale of total size of all coefficient betas
 
 
 # models to fit and results metrics to measure
