@@ -40,9 +40,10 @@ adjacency_matrix_from_coef_data <- function(coef_data = NULL) {
   adj_matrix <- coef_data[, -c(1, 2)]
   labels     <- colnames(adj_matrix)
   
-  adj_matrix[is.na(adj_matrix)] <- 0
-  adj_matrix                    <- t(adj_matrix)
-  colnames(adj_matrix)          <- labels
+  adj_matrix[is.na(adj_matrix)]  <- 0
+  adj_matrix[adj_matrix != 0]    <- 1 # all non-NA entries correspond to arrows
+  adj_matrix                     <- t(adj_matrix)
+  colnames(adj_matrix)           <- labels
   
   return (adj_matrix)
 }
@@ -588,15 +589,11 @@ generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
     }
   }
   
-  # TODO: explore here!
-  # force 0 <= y <= 1
-  # dataset[,  1] <- normalise( dataset[,  1] )
-  
   return (dataset)
 }
 
 
-generate_coef_data <- function(c = c) {
+generate_coef_data <- function(c = NULL, per_var_exp_y = NULL, scaling = NULL) {
   var_labels <- c("y", "X", "Z1")
   
   for (i in seq.int(from = 2, to = (c+1), length.out = c)) {
@@ -639,6 +636,34 @@ generate_coef_data <- function(c = c) {
     coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- 1
   }
   
+  # Scaling and percentage-variance-in-Y
+  
+  # scaling
+  all_vars        <- var_labels
+  vars_with_prior <- var_labels[ coef_data$cause == 1 ]
+  
+  # for every variable generated as a linear combination, re-scale incoming betas
+  # the incoming betas will sum to "scaling", scaling=1.00 by default
+  for (var in vars_with_prior) {
+    var_index    <- which(all_vars == var)
+    
+    message("\n\n")
+    print(var)
+    print(coef_data[var_index, ])
+    
+    sum_beta     <- sum(coef_data[var_index, -c(1, 2)], na.rm = TRUE)
+    scaled_betas <- (coef_data[var_index, -c(1, 2)] / sum_beta) * scaling
+    hold         <- coef_data[var_index, c(1, 2)]
+    new_row      <- cbind(hold, scaled_betas)
+    coef_data[var_index, ] <- new_row
+    
+    print(coef_data[var_index, ])
+  }
+  
+  # shuffle
+  # TODO: implement
+  # stop("generate_coef_data")
+  
   return (coef_data)
 }
 
@@ -650,6 +675,8 @@ run_once <- function(graph           = NULL,
                      model_methods   = NULL,
                      results_methods = NULL,
                      data_split      = NULL,
+                     per_var_exp_y   = NULL,
+                     scaling         = NULL,
                      record_results  = NULL,
                      using_shiny     = FALSE) {
   
@@ -661,7 +688,9 @@ run_once <- function(graph           = NULL,
       labels          = labels,
       model_methods   = model_methods,
       results_methods = results_methods,
-      data_split      - data_split,
+      data_split      = data_split,
+      per_var_exp_y   = per_var_exp_y,
+      scaling         = scaling,
       using_shiny     = using_shiny,
       record_results  = record_results,
       messages        = TRUE)
@@ -676,6 +705,8 @@ run <- function(graph           = NULL,
                 model_methods   = NULL,
                 results_methods = NULL,
                 data_split      = NULL,
+                per_var_exp_y   = NULL,
+                scaling         = NULL,
                 record_results  = NULL,
                 using_shiny     = FALSE,
                 messages        = FALSE) {

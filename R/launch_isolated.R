@@ -39,10 +39,12 @@ source("simulation.R")
 source("results.R")
 
 # top-level simulation parameters
-n_obs_init      <- 200
-n_rep_init      <- 100
-SE_req_init     <- 0.05
-data_split_init <- 0.75
+n_obs_init         <- 200
+n_rep_init         <- 100
+SE_req_init        <- 0.05
+data_split_init    <- 0.75
+per_var_exp_y_init <- 0.60
+scaling_init       <- 1.00
 
 
 # models to fit and results metrics to measure
@@ -56,7 +58,7 @@ c_values        <- c(0, 1, 2, 5, 10, 20)
 
 for (c in c_values) {
   # initialise DAG
-  coef_data      <- generate_coef_data(c = c)
+  coef_data      <- generate_coef_data(c = c, per_var_exp_y = per_var_exp_y_init, scaling = scaling_init)
   DAG_adj_matrix <- adjacency_matrix_from_coef_data(coef_data = coef_data)
   DAG_labels     <- colnames(DAG_adj_matrix)
   DAG_graph      <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
@@ -70,6 +72,8 @@ for (c in c_values) {
       model_methods   = model_methods,
       results_methods = results_methods,
       data_split      = data_split_init,
+      per_var_exp_y   = per_var_exp_y_init,
+      scaling         = scaling_init,
       record_results  = TRUE)
 
   # generate results plots
