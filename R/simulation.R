@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 01/05/2024
+# Most Recent Edit: 07/06/2024
 # ****************************************
 
 # TODO: fix deliberate NaN's
@@ -199,6 +199,32 @@ param_bias <- function(model_method = NULL,
 }
 
 
+avg_abs_param_bias <- function(model_method = NULL,
+                                        model        = NULL,
+                                        true_values  = NULL) {
+  
+  coefs <- c()
+  
+  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
+  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
+  
+  if (model_method %in% lasso_variants) {
+    coefs <- lars_coefs(model = model)
+  }
+  else {
+    coefs <- model$coefficients
+  }
+  
+  # fix intercept name differences
+  names(coefs)[names(coefs) == "(Intercept)"] <- "intercept"
+  
+  param_error         <- errors(coefs, true_values[1, ])
+  avg_abs_param_error <- mean(abs(param_error))
+  
+  return (avg_abs_param_error)
+}
+
+
 # TODO: implement!
 causal_effect_precision <- function() {
   return (NaN)
@@ -306,9 +332,11 @@ blocked_paths <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
   # identify all covariates included in model
   vars_in_model <- find_vars_in_model(model_method = model_method, model = model)
   
+  
   # determine whether open paths are blocked properly in model
   for (path in open_DAG_paths) {
     vars_on_path <- find_vars_in_path(path)
+    
     
     # detect if path is blocked by whether path var is included in model
     blocked <- FALSE
@@ -666,24 +694,24 @@ generate_coef_data <- function(c = NULL, per_var_exp_y = NULL, scaling = NULL) {
       betas      <- coef_data[var_index, -c(1, 2)]
       beta_X     <- unname(betas[2])
       beta_conf  <- sum(betas[-c(1, 2)], na.rm = TRUE)
-      
+
       # solve
       # we balance our two concerns as two simultaneous equations
       # then solve in terms of our top-level parameters per_var_exp_y and scaling
       new_beta_X    <- (1 / ((1 / per_var_exp_y) + 1)) * scaling
       new_beta_conf <- (1 / per_var_exp_y) * new_beta_X
       new_beta_Z_i  <- (1 / c) * new_beta_conf
-      
+
       # reassemble vector
       hold           <- coef_data[var_index, c(1, 2)]
       new_betas      <- coef_data[var_index, -c(1, 2)]
       new_betas['X'] <- new_beta_X
-      for (i in c(3:(c + 3))) { # index of confounders Z_1 to Z_c begins at 3
+      for (i in c(3:(c + 2))) { # index of confounders Z_1 to Z_c begins at 3
         new_betas[i] <- new_beta_Z_i
       }
       new_row                <- cbind(hold, new_betas)
       coef_data[var_index, ] <- new_row
-      
+
       message("\nAdjusted Coefficients:")
       print(coef_data[var_index, ])
     }
@@ -938,6 +966,12 @@ run <- function(graph           = NULL,
                                      true_values  = coef_data[, -c(1, 3)]) # all beta terms
         }
         
+        else if (result == "avg_abs_param_bias") {
+          result_value <- avg_abs_param_bias(model_method = method,
+                                                      model        = model,
+                                                      true_values  = coef_data[, -c(1, 3)]) # all beta terms
+        }
+        
         else if (result == "causal_effect_precision") {
           result_value <- causal_effect_precision()
         }
@@ -1014,9 +1048,11 @@ run <- function(graph           = NULL,
   }
   
   # Generate Coefficients Table
+  coefs_last            <- model_coefs[, , n_rep]
   coefs_aggr            <- apply(model_coefs, c(1,2), mean)
   true_values           <- coef_data[1, -c(1, 3)]
   rownames(true_values) <- c("true_values")
+  coefs_last            <- rbind(true_values, coefs_last)
   coefs_aggr            <- rbind(true_values, coefs_aggr)
   
   # Print all results
@@ -1026,7 +1062,12 @@ run <- function(graph           = NULL,
   writeLines("\n")
   
   writeLines("\n")
-  print("Coefficients Table")
+  print("Last Iteration Coefficients Table")
+  print(coefs_last)
+  writeLines("\n")
+  
+  writeLines("\n")
+  print("Aggregated Coefficients Table")
   print(coefs_aggr)
   writeLines("\n")
   

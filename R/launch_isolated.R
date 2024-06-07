@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 01/05/2024
+# Most Recent Edit: 07/06/2024
 # ****************************************
 
 # clear R memory
@@ -40,21 +40,24 @@ source("results.R")
 
 # top-level simulation parameters
 n_obs_init         <- 200
-n_rep_init         <- 100
+# n_rep_init        <- 100
+n_rep_init         <- 20
 SE_req_init        <- 0.05
 data_split_init    <- 0.75
-per_var_exp_y_init <- 0.40 # percentage of variance in Y explained by confounders before noise
+per_var_exp_y_init <- 0.30 # percentage of variance in Y explained by confounders before noise
 scaling_init       <- 1.00 # scale of total size of all coefficient betas
 
 
 # models to fit and results metrics to measure
 model_methods   <- c("linear", "stepwise", "two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
 
-results_methods <- c("mse", "r_squared", "param_bias",
+results_methods <- c("mse", "r_squared", "avg_abs_param_bias",
                      "causal_effect_bias", "coverage", "open_paths",
                      "blocked_paths", "z_inclusion", "benchmark")
 
-c_values        <- c(0, 1, 2, 5, 10, 20)
+# limited here for testing
+#c_values        <- c(0, 1, 2, 5, 10, 20)
+c_values <- c(0, 1, 2)
 
 for (c in c_values) {
   # initialise DAG
