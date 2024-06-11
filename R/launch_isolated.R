@@ -40,8 +40,7 @@ source("results.R")
 
 # top-level simulation parameters
 n_obs_init         <- 200
-# n_rep_init        <- 100
-n_rep_init         <- 20
+n_rep_init         <- 100
 SE_req_init        <- 0.05
 data_split_init    <- 0.75
 per_var_exp_y_init <- 0.30 # percentage of variance in Y explained by confounders before noise
@@ -51,13 +50,14 @@ scaling_init       <- 1.00 # scale of total size of all coefficient betas
 # models to fit and results metrics to measure
 model_methods   <- c("linear", "stepwise", "two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
 
-results_methods <- c("mse", "r_squared", "avg_abs_param_bias",
-                     "causal_effect_bias", "coverage", "open_paths",
-                     "blocked_paths", "z_inclusion", "benchmark")
+results_methods <- c("mse", "r_squared",                                     # prediction
+                     "causal_effect_bias", "avg_abs_param_bias", "coverage", # beta coefs
+                     "open_paths", "blocked_paths", "benchmark")             # other
 
-# limited here for testing
+# limited subset for testing
+c_values <- c(30, 40)
+
 #c_values        <- c(0, 1, 2, 5, 10, 20)
-c_values <- c(0, 1, 2)
 
 for (c in c_values) {
   # initialise DAG
