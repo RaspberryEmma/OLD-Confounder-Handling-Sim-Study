@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 07/06/2024
+# Most Recent Edit: 26/06/2024
 # ****************************************
 
 # clear R memory
@@ -39,12 +39,11 @@ source("simulation.R")
 source("results.R")
 
 # top-level simulation parameters
-n_obs_init         <- 200
-n_rep_init         <- 100
+n_obs_init         <- 100  #200
+n_rep_init         <- 10  #100
 SE_req_init        <- 0.05
-data_split_init    <- 0.75
-per_var_exp_y_init <- 0.30 # percentage of variance in Y explained by confounders before noise
-scaling_init       <- 1.00 # scale of total size of all coefficient betas
+data_split_init    <- 0.50
+target_r_sq_init   <- 0.60 # oracle R-squared value we induce
 
 
 # models to fit and results metrics to measure
@@ -55,13 +54,12 @@ results_methods <- c("mse", "r_squared",                                     # p
                      "open_paths", "blocked_paths", "benchmark")             # other
 
 # limited subset for testing
-c_values <- c(30, 40)
-
+c_values <- c(5)
 #c_values        <- c(0, 1, 2, 5, 10, 20)
 
 for (c in c_values) {
   # initialise DAG
-  coef_data      <- generate_coef_data(c = c, per_var_exp_y = per_var_exp_y_init, scaling = scaling_init)
+  coef_data      <- generate_coef_data(c = c, target_r_sq = target_r_sq_init, scaling = scaling_init)
   DAG_adj_matrix <- adjacency_matrix_from_coef_data(coef_data = coef_data)
   DAG_labels     <- colnames(DAG_adj_matrix)
   DAG_graph      <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
@@ -75,8 +73,7 @@ for (c in c_values) {
       model_methods   = model_methods,
       results_methods = results_methods,
       data_split      = data_split_init,
-      per_var_exp_y   = per_var_exp_y_init,
-      scaling         = scaling_init,
+      target_r_sq     = target_r_sq_init,
       record_results  = TRUE)
 
   # generate results plots

@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 07/06/2024
+# Most Recent Edit: 26/06/2024
 # ****************************************
 
 # TODO: fix deliberate NaN's
@@ -620,8 +620,26 @@ generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
   return (dataset)
 }
 
+# generate values for beta_Zi,X for all i
+beta_formula <- function(num_conf = NULL, target_r_sq) {
+  value <- sqrt((1/num_conf) * (target_r_sq/(1 - target_r_sq)))
+  return (value)
+}
 
-generate_coef_data <- function(c = NULL, per_var_exp_y = NULL, scaling = NULL) {
+
+var_X_formula <- function(num_conf = NULL, beta = NULL) {
+  return ((num_conf*(beta*beta)) + 1)
+}
+
+
+var_Y_formula <- function(num_conf = NULL, beta = NULL, tuning = NULL) {
+  d     <- beta
+  var_X <- var_X_formula(num_conf = num_conf, beta = beta)
+  return (((tuning^2)*var_X) + (num_conf*(d^2)) + (-2 * num_conf * beta) + 1)
+}
+
+
+generate_coef_data <- function(c = NULL, target_r_sq = NULL, scaling = NULL) {
   var_labels <- c("y", "X", "Z1")
   
   for (i in seq.int(from = 2, to = (c+1), length.out = c)) {
@@ -663,58 +681,28 @@ generate_coef_data <- function(c = NULL, per_var_exp_y = NULL, scaling = NULL) {
     coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- 1
   }
   
-  # Scaling and shuffling percentage-variance-in-Y
+  
+  # Adjust all beta values in order to control R2
   
   all_vars        <- var_labels
   vars_with_prior <- var_labels[ coef_data$cause == 1 ]
   
   # for every variable generated as a linear combination, re-scale incoming betas
-  # the incoming betas will sum to "scaling", scaling=1.00 by default
   for (var in vars_with_prior) {
     var_index    <- which(all_vars == var)
     
-    message("\n\n")
-    print(var)
-    message("Initial Coefficients:")
-    print(coef_data[var_index, ])
-    
-    # scale
-    sum_beta     <- sum(coef_data[var_index, -c(1, 2)], na.rm = TRUE)
-    scaled_betas <- (coef_data[var_index, -c(1, 2)] / sum_beta) * scaling
-    hold         <- coef_data[var_index, c(1, 2)]
-    new_row      <- cbind(hold, scaled_betas)
-    coef_data[var_index, ] <- new_row
-    
-    message("\nScaled Coefficients:")
-    print(coef_data[var_index, ])
-    
-    # adjust
-    # if c=0, then we have no confounders and needn't bother
-    if (var == "y" && c!=0) {
-      betas      <- coef_data[var_index, -c(1, 2)]
-      beta_X     <- unname(betas[2])
-      beta_conf  <- sum(betas[-c(1, 2)], na.rm = TRUE)
-
-      # solve
-      # we balance our two concerns as two simultaneous equations
-      # then solve in terms of our top-level parameters per_var_exp_y and scaling
-      new_beta_X    <- (1 / ((1 / per_var_exp_y) + 1)) * scaling
-      new_beta_conf <- (1 / per_var_exp_y) * new_beta_X
-      new_beta_Z_i  <- (1 / c) * new_beta_conf
-
-      # reassemble vector
-      hold           <- coef_data[var_index, c(1, 2)]
-      new_betas      <- coef_data[var_index, -c(1, 2)]
-      new_betas['X'] <- new_beta_X
-      for (i in c(3:(c + 2))) { # index of confounders Z_1 to Z_c begins at 3
-        new_betas[i] <- new_beta_Z_i
-      }
-      new_row                <- cbind(hold, new_betas)
-      coef_data[var_index, ] <- new_row
-
-      message("\nAdjusted Coefficients:")
-      print(coef_data[var_index, ])
+    # enter uniform betas's as appropriate
+    uniform_beta <- beta_formula(num_conf = c, target_r_sq = target_r_sq)
+    for (i in seq.int(from = 1, to = (c), length.out = c)) {
+      # from confounder i to y
+      coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- uniform_beta
+      
+      # from confounder i to X
+      coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- uniform_beta
     }
+    
+    # select and insert appropriate beta_X,Y
+    coef_data[ match("y", var_labels), "X" ] <- 0.5
   }
   
   return (coef_data)
@@ -728,8 +716,7 @@ run_once <- function(graph           = NULL,
                      model_methods   = NULL,
                      results_methods = NULL,
                      data_split      = NULL,
-                     per_var_exp_y   = NULL,
-                     scaling         = NULL,
+                     target_r_sq     = NULL,
                      record_results  = NULL,
                      using_shiny     = FALSE) {
   
@@ -742,8 +729,7 @@ run_once <- function(graph           = NULL,
       model_methods   = model_methods,
       results_methods = results_methods,
       data_split      = data_split,
-      per_var_exp_y   = per_var_exp_y,
-      scaling         = scaling,
+      target_r_sq     = target_r_sq,
       using_shiny     = using_shiny,
       record_results  = record_results,
       messages        = TRUE)
@@ -758,8 +744,7 @@ run <- function(graph           = NULL,
                 model_methods   = NULL,
                 results_methods = NULL,
                 data_split      = NULL,
-                per_var_exp_y   = NULL,
-                scaling         = NULL,
+                target_r_sq     = NULL,
                 record_results  = NULL,
                 using_shiny     = FALSE,
                 messages        = FALSE) {
@@ -1055,35 +1040,39 @@ run <- function(graph           = NULL,
   coefs_last            <- rbind(true_values, coefs_last)
   coefs_aggr            <- rbind(true_values, coefs_aggr)
   
-  # Print all results
+  # Generate Variable Monitoring Table
+  sample_mean <- sapply(data, mean, na.rm = T)
+  sample_sd   <- sapply(data, sd, na.rm = T)
+  sample_var  <- sapply(data, sd, na.rm = T)^2
+  sample_sum  <- rbind(sample_mean, sample_sd, sample_var)
+  
+  writeLines("\n\n")
+  print("Oracle Coefficients")
+  print(coef_data)
+  
+  writeLines("\n")
+  print("Sample Data Summary Table")
+  print(sample_sum)
+  
   writeLines("\n")
   print("Results Table")
   print(results_aggr)
-  writeLines("\n")
   
-  writeLines("\n")
-  print("Last Iteration Coefficients Table")
-  print(coefs_last)
-  writeLines("\n")
+  #writeLines("\n")
+  #print("Last Iteration Coefficients Table")
+  #print(coefs_last)
   
   writeLines("\n")
   print("Aggregated Coefficients Table")
   print(coefs_aggr)
-  writeLines("\n")
   
   # Sim parameters
   params <- data.frame(
-    preset <- c("n_rep", "n_obs", "data_split"),
-    value  <- c(n_rep, n_obs, data_split)
+    preset <- c("n_rep", "n_obs", "data_split", "target_r_sq"),
+    value  <- c(n_rep, n_obs, data_split, target_r_sq)
   )
   
   if (record_results) {
-    # # Record current date time
-    # # replace : with - for windows compatibility
-    # date_string <- Sys.time()
-    # date_string <- gsub(":", "-", date_string)
-    # date_string <- gsub(" ", "_", date_string)
-    
     case_string <- paste("c", (ncol(coef_data) - 5), sep = "")
     
     if (using_shiny) { setwd("..") }
