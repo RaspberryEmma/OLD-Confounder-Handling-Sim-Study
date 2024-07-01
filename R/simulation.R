@@ -617,35 +617,41 @@ generate_dataset <- function(coef_data         = NULL,
   return (dataset)
 }
 
-
+# The uniform beta coefficients used for generating X
 beta_X_formula <- function(num_conf = NULL, target_r_sq) {
   value <- sqrt((1/num_conf) * (target_r_sq/(1 - target_r_sq)))
   return (value)
 }
 
+# The uniform beta coefficients used for generating Y,
+# currently we assume d=b (i.e same as X)
 beta_Y_formula <- function(num_conf = NULL, target_r_sq) {
   value <- sqrt((1/num_conf) * (target_r_sq/(1 - target_r_sq)))
   return (value)
 }
 
-
+# Mean of X we induce
 mean_X_formula <- function(intercept_X = NULL) {
   return (intercept_X)
 }
 
+# Variance for X we induce
 var_X_formula <- function(num_conf = NULL, beta_X = NULL) {
   return ((num_conf*(beta_X^2)) + 1)
 }
 
+# Mean for Y we induce (I think)
 mean_Y_formula <- function(intercept_Y = NULL, causal_effect = NULL, mean_X = NULL) {
   return (intercept_Y + (causal_effect * mean_X))
 }
 
+# Mean for Y we induce (I think)
 var_Y_formula <- function(num_conf = NULL, beta_X = NULL, beta_Y = NULL, causal_effect = NULL) {
   var_X <- var_X_formula(num_conf = num_conf, beta_X = beta_X)
   return ( ((causal_effect^2)*var_X) + (num_conf*(beta_Y^2)) + ((-2) * num_conf * beta_X) + 1 )
 }
 
+# The beta coefficient for the X-Y relationship (i.e the causal relationship)
 causal_effect_formula <- function(num_conf = NULL, target_r_sq = NULL, uniform_beta_X = NULL, uniform_beta_Y = NULL) {
   numerator   <- target_r_sq - (num_conf * (uniform_beta_Y^2)) + (2 * num_conf * uniform_beta_X) - 1
   denominator <- (num_conf * uniform_beta_X^2) + 1
@@ -653,7 +659,7 @@ causal_effect_formula <- function(num_conf = NULL, target_r_sq = NULL, uniform_b
   return (rescale * sqrt(numerator / denominator))
 }
 
-
+# Building the table of coefficients we use for data-set generation
 generate_coef_data <- function(c = NULL, target_r_sq = NULL, scaling = NULL) {
   var_labels <- c("y", "X", "Z1")
   

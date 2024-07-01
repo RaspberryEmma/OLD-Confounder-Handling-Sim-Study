@@ -38,6 +38,9 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 source("simulation.R")
 source("results.R")
 
+# fix RNG for reproducibility
+set.seed(2024)
+
 # top-level simulation parameters
 # reduced values for testing
 n_obs_init        <- 200
@@ -45,7 +48,7 @@ n_rep_init        <- 100
 SE_req_init       <- 0.05
 data_split_init   <- 0.50 # TODO: fix NULL case!
 
-target_r_sq_init       <- 0.50 # oracle R-squared value we induce
+target_r_sq_init       <- 0.60 # oracle R-squared value we induce
 oracle_error_mean_init <- 0.00 # error term across every causal interaction
 oracle_error_sd_init   <- 1.00
 
