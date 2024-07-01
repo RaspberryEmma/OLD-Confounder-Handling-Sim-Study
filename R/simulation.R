@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 26/06/2024
+# Most Recent Edit: 01/07/2024
 # ****************************************
 
 # TODO: fix deliberate NaN's
@@ -627,19 +627,31 @@ beta_formula <- function(num_conf = NULL, target_r_sq) {
 }
 
 
+mean_X_formula <- function(intercept_X = NULL) {
+  return (intercept_X)
+}
+
 var_X_formula <- function(num_conf = NULL, beta = NULL) {
-  return ((num_conf*(beta*beta)) + 1)
+  return ((num_conf*(beta^2)) + 1)
 }
 
+mean_Y_formula <- function(intercept_Y = NULL, causal_effect = NULL, mean_X = NULL) {
+  return (intercept_Y + (causal_effect * mean_X))
+}
 
-var_Y_formula <- function(num_conf = NULL, beta = NULL, tuning = NULL) {
-  d     <- beta
+var_Y_formula <- function(num_conf = NULL, beta = NULL, causal_effect = NULL) {
   var_X <- var_X_formula(num_conf = num_conf, beta = beta)
-  return (((tuning^2)*var_X) + (num_conf*(d^2)) + (-2 * num_conf * beta) + 1)
+  return ( ((causal_effect^2)*var_X) + (num_conf*(beta^2)) + ((-2) * num_conf * beta) + 1 )
 }
 
 
+# TODO: emergency fix c=1 case here!
 generate_coef_data <- function(c = NULL, target_r_sq = NULL, scaling = NULL) {
+  # c=0 -> var_labels = c(y, X, Z1)         (Z1 is a dummy variable)
+  # c=1 -> var_labels = c(y, X, Z1, Z2)     (Z2 is a dummy variable)
+  # c=2 -> var_labels = c(y, X, Z1, Z2, Z3) (Z3 is a dummy variable)
+  # and so on...
+  
   var_labels <- c("y", "X", "Z1")
   
   for (i in seq.int(from = 2, to = (c+1), length.out = c)) {
@@ -702,6 +714,7 @@ generate_coef_data <- function(c = NULL, target_r_sq = NULL, scaling = NULL) {
     }
     
     # select and insert appropriate beta_X,Y
+    # TODO: fine-tune here, determine optimal value with some formula
     coef_data[ match("y", var_labels), "X" ] <- 0.5
   }
   
@@ -1040,31 +1053,72 @@ run <- function(graph           = NULL,
   coefs_last            <- rbind(true_values, coefs_last)
   coefs_aggr            <- rbind(true_values, coefs_aggr)
   
+  # Generate var_data table
+  var_labels    <- colnames(coef_data)[-c(1, 2)]
+  print(var_labels)
+  #stop("results section of run")
+  
+  metric_names  <- c("oracle_R2", "oracle_causal", "oracle_beta",
+                     "mean_Y", "var_Y", "mean_X", "var_X")
+  
+  oracle_var <- c(target_r_sq,
+                  0.5,
+                  
+                  beta_formula(num_conf = c, target_r_sq = target_r_sq),
+                  
+                  mean_Y_formula(intercept_Y   = coef_data[ match("y", var_labels), "intercept" ],
+                                 causal_effect = coef_data[ match("y", var_labels), "X" ],
+                                 mean_X        = mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ])),
+                  
+                  var_Y_formula(num_conf      = c,
+                                beta          = beta_formula(num_conf = c, target_r_sq = target_r_sq),
+                                causal_effect = coef_data[ match("y", var_labels), "X" ]) %>% as.numeric(),
+                  
+                  mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ]),
+                  
+                  var_X_formula(num_conf      = c,
+                                beta          = beta_formula(num_conf = c,target_r_sq = target_r_sq))
+  )
+  
+  names(oracle_var) <- metric_names
+  
   # Generate Variable Monitoring Table
   sample_mean <- sapply(data, mean, na.rm = T)
   sample_sd   <- sapply(data, sd, na.rm = T)
   sample_var  <- sapply(data, sd, na.rm = T)^2
-  sample_sum  <- rbind(sample_mean, sample_sd, sample_var)
+  sample_vars <- rbind(sample_mean, sample_sd, sample_var)
+  
+  writeLines("\n\n")
+  print("Oracle Variances")
+  print(oracle_var)
+  
+  writeLines("\n")
+  print("Sample Variances")
+  print(sample_vars)
+  
+  writeLines("\n")
+  print("Sample Covariance Matrix")
+  print(cov(data))
+  
+  writeLines("\n")
+  print("Correlation Matrix")
+  print(cor(data))
   
   writeLines("\n\n")
   print("Oracle Coefficients")
   print(coef_data)
   
+  #writeLines("\n")
+  #print("Last Iteration Estimated Coefficients Table")
+  #print(coefs_last)
+  
   writeLines("\n")
-  print("Sample Data Summary Table")
-  print(sample_sum)
+  print("Aggregated Estimated Coefficients Table")
+  print(coefs_aggr)
   
   writeLines("\n")
   print("Results Table")
   print(results_aggr)
-  
-  #writeLines("\n")
-  #print("Last Iteration Coefficients Table")
-  #print(coefs_last)
-  
-  writeLines("\n")
-  print("Aggregated Coefficients Table")
-  print(coefs_aggr)
   
   # Sim parameters
   params <- data.frame(

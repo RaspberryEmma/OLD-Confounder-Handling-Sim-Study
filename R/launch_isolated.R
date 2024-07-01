@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 26/06/2024
+# Most Recent Edit: 01/07/2024
 # ****************************************
 
 # clear R memory
@@ -39,11 +39,12 @@ source("simulation.R")
 source("results.R")
 
 # top-level simulation parameters
-n_obs_init         <- 100  #200
-n_rep_init         <- 10  #100
+# reduced values for testing
+n_obs_init         <- 200
+n_rep_init         <- 10   #100
 SE_req_init        <- 0.05
 data_split_init    <- 0.50
-target_r_sq_init   <- 0.60 # oracle R-squared value we induce
+target_r_sq_init   <- 0.50 # oracle R-squared value we induce
 
 
 # models to fit and results metrics to measure
@@ -54,7 +55,7 @@ results_methods <- c("mse", "r_squared",                                     # p
                      "open_paths", "blocked_paths", "benchmark")             # other
 
 # limited subset for testing
-c_values <- c(5)
+c_values <- c(1)
 #c_values        <- c(0, 1, 2, 5, 10, 20)
 
 for (c in c_values) {
