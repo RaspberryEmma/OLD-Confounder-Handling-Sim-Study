@@ -40,11 +40,14 @@ source("results.R")
 
 # top-level simulation parameters
 # reduced values for testing
-n_obs_init         <- 200
-n_rep_init         <- 10   #100
-SE_req_init        <- 0.05
-data_split_init    <- 0.50
-target_r_sq_init   <- 0.50 # oracle R-squared value we induce
+n_obs_init        <- 200
+n_rep_init        <- 100
+SE_req_init       <- 0.05
+data_split_init   <- 0.50 # TODO: fix NULL case!
+
+target_r_sq_init       <- 0.50 # oracle R-squared value we induce
+oracle_error_mean_init <- 0.00 # error term across every causal interaction
+oracle_error_sd_init   <- 1.00
 
 
 # models to fit and results metrics to measure
@@ -55,8 +58,8 @@ results_methods <- c("mse", "r_squared",                                     # p
                      "open_paths", "blocked_paths", "benchmark")             # other
 
 # limited subset for testing
-c_values <- c(1)
-#c_values        <- c(0, 1, 2, 5, 10, 20)
+#c_values <- c(2)
+c_values        <- c(1, 2, 5, 10, 20, 30)
 
 for (c in c_values) {
   # initialise DAG
@@ -66,16 +69,18 @@ for (c in c_values) {
   DAG_graph      <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
 
   # simulation procedure call
-  run(graph           = DAG_graph,
-      coef_data       = coef_data,
-      n_obs           = n_obs_init,
-      n_rep           = n_rep_init,
-      labels          = DAG_labels,
-      model_methods   = model_methods,
-      results_methods = results_methods,
-      data_split      = data_split_init,
-      target_r_sq     = target_r_sq_init,
-      record_results  = TRUE)
+  run(graph             = DAG_graph,
+      coef_data         = coef_data,
+      n_obs             = n_obs_init,
+      n_rep             = n_rep_init,
+      labels            = DAG_labels,
+      model_methods     = model_methods,
+      results_methods   = results_methods,
+      data_split        = data_split_init,
+      target_r_sq       = target_r_sq_init,
+      oracle_error_mean = oracle_error_mean_init,
+      oracle_error_sd   = oracle_error_sd_init,
+      record_results    = TRUE)
 
   # generate results plots
   generate_all_plots(case = c)

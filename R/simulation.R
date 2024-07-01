@@ -225,12 +225,6 @@ avg_abs_param_bias <- function(model_method = NULL,
 }
 
 
-# TODO: implement!
-causal_effect_precision <- function() {
-  return (NaN)
-}
-
-
 causal_effect_bias <- function(model_method = NULL, model = NULL, true_value  = NULL) {
   error <- 0.0
   
@@ -560,7 +554,11 @@ all_priors_exist <- function(i = NULL, dataset = NULL, i_coef = NULL) {
 }
 
 
-generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
+generate_dataset <- function(coef_data         = NULL,
+                             n_obs             = NULL,
+                             oracle_error_mean = NULL,
+                             oracle_error_sd   = NULL,
+                             labels            = NULL) {
   # initialize
   n_node            <- length(labels)
   dataset           <- data.frame(matrix(NA, nrow = n_obs, ncol = n_node))
@@ -603,8 +601,7 @@ generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
         }
         
         # error term
-        # error sd is quite important
-        error        <- rnorm(n = n_obs, mean = 0, sd = 0.1)
+        error        <- rnorm(n = n_obs, mean = oracle_error_mean, sd = oracle_error_sd)
         dataset[, i] <- rowSums( cbind(dataset[, i], error), na.rm = TRUE)
         
         # remove i from "caused" list
@@ -620,8 +617,13 @@ generate_dataset <- function(coef_data = NULL, n_obs = NULL, labels = NULL) {
   return (dataset)
 }
 
-# generate values for beta_Zi,X for all i
-beta_formula <- function(num_conf = NULL, target_r_sq) {
+
+beta_X_formula <- function(num_conf = NULL, target_r_sq) {
+  value <- sqrt((1/num_conf) * (target_r_sq/(1 - target_r_sq)))
+  return (value)
+}
+
+beta_Y_formula <- function(num_conf = NULL, target_r_sq) {
   value <- sqrt((1/num_conf) * (target_r_sq/(1 - target_r_sq)))
   return (value)
 }
@@ -631,46 +633,50 @@ mean_X_formula <- function(intercept_X = NULL) {
   return (intercept_X)
 }
 
-var_X_formula <- function(num_conf = NULL, beta = NULL) {
-  return ((num_conf*(beta^2)) + 1)
+var_X_formula <- function(num_conf = NULL, beta_X = NULL) {
+  return ((num_conf*(beta_X^2)) + 1)
 }
 
 mean_Y_formula <- function(intercept_Y = NULL, causal_effect = NULL, mean_X = NULL) {
   return (intercept_Y + (causal_effect * mean_X))
 }
 
-var_Y_formula <- function(num_conf = NULL, beta = NULL, causal_effect = NULL) {
-  var_X <- var_X_formula(num_conf = num_conf, beta = beta)
-  return ( ((causal_effect^2)*var_X) + (num_conf*(beta^2)) + ((-2) * num_conf * beta) + 1 )
+var_Y_formula <- function(num_conf = NULL, beta_X = NULL, beta_Y = NULL, causal_effect = NULL) {
+  var_X <- var_X_formula(num_conf = num_conf, beta_X = beta_X)
+  return ( ((causal_effect^2)*var_X) + (num_conf*(beta_Y^2)) + ((-2) * num_conf * beta_X) + 1 )
+}
+
+causal_effect_formula <- function(num_conf = NULL, target_r_sq = NULL, uniform_beta_X = NULL, uniform_beta_Y = NULL) {
+  numerator   <- target_r_sq - (num_conf * (uniform_beta_Y^2)) + (2 * num_conf * uniform_beta_X) - 1
+  denominator <- (num_conf * uniform_beta_X^2) + 1
+  rescale     <- 0.1
+  return (rescale * sqrt(numerator / denominator))
 }
 
 
-# TODO: emergency fix c=1 case here!
 generate_coef_data <- function(c = NULL, target_r_sq = NULL, scaling = NULL) {
-  # c=0 -> var_labels = c(y, X, Z1)         (Z1 is a dummy variable)
-  # c=1 -> var_labels = c(y, X, Z1, Z2)     (Z2 is a dummy variable)
-  # c=2 -> var_labels = c(y, X, Z1, Z2, Z3) (Z3 is a dummy variable)
-  # and so on...
-  
   var_labels <- c("y", "X", "Z1")
   
-  for (i in seq.int(from = 2, to = (c+1), length.out = c)) {
-    # add label corresponding to variable i
-    new_label <- paste("Z", i, sep = "")
-    var_labels <- c(var_labels, new_label)
+  if (c > 0) {
+    Z_list     <- c(2:(c+1))
+    for (i in Z_list) {
+      # add label corresponding to variable i
+      new_label <- paste("Z", i, sep = "")
+      var_labels <- c(var_labels, new_label)
+    }
   }
   
   n_var <- length(var_labels)
   
   cause <- rep(0,  times = n_var)
   cause[ match("y", var_labels) ] <- 1
-  if (c > 1) {
+  if (c > 0) {
     cause[ match("X", var_labels) ] <- 1
   }
   
   intercept <- rep(NA, times = n_var)
   intercept[ match("y", var_labels) ] <- 1
-  if (c > 1) {
+  if (c > 0) {
     intercept[ match("X", var_labels) ] <- 1
   }
   
@@ -695,6 +701,13 @@ generate_coef_data <- function(c = NULL, target_r_sq = NULL, scaling = NULL) {
   
   
   # Adjust all beta values in order to control R2
+  # for now, we assume d=b
+  uniform_beta_X       <- beta_X_formula(num_conf = c, target_r_sq = target_r_sq)
+  uniform_beta_Y       <- beta_Y_formula(num_conf = c, target_r_sq = target_r_sq)
+  oracle_causal_effect <- causal_effect_formula(num_conf       = c,
+                                                target_r_sq    = target_r_sq,
+                                                uniform_beta_X = uniform_beta_X,
+                                                uniform_beta_Y = uniform_beta_Y)
   
   all_vars        <- var_labels
   vars_with_prior <- var_labels[ coef_data$cause == 1 ]
@@ -704,69 +717,73 @@ generate_coef_data <- function(c = NULL, target_r_sq = NULL, scaling = NULL) {
     var_index    <- which(all_vars == var)
     
     # enter uniform betas's as appropriate
-    uniform_beta <- beta_formula(num_conf = c, target_r_sq = target_r_sq)
     for (i in seq.int(from = 1, to = (c), length.out = c)) {
       # from confounder i to y
-      coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- uniform_beta
+      coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- uniform_beta_Y
       
       # from confounder i to X
-      coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- uniform_beta
+      coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- uniform_beta_X
     }
     
     # select and insert appropriate beta_X,Y
-    # TODO: fine-tune here, determine optimal value with some formula
-    coef_data[ match("y", var_labels), "X" ] <- 0.5
+    coef_data[ match("y", var_labels), "X" ] <- oracle_causal_effect
   }
   
   return (coef_data)
 }
 
 
-run_once <- function(graph           = NULL,
-                     coef_data       = NULL,
-                     n_obs           = NULL,
-                     labels          = NULL,
-                     model_methods   = NULL,
-                     results_methods = NULL,
-                     data_split      = NULL,
-                     target_r_sq     = NULL,
-                     record_results  = NULL,
-                     using_shiny     = FALSE) {
+run_once <- function(graph             = NULL,
+                     coef_data         = NULL,
+                     n_obs             = NULL,
+                     labels            = NULL,
+                     model_methods     = NULL,
+                     results_methods   = NULL,
+                     data_split        = NULL,
+                     target_r_sq       = NULL,
+                     oracle_error_mean = NULL,
+                     oracle_error_sd   = NULL,
+                     record_results    = NULL,
+                     using_shiny       = FALSE) {
   
   # run one iteration
   run(graph = graph,
-      coef_data       = coef_data,
-      n_obs           = n_obs,
-      n_rep           = 1,
-      labels          = labels,
-      model_methods   = model_methods,
-      results_methods = results_methods,
-      data_split      = data_split,
-      target_r_sq     = target_r_sq,
-      using_shiny     = using_shiny,
-      record_results  = record_results,
-      messages        = TRUE)
+      coef_data         = coef_data,
+      n_obs             = n_obs,
+      n_rep             = 1,
+      labels            = labels,
+      model_methods     = model_methods,
+      results_methods   = results_methods,
+      data_split        = data_split,
+      target_r_sq       = target_r_sq,
+      oracle_error_mean = oracle_error_mean,
+      oracle_error_sd   = oracle_error_sd,
+      using_shiny       = using_shiny,
+      record_results    = record_results,
+      messages          = TRUE)
 }
 
 
-run <- function(graph           = NULL,
-                coef_data       = NULL,
-                n_obs           = NULL,
-                n_rep           = NULL,
-                labels          = NULL,
-                model_methods   = NULL,
-                results_methods = NULL,
-                data_split      = NULL,
-                target_r_sq     = NULL,
-                record_results  = NULL,
-                using_shiny     = FALSE,
-                messages        = FALSE) {
+run <- function(graph             = NULL,
+                coef_data         = NULL,
+                n_obs             = NULL,
+                n_rep             = NULL,
+                labels            = NULL,
+                model_methods     = NULL,
+                results_methods   = NULL,
+                data_split        = NULL,
+                target_r_sq       = NULL,
+                oracle_error_mean = NULL,
+                oracle_error_sd   = NULL,
+                record_results    = NULL,
+                using_shiny       = FALSE,
+                messages          = FALSE) {
   
   print("running!")
   
   # constants
   beta_names <- colnames(coef_data)[-c(1, 3)]
-  B <- length(beta_names) # number of betas
+  B <- length(beta_names)
   M <- length(model_methods)
   R <- length(results_methods)
   
@@ -790,7 +807,11 @@ run <- function(graph           = NULL,
     # if NULL, use the same data for testing and training
     if(is.null(data_split)) {
       # generate training data
-      data <- generate_dataset(coef_data = coef_data, n_obs = n_obs, labels = labels)
+      data <- generate_dataset(coef_data         = coef_data,
+                               n_obs             = n_obs,
+                               oracle_error_mean = oracle_error_mean,
+                               oracle_error_sd   = oracle_error_sd,
+                               labels            = labels)
       
       # test on same data
       test_data <- data
@@ -803,10 +824,18 @@ run <- function(graph           = NULL,
       test_split  <- (n_obs - train_split)
       
       # generate training data
-      data <- generate_dataset(coef_data = coef_data, n_obs = train_split, labels = labels)
+      data <- generate_dataset(coef_data         = coef_data,
+                               n_obs             = train_split,
+                               oracle_error_mean = oracle_error_mean,
+                               oracle_error_sd   = oracle_error_sd,
+                               labels            = labels)
       
       # generate seperate testing data
-      test_data <- generate_dataset(coef_data = coef_data, n_obs = test_split, labels = labels)
+      test_data <- generate_dataset(coef_data         = coef_data,
+                                    n_obs             = test_split,
+                                    oracle_error_mean = oracle_error_mean,
+                                    oracle_error_sd   = oracle_error_sd,
+                                    labels            = labels)
       
       # record this data
       representative_data <- rbind(data, test_data)
@@ -1055,29 +1084,30 @@ run <- function(graph           = NULL,
   
   # Generate var_data table
   var_labels    <- colnames(coef_data)[-c(1, 2)]
-  print(var_labels)
-  #stop("results section of run")
-  
-  metric_names  <- c("oracle_R2", "oracle_causal", "oracle_beta",
-                     "mean_Y", "var_Y", "mean_X", "var_X")
+  metric_names  <- c("R2", "causal", "beta_X", "beta_Y",
+                     "mean_Y", "var_Y", "mean_X", "var_X", "error_mean", "error_var")
   
   oracle_var <- c(target_r_sq,
-                  0.5,
-                  
-                  beta_formula(num_conf = c, target_r_sq = target_r_sq),
+                  coef_data[ match("y", var_labels), "X" ],
+                  beta_X_formula(num_conf = c, target_r_sq = target_r_sq),
+                  beta_Y_formula(num_conf = c, target_r_sq = target_r_sq),
                   
                   mean_Y_formula(intercept_Y   = coef_data[ match("y", var_labels), "intercept" ],
                                  causal_effect = coef_data[ match("y", var_labels), "X" ],
                                  mean_X        = mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ])),
                   
                   var_Y_formula(num_conf      = c,
-                                beta          = beta_formula(num_conf = c, target_r_sq = target_r_sq),
+                                beta_X        = beta_X_formula(num_conf = c, target_r_sq = target_r_sq),
+                                beta_Y        = beta_Y_formula(num_conf = c, target_r_sq = target_r_sq),
                                 causal_effect = coef_data[ match("y", var_labels), "X" ]) %>% as.numeric(),
                   
                   mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ]),
                   
                   var_X_formula(num_conf      = c,
-                                beta          = beta_formula(num_conf = c,target_r_sq = target_r_sq))
+                                beta_X        = beta_X_formula(num_conf = c, target_r_sq = target_r_sq)),
+                  
+                  oracle_error_mean,
+                  (oracle_error_sd^2)
   )
   
   names(oracle_var) <- metric_names
@@ -1089,7 +1119,7 @@ run <- function(graph           = NULL,
   sample_vars <- rbind(sample_mean, sample_sd, sample_var)
   
   writeLines("\n\n")
-  print("Oracle Variances")
+  print("Oracle Distributions")
   print(oracle_var)
   
   writeLines("\n")
