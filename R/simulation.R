@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 01/07/2024
+# Most Recent Edit: 03/07/2024
 # ****************************************
 
 # TODO: fix deliberate NaN's
@@ -118,10 +118,42 @@ mse <- function(model          = NULL,
 }
 
 
-r_squared <- function(model          = NULL,
-                      optimal_lambda = NULL,
-                      model_method   = NULL,
-                      test_data      = NULL) {
+# TODO: implement!
+r_squared_X <- function(model          = NULL,
+                        optimal_lambda = NULL,
+                        model_method   = NULL,
+                        test_data      = NULL) {
+  # R2 <- NaN
+  # 
+  # lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
+  # two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
+  # 
+  # # separate outcome from other covariates
+  # test_X <- test_data[, -1, drop = F]
+  # test_y <- test_data[,  1]
+  # 
+  # # generate predicted value vector for each model type
+  # pred_y <- c()
+  # if (model_method %in% lasso_variants) {
+  #   model_stats <- summary(model)
+  #   pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
+  # }
+  # else {
+  #   pred_y <- predict( model, test_X ) %>% as.vector()
+  # }
+  # 
+  # SSR <- sum((pred_y - test_y)^2)
+  # SST <- sum((test_y - mean(test_y))^2)
+  # R2  <- (1 - (SSR / SST))
+  
+  return (NaN)
+}
+
+
+r_squared_Y <- function(model          = NULL,
+                        optimal_lambda = NULL,
+                        model_method   = NULL,
+                        test_data      = NULL) {
   R2 <- NaN
   
   lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
@@ -617,50 +649,106 @@ generate_dataset <- function(coef_data         = NULL,
   return (dataset)
 }
 
+
 # The uniform beta coefficients used for generating X
-beta_X_formula <- function(num_conf = NULL, target_r_sq) {
-  value <- sqrt((1/num_conf) * (target_r_sq/(1 - target_r_sq)))
-  return (value)
+beta_X_formula <- function(num_conf = NULL, target_r_sq_X = NULL) {
+  value <- sqrt((1/num_conf) * (target_r_sq_X/(1 - target_r_sq_X)))
+  return (0.5 * value)
 }
+
 
 # The uniform beta coefficients used for generating Y,
 # currently we assume d=b (i.e same as X)
-beta_Y_formula <- function(num_conf = NULL, target_r_sq) {
-  value <- sqrt((1/num_conf) * (target_r_sq/(1 - target_r_sq)))
-  return (value)
+beta_Y_formula <- function(num_conf = NULL, target_r_sq_Y = NULL) {
+  value <- sqrt((1/num_conf) * (target_r_sq_Y/(1 - target_r_sq_Y)))
+  return (0.5 * value)
 }
+
 
 # Mean of X we induce
 mean_X_formula <- function(intercept_X = NULL) {
   return (intercept_X)
 }
 
+
 # Variance for X we induce
 var_X_formula <- function(num_conf = NULL, beta_X = NULL) {
-  return ((num_conf*(beta_X^2)) + 1)
+  m <- num_conf
+  b <- beta_X
+  return ((m*(b^2)) + 1)
 }
+
 
 # Mean for Y we induce (I think)
 mean_Y_formula <- function(intercept_Y = NULL, causal_effect = NULL, mean_X = NULL) {
   return (intercept_Y + (causal_effect * mean_X))
 }
 
+
 # Mean for Y we induce (I think)
-var_Y_formula <- function(num_conf = NULL, beta_X = NULL, beta_Y = NULL, causal_effect = NULL) {
-  var_X <- var_X_formula(num_conf = num_conf, beta_X = beta_X)
-  return ( ((causal_effect^2)*var_X) + (num_conf*(beta_Y^2)) + ((-2) * num_conf * beta_X) + 1 )
+var_Y_formula <- function(num_conf      = NULL,
+                          beta_X        = NULL,
+                          beta_Y        = NULL,
+                          causal_effect = NULL) {
+  m     <- num_conf
+  b     <- beta_X
+  d     <- beta_Y
+  var_X <- var_X_formula(num_conf = m, beta_X = b)
+  
+  return ( (causal_effect^2 * var_X) + (m * d^2) + (2 * m * d) + 1 )
 }
+
+
+analytic_r_sq_Y <- function(num_conf = NULL,
+                            beta_X   = NULL,
+                            beta_Y   = NULL,
+                            causal   = NULL) {
+  m     <- num_conf
+  b     <- beta_X
+  d     <- beta_Y
+  var_X <- var_X_formula(num_conf = m, beta_X = b)
+
+  numerator   <- ((causal*b + d)^2 * m) + causal
+  denominator <- ((causal*b + d)^2 * m) + causal + 1
+
+  return (numerator / denominator)
+}
+
 
 # The beta coefficient for the X-Y relationship (i.e the causal relationship)
-causal_effect_formula <- function(num_conf = NULL, target_r_sq = NULL, uniform_beta_X = NULL, uniform_beta_Y = NULL) {
-  numerator   <- target_r_sq - (num_conf * (uniform_beta_Y^2)) + (2 * num_conf * uniform_beta_X) - 1
-  denominator <- (num_conf * uniform_beta_X^2) + 1
-  rescale     <- 0.1
-  return (rescale * sqrt(numerator / denominator))
+causal_effect_formula <- function(num_conf       = NULL,   # m
+                                  target_r_sq_Y  = NULL,   # r
+                                  uniform_beta_X = NULL,   # b
+                                  uniform_beta_Y = NULL) { # d
+  # short-hand
+  m     <- num_conf
+  r_Y   <- target_r_sq_Y
+  b     <- uniform_beta_X
+  d     <- uniform_beta_Y
+  
+  # determine causal effect value by inverting analytic R2
+  # fix num_conf, beta_x and beta_Y to treat R2 as f: R -> R
+  inverse_R2 <- GoFKernel::inverse(function(x) {analytic_r_sq_Y(num_conf = m, beta_X = b, beta_Y = d, causal = x)}, lower = 0, upper = 10)
+  
+  # plot R2 curve
+  causal_values <- seq(from = 0, to = 10, length.out = 1000)
+  r2_Y_values   <- sapply(causal_values, analytic_r_sq_Y, num_conf = m, beta_X = b, beta_Y = d)
+  plot(x = causal_values,
+       y = r2_Y_values,
+       type='l',
+       main=paste('Inducing R2 Analytically\nm =', m, ';  b =', b, ';  d =', d))
+  
+  causal <- inverse_R2( target_r_sq_Y_init )
+  message('Causal Effect = ', causal)
+  return (causal)
 }
 
+
 # Building the table of coefficients we use for data-set generation
-generate_coef_data <- function(c = NULL, target_r_sq = NULL, scaling = NULL) {
+generate_coef_data <- function(c             = NULL,
+                               target_r_sq_X = NULL,
+                               target_r_sq_Y = NULL) {
+  
   var_labels <- c("y", "X", "Z1")
   
   if (c > 0) {
@@ -708,12 +796,16 @@ generate_coef_data <- function(c = NULL, target_r_sq = NULL, scaling = NULL) {
   
   # Adjust all beta values in order to control R2
   # for now, we assume d=b
-  uniform_beta_X       <- beta_X_formula(num_conf = c, target_r_sq = target_r_sq)
-  uniform_beta_Y       <- beta_Y_formula(num_conf = c, target_r_sq = target_r_sq)
+  uniform_beta_X       <- beta_X_formula(num_conf = c, target_r_sq_X = target_r_sq_X)
+  uniform_beta_Y       <- beta_Y_formula(num_conf = c, target_r_sq_Y = target_r_sq_Y)
+  
   oracle_causal_effect <- causal_effect_formula(num_conf       = c,
-                                                target_r_sq    = target_r_sq,
+                                                target_r_sq_Y  = target_r_sq_Y,
                                                 uniform_beta_X = uniform_beta_X,
                                                 uniform_beta_Y = uniform_beta_Y)
+  
+  # 0.7789985
+  # oracle_causal_effect <- 0.005
   
   all_vars        <- var_labels
   vars_with_prior <- var_labels[ coef_data$cause == 1 ]
@@ -746,7 +838,8 @@ run_once <- function(graph             = NULL,
                      model_methods     = NULL,
                      results_methods   = NULL,
                      data_split        = NULL,
-                     target_r_sq       = NULL,
+                     target_r_sq_X     = NULL,
+                     target_r_sq_Y     = NULL,
                      oracle_error_mean = NULL,
                      oracle_error_sd   = NULL,
                      record_results    = NULL,
@@ -761,7 +854,8 @@ run_once <- function(graph             = NULL,
       model_methods     = model_methods,
       results_methods   = results_methods,
       data_split        = data_split,
-      target_r_sq       = target_r_sq,
+      target_r_sq_X     = target_r_sq_X,
+      target_r_sq_Y     = target_r_sq_Y,
       oracle_error_mean = oracle_error_mean,
       oracle_error_sd   = oracle_error_sd,
       using_shiny       = using_shiny,
@@ -778,7 +872,8 @@ run <- function(graph             = NULL,
                 model_methods     = NULL,
                 results_methods   = NULL,
                 data_split        = NULL,
-                target_r_sq       = NULL,
+                target_r_sq_X     = NULL,
+                target_r_sq_Y     = NULL,
                 oracle_error_mean = NULL,
                 oracle_error_sd   = NULL,
                 record_results    = NULL,
@@ -986,11 +1081,18 @@ run <- function(graph             = NULL,
                               test_data      = test_data)
         }
         
-        else if (result == "r_squared") {
-          result_value <- r_squared(model          = model,
-                                    optimal_lambda = optimal_lambda,
-                                    model_method   = method,
-                                    test_data      = test_data)
+        else if (result == "r_squared_X") {
+          result_value <- r_squared_X(model          = model,
+                                      optimal_lambda = optimal_lambda,
+                                      model_method   = method,
+                                      test_data      = test_data)
+        }
+        
+        else if (result == "r_squared_Y") {
+          result_value <- r_squared_Y(model          = model,
+                                      optimal_lambda = optimal_lambda,
+                                      model_method   = method,
+                                      test_data      = test_data)
         }
         
         else if (result == "param_bias") {
@@ -1090,30 +1192,30 @@ run <- function(graph             = NULL,
   
   # Generate var_data table
   var_labels    <- colnames(coef_data)[-c(1, 2)]
-  metric_names  <- c("R2", "causal", "beta_X", "beta_Y",
-                     "mean_Y", "var_Y", "mean_X", "var_X", "error_mean", "error_var")
+  metric_names  <- c("R2_X", "R2_Y", "causal_effect", "beta_X", "beta_Y",
+                     "mean_Y", "var_Y", "mean_X", "var_X")
+  oracle_beta_X <- beta_X_formula(num_conf = c, target_r_sq_X = target_r_sq_X)
+  oracle_beta_Y <- beta_Y_formula(num_conf = c, target_r_sq_Y = target_r_sq_Y)
   
-  oracle_var <- c(target_r_sq,
+  oracle_var <- c(target_r_sq_X,
+                  target_r_sq_Y,
                   coef_data[ match("y", var_labels), "X" ],
-                  beta_X_formula(num_conf = c, target_r_sq = target_r_sq),
-                  beta_Y_formula(num_conf = c, target_r_sq = target_r_sq),
+                  oracle_beta_X,
+                  oracle_beta_Y,
                   
                   mean_Y_formula(intercept_Y   = coef_data[ match("y", var_labels), "intercept" ],
                                  causal_effect = coef_data[ match("y", var_labels), "X" ],
                                  mean_X        = mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ])),
                   
                   var_Y_formula(num_conf      = c,
-                                beta_X        = beta_X_formula(num_conf = c, target_r_sq = target_r_sq),
-                                beta_Y        = beta_Y_formula(num_conf = c, target_r_sq = target_r_sq),
+                                beta_X        = oracle_beta_X,
+                                beta_Y        = oracle_beta_Y,
                                 causal_effect = coef_data[ match("y", var_labels), "X" ]) %>% as.numeric(),
                   
                   mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ]),
                   
                   var_X_formula(num_conf      = c,
-                                beta_X        = beta_X_formula(num_conf = c, target_r_sq = target_r_sq)),
-                  
-                  oracle_error_mean,
-                  (oracle_error_sd^2)
+                                beta_X        = oracle_beta_X)
   )
   
   names(oracle_var) <- metric_names
@@ -1129,24 +1231,28 @@ run <- function(graph             = NULL,
   print(oracle_var)
   
   writeLines("\n")
+  print("Analytic R2")
+  print(analytic_r_sq_Y(num_conf = c, beta_X = oracle_beta_X, beta_Y = oracle_beta_Y, causal = coef_data[ match("y", var_labels), "X" ]))
+  
+  writeLines("\n")
   print("Sample Variances")
   print(sample_vars)
   
-  writeLines("\n")
-  print("Sample Covariance Matrix")
-  print(cov(data))
-  
-  writeLines("\n")
-  print("Correlation Matrix")
-  print(cor(data))
+  # writeLines("\n")
+  # print("Sample Covariance Matrix")
+  # print(cov(data))
+  # 
+  # writeLines("\n")
+  # print("Correlation Matrix")
+  # print(cor(data))
   
   writeLines("\n\n")
   print("Oracle Coefficients")
   print(coef_data)
   
-  #writeLines("\n")
-  #print("Last Iteration Estimated Coefficients Table")
-  #print(coefs_last)
+  # writeLines("\n")
+  # print("Last Iteration Estimated Coefficients Table")
+  # print(coefs_last)
   
   writeLines("\n")
   print("Aggregated Estimated Coefficients Table")
@@ -1158,8 +1264,8 @@ run <- function(graph             = NULL,
   
   # Sim parameters
   params <- data.frame(
-    preset <- c("n_rep", "n_obs", "data_split", "target_r_sq"),
-    value  <- c(n_rep, n_obs, data_split, target_r_sq)
+    preset <- c("n_rep", "n_obs", "data_split", "target_r_sq_X", "target_r_sq_Y"),
+    value  <- c(n_rep, n_obs, data_split, target_r_sq_X, target_r_sq_Y)
   )
   
   if (record_results) {

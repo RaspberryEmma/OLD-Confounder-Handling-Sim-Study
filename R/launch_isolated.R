@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 01/07/2024
+# Most Recent Edit: 03/07/2024
 # ****************************************
 
 # clear R memory
@@ -43,30 +43,34 @@ set.seed(2024)
 
 # top-level simulation parameters
 # reduced values for testing
-n_obs_init        <- 200
-n_rep_init        <- 100
+n_obs_init        <- 10000
+n_rep_init        <- 10 # 100
 SE_req_init       <- 0.05
-data_split_init   <- 0.50 # TODO: fix NULL case!
+data_split_init   <- 0.50
 
-target_r_sq_init       <- 0.60 # oracle R-squared value we induce
-oracle_error_mean_init <- 0.00 # error term across every causal interaction
-oracle_error_sd_init   <- 1.00
+target_r_sq_X_init     <- 0.6 # oracle R-squared value, proportion of variance in X explained by all Z's, we induce
+target_r_sq_Y_init     <- 0.6 # oracle R-squared value, proportion of variance in Y explained by X and all Z's, we induce
+
+oracle_error_mean_init <- 0.00 # error term mean
+oracle_error_sd_init   <- 1.00 # error term sd
 
 
 # models to fit and results metrics to measure
 model_methods   <- c("linear", "stepwise", "two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
 
-results_methods <- c("mse", "r_squared",                                     # prediction
+results_methods <- c("mse", "r_squared_X", "r_squared_Y",                    # prediction
                      "causal_effect_bias", "avg_abs_param_bias", "coverage", # beta coefs
                      "open_paths", "blocked_paths", "benchmark")             # other
 
 # limited subset for testing
-#c_values <- c(2)
-c_values        <- c(1, 2, 5, 10, 20, 30)
+c_values <- c(3)
+#c_values        <- c(1, 2, 5, 10, 20, 30)
 
 for (c in c_values) {
   # initialise DAG
-  coef_data      <- generate_coef_data(c = c, target_r_sq = target_r_sq_init, scaling = scaling_init)
+  coef_data      <- generate_coef_data(c             = c,
+                                       target_r_sq_X = target_r_sq_X_init,
+                                       target_r_sq_Y = target_r_sq_Y_init)
   DAG_adj_matrix <- adjacency_matrix_from_coef_data(coef_data = coef_data)
   DAG_labels     <- colnames(DAG_adj_matrix)
   DAG_graph      <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
@@ -80,7 +84,8 @@ for (c in c_values) {
       model_methods     = model_methods,
       results_methods   = results_methods,
       data_split        = data_split_init,
-      target_r_sq       = target_r_sq_init,
+      target_r_sq_X     = target_r_sq_X_init,
+      target_r_sq_Y     = target_r_sq_Y_init,
       oracle_error_mean = oracle_error_mean_init,
       oracle_error_sd   = oracle_error_sd_init,
       record_results    = TRUE)
