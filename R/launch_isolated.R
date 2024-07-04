@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 03/07/2024
+# Most Recent Edit: 04/07/2024
 # ****************************************
 
 # clear R memory
@@ -48,7 +48,8 @@ n_rep_init        <- 10 # 100
 SE_req_init       <- 0.05
 data_split_init   <- 0.50
 
-target_r_sq_X_init     <- 0.6 # oracle R-squared value, proportion of variance in X explained by all Z's, we induce
+# important that rX < rY for numerical reasons
+target_r_sq_X_init     <- 0.4 # oracle R-squared value, proportion of variance in X explained by all Z's, we induce
 target_r_sq_Y_init     <- 0.6 # oracle R-squared value, proportion of variance in Y explained by X and all Z's, we induce
 
 oracle_error_mean_init <- 0.00 # error term mean
@@ -60,11 +61,11 @@ model_methods   <- c("linear", "stepwise", "two_step_LASSO", "two_step_least_ang
 
 results_methods <- c("mse", "r_squared_X", "r_squared_Y",                    # prediction
                      "causal_effect_bias", "avg_abs_param_bias", "coverage", # beta coefs
-                     "open_paths", "blocked_paths", "benchmark")             # other
+                     "open_paths", "blocked_paths")             # other
 
 # limited subset for testing
-c_values <- c(3)
-#c_values        <- c(1, 2, 5, 10, 20, 30)
+#c_values <- c(4)
+c_values        <- c(1, 2, 5, 10, 20)
 
 for (c in c_values) {
   # initialise DAG
