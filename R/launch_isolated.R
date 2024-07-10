@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 04/07/2024
+# Most Recent Edit: 10/07/2024
 # ****************************************
 
 # clear R memory
@@ -49,8 +49,10 @@ SE_req_init       <- 0.05
 data_split_init   <- 0.50
 
 # important that rX < rY for numerical reasons
-target_r_sq_X_init     <- 0.40 # oracle R-squared value, proportion of variance in X explained by all Z's, we induce
-target_r_sq_Y_init     <- 0.60 # oracle R-squared value, proportion of variance in Y explained by X and all Z's, we induce
+# c <= 0 for suff high values of asymmetry - watch carefully!
+target_r_sq_X_init     <- 0.4 # oracle R-squared value, proportion of variance in X explained by all Z's, we induce
+target_r_sq_Y_init     <- 0.6 # oracle R-squared value, proportion of variance in Y explained by X and all Z's, we induce
+asymmetry_init         <- 1.3 # ratio of effect-on-Y to effect-on-X of the confounding variables, set to 1.0 for symmetrical case
 
 oracle_error_mean_init <- 0.00 # error term mean
 oracle_error_sd_init   <- 1.00 # error term sd
@@ -63,13 +65,14 @@ results_methods <- c("mse", "r_squared_X", "r_squared_Y",                    # p
                      "causal_effect_bias", "avg_abs_param_bias", "coverage", # beta coefs
                      "open_paths", "blocked_paths")             # other
 
-c_values        <- c(1, 2, 4, 8)
+c_values        <- c(1, 2, 4)
 
 for (c in c_values) {
   # initialise DAG
   coef_data      <- generate_coef_data(c             = c,
                                        target_r_sq_X = target_r_sq_X_init,
-                                       target_r_sq_Y = target_r_sq_Y_init)
+                                       target_r_sq_Y = target_r_sq_Y_init,
+                                       asymmetry     = asymmetry_init)
   DAG_adj_matrix <- adjacency_matrix_from_coef_data(coef_data = coef_data)
   DAG_labels     <- colnames(DAG_adj_matrix)
   DAG_graph      <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
@@ -85,6 +88,7 @@ for (c in c_values) {
       data_split        = data_split_init,
       target_r_sq_X     = target_r_sq_X_init,
       target_r_sq_Y     = target_r_sq_Y_init,
+      asymmetry         = asymmetry_init,
       oracle_error_mean = oracle_error_mean_init,
       oracle_error_sd   = oracle_error_sd_init,
       record_results    = TRUE)
