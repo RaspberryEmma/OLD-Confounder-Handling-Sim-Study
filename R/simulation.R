@@ -714,8 +714,8 @@ analytic_r_sq_Y <- function(num_conf = NULL,
   b <- beta_X
   d <- beta_Y
 
-  numerator   <- ((causal*b + d)^2 * m) + causal
-  denominator <- ((causal*b + d)^2 * m) + causal + 1
+  numerator   <- ((causal*b + d)^2 * m) + causal^2
+  denominator <- ((causal*b + d)^2 * m) + causal^2 + 1
 
   return (numerator / denominator)
 }
@@ -728,10 +728,54 @@ analytic_symmetric_r_sq_Y <- function(num_conf = NULL,
   m <- num_conf
   b <- beta_X
   
-  numerator   <- ((causal*b + b)^2 * m) + causal
-  denominator <- ((causal*b + b)^2 * m) + causal + 1
+  numerator   <- ((causal*b + b)^2 * m) + causal^2
+  denominator <- ((causal*b + b)^2 * m) + causal^2 + 1
   
   return (numerator / denominator)
+}
+
+
+# empirical_causal_effect <- function(num_conf = NULL, beta_X = NULL) {
+#   epsilon        <- 0.001
+#   causal_values  <- seq(from = 0, to = 10, length.out = 10000)
+#   
+#   for (causal in causal_values) {
+#     current_r_Y <- analytic_symmetric_r_sq_Y(num_conf = m,
+#                                              beta_X   = beta_X,
+#                                              causal   = causal)
+#     
+#     if ( (current_r_Y > r_Y - epsilon) && (current_r_Y < r_Y + epsilon) ) {
+#       # numerically force non-zero solutions only
+#       if (causal > 0 + epsilon) {
+#         optimal_causal <- causal 
+#         message("beta_X = ", beta_X, ";  causal = ", optimal_causal, ";  R2 = ", current_r_Y)
+#       }
+#     }
+#   }
+# }
+
+
+# d=b
+analytic_symmetric_causal_effect <- function(num_conf      = NULL,
+                                             beta_X        = NULL,
+                                             target_r_sq_Y = NULL) {
+  # short-hand
+  m   <- num_conf
+  b   <- beta_X
+  r_Y <- target_r_sq_Y
+  
+  quad_a <- (b^2 * r_Y * m) + (-1 * b^2 * m) + r_Y - 1
+  quad_b <- (2 * r_Y * b^2 * m) + (-2 * b^2 * m)
+  quad_c <- (b^2 * m * r_Y) + r_Y - (b^2 * m)
+  
+  disc  <- (quad_b^2) + (-4 * quad_a * quad_c)
+  sol_1 <- ((-1 * quad_b) + sqrt(disc)) / (2 * quad_a)
+  sol_2 <- ((-1 * quad_b) - sqrt(disc)) / (2 * quad_a)
+  
+  causal <- sol_1
+  if (sol_1 < sol_2) { causal<- sol_2 }
+  
+  return (causal)
 }
 
 
@@ -741,31 +785,12 @@ determine_coefs <- function(target_r_sq_X = NULL,
                             target_r_sq_Y = NULL,
                             num_conf      = NULL) {
   
-  # short hand
-  r_X     <- target_r_sq_X
-  r_Y     <- target_r_sq_Y
-  m       <- num_conf
-  epsilon <- 0.01 # epsilon term
+  beta_X         <- beta_X_formula(num_conf      = num_conf,
+                                   target_r_sq_X = target_r_sq_X)
   
-  # full set of plausible values for causal
-  # R2 is not a well-behaved function, hence we manually optimise
-  causal_values  <- seq(from = 0, to = 10, length.out = 10000)
-  beta_X         <- beta_X_formula(num_conf = m, target_r_sq_X = r_X)
-  optimal_causal <- NaN
-  
-  for (causal in causal_values) {
-    current_r_Y <- analytic_symmetric_r_sq_Y(num_conf = m,
-                                             beta_X   = beta_X,
-                                             causal   = causal)
-    
-    if ( (current_r_Y > r_Y - epsilon) && (current_r_Y < r_Y + epsilon) ) {
-      # numerically force non-zero solutions only
-      if (causal > 0 + epsilon) {
-        optimal_causal <- causal 
-        message("beta_X = ", beta_X, ";  causal = ", optimal_causal, ";  R2 = ", current_r_Y)
-      }
-    }
-  }
+  optimal_causal <- analytic_symmetric_causal_effect(num_conf       = num_conf,
+                                                     beta_X        = beta_X,
+                                                     target_r_sq_Y = target_r_sq_Y)
   
   return (c(beta_X, optimal_causal))
 }
