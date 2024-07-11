@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 10/07/2024
+# Most Recent Edit: 11/07/2024
 # ****************************************
 
 
@@ -660,10 +660,52 @@ beta_X_formula <- function(num_conf = NULL, target_r_sq_X = NULL) {
 }
 
 
-# TODO: Follow through to determine_coefs and generate_coef_data !
+beta_X_levels_condition <- function(num_conf      = NULL,
+                                    target_r_sq_X = NULL,
+                                    beta_Xs       = NULL) {
+  # short-hand
+  m   <- num_conf
+  r_X <- target_r_sq_X
+  
+  LHS     <- sum(beta_Xs^2)
+  RHS     <- (4/m) * (r_X/(1 - r_X))
+  epsilon <- 0.001
+  
+  return ((LHS - RHS) < epsilon)
+}
+
+
+beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmetry_within = NULL) {
+  # short-hand
+  m   <- num_conf
+  r_X <- target_r_sq_X
+  b   <- beta_X_formula(num_conf = m, target_r_sq_X = r_X)
+  
+  # scale
+  b_M_prime <- b * asymmetry_within
+  
+  # adjust
+  b_M <- sqrt( ((4/m) * (r_X/(1 - r_X))) + (-2 * b^2) + (-1 * b_M_prime^2) )
+  
+  # scale
+  b_L <- b * asymmetry_within^2
+  
+  # adjust
+  b_S <- sqrt( ((4/m) * (r_X/(1 - r_X))) + (-1 * b_M^2) + (-1 * b_M_prime^2) + (-1 * b_L^2) )
+  
+  return (c(b_S, b_M, b_M_prime, b_L))
+}
+
+
 # The value for all beta coefficients used for generating Y
-beta_Y_formula <- function(beta_X = NULL, asymmetry = NULL) {
-  return (asymmetry * beta_X)
+beta_Y_formula <- function(beta_X = NULL, asymmetry_between = NULL) {
+  return (asymmetry_between * beta_X)
+}
+
+
+beta_Y_levels_formula <- function(beta_Xs = NULL, asymmetry_between = NULL) {
+  beta_Ys <- asymmetry_between * beta_Xs
+  return (beta_Ys)
 }
 
 
@@ -674,127 +716,121 @@ mean_X_formula <- function(intercept_X = NULL) {
 
 
 # Variance for X we induce
-var_X_formula <- function(num_conf = NULL, beta_X = NULL) {
-  m <- num_conf
-  b <- beta_X
-  return ((m*(b^2)) + 1)
-}
-
-
-# Mean for Y we induce
-mean_Y_formula <- function(intercept_Y = NULL, causal_effect = NULL, mean_X = NULL) {
-  return (intercept_Y + (causal_effect * mean_X))
-}
-
-
-# Mean for Y we induce (b=d)
-# var_Y_symmetric_formula <- function(num_conf      = NULL,
-#                                     beta_X        = NULL,
-#                                     causal_effect = NULL) {
-#   # short-hand
-#   m      <- num_conf
-#   b      <- beta_X
-#   causal <- causal_effect
-#   
-#   return ( ( (causal*b + b)^2 )*m + causal^2 + 1)
+# var_X_formula <- function(num_conf = NULL, beta_X = NULL) {
+#   m <- num_conf
+#   b <- beta_X
+#   return ((m*(b^2)) + 1)
 # }
 
 
+# Variance for X we induce
+var_X_formula <- function(num_conf = NULL, beta_Xs = NULL) {
+  return (((num_conf/4) * sum(beta_Xs^2)) + 1)
+}
+
+
 # Mean for Y we induce
-var_Y_formula <- function(num_conf      = NULL,
-                          beta_X        = NULL,
-                          beta_Y        = NULL,
-                          causal_effect = NULL) {
-  # short-hand
-  m      <- num_conf
-  b      <- beta_X
-  d      <- beta_Y
-  causal <- causal_effect
-  
-  return ( ( (causal*b + d)^2 )*m + causal^2 + 1)
+mean_Y_formula <- function(intercept_Y = NULL, causal = NULL, mean_X = NULL) {
+  return (intercept_Y + (causal * mean_X))
 }
 
 
-analytic_r_sq_X <- function(num_conf = NULL,
-                            beta_X   = NULL) {
-  m <- num_conf
-  b <- beta_X
+# # Mean for Y we induce
+# var_Y_formula <- function(num_conf      = NULL,
+#                           beta_X        = NULL,
+#                           beta_Y        = NULL,
+#                           causal_effect = NULL) {
+#   # short-hand
+#   m      <- num_conf
+#   b      <- beta_X
+#   d      <- beta_Y
+#   causal <- causal_effect
+#   
+#   return ( ( (causal*b + d)^2 )*m + causal^2 + 1)
+# }
+
+
+# Variance for Y we induce
+var_Y_formula <- function(num_conf = NULL,
+                          beta_Xs  = NULL,
+                          beta_Ys  = NULL,
+                          causal   = NULL) {
   
-  numerator   <- (m * b^2)
-  denominator <- (m * b^2) + 1
+  # print(beta_Xs)
+  # print(beta_Ys)
+  # print(causal)
+  # print(causal*beta_Xs)
+  # print( causal*beta_Xs + beta_Ys )
+  # print( sum(( causal*beta_Xs + beta_Ys )^2) + causal^2 + 1  )
+  # stop('Var Y formula - sanity check')
   
-  return (numerator / denominator)
+  return ( ((num_conf/4) * sum(( causal*beta_Xs + beta_Ys )^2)) + causal^2 + 1 )
 }
 
 
-# does not assume b=d
-analytic_r_sq_Y <- function(num_conf = NULL,
-                            beta_X   = NULL,
-                            beta_Y   = NULL,
-                            causal   = NULL) {
-  m <- num_conf
-  b <- beta_X
-  d <- beta_Y
-
-  numerator   <- ((causal*b + d)^2 * m) + causal^2
-  denominator <- ((causal*b + d)^2 * m) + causal^2 + 1
-
-  return (numerator / denominator)
-}
-
-
-# b=d
-# analytic_symmetric_r_sq_Y <- function(num_conf = NULL,
-#                                       beta_X   = NULL,
-#                                       causal   = NULL) {
+# analytic_r_sq_X <- function(num_conf = NULL,
+#                             beta_X   = NULL) {
 #   m <- num_conf
 #   b <- beta_X
 #   
-#   numerator   <- ((causal*b + b)^2 * m) + causal^2
-#   denominator <- ((causal*b + b)^2 * m) + causal^2 + 1
+#   numerator   <- (m * b^2)
+#   denominator <- (m * b^2) + 1
 #   
 #   return (numerator / denominator)
 # }
 
 
-# does not assume b=d
-analytic_causal_effect <- function(num_conf      = NULL,
-                                   beta_X        = NULL,
-                                   beta_Y        = NULL,
-                                   target_r_sq_Y = NULL) {
-  # short-hand
-  m   <- num_conf
-  b   <- beta_X
-  d   <- beta_Y
-  r_Y <- target_r_sq_Y
+analytic_r_sq_X <- function(num_conf = NULL,
+                            beta_Xs  = NULL) {
   
-  quad_a <- (b^2 * r_Y * m) + (-1 * b^2 * m) + r_Y - 1
-  quad_b <- (2 * r_Y * b * d * m) + (-2 * b * d * m)
-  quad_c <- (d^2 * m * r_Y) + r_Y - (d^2 * m)
-  
-  disc  <- (quad_b^2) + (-4 * quad_a * quad_c)
-  sol_1 <- ((-1 * quad_b) + sqrt(disc)) / (2 * quad_a)
-  sol_2 <- ((-1 * quad_b) - sqrt(disc)) / (2 * quad_a)
-  
-  causal <- sol_1
-  if (sol_1 < sol_2) { causal<- sol_2 }
-  
-  return (causal)
+  numerator   <- ((num_conf/4) * sum(beta_Xs^2))
+  denominator <- ((num_conf/4) * sum(beta_Xs^2)) + 1
+  return (numerator / denominator)
 }
 
 
-# b=d
-# analytic_symmetric_causal_effect <- function(num_conf      = NULL,
-#                                              beta_X        = NULL,
-#                                              target_r_sq_Y = NULL) {
+# does not assume b=d
+# analytic_r_sq_Y <- function(num_conf = NULL,
+#                             beta_X   = NULL,
+#                             beta_Y   = NULL,
+#                             causal   = NULL) {
+#   m <- num_conf
+#   b <- beta_X
+#   d <- beta_Y
+# 
+#   numerator   <- ((causal*b + d)^2 * m) + causal^2
+#   denominator <- ((causal*b + d)^2 * m) + causal^2 + 1
+# 
+#   return (numerator / denominator)
+# }
+
+
+analytic_r_sq_Y <- function(num_conf = NULL,
+                            beta_Xs  = NULL,
+                            beta_Ys  = NULL,
+                            causal   = NULL) {
+  
+  numerator   <- ((num_conf/4) * sum( ((causal*beta_Xs) + beta_Ys)^2 )) + causal^2
+  denominator <- ((num_conf/4) * sum( ((causal*beta_Xs) + beta_Ys)^2 )) + causal^2 + 1
+  
+  return (numerator / denominator)
+}
+
+
+# does not assume b=d
+# analytic_causal_effect <- function(num_conf      = NULL,
+#                                    beta_X        = NULL,
+#                                    beta_Y        = NULL,
+#                                    target_r_sq_Y = NULL) {
 #   # short-hand
 #   m   <- num_conf
 #   b   <- beta_X
+#   d   <- beta_Y
 #   r_Y <- target_r_sq_Y
 #   
 #   quad_a <- (b^2 * r_Y * m) + (-1 * b^2 * m) + r_Y - 1
-#   quad_b <- (2 * r_Y * b^2 * m) + (-2 * b^2 * m)
-#   quad_c <- (b^2 * m * r_Y) + r_Y - (b^2 * m)
+#   quad_b <- (2 * r_Y * b * d * m) + (-2 * b * d * m)
+#   quad_c <- (d^2 * m * r_Y) + r_Y - (d^2 * m)
 #   
 #   disc  <- (quad_b^2) + (-4 * quad_a * quad_c)
 #   sol_1 <- ((-1 * quad_b) + sqrt(disc)) / (2 * quad_a)
@@ -807,32 +843,35 @@ analytic_causal_effect <- function(num_conf      = NULL,
 # }
 
 
-# determine a set of optimal parameters (beta_X, causal_effect)
-# such that generated data will produce a given R2 value
-determine_coefs <- function(target_r_sq_X = NULL,
-                            target_r_sq_Y = NULL,
-                            asymmetry     = NULL,
-                            num_conf      = NULL) {
+analytic_levels_causal_effect <- function(num_conf      = NULL,
+                                          beta_Xs       = NULL,
+                                          beta_Ys       = NULL,
+                                          target_r_sq_Y = NULL) {
+  # short-hand
+  m   <- num_conf
+  r_Y <- target_r_sq_Y
   
-  beta_X         <- beta_X_formula(num_conf      = num_conf,
-                                   target_r_sq_X = target_r_sq_X)
+  quad_a <- ((m/4) * (r_Y - 1) * sum( beta_Xs^2 )) + r_Y - 1
+  quad_b <- (m/4) * 2 * (r_Y - 1) * sum( beta_Xs * beta_Ys )
+  quad_c <- ((m/4) * (r_Y - 1) * sum( beta_Ys^2 )) + r_Y
   
-  beta_Y         <- beta_Y_formula(beta_X = beta_X, asymmetry = asymmetry)
+  disc  <- (quad_b^2) + (-4 * quad_a * quad_c)
+  sol_1 <- ((-1 * quad_b) + sqrt(disc)) / (2 * quad_a)
+  sol_2 <- ((-1 * quad_b) - sqrt(disc)) / (2 * quad_a)
   
-  optimal_causal <- analytic_causal_effect(num_conf      = num_conf,
-                                           beta_X        = beta_X,
-                                           beta_Y        = beta_Y,
-                                           target_r_sq_Y = target_r_sq_Y)
+  causal <- sol_1
+  if (sol_1 < sol_2) { causal <- sol_2 }
   
-  return (c(beta_X, beta_Y, optimal_causal))
+  return (causal)
 }
 
 
 # Building the table of coefficients we use for data-set generation
-generate_coef_data <- function(c             = NULL,
-                               target_r_sq_X = NULL,
-                               target_r_sq_Y = NULL,
-                               asymmetry     = NULL) {
+generate_coef_data <- function(c                 = NULL,
+                               target_r_sq_X     = NULL,
+                               target_r_sq_Y     = NULL,
+                               asymmetry_between = NULL,
+                               asymmetry_within  = NULL) {
   
   var_labels <- c("y", "X", "Z1")
   
@@ -878,16 +917,10 @@ generate_coef_data <- function(c             = NULL,
     coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- 1
   }
   
-  
   # Adjust all beta values in order to control R2
-  fixed_r2_coefs <- determine_coefs(target_r_sq_X = target_r_sq_X,
-                                    target_r_sq_Y = target_r_sq_Y,
-                                    asymmetry     = asymmetry,
-                                    num_conf      = c)
-  
-  uniform_beta_X       <- fixed_r2_coefs[1]
-  uniform_beta_Y       <- fixed_r2_coefs[2]
-  oracle_causal_effect <- fixed_r2_coefs[3]
+  beta_Xs               <- beta_X_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry_within = asymmetry_within)
+  beta_Ys               <- beta_Y_levels_formula(beta_Xs = beta_Xs, asymmetry_between = asymmetry_between)
+  oracle_causal_effect  <- analytic_levels_causal_effect(num_conf = c, beta_Xs = beta_Xs, beta_Ys = beta_Ys, target_r_sq_Y = target_r_sq_Y)
   
   all_vars        <- var_labels
   vars_with_prior <- var_labels[ coef_data$cause == 1 ]
@@ -896,13 +929,28 @@ generate_coef_data <- function(c             = NULL,
   for (var in vars_with_prior) {
     var_index    <- which(all_vars == var)
     
-    # enter uniform betas's as appropriate
-    for (i in seq.int(from = 1, to = (c), length.out = c)) {
-      # from confounder i to y
-      coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- uniform_beta_Y
-      
-      # from confounder i to X
-      coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- uniform_beta_X
+    # small betas
+    for (i in seq.int(from = 1, to = (c/4), length.out = c/4)) {
+      coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[1]
+      coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[1]
+    }
+    
+    # medium betas
+    for (i in seq.int(from = ((c/4)+1), to = (c/2), length.out = c/4)) {
+      coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[2]
+      coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[2]
+    }
+    
+    # medium prime betas
+    for (i in seq.int(from = ((c/2)+1), to = ((3*c)/4), length.out = c/4)) {
+      coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[3]
+      coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[3]
+    }
+    
+    # large betas
+    for (i in seq.int(from = (((3*c)/4)+1), to = (c), length.out = c/4)) {
+      coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[4]
+      coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[4]
     }
     
     # select and insert appropriate beta_X,Y
@@ -922,7 +970,8 @@ run_once <- function(graph             = NULL,
                      data_split        = NULL,
                      target_r_sq_X     = NULL,
                      target_r_sq_Y     = NULL,
-                     asymmetry         = NULL,
+                     asymmetry_between = NULL,
+                     asymmetry_within  = NULL,
                      oracle_error_mean = NULL,
                      oracle_error_sd   = NULL,
                      record_results    = NULL,
@@ -939,7 +988,8 @@ run_once <- function(graph             = NULL,
       data_split        = data_split,
       target_r_sq_X     = target_r_sq_X,
       target_r_sq_Y     = target_r_sq_Y,
-      asymmetry         = asymmetry,
+      asymmetry_between = asymmetry_between,
+      asymmetry_within  = asymmetry_within,
       oracle_error_mean = oracle_error_mean,
       oracle_error_sd   = oracle_error_sd,
       using_shiny       = using_shiny,
@@ -958,7 +1008,8 @@ run <- function(graph             = NULL,
                 data_split        = NULL,
                 target_r_sq_X     = NULL,
                 target_r_sq_Y     = NULL,
-                asymmetry         = NULL,
+                asymmetry_between = NULL,
+                asymmetry_within  = NULL,
                 oracle_error_mean = NULL,
                 oracle_error_sd   = NULL,
                 record_results    = NULL,
@@ -1277,30 +1328,39 @@ run <- function(graph             = NULL,
   coefs_aggr            <- rbind(true_values, coefs_aggr)
   
   # Generate oracle variances table
+  # TODO: determine vectors of generated values
+  #stop("run function - fixing results tables based on new functions")
   var_labels    <- colnames(coef_data)[-c(1, 2)]
   metric_names  <- c("mean_Y", "var_Y", "mean_X", "var_X")
-  oracle_beta_X <- coef_data[ match("X", var_labels), "Z1" ]
-  oracle_beta_Y <- coef_data[ match("y", var_labels), "Z1" ]
-  oracle_causal <- coef_data[ match("y", var_labels), "X" ]
-  mean_X        <- mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ])
   
-  oracle_var <- c(mean_Y_formula(intercept_Y   = coef_data[ match("y", var_labels), "intercept" ],
-                                 causal_effect = oracle_causal,
-                                 mean_X        = mean_X),
-                  var_Y_formula(num_conf      = c,
-                                beta_X        = oracle_beta_X,
-                                beta_Y        = oracle_beta_Y,
-                                causal_effect = oracle_causal),
+  oracle_beta_Xs <- beta_X_levels_formula(num_conf         = c,
+                                          target_r_sq_X    = target_r_sq_X,
+                                          asymmetry_within = asymmetry_within)
+  oracle_beta_Ys <- beta_Y_levels_formula(beta_Xs           = oracle_beta_Xs,
+                                          asymmetry_between = asymmetry_between)
+  oracle_causal  <- coef_data[ match("y", var_labels), "X" ]
+  mean_X         <- mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ])
+  
+  oracle_var <- c(mean_Y_formula(intercept_Y = coef_data[ match("y", var_labels), "intercept" ],
+                                 causal      = oracle_causal,
+                                 mean_X      = mean_X),
+                  var_Y_formula(num_conf = c,
+                                beta_Xs  = oracle_beta_Xs,
+                                beta_Ys  = oracle_beta_Ys,
+                                causal   = oracle_causal),
                   mean_X,
                   var_X_formula(num_conf      = c,
-                                beta_X        = oracle_beta_X)
+                                beta_Xs       = oracle_beta_Xs)
   )
   names(oracle_var) <- metric_names
   
   # Generate coef subtable
-  oracle_asymmetry     <- asymmetry
-  coef_subtable        <- c(oracle_beta_X, oracle_beta_Y, oracle_causal, oracle_asymmetry)
-  names(coef_subtable) <- c('beta_X', 'beta_Y', 'causal', 'asymmetry')
+  coef_subtable        <- c(oracle_beta_Xs[1], oracle_beta_Xs[2], oracle_beta_Xs[3], oracle_beta_Xs[4],
+                            oracle_beta_Ys[1], oracle_beta_Ys[2], oracle_beta_Ys[3], oracle_beta_Ys[4],
+                            oracle_causal, asymmetry_between, asymmetry_within)
+  names(coef_subtable) <- c('beta_X_S', 'beta_X_M', 'beta_X_M_prime', 'beta_X_L',
+                            'beta_Y_S', 'beta_Y_M', 'beta_Y_M_prime', 'beta_Y_L',
+                            'causal', 'asymmetry_between', 'asymmetry_within')
   
   # Generate Sample Variances Table
   sample_mean <- sapply(data, mean, na.rm = T)
@@ -1310,13 +1370,13 @@ run <- function(graph             = NULL,
   
   # Generate R2 Table
   r2_values        <- c(target_r_sq_X,
-                        analytic_r_sq_X(num_conf = c, beta_X = oracle_beta_X),
+                        analytic_r_sq_X(num_conf = c, beta_Xs = oracle_beta_Xs),
                         results_aggr['linear', 'r_squared_X'],
                         target_r_sq_Y,
                         analytic_r_sq_Y(num_conf = c,
-                                                       beta_X   = oracle_beta_X,
-                                                       beta_Y   = oracle_beta_Y,
-                                                       causal   = coef_data[ match("y", var_labels), "X" ]),
+                                        beta_Xs  = oracle_beta_Xs,
+                                        beta_Ys  = oracle_beta_Ys,
+                                        causal   = oracle_causal),
                         results_aggr['linear', 'r_squared_Y'])
   names(r2_values) <- c("Target_R2_X", "Analytic_R2_X", "Sample R2_X", "Target_R2_Y", "Analytic_R2_Y", "Sample R2_Y")
   
