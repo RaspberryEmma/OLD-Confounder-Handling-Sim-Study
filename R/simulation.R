@@ -685,7 +685,7 @@ beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmet
   b   <- beta_X_formula(num_conf = m, target_r_sq_X = r_X)
   
   LHS <- 0.5 * (4/m) * (r_X/(1 - r_X))
-  RHS <- -1 * (0.5 * (1 + (1/(asymmetry^2)))) * b^2
+  RHS <- -1 * 0.5 * (1 + (1/(asymmetry^2))) * b^2
   
   b_1 <- b
   b_2 <- (1/asymmetry) * b
