@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 11/07/2024
+# Most Recent Edit: 23/07/2024
 # ****************************************
 
 
@@ -32,6 +32,18 @@ library(tidyr)
 
 normalise <- function(column = NULL) {
   return ( (column - min(column)) / (max(column) - min(column)) )
+}
+
+
+null_string_catch = function(value = NULL){
+  out <- ""
+  if(is.null(value)) {
+    out <- "NULL"
+  }
+  else {
+    out <- as.character(value)
+  }
+  return (out)
 }
 
 
@@ -291,6 +303,17 @@ find_vars_in_model <- function(model_method = NULL, model = NULL) {
     vars <- vars[vars != "X"]
   }
   
+  else if (model_method == "CBPS") {
+    epsilon    <- 0.01 # TODO: Autotune this value!
+    cbps_coefs <- model$coefficients[,1]
+    cbps_coefs <- cbps_coefs[abs(cbps_coefs) > epsilon]
+    
+    vars <- names(cbps_coefs)
+    vars <- vars[vars != "(Intercept)"]
+    vars <- vars[vars != "X"]
+  }
+  
+  # linear, prop_score_based, all 2 stage procedures
   else {
     vars <- names(model$coefficients)
     vars <- vars[vars != "(Intercept)"]
@@ -305,13 +328,6 @@ lasso_selection <- function(model_method = NULL, model = NULL, epsilon = NULL) {
   all_vars      <- find_vars_in_model(model_method = "LASSO", model = model)
   all_coefs     <- lars_coefs(model = model)[-c(1, 2)]
   vars_selected <- all_vars[ !(all_coefs < epsilon) ]
-  
-  # # TESTING
-  # message("lasso selection")
-  # print(model_method)
-  # print(all_vars)
-  # print(vars_selected)
-  
   return (vars_selected)
 }
 
@@ -407,7 +423,6 @@ z_inclusion <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
 }
 
 
-# TODO: implement for one-stage lasso subvariants
 coverage <- function(model_method = NULL, model = NULL, true_value = NULL) {
   within_CI <- 0.0
   
@@ -511,6 +526,26 @@ benchmark <- function(model_method = NULL, data = NULL, times = NULL) {
       model <- lm(y ~ ., data = data),
       times = times
     ) %>% invisible()
+  }
+  
+  else if (model_method == "iv_2sls") {
+    bench <- microbenchmark::microbenchmark(
+      model <- ivreg(y ~ ., data = data),
+      times = times
+    )
+  }
+  
+  else if (model_method == "prop_score_based") {
+    bench <- microbenchmark::microbenchmark(
+      cbps_model <- CBPS(y ~ ., data = data, ATT = TRUE),
+      model      <- lm(y ~ ., data = data),
+      times = times
+    )
+  }
+  
+  else {
+    message("Unrecognised model type!")
+    bench <- data.frame(time <- c(NaN))
   }
 
   time <- mean(bench$time)
@@ -685,9 +720,9 @@ beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmet
   b   <- beta_X_formula(num_conf = m, target_r_sq_X = r_X)
   
   LHS <- 0.5 * (4/m) * (r_X/(1 - r_X))
-  RHS <- -1 * 0.5 * (1 + (1/(asymmetry^2))) * b^2
+  RHS <- -1 * (1/(asymmetry^2)) * b^2
   
-  b_1 <- b
+  b_1 <- (1/asymmetry) * b
   b_2 <- (1/asymmetry) * b
   b_3 <- sqrt( LHS + RHS )
   b_4 <- sqrt( LHS + RHS )
@@ -697,12 +732,20 @@ beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmet
 
 
 # The values for all beta coefficients used for generating Y
-beta_Y_levels_formula <- function(beta_X = NULL, beta_X_3 = NULL, asymmetry = NULL) {
+beta_Y_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmetry = NULL) {
   
-  d_1 <- beta_X
-  d_2 <- beta_X_3
-  d_3 <- (1/asymmetry) * beta_X
-  d_4 <- (1/asymmetry) * beta_X
+  # short-hand
+  m   <- num_conf
+  r_X <- target_r_sq_X
+  b   <- beta_X_formula(num_conf = m, target_r_sq_X = r_X)
+  
+  LHS <- 0.5 * (4/m) * (r_X/(1 - r_X))
+  RHS <- -1 * (1/(asymmetry^2)) * b^2
+  
+  d_1 <- (1/asymmetry) * b
+  d_2 <- sqrt( LHS + RHS )
+  d_3 <- (1/asymmetry) * b
+  d_4 <- sqrt( LHS + RHS )
   
   return (c(d_1, d_2, d_3, d_4))
 }
@@ -831,8 +874,14 @@ generate_coef_data <- function(c             = NULL,
   
   # Adjust all beta values in order to control R2
   beta_Xs               <- beta_X_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry)
-  beta_Ys               <- beta_Y_levels_formula(beta_X = beta_Xs[1], beta_X_3 = beta_Xs[3], asymmetry = asymmetry)
+  beta_Ys               <- beta_Y_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry)
   oracle_causal_effect  <- analytic_levels_causal_effect(num_conf = c, beta_Xs = beta_Xs, beta_Ys = beta_Ys, target_r_sq_Y = target_r_sq_Y)
+  
+  message(paste("LL", "LH", "HL", "HH", sep = ' '))
+  print(beta_Xs)
+  print(beta_Ys)
+  print(oracle_causal_effect)
+  #stop("generate_coef_data sanity check")
   
   all_vars        <- var_labels
   vars_with_prior <- var_labels[ coef_data$cause == 1 ]
@@ -841,26 +890,26 @@ generate_coef_data <- function(c             = NULL,
   for (var in vars_with_prior) {
     var_index    <- which(all_vars == var)
     
-    # small betas
+    # LL group (MM?)
     for (i in seq.int(from = 1, to = (c/4), length.out = c/4)) {
       coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[1]
       coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[1]
     }
     
-    # medium betas
+    # LH
     for (i in seq.int(from = ((c/4)+1), to = (c/2), length.out = c/4)) {
       coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[2]
       coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[2]
     }
     
-    # medium prime betas
-    for (i in seq.int(from = ((c/2)+1), to = ((3*c)/4), length.out = c/4)) {
+    # HL
+    for (i in seq.int(from = ((c/2)+1), to = ((3/4)*c), length.out = c/4)) {
       coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[3]
       coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[3]
     }
     
-    # large betas
-    for (i in seq.int(from = (((3*c)/4)+1), to = (c), length.out = c/4)) {
+    # HH
+    for (i in seq.int(from = ((3/4)*c+1), to = (c), length.out = c/4)) {
       coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[4]
       coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[4]
     }
@@ -879,6 +928,7 @@ run_once <- function(graph             = NULL,
                      labels            = NULL,
                      model_methods     = NULL,
                      results_methods   = NULL,
+                     SE_req            = NULL,
                      data_split        = NULL,
                      target_r_sq_X     = NULL,
                      target_r_sq_Y     = NULL,
@@ -896,6 +946,7 @@ run_once <- function(graph             = NULL,
       labels            = labels,
       model_methods     = model_methods,
       results_methods   = results_methods,
+      SE_req            = SE_req,
       data_split        = data_split,
       target_r_sq_X     = target_r_sq_X,
       target_r_sq_Y     = target_r_sq_Y,
@@ -915,6 +966,7 @@ run <- function(graph             = NULL,
                 labels            = NULL,
                 model_methods     = NULL,
                 results_methods   = NULL,
+                SE_req            = NULL,
                 data_split        = NULL,
                 target_r_sq_X     = NULL,
                 target_r_sq_Y     = NULL,
@@ -1111,7 +1163,35 @@ run <- function(graph             = NULL,
         model   <- lm(formula = formula, data = data)
         
         # Record coefficients
-        model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
+        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+      }
+      
+      else if (method == "iv_2sls") {
+        # instrumental variable based 2-stage least-squares regression
+        model <- ivreg(y ~ ., data = data)
+        
+        # Record coefficients
+        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+      }
+      
+      else if (method == "prop_score_based") {
+        # CBPS Covariate Balancing Propensity Score method
+        cbps_model <- CBPS(y ~ ., data = data, ATT = TRUE)
+        
+        # determine vars to include
+        # model_method overwritten as this is stage 1 of 2 stage procedure
+        vars_selected <- find_vars_in_model(model_method = "CBPS", model = cbps_model)
+        
+        # fit new model on the subset of covariates selected
+        formula_string <- "y ~ X"
+        for (var in vars_selected) {
+          formula_string <- paste(formula_string, " + ", var, sep = "")
+        }
+        formula <- as.formula( formula_string )
+        model   <- lm(formula = formula, data = data)
+        
+        # Record coefficients
+        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
       }
       
       # Record results
@@ -1237,13 +1317,11 @@ run <- function(graph             = NULL,
   coefs_aggr            <- rbind(true_values, coefs_aggr)
   
   # Generate oracle variances table
-  # TODO: determine vectors of generated values
-  #stop("run function - fixing results tables based on new functions")
   var_labels    <- colnames(coef_data)[-c(1, 2)]
   metric_names  <- c("mean_Y", "var_Y", "mean_X", "var_X")
   
   oracle_beta_Xs <- beta_X_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry)
-  oracle_beta_Ys <- beta_Y_levels_formula(beta_X = oracle_beta_Xs[1], beta_X_3 = oracle_beta_Xs[3], asymmetry = asymmetry)
+  oracle_beta_Ys <- beta_Y_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry)
   oracle_causal  <- coef_data[ match("y", var_labels), "X" ]
   mean_X         <- mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ])
   
@@ -1265,8 +1343,8 @@ run <- function(graph             = NULL,
                             oracle_beta_Ys[1], oracle_beta_Ys[2], oracle_beta_Ys[3], oracle_beta_Ys[4],
                             oracle_causal, asymmetry)
   
-  names(coef_subtable) <- c('beta_X_S', 'beta_X_M', 'beta_X_M_prime', 'beta_X_L',
-                            'beta_Y_S', 'beta_Y_M', 'beta_Y_M_prime', 'beta_Y_L',
+  names(coef_subtable) <- c('beta_X_LL', 'beta_X_LH', 'beta_X_HL', 'beta_X_HH',
+                            'beta_Y_LL', 'beta_Y_LH', 'beta_Y_HL', 'beta_Y_HH',
                             'causal', 'asymmetry')
   
   # Generate Sample Variances Table
@@ -1308,7 +1386,7 @@ run <- function(graph             = NULL,
   
   writeLines("\n\n")
   print("Oracle Coefficients")
-  print(coef_data)
+  print(head(coef_data))
   
   # writeLines("\n")
   # print("Last Iteration Estimated Coefficients Table")
@@ -1324,8 +1402,8 @@ run <- function(graph             = NULL,
   
   # Sim parameters
   params <- data.frame(
-    preset <- c("n_rep", "n_obs", "data_split", "target_r_sq_X", "target_r_sq_Y"),
-    value  <- c(n_rep, n_obs, data_split, target_r_sq_X, target_r_sq_Y)
+    preset <- c("n_obs", "n_rep", "SE_req", "data_split", "target_r_sq_X", "target_r_sq_Y", "asymmetry"),
+    value  <- c(n_obs, n_rep, SE_req, null_string_catch(data_split), target_r_sq_X, target_r_sq_Y, asymmetry)
   )
   
   if (record_results) {

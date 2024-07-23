@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 11/07/2024
+# Most Recent Edit: 23/07/2024
 # ****************************************
 
 
@@ -18,6 +18,7 @@
 rm(list=ls())
 
 # all external libraries
+library(CBPS)
 library(chest)
 library(dplyr)
 library(DT)
@@ -25,12 +26,15 @@ library(ggdag)
 library(ggplot2)
 library(glmnet)
 library(igraph)
+library(ivreg)
+library(MatchIt)
 library(microbenchmark)
 #library(qgraph) # additional layout options, not great but works
 library(shiny)
 library(shinycssloaders)
 library(sjmisc)
 library(tidyr)
+library(WeightIt)
 
 # fix wd issue
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
@@ -45,23 +49,23 @@ set.seed(2024)
 # top-level simulation parameters
 # reduced values for testing
 n_obs_init        <- 10000
-n_rep_init        <- 10 # 100
+n_rep_init        <- 100 # 10000
 SE_req_init       <- 0.05
-data_split_init   <- 0.50
+data_split_init   <- NULL
 
 # important that rX < rY for numerical reasons
 # c <= 0 for suff. high values of asymmetry - watch carefully!
 target_r_sq_X_init     <- 0.4 # oracle R-squared value, proportion of variance in X explained by all Z's, we induce
 target_r_sq_Y_init     <- 0.6 # oracle R-squared value, proportion of variance in Y explained by X and all Z's, we induce
 
-asymmetry_init <- 3.0 # measure of asymmetry within oracle coefficients, set to 1.0 to keep them the same
+asymmetry_init <- 2.0 # measure of asymmetry within oracle coefficients, set to 1.0 to keep them the same
 
 oracle_error_mean_init <- 0.00 # error term mean
 oracle_error_sd_init   <- 1.00 # error term sd
 
 
 # models to fit and results metrics to measure
-model_methods   <- c("linear", "stepwise", "two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
+model_methods   <- c("linear", "stepwise", "two_step_LASSO", "iv_2sls", "prop_score_based")
 
 results_methods <- c("mse", "r_squared_X", "r_squared_Y",                    # prediction
                      "causal_effect_bias", "avg_abs_param_bias", "coverage", # beta coefs
@@ -88,6 +92,7 @@ for (c in c_values) {
       labels            = DAG_labels,
       model_methods     = model_methods,
       results_methods   = results_methods,
+      SE_req            = SE_req_init,
       data_split        = data_split_init,
       target_r_sq_X     = target_r_sq_X_init,
       target_r_sq_Y     = target_r_sq_Y_init,
@@ -99,6 +104,5 @@ for (c in c_values) {
   # generate results plots
   generate_all_plots(case = c)
 }
-
 
 
