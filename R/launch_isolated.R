@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 23/07/2024
+# Most Recent Edit: 29/07/2024
 # ****************************************
 
 
@@ -47,9 +47,8 @@ source("results.R")
 set.seed(2024)
 
 # top-level simulation parameters
-# reduced values for testing
-n_obs_init        <- 10000
-n_rep_init        <- 100 # 10000
+n_obs_init        <- 500 # 10000
+n_rep_init        <- 10  # 1000 
 SE_req_init       <- 0.05
 data_split_init   <- NULL
 
@@ -65,14 +64,14 @@ oracle_error_sd_init   <- 1.00 # error term sd
 
 
 # models to fit and results metrics to measure
-model_methods   <- c("linear", "stepwise", "two_step_LASSO", "iv_2sls", "prop_score_based")
+model_methods   <- c("linear", "stepwise", "stepwise_X", "two_step_LASSO", "two_step_LASSO_X")
 
 results_methods <- c("mse", "r_squared_X", "r_squared_Y",                    # prediction
                      "causal_effect_bias", "avg_abs_param_bias", "coverage", # beta coefs
                      "open_paths", "blocked_paths")             # other
 
-#c_values <- c(8)
-c_values        <- c(4, 8, 12, 16)
+c_values <- c(12, 16)
+#c_values        <- c(4, 8, 12, 16)
 
 for (c in c_values) {
   # initialise DAG

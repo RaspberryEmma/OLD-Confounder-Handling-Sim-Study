@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 23/07/2024
+# Most Recent Edit: 29/07/2024
 # ****************************************
 
 
@@ -595,11 +595,13 @@ lasso_coefs <- function(model = NULL, n_var = NULL) {
 lars_coefs <- function(model = NULL) {
   model_stats      <- summary(model)
   coefs            <- coef(model, s = which.min(model_stats$Cp), mode="step")
-  intercept        <- model$mu
-  names(intercept) <- "(Intercept)"
   
-  # combine results into named vector
-  coefs <- c(intercept, coefs)
+  if (!is.null(model$mu)) {
+    intercept        <- model$mu
+    names(intercept) <- "(Intercept)"
+    # combine results into named vector
+    coefs <- c(intercept, coefs)
+  }
   
   return (coefs)
 }
@@ -1071,6 +1073,29 @@ run <- function(graph             = NULL,
         # Record coefficients
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
       }
+      
+      else if (method == "stepwise_X") {
+        # fit stepwise model for X
+        X_data  <- data[, -c(1)] # drop Y
+        X_model <- step(object    = lm(X ~ ., data = X_data),              # all variable base
+                        direction = "both",                                # stepwise, not fwd or bwd
+                        scope     = list(upper = "X ~ .", lower = "X ~ 0") # effectively empty model as lower
+        ) %>% invisible()
+        
+        # determine vars to include
+        vars_selected <- find_vars_in_model(model_method = method, model = X_model)
+        
+        # fit new model for Y on the subset of covariates selected
+        formula_string <- "y ~ X"
+        for (var in vars_selected) {
+          formula_string <- paste(formula_string, " + ", var, sep = "")
+        }
+        formula <- as.formula( formula_string )
+        model   <- lm(formula = formula, data = data)
+        
+        # Record coefficients
+        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+      }
 
       else if (method == "LASSO") {
         model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
@@ -1093,6 +1118,30 @@ run <- function(graph             = NULL,
         vars_selected <- lasso_selection(model_method = method, model = model, epsilon = 0.01)
         
         # fit new model on the subset of covariates selected
+        formula_string <- "y ~ X"
+        for (var in vars_selected) {
+          formula_string <- paste(formula_string, " + ", var, sep = "")
+        }
+        formula <- as.formula( formula_string )
+        model   <- lm(formula = formula, data = data)
+        
+        # Record coefficients
+        model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
+      }
+      
+      else if (method == "two_step_LASSO_X") {
+        # fit LASSO model on X
+        X_data  <- data[, c(2)]
+        Z_data  <- data[, -c(1, 2)] # drop Y
+        X_model <- lars(x         = as.matrix(Z_data), # exposure and all other covariates
+                        y         = X_data,            # outcome
+                        type      = "lasso",
+                        intercept = TRUE)
+        
+        # find vars in model
+        vars_selected <- lasso_selection(model_method = method, model = model, epsilon = 0.01)
+        
+        # fit new model for Y on the subset of covariates selected
         formula_string <- "y ~ X"
         for (var in vars_selected) {
           formula_string <- paste(formula_string, " + ", var, sep = "")
