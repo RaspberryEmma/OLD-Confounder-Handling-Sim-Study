@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 29/07/2024
+# Most Recent Edit: 06/08/2024
 # ****************************************
 
 
@@ -48,7 +48,7 @@ set.seed(2024)
 
 # top-level simulation parameters
 n_obs_init        <- 500 # 10000
-n_rep_init        <- 10  # 1000 
+n_rep_init        <- 1000 # 10
 SE_req_init       <- 0.05
 data_split_init   <- NULL
 
@@ -70,8 +70,8 @@ results_methods <- c("mse", "r_squared_X", "r_squared_Y",                    # p
                      "causal_effect_bias", "avg_abs_param_bias", "coverage", # beta coefs
                      "open_paths", "blocked_paths")             # other
 
-c_values <- c(12, 16)
-#c_values        <- c(4, 8, 12, 16)
+#c_values <- c(4)
+c_values        <- c(4, 8, 12, 16)
 
 for (c in c_values) {
   # initialise DAG
@@ -103,5 +103,6 @@ for (c in c_values) {
   # generate results plots
   generate_all_plots(case = c)
 }
+
 
 

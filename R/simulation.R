@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 29/07/2024
+# Most Recent Edit: 06/08/2024
 # ****************************************
 
 
@@ -879,12 +879,7 @@ generate_coef_data <- function(c             = NULL,
   beta_Ys               <- beta_Y_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry)
   oracle_causal_effect  <- analytic_levels_causal_effect(num_conf = c, beta_Xs = beta_Xs, beta_Ys = beta_Ys, target_r_sq_Y = target_r_sq_Y)
   
-  message(paste("LL", "LH", "HL", "HH", sep = ' '))
-  print(beta_Xs)
-  print(beta_Ys)
-  print(oracle_causal_effect)
-  #stop("generate_coef_data sanity check")
-  
+  # subset by caused / uncaused
   all_vars        <- var_labels
   vars_with_prior <- var_labels[ coef_data$cause == 1 ]
   
@@ -921,6 +916,33 @@ generate_coef_data <- function(c             = NULL,
   }
   
   return (coef_data)
+}
+
+
+determine_cov_selection <- function(case = NULL, coefs = NULL, epsilon = NULL) {
+  coefs <- coefs[-c(1)] # remove intercept term
+  var_labels <- c("X", "Z1")
+  
+  if (case > 0) {
+    Z_list     <- c(2:(case+1))
+    for (i in Z_list) {
+      # add label corresponding to variable i
+      new_label <- paste("Z", i, sep = "")
+      var_labels <- c(var_labels, new_label)
+    }
+  }
+  
+  selection <- rep(0, times = length(var_labels))
+  names(selection) <- var_labels
+  
+  for (i in 1:length(selection)) {
+    # we treat NaN as coef=0, hence selection=0
+    if ((abs(coefs[i]) > epsilon) && (!is.nan(coefs[i]))) {
+      selection[i] <- 1
+    }
+  }
+  
+  return (selection)
 }
 
 
@@ -999,6 +1021,12 @@ run <- function(graph             = NULL,
                        dim      = c(M, B, n_rep),
                        dimnames = list(model_methods, beta_names, 1:n_rep) )
   
+  # initialize covariate selection array
+  # dim = (#methods * #non-Y-covariates * #iterations)
+  cov_selection <- array(data     = NaN,
+                         dim      = c(M, B-1, n_rep),
+                         dimnames = list(model_methods, beta_names[-c(1)], 1:n_rep) )
+  
   for (i in 1:n_rep) {
     # progress
     message( paste("\n\nRunning Iteration ", i, "/", n_rep, "\n", sep = "") )
@@ -1054,14 +1082,21 @@ run <- function(graph             = NULL,
     }
     
     # fit all models and record all results
+    epsilon <- NaN # epsilon term trained off of dummy variable in linear case to be stored
     for (m in 1:M) {
-      method <- model_methods[m]
+      method  <- model_methods[m]
       
       if (method == "linear") {
         model <- lm(y ~ ., data = data)
         
         # Record coefficients
         model_coefs[m, , i] <- model$coefficients
+        
+        # Record covariate selection
+        epsilon               <- unname(abs(tail(model$coefficients, n=1))) # heuristic LB based off of dummy variable Z_(case+1)
+        cov_selection[m, , i] <- determine_cov_selection(case    = c,
+                                                         coefs   = model$coefficients,
+                                                         epsilon = epsilon)
       }
       
       else if (method == "stepwise") {
@@ -1072,6 +1107,11 @@ run <- function(graph             = NULL,
         
         # Record coefficients
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        
+        # Record covariate selection
+        cov_selection[m, , i] <- determine_cov_selection(case    = c,
+                                                         coefs   = fill_in_blanks(model$coefficients, beta_names),
+                                                         epsilon = epsilon) # epsilon from linear model stored
       }
       
       else if (method == "stepwise_X") {
@@ -1095,6 +1135,11 @@ run <- function(graph             = NULL,
         
         # Record coefficients
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        
+        # Record covariate selection
+        cov_selection[m, , i] <- determine_cov_selection(case    = c,
+                                                         coefs   = fill_in_blanks(model$coefficients, beta_names),
+                                                         epsilon = epsilon) # epsilon from linear model stored
       }
 
       else if (method == "LASSO") {
@@ -1105,6 +1150,11 @@ run <- function(graph             = NULL,
         
         # Record coefficients
         model_coefs[m, , i] <-  lars_coefs(model = model)
+        
+        # Record covariate selection
+        cov_selection[m, , i] <- determine_cov_selection(case    = c,
+                                                         coefs   = lars_coefs(model = model),
+                                                         epsilon = epsilon) # epsilon from linear model stored
       }
       
       else if (method == "two_step_LASSO") {
@@ -1127,6 +1177,11 @@ run <- function(graph             = NULL,
         
         # Record coefficients
         model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
+        
+        # Record covariate selection
+        cov_selection[m, , i] <- determine_cov_selection(case    = c,
+                                                         coefs   = fill_in_blanks(model$coefficients, beta_names),
+                                                         epsilon = epsilon) # epsilon from linear model stored
       }
       
       else if (method == "two_step_LASSO_X") {
@@ -1151,6 +1206,11 @@ run <- function(graph             = NULL,
         
         # Record coefficients
         model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
+        
+        # Record covariate selection
+        cov_selection[m, , i] <- determine_cov_selection(case    = c,
+                                                         coefs   = fill_in_blanks(model$coefficients, beta_names),
+                                                         epsilon = epsilon) # epsilon from linear model stored
       }
       
       else if (method == "least_angle") {
@@ -1161,6 +1221,10 @@ run <- function(graph             = NULL,
         
         # Record coefficients
         model_coefs[m, , i] <- lars_coefs(model = model)
+        
+        # Record covariate selection
+        # TODO: implement
+        stop("run - covariate selection")
       }
       
       else if (method == "two_step_least_angle") {
@@ -1182,6 +1246,10 @@ run <- function(graph             = NULL,
         
         # Record coefficients
         model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
+        
+        # Record covariate selection
+        # TODO: implement
+        stop("run - covariate selection")
       }
       
       else if (method == "inf_fwd_stage") {
@@ -1192,6 +1260,10 @@ run <- function(graph             = NULL,
         
         # Record coefficients
         model_coefs[m, , i] <- lars_coefs(model = model)
+        
+        # Record covariate selection
+        # TODO: implement
+        stop("run - covariate selection")
       }
       
       else if (method == "two_step_inf_fwd_stage") {
@@ -1213,6 +1285,10 @@ run <- function(graph             = NULL,
         
         # Record coefficients
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        
+        # Record covariate selection
+        # TODO: implement
+        stop("run - covariate selection")
       }
       
       else if (method == "iv_2sls") {
@@ -1221,6 +1297,10 @@ run <- function(graph             = NULL,
         
         # Record coefficients
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        
+        # Record covariate selection
+        # TODO: implement
+        stop("run - covariate selection")
       }
       
       else if (method == "prop_score_based") {
@@ -1241,6 +1321,10 @@ run <- function(graph             = NULL,
         
         # Record coefficients
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        
+        # Record covariate selection
+        # TODO: implement
+        stop("run - covariate selection")
       }
       
       # Record results
@@ -1357,6 +1441,7 @@ run <- function(graph             = NULL,
       results_aggr[m, "benchmark"] <- benchmark(model_method = method, data = data, times = 10)
     }
   }
+  
   # Generate Coefficients Table
   coefs_last            <- model_coefs[, , n_rep]
   coefs_aggr            <- apply(model_coefs, c(1,2), mean)
@@ -1364,6 +1449,9 @@ run <- function(graph             = NULL,
   rownames(true_values) <- c("true_values")
   coefs_last            <- rbind(true_values, coefs_last)
   coefs_aggr            <- rbind(true_values, coefs_aggr)
+  
+  # Generate Covariate Selection Table
+  cov_selection_aggr <- apply(cov_selection, c(1, 2), mean)
   
   # Generate oracle variances table
   var_labels    <- colnames(coef_data)[-c(1, 2)]
@@ -1437,13 +1525,13 @@ run <- function(graph             = NULL,
   print("Oracle Coefficients")
   print(head(coef_data))
   
-  # writeLines("\n")
-  # print("Last Iteration Estimated Coefficients Table")
-  # print(coefs_last)
-  
   writeLines("\n")
   print("Sample Coefficients for Y Table")
   print(coefs_aggr)
+  
+  writeLines("\n")
+  print("Covariate Selection Table")
+  print(cov_selection_aggr)
   
   writeLines("\n")
   print("Results Table")
@@ -1470,6 +1558,9 @@ run <- function(graph             = NULL,
     
     # Save coefficients
     write.csv(coefs_aggr, paste("../data/", case_string, "-model-coefs.csv", sep = ""))
+    
+    # Save covariate selection
+    write.csv(cov_selection_aggr, paste("../data/", case_string, "-cov-selection.csv", sep = ""))
     
     # Save results measures
     write.csv(results_aggr, paste("../data/", case_string, "-results-table.csv", sep = ""))
