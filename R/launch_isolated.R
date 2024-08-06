@@ -48,7 +48,7 @@ set.seed(2024)
 
 # top-level simulation parameters
 n_obs_init        <- 500 # 10000
-n_rep_init        <- 1000 # 10
+n_rep_init        <- 100 # 1000
 SE_req_init       <- 0.05
 data_split_init   <- NULL
 
@@ -57,20 +57,22 @@ data_split_init   <- NULL
 target_r_sq_X_init     <- 0.4 # oracle R-squared value, proportion of variance in X explained by all Z's, we induce
 target_r_sq_Y_init     <- 0.6 # oracle R-squared value, proportion of variance in Y explained by X and all Z's, we induce
 
-asymmetry_init <- 2.0 # measure of asymmetry within oracle coefficients, set to 1.0 to keep them the same
+asymmetry_init <- 2.0  # measure of asymmetry within oracle coefficients, set to 1.0 to keep them symmetric
+l_zero_init    <- TRUE # force 'L' subgroups to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
 
 oracle_error_mean_init <- 0.00 # error term mean
 oracle_error_sd_init   <- 1.00 # error term sd
 
 
 # models to fit and results metrics to measure
+# TODO: fix follow through for 1-stage LASSO
 model_methods   <- c("linear", "stepwise", "stepwise_X", "two_step_LASSO", "two_step_LASSO_X")
 
 results_methods <- c("mse", "r_squared_X", "r_squared_Y",                    # prediction
                      "causal_effect_bias", "avg_abs_param_bias", "coverage", # beta coefs
                      "open_paths", "blocked_paths")             # other
 
-#c_values <- c(4)
+#c_values <- c(16)
 c_values        <- c(4, 8, 12, 16)
 
 for (c in c_values) {
@@ -78,7 +80,8 @@ for (c in c_values) {
   coef_data      <- generate_coef_data(c             = c,
                                        target_r_sq_X = target_r_sq_X_init,
                                        target_r_sq_Y = target_r_sq_Y_init,
-                                       asymmetry     = asymmetry_init)
+                                       asymmetry     = asymmetry_init,
+                                       l_zero        = l_zero_init)
   DAG_adj_matrix <- adjacency_matrix_from_coef_data(coef_data = coef_data)
   DAG_labels     <- colnames(DAG_adj_matrix)
   DAG_graph      <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
@@ -96,6 +99,7 @@ for (c in c_values) {
       target_r_sq_X     = target_r_sq_X_init,
       target_r_sq_Y     = target_r_sq_Y_init,
       asymmetry         = asymmetry_init,
+      l_zero            = l_zero_init,
       oracle_error_mean = oracle_error_mean_init,
       oracle_error_sd   = oracle_error_sd_init,
       record_results    = TRUE)

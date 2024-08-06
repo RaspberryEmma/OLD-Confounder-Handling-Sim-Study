@@ -327,7 +327,9 @@ lasso_selection <- function(model_method = NULL, model = NULL, epsilon = NULL) {
   # over-ride model_method param here due to object types
   all_vars      <- find_vars_in_model(model_method = "LASSO", model = model)
   all_coefs     <- lars_coefs(model = model)[-c(1, 2)]
-  vars_selected <- all_vars[ !(all_coefs < epsilon) ]
+  
+  # keep all where the absolute value of the coefficient > epsilon
+  vars_selected <- all_vars[ (abs(all_coefs) > epsilon) ]
   return (vars_selected)
 }
 
@@ -714,18 +716,25 @@ beta_X_levels_condition <- function(num_conf      = NULL,
 
 # The values for all beta coefficients used for generating Y
 # Tuned to induce the given value of R2_X in generated data-sets
-beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmetry = NULL) {
+beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmetry = NULL, l_zero = NULL) {
   
   # short-hand
   m   <- num_conf
   r_X <- target_r_sq_X
-  b   <- beta_X_formula(num_conf = m, target_r_sq_X = r_X)
+  b   <- beta_X_formula(num_conf = m, target_r_sq_X = r_X) # symmetric value
+  
+  if (l_zero) {
+    b_1 <- 0
+    b_2 <- 0
+  }
+  else {
+    b_1 <- (1/asymmetry) * b
+    b_2 <- (1/asymmetry) * b
+  }
   
   LHS <- 0.5 * (4/m) * (r_X/(1 - r_X))
-  RHS <- -1 * (1/(asymmetry^2)) * b^2
+  RHS <- -1 * 0.5 * (b_1^2 + b_2^2)
   
-  b_1 <- (1/asymmetry) * b
-  b_2 <- (1/asymmetry) * b
   b_3 <- sqrt( LHS + RHS )
   b_4 <- sqrt( LHS + RHS )
   
@@ -734,19 +743,26 @@ beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmet
 
 
 # The values for all beta coefficients used for generating Y
-beta_Y_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmetry = NULL) {
+beta_Y_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmetry = NULL, l_zero = l_zero) {
   
   # short-hand
   m   <- num_conf
   r_X <- target_r_sq_X
   b   <- beta_X_formula(num_conf = m, target_r_sq_X = r_X)
   
-  LHS <- 0.5 * (4/m) * (r_X/(1 - r_X))
-  RHS <- -1 * (1/(asymmetry^2)) * b^2
+  if (l_zero) {
+    d_1 <- 0
+    d_3 <- 0
+  }
+  else {
+    d_1 <- (1/asymmetry) * b
+    d_3 <- (1/asymmetry) * b
+  }
   
-  d_1 <- (1/asymmetry) * b
+  LHS <- 0.5 * (4/m) * (r_X/(1 - r_X))
+  RHS <- -1 * 0.5 * (d_1^2 + d_3^2)
+  
   d_2 <- sqrt( LHS + RHS )
-  d_3 <- (1/asymmetry) * b
   d_4 <- sqrt( LHS + RHS )
   
   return (c(d_1, d_2, d_3, d_4))
@@ -828,7 +844,8 @@ analytic_levels_causal_effect <- function(num_conf      = NULL,
 generate_coef_data <- function(c             = NULL,
                                target_r_sq_X = NULL,
                                target_r_sq_Y = NULL,
-                               asymmetry     = NULL) {
+                               asymmetry     = NULL,
+                               l_zero        = NULL) {
   
   var_labels <- c("y", "X", "Z1")
   
@@ -875,8 +892,8 @@ generate_coef_data <- function(c             = NULL,
   }
   
   # Adjust all beta values in order to control R2
-  beta_Xs               <- beta_X_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry)
-  beta_Ys               <- beta_Y_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry)
+  beta_Xs               <- beta_X_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry, l_zero = l_zero)
+  beta_Ys               <- beta_Y_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry, l_zero = l_zero)
   oracle_causal_effect  <- analytic_levels_causal_effect(num_conf = c, beta_Xs = beta_Xs, beta_Ys = beta_Ys, target_r_sq_Y = target_r_sq_Y)
   
   # subset by caused / uncaused
@@ -887,7 +904,7 @@ generate_coef_data <- function(c             = NULL,
   for (var in vars_with_prior) {
     var_index    <- which(all_vars == var)
     
-    # LL group (MM?)
+    # LL group
     for (i in seq.int(from = 1, to = (c/4), length.out = c/4)) {
       coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[1]
       coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[1]
@@ -915,6 +932,9 @@ generate_coef_data <- function(c             = NULL,
     coef_data[ match("y", var_labels), "X" ] <- oracle_causal_effect
   }
   
+  #print(coef_data)
+  #stop("generate_coef_data - l zero development!")
+  
   return (coef_data)
 }
 
@@ -937,6 +957,7 @@ determine_cov_selection <- function(case = NULL, coefs = NULL, epsilon = NULL) {
   
   for (i in 1:length(selection)) {
     # we treat NaN as coef=0, hence selection=0
+    # strictly > to guarantee that dummy variable is always excluded
     if ((abs(coefs[i]) > epsilon) && (!is.nan(coefs[i]))) {
       selection[i] <- 1
     }
@@ -957,6 +978,7 @@ run_once <- function(graph             = NULL,
                      target_r_sq_X     = NULL,
                      target_r_sq_Y     = NULL,
                      asymmetry         = NULL,
+                     l_zero            = NULL,
                      oracle_error_mean = NULL,
                      oracle_error_sd   = NULL,
                      record_results    = NULL,
@@ -975,6 +997,7 @@ run_once <- function(graph             = NULL,
       target_r_sq_X     = target_r_sq_X,
       target_r_sq_Y     = target_r_sq_Y,
       asymmetry         = asymmetry,
+      l_zero            = l_zero,
       oracle_error_mean = oracle_error_mean,
       oracle_error_sd   = oracle_error_sd,
       using_shiny       = using_shiny,
@@ -995,6 +1018,7 @@ run <- function(graph             = NULL,
                 target_r_sq_X     = NULL,
                 target_r_sq_Y     = NULL,
                 asymmetry         = NULL,
+                l_zero            = NULL,
                 oracle_error_mean = NULL,
                 oracle_error_sd   = NULL,
                 record_results    = NULL,
@@ -1082,7 +1106,9 @@ run <- function(graph             = NULL,
     }
     
     # fit all models and record all results
-    epsilon <- NaN # epsilon term trained off of dummy variable in linear case to be stored
+    epsilon          <- NaN # epsilon term trained off of dummy variable for linear
+    shrunk_epsilon   <- NaN # shrunk epsilon term trained off of dummy variable for LASSO
+    shrunk_X_epsilon <- NaN # shrunk epsilon term trained off of dummy variable for LASSO with outcome X
     for (m in 1:M) {
       method  <- model_methods[m]
       
@@ -1092,8 +1118,10 @@ run <- function(graph             = NULL,
         # Record coefficients
         model_coefs[m, , i] <- model$coefficients
         
+        # heuristic LB based off of dummy variable Z_(case+1)
+        epsilon <- unname(abs(tail(model$coefficients, n=1)))
+        
         # Record covariate selection
-        epsilon               <- unname(abs(tail(model$coefficients, n=1))) # heuristic LB based off of dummy variable Z_(case+1)
         cov_selection[m, , i] <- determine_cov_selection(case    = c,
                                                          coefs   = model$coefficients,
                                                          epsilon = epsilon)
@@ -1149,12 +1177,15 @@ run <- function(graph             = NULL,
                       intercept = TRUE)
         
         # Record coefficients
-        model_coefs[m, , i] <-  lars_coefs(model = model)
+        model_coefs[m, , i] <- lars_coefs(model = model)
+        
+        # separate epsilon term for shrinkage parameters
+        shrunk_epsilon <- unname(abs(tail(lars_coefs(model = model), n=1)))
         
         # Record covariate selection
         cov_selection[m, , i] <- determine_cov_selection(case    = c,
                                                          coefs   = lars_coefs(model = model),
-                                                         epsilon = epsilon) # epsilon from linear model stored
+                                                         epsilon = shrunk_epsilon) # shrinkage epsilon
       }
       
       else if (method == "two_step_LASSO") {
@@ -1164,8 +1195,11 @@ run <- function(graph             = NULL,
                       type      = "lasso",
                       intercept = TRUE)
         
+        # separate epsilon term for shrinkage parameters
+        shrunk_epsilon <- unname(abs(tail(lars_coefs(model = model), n=1)))
+        
         # find vars in model
-        vars_selected <- lasso_selection(model_method = method, model = model, epsilon = 0.01)
+        vars_selected <- lasso_selection(model_method = method, model = model, epsilon = shrunk_epsilon)
         
         # fit new model on the subset of covariates selected
         formula_string <- "y ~ X"
@@ -1186,15 +1220,18 @@ run <- function(graph             = NULL,
       
       else if (method == "two_step_LASSO_X") {
         # fit LASSO model on X
-        X_data  <- data[, c(2)]
-        Z_data  <- data[, -c(1, 2)] # drop Y
+        X_data  <- data[, c(2)]     # outcome X
+        Z_data  <- data[, -c(1, 2)] # drop Y, X
         X_model <- lars(x         = as.matrix(Z_data), # exposure and all other covariates
                         y         = X_data,            # outcome
                         type      = "lasso",
                         intercept = TRUE)
         
+        # separate epsilon term for shrinkage parameters
+        shrunk_X_epsilon <- unname(abs(tail(lars_coefs(model = X_model), n=1)))
+        
         # find vars in model
-        vars_selected <- lasso_selection(model_method = method, model = model, epsilon = 0.01)
+        vars_selected <- lasso_selection(model_method = method, model = model, epsilon = shrunk_X_epsilon)
         
         # fit new model for Y on the subset of covariates selected
         formula_string <- "y ~ X"
@@ -1457,8 +1494,8 @@ run <- function(graph             = NULL,
   var_labels    <- colnames(coef_data)[-c(1, 2)]
   metric_names  <- c("mean_Y", "var_Y", "mean_X", "var_X")
   
-  oracle_beta_Xs <- beta_X_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry)
-  oracle_beta_Ys <- beta_Y_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry)
+  oracle_beta_Xs <- beta_X_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry, l_zero = l_zero)
+  oracle_beta_Ys <- beta_Y_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry, l_zero = l_zero)
   oracle_causal  <- coef_data[ match("y", var_labels), "X" ]
   mean_X         <- mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ])
   
@@ -1539,8 +1576,8 @@ run <- function(graph             = NULL,
   
   # Sim parameters
   params <- data.frame(
-    preset <- c("n_obs", "n_rep", "SE_req", "data_split", "target_r_sq_X", "target_r_sq_Y", "asymmetry"),
-    value  <- c(n_obs, n_rep, SE_req, null_string_catch(data_split), target_r_sq_X, target_r_sq_Y, asymmetry)
+    preset <- c("n_obs", "n_rep", "SE_req", "data_split", "target_r_sq_X", "target_r_sq_Y", "asymmetry", "l_zero"),
+    value  <- c(n_obs, n_rep, SE_req, null_string_catch(data_split), target_r_sq_X, target_r_sq_Y, asymmetry, l_zero)
   )
   
   if (record_results) {
@@ -1550,13 +1587,13 @@ run <- function(graph             = NULL,
     
     message("\nSaving results to file\n")
     
-    # Save coef data
+    # Save oracle coef data
     write.csv(coef_data, paste("../data/", case_string, "-coef-data.csv", sep = ""), row.names = FALSE)
     
-    # Save one data-set
+    # Save one simulated data-set
     write.csv(representative_data, paste("../data/", case_string, "-dataset.csv", sep = ""))
     
-    # Save coefficients
+    # Save sample coefficients
     write.csv(coefs_aggr, paste("../data/", case_string, "-model-coefs.csv", sep = ""))
     
     # Save covariate selection
@@ -1564,6 +1601,9 @@ run <- function(graph             = NULL,
     
     # Save results measures
     write.csv(results_aggr, paste("../data/", case_string, "-results-table.csv", sep = ""))
+    
+    # Save params of simulation
+    write.csv(params, paste("../data/", case_string, "-params.csv", sep = ""))
     
     if (using_shiny) { setwd("sim_frontend") }
   }
