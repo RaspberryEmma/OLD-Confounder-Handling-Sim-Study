@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 06/08/2024
+# Most Recent Edit: 20/08/2024
 # ****************************************
 
 
@@ -304,16 +304,16 @@ find_vars_in_model <- function(model_method = NULL, model = NULL) {
   }
   
   else if (model_method == "CBPS") {
-    epsilon    <- 0.01 # TODO: Autotune this value!
-    cbps_coefs <- model$coefficients[,1]
-    cbps_coefs <- cbps_coefs[abs(cbps_coefs) > epsilon]
-    
-    vars <- names(cbps_coefs)
-    vars <- vars[vars != "(Intercept)"]
-    vars <- vars[vars != "X"]
+    # epsilon    <- 0.01 # TODO: Autotune this value!
+    # cbps_coefs <- model$coefficients[,1]
+    # cbps_coefs <- cbps_coefs[abs(cbps_coefs) > epsilon]
+    # 
+    # vars <- names(cbps_coefs)
+    # vars <- vars[vars != "(Intercept)"]
+    # vars <- vars[vars != "X"]
   }
   
-  # linear, prop_score_based, all 2 stage procedures
+  # linear, prop_score_based
   else {
     vars <- names(model$coefficients)
     vars <- vars[vars != "(Intercept)"]
@@ -323,13 +323,23 @@ find_vars_in_model <- function(model_method = NULL, model = NULL) {
   return (vars)
 }
 
-lasso_selection <- function(model_method = NULL, model = NULL, epsilon = NULL) {
-  # over-ride model_method param here due to object types
-  all_vars      <- find_vars_in_model(model_method = "LASSO", model = model)
-  all_coefs     <- lars_coefs(model = model)[-c(1, 2)]
+lasso_selection <- function(model_method = NULL, model = NULL) {
+  all_vars <- find_vars_in_model(model_method = "LASSO", model = model)
   
-  # keep all where the absolute value of the coefficient > epsilon
-  vars_selected <- all_vars[ (abs(all_coefs) > epsilon) ]
+  if (model_method == "two_step_LASSO_X") {
+    all_coefs <- lars_coefs(model = model)[-c(1)] # remove intercept
+  }
+  else if (model_method == "two_step_LASSO") {
+    all_coefs <- lars_coefs(model = model)[-c(1, 2)] # remove intercept and X
+  }
+  
+  # keep all variables whose coefs have not shrunk to zero
+  vars_selected <- all_vars[ (all_coefs != 0.0) ]
+  
+  # print(all_vars)
+  # print(all_coefs)
+  # print(vars_selected)
+  
   return (vars_selected)
 }
 
@@ -940,10 +950,10 @@ generate_coef_data <- function(c             = NULL,
 }
 
 
-determine_cov_selection <- function(case = NULL, coefs = NULL, epsilon = NULL) {
-  coefs <- coefs[-c(1)] # remove intercept term
+determine_cov_selection <- function(case   = NULL,
+                                    method = NULL,
+                                    model  = NULL) {
   var_labels <- c("X", "Z1")
-  
   if (case > 0) {
     Z_list     <- c(2:(case+1))
     for (i in Z_list) {
@@ -953,15 +963,12 @@ determine_cov_selection <- function(case = NULL, coefs = NULL, epsilon = NULL) {
     }
   }
   
-  selection <- rep(0, times = length(var_labels))
+  selection        <- rep(0, times = length(var_labels))
   names(selection) <- var_labels
+  model_selection  <- names(model$coefficients[-c(1)])
   
-  for (i in 1:length(selection)) {
-    # we treat NaN as coef=0, hence selection=0
-    # strictly > to guarantee that dummy variable is always excluded
-    if ((abs(coefs[i]) > epsilon) && (!is.nan(coefs[i]))) {
-      selection[i] <- 1
-    }
+  for (var in model_selection) {
+    selection[var] <- 1
   }
   
   return (selection)
@@ -1110,9 +1117,6 @@ run <- function(graph             = NULL,
     }
     
     # fit all models and record all results
-    epsilon          <- NaN # epsilon term trained off of dummy variable for linear
-    shrunk_epsilon   <- NaN # shrunk epsilon term trained off of dummy variable for LASSO
-    shrunk_X_epsilon <- NaN # shrunk epsilon term trained off of dummy variable for LASSO with outcome X
     for (m in 1:M) {
       method  <- model_methods[m]
       
@@ -1122,37 +1126,36 @@ run <- function(graph             = NULL,
         # Record coefficients
         model_coefs[m, , i] <- model$coefficients
         
-        # heuristic LB based off of dummy variable Z_(case+1)
-        epsilon <- unname(abs(tail(model$coefficients, n=1)))
-        
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case    = c,
-                                                         coefs   = model$coefficients,
-                                                         epsilon = epsilon)
+        cov_selection[m, , i] <- determine_cov_selection(case   = c,
+                                                         method = method,
+                                                         model  = model)
       }
       
       else if (method == "stepwise") {
-        model <- step(object    = lm(y ~ ., data = data),                # all variable base
-                      direction = "both",                                # stepwise, not fwd or bwd
-                      scope     = list(upper = "y ~ .", lower = "y ~ X") # exposure X always included
-                      ) %>% invisible()
+        model <- step(object    = lm(y ~ ., data = data),                 # all variable base
+                      direction = "both",                                 # stepwise, not fwd or bwd
+                      scope     = list(upper = "y ~ .", lower = "y ~ X"), # exposure X always included
+                      trace     = 0                                       # suppress output
+                      )
         
         # Record coefficients
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case    = c,
-                                                         coefs   = fill_in_blanks(model$coefficients, beta_names),
-                                                         epsilon = epsilon) # epsilon from linear model stored
+        cov_selection[m, , i] <- determine_cov_selection(case   = c,
+                                                         method = method,
+                                                         model  = model)
       }
       
       else if (method == "stepwise_X") {
         # fit stepwise model for X
         X_data  <- data[, -c(1)] # drop Y
-        X_model <- step(object    = lm(X ~ ., data = X_data),              # all variable base
-                        direction = "both",                                # stepwise, not fwd or bwd
-                        scope     = list(upper = "X ~ .", lower = "X ~ 0") # effectively empty model as lower
-        ) %>% invisible()
+        X_model <- step(object    = lm(X ~ ., data = X_data),               # all variable base
+                        direction = "both",                                 # stepwise, not fwd or bwd
+                        scope     = list(upper = "X ~ .", lower = "X ~ 0"), # effectively empty model as lower
+                        trace     = 0                                       # suppress output
+        )
         
         # determine vars to include
         vars_selected <- find_vars_in_model(model_method = method, model = X_model)
@@ -1169,9 +1172,9 @@ run <- function(graph             = NULL,
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case    = c,
-                                                         coefs   = fill_in_blanks(model$coefficients, beta_names),
-                                                         epsilon = epsilon) # epsilon from linear model stored
+        cov_selection[m, , i] <- determine_cov_selection(case   = c,
+                                                         method = method,
+                                                         model  = model)
       }
 
       else if (method == "LASSO") {
@@ -1183,13 +1186,10 @@ run <- function(graph             = NULL,
         # Record coefficients
         model_coefs[m, , i] <- lars_coefs(model = model)
         
-        # separate epsilon term for shrinkage parameters
-        shrunk_epsilon <- unname(abs(tail(lars_coefs(model = model), n=1)))
-        
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case    = c,
-                                                         coefs   = lars_coefs(model = model),
-                                                         epsilon = shrunk_epsilon) # shrinkage epsilon
+        cov_selection[m, , i] <- determine_cov_selection(case   = c,
+                                                         method = method,
+                                                         model  = model)
       }
       
       else if (method == "two_step_LASSO") {
@@ -1199,11 +1199,8 @@ run <- function(graph             = NULL,
                       type      = "lasso",
                       intercept = TRUE)
         
-        # separate epsilon term for shrinkage parameters
-        shrunk_epsilon <- unname(abs(tail(lars_coefs(model = model), n=1)))
-        
         # find vars in model
-        vars_selected <- lasso_selection(model_method = method, model = model, epsilon = shrunk_epsilon)
+        vars_selected <- lasso_selection(model_method = method, model = model)
         
         # fit new model on the subset of covariates selected
         formula_string <- "y ~ X"
@@ -1217,9 +1214,9 @@ run <- function(graph             = NULL,
         model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case    = c,
-                                                         coefs   = fill_in_blanks(model$coefficients, beta_names),
-                                                         epsilon = epsilon) # epsilon from linear model stored
+        cov_selection[m, , i] <- determine_cov_selection(case   = c,
+                                                         method = method,
+                                                         model  = model)
       }
       
       else if (method == "two_step_LASSO_X") {
@@ -1231,11 +1228,8 @@ run <- function(graph             = NULL,
                         type      = "lasso",
                         intercept = TRUE)
         
-        # separate epsilon term for shrinkage parameters
-        shrunk_X_epsilon <- unname(abs(tail(lars_coefs(model = X_model), n=1)))
-        
         # find vars in model
-        vars_selected <- lasso_selection(model_method = method, model = model, epsilon = shrunk_X_epsilon)
+        vars_selected <- lasso_selection(model_method = method, model = X_model)
         
         # fit new model for Y on the subset of covariates selected
         formula_string <- "y ~ X"
@@ -1249,19 +1243,19 @@ run <- function(graph             = NULL,
         model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case    = c,
-                                                         coefs   = fill_in_blanks(model$coefficients, beta_names),
-                                                         epsilon = epsilon) # epsilon from linear model stored
+        cov_selection[m, , i] <- determine_cov_selection(case   = c,
+                                                         method = method,
+                                                         model  = model)
       }
       
       else if (method == "least_angle") {
-        model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
-                      y         = data_y,            # outcome
-                      type      = "lar",
-                      intercept = TRUE)
-        
-        # Record coefficients
-        model_coefs[m, , i] <- lars_coefs(model = model)
+        # model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+        #               y         = data_y,            # outcome
+        #               type      = "lar",
+        #               intercept = TRUE)
+        # 
+        # # Record coefficients
+        # model_coefs[m, , i] <- lars_coefs(model = model)
         
         # Record covariate selection
         # TODO: implement
@@ -1274,19 +1268,19 @@ run <- function(graph             = NULL,
                       type      = "lar",
                       intercept = TRUE)
         
-        # find vars in model
-        vars_selected <- lasso_selection(model_method = method, model = model, epsilon = 0.01)
-        
-        # fit new model on the subset of covariates selected
-        formula_string <- "y ~ X"
-        for (var in vars_selected) {
-          formula_string <- paste(formula_string, " + ", var, sep = "")
-        }
-        formula <- as.formula( formula_string )
-        model   <- lm(formula = formula, data = data)
-        
-        # Record coefficients
-        model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
+        # # find vars in model
+        # vars_selected <- lasso_selection(model_method = method, model = model)
+        # 
+        # # fit new model on the subset of covariates selected
+        # formula_string <- "y ~ X"
+        # for (var in vars_selected) {
+        #   formula_string <- paste(formula_string, " + ", var, sep = "")
+        # }
+        # formula <- as.formula( formula_string )
+        # model   <- lm(formula = formula, data = data)
+        # 
+        # # Record coefficients
+        # model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
         # TODO: implement
@@ -1299,8 +1293,8 @@ run <- function(graph             = NULL,
                       type      = "forward.stagewise",
                       intercept = TRUE)
         
-        # Record coefficients
-        model_coefs[m, , i] <- lars_coefs(model = model)
+        # # Record coefficients
+        # model_coefs[m, , i] <- lars_coefs(model = model)
         
         # Record covariate selection
         # TODO: implement
@@ -1313,19 +1307,19 @@ run <- function(graph             = NULL,
                       type      = "forward.stagewise",
                       intercept = TRUE)
         
-        # find vars in model
-        vars_selected <- lasso_selection(model_method = method, model = model, epsilon = 0.01)
-        
-        # fit new model on the subset of covariates selected
-        formula_string <- "y ~ X"
-        for (var in vars_selected) {
-          formula_string <- paste(formula_string, " + ", var, sep = "")
-        }
-        formula <- as.formula( formula_string )
-        model   <- lm(formula = formula, data = data)
-        
-        # Record coefficients
-        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        # # find vars in model
+        # vars_selected <- lasso_selection(model_method = method, model = model)
+        # 
+        # # fit new model on the subset of covariates selected
+        # formula_string <- "y ~ X"
+        # for (var in vars_selected) {
+        #   formula_string <- paste(formula_string, " + ", var, sep = "")
+        # }
+        # formula <- as.formula( formula_string )
+        # model   <- lm(formula = formula, data = data)
+        # 
+        # # Record coefficients
+        # model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
         # TODO: implement
@@ -1333,11 +1327,11 @@ run <- function(graph             = NULL,
       }
       
       else if (method == "iv_2sls") {
-        # instrumental variable based 2-stage least-squares regression
-        model <- ivreg(y ~ ., data = data)
-        
-        # Record coefficients
-        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        # # instrumental variable based 2-stage least-squares regression
+        # model <- ivreg(y ~ ., data = data)
+        # 
+        # # Record coefficients
+        # model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
         # TODO: implement
@@ -1345,23 +1339,23 @@ run <- function(graph             = NULL,
       }
       
       else if (method == "prop_score_based") {
-        # CBPS Covariate Balancing Propensity Score method
-        cbps_model <- CBPS(y ~ ., data = data, ATT = TRUE)
-        
-        # determine vars to include
-        # model_method overwritten as this is stage 1 of 2 stage procedure
-        vars_selected <- find_vars_in_model(model_method = "CBPS", model = cbps_model)
-        
-        # fit new model on the subset of covariates selected
-        formula_string <- "y ~ X"
-        for (var in vars_selected) {
-          formula_string <- paste(formula_string, " + ", var, sep = "")
-        }
-        formula <- as.formula( formula_string )
-        model   <- lm(formula = formula, data = data)
-        
-        # Record coefficients
-        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        # # CBPS Covariate Balancing Propensity Score method
+        # cbps_model <- CBPS(y ~ ., data = data, ATT = TRUE)
+        # 
+        # # determine vars to include
+        # # model_method overwritten as this is stage 1 of 2 stage procedure
+        # vars_selected <- find_vars_in_model(model_method = "CBPS", model = cbps_model)
+        # 
+        # # fit new model on the subset of covariates selected
+        # formula_string <- "y ~ X"
+        # for (var in vars_selected) {
+        #   formula_string <- paste(formula_string, " + ", var, sep = "")
+        # }
+        # formula <- as.formula( formula_string )
+        # model   <- lm(formula = formula, data = data)
+        # 
+        # # Record coefficients
+        # model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
         # TODO: implement
@@ -1373,7 +1367,7 @@ run <- function(graph             = NULL,
         result = results_methods[r]
         result_value <- NaN
         
-        if (result == "mse") {
+        if (result == "pred_mse") {
           result_value <- mse(model          = model,
                               optimal_lambda = optimal_lambda,
                               model_method   = method,
@@ -1407,7 +1401,15 @@ run <- function(graph             = NULL,
         }
         
         else if (result == "causal_effect_precision") {
-          result_value <- causal_effect_precision()
+          result_value <- NaN # not implemented
+        }
+        
+        else if (result == "causal_effect_est") {
+          result_value <- NaN # calculated afterwards
+        }
+        
+        else if (result == "causal_effect_mcse") {
+          result_value <- NaN # calculated afterwards
         }
         
         else if (result == "causal_effect_bias") {
@@ -1483,6 +1485,26 @@ run <- function(graph             = NULL,
     }
   }
   
+  # Monte carlo standard error of causal effect
+  if ("causal_effect_est" %in% results_methods) {
+    for (m in 1:M) {
+      method                               <- model_methods[m]
+      causal_effect_estimates              <- model_coefs[method, 'X', ]
+      results_aggr[m, "causal_effect_est"] <- mean(causal_effect_estimates)
+    }
+  }
+  
+  # Monte carlo standard error of causal effect
+  if ("causal_effect_mcse" %in% results_methods) {
+    for (m in 1:M) {
+      # we have n_rep estimates of the causal effect
+      # hence n = n_rep in the context of sampling this random variable
+      method                                <- model_methods[m]
+      causal_effect_estimates               <- model_coefs[method, 'X', ]
+      results_aggr[m, "causal_effect_mcse"] <- sqrt( var(causal_effect_estimates)/n_rep )
+    }
+  }
+  
   # Generate Coefficients Table
   coefs_last            <- model_coefs[, , n_rep]
   coefs_aggr            <- apply(model_coefs, c(1,2), mean)
@@ -1535,13 +1557,13 @@ run <- function(graph             = NULL,
   # Generate R2 Table
   r2_values        <- c(target_r_sq_X,
                         analytic_r_sq_X(num_conf = c, beta_Xs = oracle_beta_Xs),
-                        results_aggr['linear', 'r_squared_X'],
+                        results_aggr[1, 'r_squared_X'],
                         target_r_sq_Y,
                         analytic_r_sq_Y(num_conf = c,
                                         beta_Xs  = oracle_beta_Xs,
                                         beta_Ys  = oracle_beta_Ys,
                                         causal   = oracle_causal),
-                        results_aggr['linear', 'r_squared_Y'])
+                        results_aggr[1, 'r_squared_Y'])
   names(r2_values) <- c("Target_R2_X", "Analytic_R2_X", "Sample R2_X", "Target_R2_Y", "Analytic_R2_Y", "Sample R2_Y")
   
   message("\nResults of Simulation")

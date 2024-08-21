@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 07/08/2024
+# Most Recent Edit: 20/08/2024
 # ****************************************
 
 
@@ -47,34 +47,35 @@ source("results.R")
 set.seed(2024)
 
 # top-level simulation parameters
-n_obs_init        <- 1000 # 10000
-n_rep_init        <- 1000 # 1000
+n_obs_init        <- 1000
+n_rep_init        <- 100
 SE_req_init       <- 0.05
 data_split_init   <- NULL
-z
+
 # important that rX < rY for numerical reasons
 # c <= 0 for suff. high values of asymmetry - watch carefully!
 target_r_sq_X_init     <- 0.4 # oracle R-squared value, proportion of variance in X explained by all Z's, we induce
 target_r_sq_Y_init     <- 0.6 # oracle R-squared value, proportion of variance in Y explained by X and all Z's, we induce
 
 asymmetry_init <- 200.0   # measure of asymmetry within oracle coefficients, set to 1.0 to keep them symmetric
-l_zero_X_init  <- FALSE # force 'L' subgroups affecting X to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
-l_zero_Y_init  <- FALSE # force 'L' subgroups affecting Y to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
+l_zero_X_init  <- TRUE # force 'L' subgroups affecting X to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
+l_zero_Y_init  <- TRUE # force 'L' subgroups affecting Y to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
 
 oracle_error_mean_init <- 0.00 # error term mean
 oracle_error_sd_init   <- 1.00 # error term sd
 
 
 # models to fit and results metrics to measure
-# TODO: fix follow through for 1-stage LASSO
+#model_methods <- c("two_step_LASSO", "two_step_LASSO_X")
 model_methods   <- c("linear", "stepwise", "stepwise_X", "two_step_LASSO", "two_step_LASSO_X")
 
-results_methods <- c("mse", "r_squared_X", "r_squared_Y",                    # prediction
-                     "causal_effect_bias", "avg_abs_param_bias", "coverage", # beta coefs
-                     "open_paths", "blocked_paths")             # other
+results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
+                     "causal_effect_est", "causal_effect_mcse", "causal_effect_bias",
+                     "avg_abs_param_bias", "coverage",
+                     "open_paths", "blocked_paths")
 
 #c_values <- c(4)
-c_values        <- c(4, 8, 12, 16)
+c_values        <- c(4, 8, 16, 32, 64)
 
 for (c in c_values) {
   # initialise DAG
