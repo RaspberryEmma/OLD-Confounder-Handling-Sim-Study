@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 20/08/2024
+# Most Recent Edit: 23/08/2024
 # ****************************************
 
 
@@ -47,7 +47,7 @@ source("results.R")
 set.seed(2024)
 
 # top-level simulation parameters
-n_obs_init        <- 1000
+n_obs_init        <- 10000 # suff high for number of confounders (!)
 n_rep_init        <- 100
 SE_req_init       <- 0.05
 data_split_init   <- NULL
@@ -66,7 +66,7 @@ oracle_error_sd_init   <- 1.00 # error term sd
 
 
 # models to fit and results metrics to measure
-#model_methods <- c("two_step_LASSO", "two_step_LASSO_X")
+#model_methods <- c("linear")
 model_methods   <- c("linear", "stepwise", "stepwise_X", "two_step_LASSO", "two_step_LASSO_X")
 
 results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
@@ -74,9 +74,9 @@ results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
                      "avg_abs_param_bias", "coverage",
                      "open_paths", "blocked_paths")
 
-#c_values <- c(4)
-c_values        <- c(4, 8, 16, 32, 64)
-
+#c_values <- c(32)
+c_values        <- c(4, 8, 16, 32, 64, 128, 256)
+1
 for (c in c_values) {
   # initialise DAG
   coef_data      <- generate_coef_data(c             = c,

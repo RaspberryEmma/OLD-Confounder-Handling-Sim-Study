@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 20/08/2024
+# Most Recent Edit: 23/08/2024
 # ****************************************
 
 
@@ -975,6 +975,59 @@ determine_cov_selection <- function(case   = NULL,
 }
 
 
+mean_across_groups <- function(table = NULL, case = NULL) {
+  method_col <- rownames(table)
+  
+  if ("intercept" %in% colnames(table)) {
+    intercept_col <- table[, 1]
+    X_col         <- table[, 2]
+    Z_subtable    <- table[, 3:(case+3)]
+  }
+  else {
+    X_col         <- table[, 1]
+    Z_subtable    <- table[, 2:(case+2)]
+  }
+  
+  print(table)
+  print(Z_subtable)
+  
+  if (case == 4) {
+    Z_LL <- Z_subtable[ , 1]
+    Z_LH <- Z_subtable[ , 2]
+    Z_HL <- Z_subtable[ , 3]
+    Z_HH <- Z_subtable[ , 4]
+    Z_dummy <- Z_subtable[ , 5]
+  }
+  else if (nrow(table) > 1) {
+    Z_LL <- rowMeans(Z_subtable[ ,                 1:(0.25 * case)])
+    Z_LH <- rowMeans(Z_subtable[ , ((0.25 * case)+1):(0.50 * case)])
+    Z_HL <- rowMeans(Z_subtable[ , ((0.50 * case)+1):(0.75 * case)])
+    Z_HH <- rowMeans(Z_subtable[ , ((0.75 * case)+1):case])
+    Z_dummy <- Z_subtable[ , case+1]
+  }
+  else {
+    Z_LL <- mean(Z_subtable[                1:(0.25 * case)])
+    Z_LH <- mean(Z_subtable[((0.25 * case)+1):(0.50 * case)])
+    Z_HL <- mean(Z_subtable[((0.50 * case)+1):(0.75 * case)])
+    Z_HH <- mean(Z_subtable[((0.75 * case)+1):case])
+    Z_dummy <- Z_subtable[ case+1]
+  }
+  
+  if ("intercept" %in% colnames(table)) {
+    new_table <- cbind(intercept_col, X_col, Z_LL, Z_LH, Z_HL, Z_HH, Z_dummy)
+    colnames(new_table) <- c("intercept", "X", "Z_LL", "Z_LH", "Z_HL", "Z_HH", "Z_dummy")
+    rownames(new_table) <- method_col
+  }
+  else {
+    new_table <- cbind(X_col, Z_LL, Z_LH, Z_HL, Z_HH, Z_dummy)
+    colnames(new_table) <- c("X", "Z_LL", "Z_LH", "Z_HL", "Z_HH", "Z_dummy")
+    rownames(new_table) <- method_col
+  }
+  
+  return (new_table)
+}
+
+
 run_once <- function(graph             = NULL,
                      coef_data         = NULL,
                      n_obs             = NULL,
@@ -1064,7 +1117,7 @@ run <- function(graph             = NULL,
   
   for (i in 1:n_rep) {
     # progress
-    message( paste("\n\nRunning Iteration ", i, "/", n_rep, "\n", sep = "") )
+    message( paste("\n\nRunning Scenario ", c, ", Iteration ", i, "/", n_rep, "\n", sep = "") )
     
     # generate data according to split parameter
     # if NULL, use the same data for testing and training
@@ -1505,7 +1558,7 @@ run <- function(graph             = NULL,
     }
   }
   
-  # Generate Coefficients Table
+  # Generate coefficients table
   coefs_last            <- model_coefs[, , n_rep]
   coefs_aggr            <- apply(model_coefs, c(1,2), mean)
   true_values           <- coef_data[1, -c(1, 3)]
@@ -1513,8 +1566,14 @@ run <- function(graph             = NULL,
   coefs_last            <- rbind(true_values, coefs_last)
   coefs_aggr            <- rbind(true_values, coefs_aggr)
   
-  # Generate Covariate Selection Table
+  # Generate grouped coefficients table
+  coefs_group_aggr <- mean_across_groups(table = coefs_aggr, case = c)
+  
+  # Generate covariate selection table
   cov_selection_aggr <- apply(cov_selection, c(1, 2), mean)
+  
+  # Generate grouped covariate selection table
+  cov_selection_group_aggr <- mean_across_groups(table = cov_selection_aggr, case = c)
   
   # Generate oracle variances table
   var_labels    <- colnames(coef_data)[-c(1, 2)]
@@ -1594,8 +1653,16 @@ run <- function(graph             = NULL,
   print(coefs_aggr)
   
   writeLines("\n")
+  print("Grouped Sample Coefficients for Y Table")
+  print(coefs_group_aggr)
+  
+  writeLines("\n")
   print("Covariate Selection Table")
   print(cov_selection_aggr)
+  
+  writeLines("\n")
+  print("Grouped Covariate Selection Table")
+  print(cov_selection_group_aggr)
   
   writeLines("\n")
   print("Results Table")
@@ -1637,10 +1704,12 @@ run <- function(graph             = NULL,
     write.csv(representative_data, paste("../data/", case_string, "-dataset.csv", sep = ""))
     
     # Save sample coefficients
-    write.csv(coefs_aggr, paste("../data/", case_string, "-model-coefs.csv", sep = ""))
+    write.csv(coefs_aggr,       paste("../data/", case_string, "-model-coefs.csv", sep = ""))
+    write.csv(coefs_group_aggr, paste("../data/", case_string, "-model-coefs-grouped.csv", sep = ""))
     
     # Save covariate selection
-    write.csv(cov_selection_aggr, paste("../data/", case_string, "-cov-selection.csv", sep = ""))
+    write.csv(cov_selection_aggr,       paste("../data/", case_string, "-cov-selection.csv", sep = ""))
+    write.csv(cov_selection_group_aggr, paste("../data/", case_string, "-cov-selection-grouped.csv", sep = ""))
     
     # Save results measures
     write.csv(results_aggr, paste("../data/", case_string, "-results-table.csv", sep = ""))
