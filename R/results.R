@@ -6,7 +6,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 23/08/2024
+# Most Recent Edit: 11/09/2024
 # ****************************************
 
 
@@ -17,6 +17,8 @@ library(ggcorrplot)
 library(ggplot2)
 library(glmnet)
 library(igraph)
+library(lars)
+library(matrixStats)
 library(microbenchmark)
 library(sjmisc)
 library(tidyr)

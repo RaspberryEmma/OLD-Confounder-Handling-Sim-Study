@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 23/08/2024
+# Most Recent Edit: 11/09/2024
 # ****************************************
 
 
@@ -24,6 +24,8 @@ library(ggcorrplot)
 library(ggplot2)
 library(glmnet)
 library(igraph)
+library(lars)
+library(matrixStats)
 library(microbenchmark)
 library(sjmisc)
 library(tidyr)
@@ -63,13 +65,14 @@ oracle_error_sd_init   <- 1.00 # error term sd
 model_methods   <- c("linear", "stepwise", "stepwise_X", "two_step_LASSO", "two_step_LASSO_X")
 
 results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
+                     "model_SE", "emp_SE",
                      "causal_effect_est", "causal_effect_mcse", "causal_effect_bias",
                      "avg_abs_param_bias", "coverage",
                      "open_paths", "blocked_paths")
 
-c_values <- c(4)
+c_values <- c(4, 8, 16)
 #c_values        <- c(4, 8, 16, 32, 64, 128, 256)
-1
+
 for (c in c_values) {
   # initialise DAG
   coef_data      <- generate_coef_data(c             = c,

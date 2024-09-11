@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 23/08/2024
+# Most Recent Edit: 11/09/2024
 # ****************************************
 
 
@@ -21,6 +21,8 @@ library(ggcorrplot)
 library(ggplot2)
 library(glmnet)
 library(igraph)
+library(lars)
+library(matrixStats)
 library(microbenchmark)
 library(sjmisc)
 library(tidyr)
@@ -184,6 +186,18 @@ r_squared_Y <- function(model          = NULL,
   R2  <- (1 - (SSR / SST))
   
   return (R2)
+}
+
+
+# TODO: implement!
+model_SE <- function(model = NULL, model_method = NULL) {
+  return (NaN)
+}
+
+
+# TODO - implement!
+emp_SE <- function(model = NULL, model_method = NULL) {
+  return (NaN)
 }
 
 
@@ -939,9 +953,6 @@ generate_coef_data <- function(c             = NULL,
     coef_data[ match("y", var_labels), "X" ] <- oracle_causal_effect
   }
   
-  #print(coef_data)
-  #stop("generate_coef_data - l zero development!")
-  
   return (coef_data)
 }
 
@@ -971,6 +982,7 @@ determine_cov_selection <- function(case   = NULL,
 }
 
 
+# NB: X and dummy are groups of covariates of size 1
 mean_across_groups <- function(table = NULL, case = NULL) {
   method_col <- rownames(table)
   
@@ -984,8 +996,9 @@ mean_across_groups <- function(table = NULL, case = NULL) {
     Z_subtable    <- table[, 2:(case+2)]
   }
   
-  print(table)
-  print(Z_subtable)
+  #print(table)
+  #print(X_col)
+  #print(Z_subtable)
   
   if (case == 4) {
     Z_LL <- Z_subtable[ , 1]
@@ -1007,6 +1020,62 @@ mean_across_groups <- function(table = NULL, case = NULL) {
     Z_HL <- mean(Z_subtable[((0.50 * case)+1):(0.75 * case)])
     Z_HH <- mean(Z_subtable[((0.75 * case)+1):case])
     Z_dummy <- Z_subtable[ case+1]
+  }
+  
+  if ("intercept" %in% colnames(table)) {
+    new_table <- cbind(intercept_col, X_col, Z_LL, Z_LH, Z_HL, Z_HH, Z_dummy)
+    colnames(new_table) <- c("intercept", "X", "Z_LL", "Z_LH", "Z_HL", "Z_HH", "Z_dummy")
+    rownames(new_table) <- method_col
+  }
+  else {
+    new_table <- cbind(X_col, Z_LL, Z_LH, Z_HL, Z_HH, Z_dummy)
+    colnames(new_table) <- c("X", "Z_LL", "Z_LH", "Z_HL", "Z_HH", "Z_dummy")
+    rownames(new_table) <- method_col
+  }
+  
+  return (new_table)
+}
+
+
+# NB: X and dummy are groups of covariates of size 1
+# -> variance = 0.0 WITHIN group
+var_across_groups <- function(table = NULL, case = NULL) {
+  method_col <- rownames(table)
+  
+  if ("intercept" %in% colnames(table)) {
+    intercept_col <- table[, 1]
+    X_col         <- table[, 2]
+    Z_subtable    <- table[, 3:(case+3)]
+  }
+  else {
+    X_col         <- rep(0.0, times = length(table[, 1]))
+    Z_subtable    <- table[, 2:(case+2)]
+  }
+  
+  #print(table)
+  #print(X_col)
+  #print(Z_subtable)
+  
+  if (case == 4) {
+    Z_LL    <- 0.0
+    Z_LH    <- 0.0
+    Z_HL    <- 0.0
+    Z_HH    <- 0.0
+    Z_dummy <- 0.0
+  }
+  else if (nrow(table) > 1) {
+    Z_LL    <- rowVars(Z_subtable[ ,                 1:(0.25 * case)])
+    Z_LH    <- rowVars(Z_subtable[ , ((0.25 * case)+1):(0.50 * case)])
+    Z_HL    <- rowVars(Z_subtable[ , ((0.50 * case)+1):(0.75 * case)])
+    Z_HH    <- rowVars(Z_subtable[ , ((0.75 * case)+1):case])
+    Z_dummy <- 0.0
+  }
+  else {
+    Z_LL    <- var(Z_subtable[                1:(0.25 * case)])
+    Z_LH    <- var(Z_subtable[((0.25 * case)+1):(0.50 * case)])
+    Z_HL    <- var(Z_subtable[((0.50 * case)+1):(0.75 * case)])
+    Z_HH    <- var(Z_subtable[((0.75 * case)+1):case])
+    Z_dummy <- 0.0
   }
   
   if ("intercept" %in% colnames(table)) {
@@ -1437,6 +1506,16 @@ run <- function(graph             = NULL,
                                       test_data      = test_data)
         }
         
+        else if (result == "model_SE") {
+          result_value <- model_SE(model        = model,
+                                   model_method = method)
+        }
+        
+        else if (result == "emp_SE") {
+          result_value <- emp_SE(model        = model,
+                                 model_method = method)
+        }
+        
         else if (result == "param_bias") {
           result_value <- param_bias(model_method = method,
                                      model        = model,
@@ -1555,6 +1634,7 @@ run <- function(graph             = NULL,
   }
   
   # Generate coefficients table
+  model_coefs           <- replace(model_coefs, is.na(model_coefs), 0.0)
   coefs_last            <- model_coefs[, , n_rep]
   coefs_aggr            <- apply(model_coefs, c(1,2), mean)
   true_values           <- coef_data[1, -c(1, 3)]
@@ -1570,6 +1650,9 @@ run <- function(graph             = NULL,
   
   # Generate grouped covariate selection table
   cov_selection_group_aggr <- mean_across_groups(table = cov_selection_aggr, case = c)
+  
+  # Generate grouped covariate selection table
+  cov_dispersion_group <- var_across_groups(table = cov_selection_aggr, case = c)
   
   # Generate oracle variances table
   var_labels    <- colnames(coef_data)[-c(1, 2)]
@@ -1642,7 +1725,7 @@ run <- function(graph             = NULL,
   
   writeLines("\n\n")
   print("Oracle Coefficients")
-  print(head(coef_data))
+  print(coef_data)
   
   writeLines("\n")
   print("Sample Coefficients for Y Table")
@@ -1653,12 +1736,20 @@ run <- function(graph             = NULL,
   print(coefs_group_aggr)
   
   writeLines("\n")
-  print("Covariate Selection Table")
+  print("Individual Covariate Selection Table")
   print(cov_selection_aggr)
+  
+  #writeLines("\n")
+  #print("Covariate Selection Dispersion by Covariate Table")
+  #print(cov_dispersion_ind)
   
   writeLines("\n")
   print("Grouped Covariate Selection Table")
   print(cov_selection_group_aggr)
+  
+  writeLines("\n")
+  print("Covariate Selection Dispersion Within Groups Table")
+  print(cov_dispersion_group)
   
   writeLines("\n")
   print("Results Table")
@@ -1706,6 +1797,9 @@ run <- function(graph             = NULL,
     # Save covariate selection
     write.csv(cov_selection_aggr,       paste("../data/", case_string, "-cov-selection.csv", sep = ""))
     write.csv(cov_selection_group_aggr, paste("../data/", case_string, "-cov-selection-grouped.csv", sep = ""))
+    
+    # Save covariate dispersion
+    write.csv(cov_dispersion_group, paste("../data/", case_string, "-cov-dispersion-grouped.csv", sep = ""))
     
     # Save results measures
     write.csv(results_aggr, paste("../data/", case_string, "-results-table.csv", sep = ""))
