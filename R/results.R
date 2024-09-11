@@ -11,16 +11,13 @@
 
 
 # all external libraries
-library(chest)
+library(dagitty)
 library(dplyr)
-library(DT)
-library(ggdag)
+library(ggcorrplot)
 library(ggplot2)
 library(glmnet)
 library(igraph)
 library(microbenchmark)
-library(shiny)
-library(shinycssloaders)
 library(sjmisc)
 library(tidyr)
 

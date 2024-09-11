@@ -18,23 +18,16 @@
 rm(list=ls())
 
 # all external libraries
-library(CBPS)
-library(chest)
+library(dagitty)
 library(dplyr)
-library(DT)
-library(ggdag)
+library(ggcorrplot)
 library(ggplot2)
 library(glmnet)
 library(igraph)
-library(ivreg)
-library(MatchIt)
 library(microbenchmark)
-#library(qgraph) # additional layout options, not great but works
-library(shiny)
-library(shinycssloaders)
 library(sjmisc)
 library(tidyr)
-library(WeightIt)
+
 
 # fix wd issue
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
@@ -48,7 +41,7 @@ set.seed(2024)
 
 # top-level simulation parameters
 n_obs_init        <- 10000 # suff high for number of confounders (!)
-n_rep_init        <- 100
+n_rep_init        <- 10 # 100
 SE_req_init       <- 0.05
 data_split_init   <- NULL
 
@@ -74,8 +67,8 @@ results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
                      "avg_abs_param_bias", "coverage",
                      "open_paths", "blocked_paths")
 
-#c_values <- c(32)
-c_values        <- c(4, 8, 16, 32, 64, 128, 256)
+c_values <- c(4)
+#c_values        <- c(4, 8, 16, 32, 64, 128, 256)
 1
 for (c in c_values) {
   # initialise DAG
