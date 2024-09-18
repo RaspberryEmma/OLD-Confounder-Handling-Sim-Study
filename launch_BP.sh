@@ -1,5 +1,16 @@
 #!/bin/bash
 #
+# ****************************************
+# Confounder Handling Simulation Study
+#
+# BluePebble Launch Bash Script
+# Defines and runs the R simulation procedure on the BluePebble HPC
+#
+# Emma Tarmey
+#
+# Started:          16/09/2024
+# Most Recent Edit: 18/09/2024
+# ****************************************
 #
 #SBATCH --partition=default
 #SBATCH --job-name=conf_sim_study
@@ -29,10 +40,8 @@ echo SLURM ARRAY ID: ${SLURM_ARRAY_TASK_ID}
 echo Working Directory: $(pwd)
 echo Start Time: $(date)
 
-# Import languages
-module load languages/python/3.12.3
+# Import R
 module load languages/R/4.4.1
-
 
 # Execute code
 Rscript launch_isolated.R
