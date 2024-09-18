@@ -24,6 +24,7 @@
 
 # Change into working directory
 cd ${SLURM_SUBMIT_DIR}
+cd ..
 cd R
 
 # Record info
