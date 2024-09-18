@@ -24,3 +24,7 @@ cd Confounder-Handling-Sim-Study
 
 # submit simulation to BP HPC
 sbatch launch_BP.sh
+
+# check job submitted correctly
+sacct -X
+
