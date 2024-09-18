@@ -12,7 +12,7 @@
 
 
 # Change into working directory
-cd ~/default
+cd R
 
 # Define executable
 export EXE=/bin/hostname
