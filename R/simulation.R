@@ -175,15 +175,20 @@ r_squared_Y <- function(model          = NULL,
 }
 
 
-# TODO: implement!
-model_SE <- function(model = NULL, model_method = NULL) {
-  return (NaN)
+# Standard error of the model
+# https://people.duke.edu/~rnau/mathreg.htm
+model_SE <- function(n_rep = NULL, causal_effect_estimates = NULL, oracle_causal_effect = NULL) {
+  errors         <- causal_effect_estimates - oracle_causal_effect
+  sum_sq_errors  <- sum(errors^2)
+  model_SE_value <- sqrt(sum_sq_errors / (n_rep-1))
+  return (model_SE_value)
 }
 
 
-# TODO - implement!
-emp_SE <- function(model = NULL, model_method = NULL) {
-  return (NaN)
+# Standard error of the variable
+# https://en.wikipedia.org/wiki/Standard_error
+emp_SE <- function(causal_effect_estimates = NULL) {
+  return (sd(causal_effect_estimates))
 }
 
 
@@ -1493,13 +1498,11 @@ run <- function(graph             = NULL,
         }
         
         else if (result == "model_SE") {
-          result_value <- model_SE(model        = model,
-                                   model_method = method)
+          result_value <- NaN # calculated afterwards
         }
         
         else if (result == "emp_SE") {
-          result_value <- emp_SE(model        = model,
-                                 model_method = method)
+          result_value <- NaN # calculated afterwards
         }
         
         else if (result == "param_bias") {
@@ -1616,6 +1619,26 @@ run <- function(graph             = NULL,
       method                                <- model_methods[m]
       causal_effect_estimates               <- model_coefs[method, 'X', ]
       results_aggr[m, "causal_effect_mcse"] <- sqrt( var(causal_effect_estimates)/n_rep )
+    }
+  }
+  
+  # Standard error of model
+  if ("model_SE" %in% results_methods) {
+    for (m in 1:M) {
+      method                      <- model_methods[m]
+      causal_effect_estimates     <- model_coefs[method, 'X', ]
+      results_aggr[m, "model_SE"] <- model_SE(n_rep = n_rep,
+                                              causal_effect_estimates = causal_effect_estimates,
+                                              oracle_causal_effect    = coef_data[1, "X"])
+    }
+  }
+  
+  # Empirical standard error of causal effect
+  if ("emp_SE" %in% results_methods) {
+    for (m in 1:M) {
+      method                    <- model_methods[m]
+      causal_effect_estimates   <- model_coefs[method, 'X', ]
+      results_aggr[m, "emp_SE"] <- emp_SE(causal_effect_estimates = causal_effect_estimates)
     }
   }
   
