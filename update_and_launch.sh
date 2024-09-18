@@ -26,7 +26,7 @@ cd Confounder-Handling-Sim-Study
 sbatch launch_BP.sh
 
 # check job submitted correctly
-sleep 2.0
+sleep 5.0
 echo ""
 sacct -X
 echo ""
