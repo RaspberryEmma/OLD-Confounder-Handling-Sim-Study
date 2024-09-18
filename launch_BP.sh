@@ -22,23 +22,23 @@
 #SBATCH --account=MATH033344
 
 
-# Change into working directory
-cd R
-
 # Define executable
 export EXE=/bin/hostname
 
 # Change into working directory
 cd ${SLURM_SUBMIT_DIR}
+cd R
 
 # Do some stuff
-echo "\n"
+echo ""
 echo "***** START *****"
 echo "***** Confounder Handling Simulation Study - Simulation *****"
-echo JOB ID: ${SLURM_JOBID}
-echo SLURM ARRAY ID: ${SLURM_ARRAY_TASK_ID}
+echo Start Time:        $(date)
 echo Working Directory: $(pwd)
-echo Start Time: $(date)
+echo JOB ID:            ${SLURM_JOBID}
+echo SLURM ARRAY ID:    ${SLURM_ARRAY_TASK_ID}
+echo ""
+
 
 # Import R
 module load languages/R/4.4.1
@@ -46,6 +46,8 @@ module load languages/R/4.4.1
 # Execute code
 Rscript launch_isolated.R
 ${EXE}
+echo ""
 echo End Time: $(date)
 echo "***** END *****"
+echo ""
 
