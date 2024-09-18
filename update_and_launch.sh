@@ -14,7 +14,7 @@
 # ****************************************
 
 # delete older version
-rm -r Confounder-Handling-Sim-Study
+rm -f -r Confounder-Handling-Sim-Study
 
 # clone most recent version
 git clone https://github.com/RaspberryEmma/Confounder-Handling-Sim-Study
