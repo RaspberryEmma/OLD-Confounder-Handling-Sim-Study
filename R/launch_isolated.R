@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 11/09/2024
+# Most Recent Edit: 18/09/2024
 # ****************************************
 
 
@@ -18,21 +18,22 @@
 rm(list=ls())
 
 # all external libraries
-library(dagitty)
-library(dplyr)
-library(ggcorrplot)
-library(ggplot2)
-library(glmnet)
-library(igraph)
-library(lars)
-library(matrixStats)
-library(microbenchmark)
-library(sjmisc)
-library(tidyr)
-
+using<-function(...) {
+  libs <- unlist(list(...))
+  req  <- unlist(lapply(libs, require, character.only=TRUE))
+  need <- libs[req==FALSE]
+  if(length(need) > 0){ 
+    install.packages(need)
+    lapply(need, require, character.only=TRUE)
+  }
+}
+using("dagitty", "dplyr", "ggcorrplot", "ggplot2", "glmnet",
+      "igraph", "lars", "matrixStats", "microbenchmark", "sjmisc", "tidyr")
 
 # fix wd issue
-setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+if (Sys.getenv("RSTUDIO") == "1") {
+  setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+}
 
 # simulation-proper code
 source("simulation.R")
