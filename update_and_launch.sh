@@ -13,6 +13,8 @@
 # Most Recent Edit: 18/09/2024
 # ****************************************
 
+echo ""
+
 # delete older version
 rm -f -r Confounder-Handling-Sim-Study
 
