@@ -44,7 +44,7 @@ set.seed(2024)
 
 # top-level simulation parameters
 n_obs_init        <- 10000 # suff high for number of confounders (!)
-n_rep_init        <- 10000
+n_rep_init        <- 1000
 SE_req_init       <- 0.05
 data_split_init   <- NULL
 
