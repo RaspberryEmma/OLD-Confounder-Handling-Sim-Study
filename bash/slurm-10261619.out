@@ -1,0 +1,13975 @@
+cpu-bind=MASK - bp1-compute051, task  0  0 [2706184]: mask 0x200000200000 set
+
+***** START *****
+***** Confounder Handling Simulation Study - Simulation *****
+Start Time: Thu Sep 19 13:11:05 BST 2024
+Working Directory: /user/home/aa22294/Confounder-Handling-Sim-Study/R
+JOB ID: 10261619
+SLURM ARRAY ID:
+
+Loading required package: dagitty
+Loading required package: dplyr
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Loading required package: ggcorrplot
+Loading required package: ggplot2
+Loading required package: glmnet
+Loading required package: Matrix
+Loaded glmnet 4.1-8
+Loading required package: igraph
+
+Attaching package: 'igraph'
+
+The following objects are masked from 'package:dplyr':
+
+    as_data_frame, groups, union
+
+The following object is masked from 'package:dagitty':
+
+    edges
+
+The following objects are masked from 'package:stats':
+
+    decompose, spectrum
+
+The following object is masked from 'package:base':
+
+    union
+
+Loading required package: lars
+Loaded lars 1.3
+
+Loading required package: matrixStats
+
+Attaching package: 'matrixStats'
+
+The following object is masked from 'package:dplyr':
+
+    count
+
+Loading required package: microbenchmark
+Loading required package: sjmisc
+Loading required package: tidyr
+
+Attaching package: 'tidyr'
+
+The following object is masked from 'package:sjmisc':
+
+    replace_na
+
+The following object is masked from 'package:igraph':
+
+    crossing
+
+The following objects are masked from 'package:Matrix':
+
+    expand, pack, unpack
+
+[1] "running!"
+
+
+Running Scenario 4, Iteration 1/1000
+
+
+
+Running Scenario 4, Iteration 2/1000
+
+
+
+Running Scenario 4, Iteration 3/1000
+
+
+
+Running Scenario 4, Iteration 4/1000
+
+
+
+Running Scenario 4, Iteration 5/1000
+
+
+
+Running Scenario 4, Iteration 6/1000
+
+
+
+Running Scenario 4, Iteration 7/1000
+
+
+
+Running Scenario 4, Iteration 8/1000
+
+
+
+Running Scenario 4, Iteration 9/1000
+
+
+
+Running Scenario 4, Iteration 10/1000
+
+
+
+Running Scenario 4, Iteration 11/1000
+
+
+
+Running Scenario 4, Iteration 12/1000
+
+
+
+Running Scenario 4, Iteration 13/1000
+
+
+
+Running Scenario 4, Iteration 14/1000
+
+
+
+Running Scenario 4, Iteration 15/1000
+
+
+
+Running Scenario 4, Iteration 16/1000
+
+
+
+Running Scenario 4, Iteration 17/1000
+
+
+
+Running Scenario 4, Iteration 18/1000
+
+
+
+Running Scenario 4, Iteration 19/1000
+
+
+
+Running Scenario 4, Iteration 20/1000
+
+
+
+Running Scenario 4, Iteration 21/1000
+
+
+
+Running Scenario 4, Iteration 22/1000
+
+
+
+Running Scenario 4, Iteration 23/1000
+
+
+
+Running Scenario 4, Iteration 24/1000
+
+
+
+Running Scenario 4, Iteration 25/1000
+
+
+
+Running Scenario 4, Iteration 26/1000
+
+
+
+Running Scenario 4, Iteration 27/1000
+
+
+
+Running Scenario 4, Iteration 28/1000
+
+
+
+Running Scenario 4, Iteration 29/1000
+
+
+
+Running Scenario 4, Iteration 30/1000
+
+
+
+Running Scenario 4, Iteration 31/1000
+
+
+
+Running Scenario 4, Iteration 32/1000
+
+
+
+Running Scenario 4, Iteration 33/1000
+
+
+
+Running Scenario 4, Iteration 34/1000
+
+
+
+Running Scenario 4, Iteration 35/1000
+
+
+
+Running Scenario 4, Iteration 36/1000
+
+
+
+Running Scenario 4, Iteration 37/1000
+
+
+
+Running Scenario 4, Iteration 38/1000
+
+
+
+Running Scenario 4, Iteration 39/1000
+
+
+
+Running Scenario 4, Iteration 40/1000
+
+
+
+Running Scenario 4, Iteration 41/1000
+
+
+
+Running Scenario 4, Iteration 42/1000
+
+
+
+Running Scenario 4, Iteration 43/1000
+
+
+
+Running Scenario 4, Iteration 44/1000
+
+
+
+Running Scenario 4, Iteration 45/1000
+
+
+
+Running Scenario 4, Iteration 46/1000
+
+
+
+Running Scenario 4, Iteration 47/1000
+
+
+
+Running Scenario 4, Iteration 48/1000
+
+
+
+Running Scenario 4, Iteration 49/1000
+
+
+
+Running Scenario 4, Iteration 50/1000
+
+
+
+Running Scenario 4, Iteration 51/1000
+
+
+
+Running Scenario 4, Iteration 52/1000
+
+
+
+Running Scenario 4, Iteration 53/1000
+
+
+
+Running Scenario 4, Iteration 54/1000
+
+
+
+Running Scenario 4, Iteration 55/1000
+
+
+
+Running Scenario 4, Iteration 56/1000
+
+
+
+Running Scenario 4, Iteration 57/1000
+
+
+
+Running Scenario 4, Iteration 58/1000
+
+
+
+Running Scenario 4, Iteration 59/1000
+
+
+
+Running Scenario 4, Iteration 60/1000
+
+
+
+Running Scenario 4, Iteration 61/1000
+
+
+
+Running Scenario 4, Iteration 62/1000
+
+
+
+Running Scenario 4, Iteration 63/1000
+
+
+
+Running Scenario 4, Iteration 64/1000
+
+
+
+Running Scenario 4, Iteration 65/1000
+
+
+
+Running Scenario 4, Iteration 66/1000
+
+
+
+Running Scenario 4, Iteration 67/1000
+
+
+
+Running Scenario 4, Iteration 68/1000
+
+
+
+Running Scenario 4, Iteration 69/1000
+
+
+
+Running Scenario 4, Iteration 70/1000
+
+
+
+Running Scenario 4, Iteration 71/1000
+
+
+
+Running Scenario 4, Iteration 72/1000
+
+
+
+Running Scenario 4, Iteration 73/1000
+
+
+
+Running Scenario 4, Iteration 74/1000
+
+
+
+Running Scenario 4, Iteration 75/1000
+
+
+
+Running Scenario 4, Iteration 76/1000
+
+
+
+Running Scenario 4, Iteration 77/1000
+
+
+
+Running Scenario 4, Iteration 78/1000
+
+
+
+Running Scenario 4, Iteration 79/1000
+
+
+
+Running Scenario 4, Iteration 80/1000
+
+
+
+Running Scenario 4, Iteration 81/1000
+
+
+
+Running Scenario 4, Iteration 82/1000
+
+
+
+Running Scenario 4, Iteration 83/1000
+
+
+
+Running Scenario 4, Iteration 84/1000
+
+
+
+Running Scenario 4, Iteration 85/1000
+
+
+
+Running Scenario 4, Iteration 86/1000
+
+
+
+Running Scenario 4, Iteration 87/1000
+
+
+
+Running Scenario 4, Iteration 88/1000
+
+
+
+Running Scenario 4, Iteration 89/1000
+
+
+
+Running Scenario 4, Iteration 90/1000
+
+
+
+Running Scenario 4, Iteration 91/1000
+
+
+
+Running Scenario 4, Iteration 92/1000
+
+
+
+Running Scenario 4, Iteration 93/1000
+
+
+
+Running Scenario 4, Iteration 94/1000
+
+
+
+Running Scenario 4, Iteration 95/1000
+
+
+
+Running Scenario 4, Iteration 96/1000
+
+
+
+Running Scenario 4, Iteration 97/1000
+
+
+
+Running Scenario 4, Iteration 98/1000
+
+
+
+Running Scenario 4, Iteration 99/1000
+
+
+
+Running Scenario 4, Iteration 100/1000
+
+
+
+Running Scenario 4, Iteration 101/1000
+
+
+
+Running Scenario 4, Iteration 102/1000
+
+
+
+Running Scenario 4, Iteration 103/1000
+
+
+
+Running Scenario 4, Iteration 104/1000
+
+
+
+Running Scenario 4, Iteration 105/1000
+
+
+
+Running Scenario 4, Iteration 106/1000
+
+
+
+Running Scenario 4, Iteration 107/1000
+
+
+
+Running Scenario 4, Iteration 108/1000
+
+
+
+Running Scenario 4, Iteration 109/1000
+
+
+
+Running Scenario 4, Iteration 110/1000
+
+
+
+Running Scenario 4, Iteration 111/1000
+
+
+
+Running Scenario 4, Iteration 112/1000
+
+
+
+Running Scenario 4, Iteration 113/1000
+
+
+
+Running Scenario 4, Iteration 114/1000
+
+
+
+Running Scenario 4, Iteration 115/1000
+
+
+
+Running Scenario 4, Iteration 116/1000
+
+
+
+Running Scenario 4, Iteration 117/1000
+
+
+
+Running Scenario 4, Iteration 118/1000
+
+
+
+Running Scenario 4, Iteration 119/1000
+
+
+
+Running Scenario 4, Iteration 120/1000
+
+
+
+Running Scenario 4, Iteration 121/1000
+
+
+
+Running Scenario 4, Iteration 122/1000
+
+
+
+Running Scenario 4, Iteration 123/1000
+
+
+
+Running Scenario 4, Iteration 124/1000
+
+
+
+Running Scenario 4, Iteration 125/1000
+
+
+
+Running Scenario 4, Iteration 126/1000
+
+
+
+Running Scenario 4, Iteration 127/1000
+
+
+
+Running Scenario 4, Iteration 128/1000
+
+
+
+Running Scenario 4, Iteration 129/1000
+
+
+
+Running Scenario 4, Iteration 130/1000
+
+
+
+Running Scenario 4, Iteration 131/1000
+
+
+
+Running Scenario 4, Iteration 132/1000
+
+
+
+Running Scenario 4, Iteration 133/1000
+
+
+
+Running Scenario 4, Iteration 134/1000
+
+
+
+Running Scenario 4, Iteration 135/1000
+
+
+
+Running Scenario 4, Iteration 136/1000
+
+
+
+Running Scenario 4, Iteration 137/1000
+
+
+
+Running Scenario 4, Iteration 138/1000
+
+
+
+Running Scenario 4, Iteration 139/1000
+
+
+
+Running Scenario 4, Iteration 140/1000
+
+
+
+Running Scenario 4, Iteration 141/1000
+
+
+
+Running Scenario 4, Iteration 142/1000
+
+
+
+Running Scenario 4, Iteration 143/1000
+
+
+
+Running Scenario 4, Iteration 144/1000
+
+
+
+Running Scenario 4, Iteration 145/1000
+
+
+
+Running Scenario 4, Iteration 146/1000
+
+
+
+Running Scenario 4, Iteration 147/1000
+
+
+
+Running Scenario 4, Iteration 148/1000
+
+
+
+Running Scenario 4, Iteration 149/1000
+
+
+
+Running Scenario 4, Iteration 150/1000
+
+
+
+Running Scenario 4, Iteration 151/1000
+
+
+
+Running Scenario 4, Iteration 152/1000
+
+
+
+Running Scenario 4, Iteration 153/1000
+
+
+
+Running Scenario 4, Iteration 154/1000
+
+
+
+Running Scenario 4, Iteration 155/1000
+
+
+
+Running Scenario 4, Iteration 156/1000
+
+
+
+Running Scenario 4, Iteration 157/1000
+
+
+
+Running Scenario 4, Iteration 158/1000
+
+
+
+Running Scenario 4, Iteration 159/1000
+
+
+
+Running Scenario 4, Iteration 160/1000
+
+
+
+Running Scenario 4, Iteration 161/1000
+
+
+
+Running Scenario 4, Iteration 162/1000
+
+
+
+Running Scenario 4, Iteration 163/1000
+
+
+
+Running Scenario 4, Iteration 164/1000
+
+
+
+Running Scenario 4, Iteration 165/1000
+
+
+
+Running Scenario 4, Iteration 166/1000
+
+
+
+Running Scenario 4, Iteration 167/1000
+
+
+
+Running Scenario 4, Iteration 168/1000
+
+
+
+Running Scenario 4, Iteration 169/1000
+
+
+
+Running Scenario 4, Iteration 170/1000
+
+
+
+Running Scenario 4, Iteration 171/1000
+
+
+
+Running Scenario 4, Iteration 172/1000
+
+
+
+Running Scenario 4, Iteration 173/1000
+
+
+
+Running Scenario 4, Iteration 174/1000
+
+
+
+Running Scenario 4, Iteration 175/1000
+
+
+
+Running Scenario 4, Iteration 176/1000
+
+
+
+Running Scenario 4, Iteration 177/1000
+
+
+
+Running Scenario 4, Iteration 178/1000
+
+
+
+Running Scenario 4, Iteration 179/1000
+
+
+
+Running Scenario 4, Iteration 180/1000
+
+
+
+Running Scenario 4, Iteration 181/1000
+
+
+
+Running Scenario 4, Iteration 182/1000
+
+
+
+Running Scenario 4, Iteration 183/1000
+
+
+
+Running Scenario 4, Iteration 184/1000
+
+
+
+Running Scenario 4, Iteration 185/1000
+
+
+
+Running Scenario 4, Iteration 186/1000
+
+
+
+Running Scenario 4, Iteration 187/1000
+
+
+
+Running Scenario 4, Iteration 188/1000
+
+
+
+Running Scenario 4, Iteration 189/1000
+
+
+
+Running Scenario 4, Iteration 190/1000
+
+
+
+Running Scenario 4, Iteration 191/1000
+
+
+
+Running Scenario 4, Iteration 192/1000
+
+
+
+Running Scenario 4, Iteration 193/1000
+
+
+
+Running Scenario 4, Iteration 194/1000
+
+
+
+Running Scenario 4, Iteration 195/1000
+
+
+
+Running Scenario 4, Iteration 196/1000
+
+
+
+Running Scenario 4, Iteration 197/1000
+
+
+
+Running Scenario 4, Iteration 198/1000
+
+
+
+Running Scenario 4, Iteration 199/1000
+
+
+
+Running Scenario 4, Iteration 200/1000
+
+
+
+Running Scenario 4, Iteration 201/1000
+
+
+
+Running Scenario 4, Iteration 202/1000
+
+
+
+Running Scenario 4, Iteration 203/1000
+
+
+
+Running Scenario 4, Iteration 204/1000
+
+
+
+Running Scenario 4, Iteration 205/1000
+
+
+
+Running Scenario 4, Iteration 206/1000
+
+
+
+Running Scenario 4, Iteration 207/1000
+
+
+
+Running Scenario 4, Iteration 208/1000
+
+
+
+Running Scenario 4, Iteration 209/1000
+
+
+
+Running Scenario 4, Iteration 210/1000
+
+
+
+Running Scenario 4, Iteration 211/1000
+
+
+
+Running Scenario 4, Iteration 212/1000
+
+
+
+Running Scenario 4, Iteration 213/1000
+
+
+
+Running Scenario 4, Iteration 214/1000
+
+
+
+Running Scenario 4, Iteration 215/1000
+
+
+
+Running Scenario 4, Iteration 216/1000
+
+
+
+Running Scenario 4, Iteration 217/1000
+
+
+
+Running Scenario 4, Iteration 218/1000
+
+
+
+Running Scenario 4, Iteration 219/1000
+
+
+
+Running Scenario 4, Iteration 220/1000
+
+
+
+Running Scenario 4, Iteration 221/1000
+
+
+
+Running Scenario 4, Iteration 222/1000
+
+
+
+Running Scenario 4, Iteration 223/1000
+
+
+
+Running Scenario 4, Iteration 224/1000
+
+
+
+Running Scenario 4, Iteration 225/1000
+
+
+
+Running Scenario 4, Iteration 226/1000
+
+
+
+Running Scenario 4, Iteration 227/1000
+
+
+
+Running Scenario 4, Iteration 228/1000
+
+
+
+Running Scenario 4, Iteration 229/1000
+
+
+
+Running Scenario 4, Iteration 230/1000
+
+
+
+Running Scenario 4, Iteration 231/1000
+
+
+
+Running Scenario 4, Iteration 232/1000
+
+
+
+Running Scenario 4, Iteration 233/1000
+
+
+
+Running Scenario 4, Iteration 234/1000
+
+
+
+Running Scenario 4, Iteration 235/1000
+
+
+
+Running Scenario 4, Iteration 236/1000
+
+
+
+Running Scenario 4, Iteration 237/1000
+
+
+
+Running Scenario 4, Iteration 238/1000
+
+
+
+Running Scenario 4, Iteration 239/1000
+
+
+
+Running Scenario 4, Iteration 240/1000
+
+
+
+Running Scenario 4, Iteration 241/1000
+
+
+
+Running Scenario 4, Iteration 242/1000
+
+
+
+Running Scenario 4, Iteration 243/1000
+
+
+
+Running Scenario 4, Iteration 244/1000
+
+
+
+Running Scenario 4, Iteration 245/1000
+
+
+
+Running Scenario 4, Iteration 246/1000
+
+
+
+Running Scenario 4, Iteration 247/1000
+
+
+
+Running Scenario 4, Iteration 248/1000
+
+
+
+Running Scenario 4, Iteration 249/1000
+
+
+
+Running Scenario 4, Iteration 250/1000
+
+
+
+Running Scenario 4, Iteration 251/1000
+
+
+
+Running Scenario 4, Iteration 252/1000
+
+
+
+Running Scenario 4, Iteration 253/1000
+
+
+
+Running Scenario 4, Iteration 254/1000
+
+
+
+Running Scenario 4, Iteration 255/1000
+
+
+
+Running Scenario 4, Iteration 256/1000
+
+
+
+Running Scenario 4, Iteration 257/1000
+
+
+
+Running Scenario 4, Iteration 258/1000
+
+
+
+Running Scenario 4, Iteration 259/1000
+
+
+
+Running Scenario 4, Iteration 260/1000
+
+
+
+Running Scenario 4, Iteration 261/1000
+
+
+
+Running Scenario 4, Iteration 262/1000
+
+
+
+Running Scenario 4, Iteration 263/1000
+
+
+
+Running Scenario 4, Iteration 264/1000
+
+
+
+Running Scenario 4, Iteration 265/1000
+
+
+
+Running Scenario 4, Iteration 266/1000
+
+
+
+Running Scenario 4, Iteration 267/1000
+
+
+
+Running Scenario 4, Iteration 268/1000
+
+
+
+Running Scenario 4, Iteration 269/1000
+
+
+
+Running Scenario 4, Iteration 270/1000
+
+
+
+Running Scenario 4, Iteration 271/1000
+
+
+
+Running Scenario 4, Iteration 272/1000
+
+
+
+Running Scenario 4, Iteration 273/1000
+
+
+
+Running Scenario 4, Iteration 274/1000
+
+
+
+Running Scenario 4, Iteration 275/1000
+
+
+
+Running Scenario 4, Iteration 276/1000
+
+
+
+Running Scenario 4, Iteration 277/1000
+
+
+
+Running Scenario 4, Iteration 278/1000
+
+
+
+Running Scenario 4, Iteration 279/1000
+
+
+
+Running Scenario 4, Iteration 280/1000
+
+
+
+Running Scenario 4, Iteration 281/1000
+
+
+
+Running Scenario 4, Iteration 282/1000
+
+
+
+Running Scenario 4, Iteration 283/1000
+
+
+
+Running Scenario 4, Iteration 284/1000
+
+
+
+Running Scenario 4, Iteration 285/1000
+
+
+
+Running Scenario 4, Iteration 286/1000
+
+
+
+Running Scenario 4, Iteration 287/1000
+
+
+
+Running Scenario 4, Iteration 288/1000
+
+
+
+Running Scenario 4, Iteration 289/1000
+
+
+
+Running Scenario 4, Iteration 290/1000
+
+
+
+Running Scenario 4, Iteration 291/1000
+
+
+
+Running Scenario 4, Iteration 292/1000
+
+
+
+Running Scenario 4, Iteration 293/1000
+
+
+
+Running Scenario 4, Iteration 294/1000
+
+
+
+Running Scenario 4, Iteration 295/1000
+
+
+
+Running Scenario 4, Iteration 296/1000
+
+
+
+Running Scenario 4, Iteration 297/1000
+
+
+
+Running Scenario 4, Iteration 298/1000
+
+
+
+Running Scenario 4, Iteration 299/1000
+
+
+
+Running Scenario 4, Iteration 300/1000
+
+
+
+Running Scenario 4, Iteration 301/1000
+
+
+
+Running Scenario 4, Iteration 302/1000
+
+
+
+Running Scenario 4, Iteration 303/1000
+
+
+
+Running Scenario 4, Iteration 304/1000
+
+
+
+Running Scenario 4, Iteration 305/1000
+
+
+
+Running Scenario 4, Iteration 306/1000
+
+
+
+Running Scenario 4, Iteration 307/1000
+
+
+
+Running Scenario 4, Iteration 308/1000
+
+
+
+Running Scenario 4, Iteration 309/1000
+
+
+
+Running Scenario 4, Iteration 310/1000
+
+
+
+Running Scenario 4, Iteration 311/1000
+
+
+
+Running Scenario 4, Iteration 312/1000
+
+
+
+Running Scenario 4, Iteration 313/1000
+
+
+
+Running Scenario 4, Iteration 314/1000
+
+
+
+Running Scenario 4, Iteration 315/1000
+
+
+
+Running Scenario 4, Iteration 316/1000
+
+
+
+Running Scenario 4, Iteration 317/1000
+
+
+
+Running Scenario 4, Iteration 318/1000
+
+
+
+Running Scenario 4, Iteration 319/1000
+
+
+
+Running Scenario 4, Iteration 320/1000
+
+
+
+Running Scenario 4, Iteration 321/1000
+
+
+
+Running Scenario 4, Iteration 322/1000
+
+
+
+Running Scenario 4, Iteration 323/1000
+
+
+
+Running Scenario 4, Iteration 324/1000
+
+
+
+Running Scenario 4, Iteration 325/1000
+
+
+
+Running Scenario 4, Iteration 326/1000
+
+
+
+Running Scenario 4, Iteration 327/1000
+
+
+
+Running Scenario 4, Iteration 328/1000
+
+
+
+Running Scenario 4, Iteration 329/1000
+
+
+
+Running Scenario 4, Iteration 330/1000
+
+
+
+Running Scenario 4, Iteration 331/1000
+
+
+
+Running Scenario 4, Iteration 332/1000
+
+
+
+Running Scenario 4, Iteration 333/1000
+
+
+
+Running Scenario 4, Iteration 334/1000
+
+
+
+Running Scenario 4, Iteration 335/1000
+
+
+
+Running Scenario 4, Iteration 336/1000
+
+
+
+Running Scenario 4, Iteration 337/1000
+
+
+
+Running Scenario 4, Iteration 338/1000
+
+
+
+Running Scenario 4, Iteration 339/1000
+
+
+
+Running Scenario 4, Iteration 340/1000
+
+
+
+Running Scenario 4, Iteration 341/1000
+
+
+
+Running Scenario 4, Iteration 342/1000
+
+
+
+Running Scenario 4, Iteration 343/1000
+
+
+
+Running Scenario 4, Iteration 344/1000
+
+
+
+Running Scenario 4, Iteration 345/1000
+
+
+
+Running Scenario 4, Iteration 346/1000
+
+
+
+Running Scenario 4, Iteration 347/1000
+
+
+
+Running Scenario 4, Iteration 348/1000
+
+
+
+Running Scenario 4, Iteration 349/1000
+
+
+
+Running Scenario 4, Iteration 350/1000
+
+
+
+Running Scenario 4, Iteration 351/1000
+
+
+
+Running Scenario 4, Iteration 352/1000
+
+
+
+Running Scenario 4, Iteration 353/1000
+
+
+
+Running Scenario 4, Iteration 354/1000
+
+
+
+Running Scenario 4, Iteration 355/1000
+
+
+
+Running Scenario 4, Iteration 356/1000
+
+
+
+Running Scenario 4, Iteration 357/1000
+
+
+
+Running Scenario 4, Iteration 358/1000
+
+
+
+Running Scenario 4, Iteration 359/1000
+
+
+
+Running Scenario 4, Iteration 360/1000
+
+
+
+Running Scenario 4, Iteration 361/1000
+
+
+
+Running Scenario 4, Iteration 362/1000
+
+
+
+Running Scenario 4, Iteration 363/1000
+
+
+
+Running Scenario 4, Iteration 364/1000
+
+
+
+Running Scenario 4, Iteration 365/1000
+
+
+
+Running Scenario 4, Iteration 366/1000
+
+
+
+Running Scenario 4, Iteration 367/1000
+
+
+
+Running Scenario 4, Iteration 368/1000
+
+
+
+Running Scenario 4, Iteration 369/1000
+
+
+
+Running Scenario 4, Iteration 370/1000
+
+
+
+Running Scenario 4, Iteration 371/1000
+
+
+
+Running Scenario 4, Iteration 372/1000
+
+
+
+Running Scenario 4, Iteration 373/1000
+
+
+
+Running Scenario 4, Iteration 374/1000
+
+
+
+Running Scenario 4, Iteration 375/1000
+
+
+
+Running Scenario 4, Iteration 376/1000
+
+
+
+Running Scenario 4, Iteration 377/1000
+
+
+
+Running Scenario 4, Iteration 378/1000
+
+
+
+Running Scenario 4, Iteration 379/1000
+
+
+
+Running Scenario 4, Iteration 380/1000
+
+
+
+Running Scenario 4, Iteration 381/1000
+
+
+
+Running Scenario 4, Iteration 382/1000
+
+
+
+Running Scenario 4, Iteration 383/1000
+
+
+
+Running Scenario 4, Iteration 384/1000
+
+
+
+Running Scenario 4, Iteration 385/1000
+
+
+
+Running Scenario 4, Iteration 386/1000
+
+
+
+Running Scenario 4, Iteration 387/1000
+
+
+
+Running Scenario 4, Iteration 388/1000
+
+
+
+Running Scenario 4, Iteration 389/1000
+
+
+
+Running Scenario 4, Iteration 390/1000
+
+
+
+Running Scenario 4, Iteration 391/1000
+
+
+
+Running Scenario 4, Iteration 392/1000
+
+
+
+Running Scenario 4, Iteration 393/1000
+
+
+
+Running Scenario 4, Iteration 394/1000
+
+
+
+Running Scenario 4, Iteration 395/1000
+
+
+
+Running Scenario 4, Iteration 396/1000
+
+
+
+Running Scenario 4, Iteration 397/1000
+
+
+
+Running Scenario 4, Iteration 398/1000
+
+
+
+Running Scenario 4, Iteration 399/1000
+
+
+
+Running Scenario 4, Iteration 400/1000
+
+
+
+Running Scenario 4, Iteration 401/1000
+
+
+
+Running Scenario 4, Iteration 402/1000
+
+
+
+Running Scenario 4, Iteration 403/1000
+
+
+
+Running Scenario 4, Iteration 404/1000
+
+
+
+Running Scenario 4, Iteration 405/1000
+
+
+
+Running Scenario 4, Iteration 406/1000
+
+
+
+Running Scenario 4, Iteration 407/1000
+
+
+
+Running Scenario 4, Iteration 408/1000
+
+
+
+Running Scenario 4, Iteration 409/1000
+
+
+
+Running Scenario 4, Iteration 410/1000
+
+
+
+Running Scenario 4, Iteration 411/1000
+
+
+
+Running Scenario 4, Iteration 412/1000
+
+
+
+Running Scenario 4, Iteration 413/1000
+
+
+
+Running Scenario 4, Iteration 414/1000
+
+
+
+Running Scenario 4, Iteration 415/1000
+
+
+
+Running Scenario 4, Iteration 416/1000
+
+
+
+Running Scenario 4, Iteration 417/1000
+
+
+
+Running Scenario 4, Iteration 418/1000
+
+
+
+Running Scenario 4, Iteration 419/1000
+
+
+
+Running Scenario 4, Iteration 420/1000
+
+
+
+Running Scenario 4, Iteration 421/1000
+
+
+
+Running Scenario 4, Iteration 422/1000
+
+
+
+Running Scenario 4, Iteration 423/1000
+
+
+
+Running Scenario 4, Iteration 424/1000
+
+
+
+Running Scenario 4, Iteration 425/1000
+
+
+
+Running Scenario 4, Iteration 426/1000
+
+
+
+Running Scenario 4, Iteration 427/1000
+
+
+
+Running Scenario 4, Iteration 428/1000
+
+
+
+Running Scenario 4, Iteration 429/1000
+
+
+
+Running Scenario 4, Iteration 430/1000
+
+
+
+Running Scenario 4, Iteration 431/1000
+
+
+
+Running Scenario 4, Iteration 432/1000
+
+
+
+Running Scenario 4, Iteration 433/1000
+
+
+
+Running Scenario 4, Iteration 434/1000
+
+
+
+Running Scenario 4, Iteration 435/1000
+
+
+
+Running Scenario 4, Iteration 436/1000
+
+
+
+Running Scenario 4, Iteration 437/1000
+
+
+
+Running Scenario 4, Iteration 438/1000
+
+
+
+Running Scenario 4, Iteration 439/1000
+
+
+
+Running Scenario 4, Iteration 440/1000
+
+
+
+Running Scenario 4, Iteration 441/1000
+
+
+
+Running Scenario 4, Iteration 442/1000
+
+
+
+Running Scenario 4, Iteration 443/1000
+
+
+
+Running Scenario 4, Iteration 444/1000
+
+
+
+Running Scenario 4, Iteration 445/1000
+
+
+
+Running Scenario 4, Iteration 446/1000
+
+
+
+Running Scenario 4, Iteration 447/1000
+
+
+
+Running Scenario 4, Iteration 448/1000
+
+
+
+Running Scenario 4, Iteration 449/1000
+
+
+
+Running Scenario 4, Iteration 450/1000
+
+
+
+Running Scenario 4, Iteration 451/1000
+
+
+
+Running Scenario 4, Iteration 452/1000
+
+
+
+Running Scenario 4, Iteration 453/1000
+
+
+
+Running Scenario 4, Iteration 454/1000
+
+
+
+Running Scenario 4, Iteration 455/1000
+
+
+
+Running Scenario 4, Iteration 456/1000
+
+
+
+Running Scenario 4, Iteration 457/1000
+
+
+
+Running Scenario 4, Iteration 458/1000
+
+
+
+Running Scenario 4, Iteration 459/1000
+
+
+
+Running Scenario 4, Iteration 460/1000
+
+
+
+Running Scenario 4, Iteration 461/1000
+
+
+
+Running Scenario 4, Iteration 462/1000
+
+
+
+Running Scenario 4, Iteration 463/1000
+
+
+
+Running Scenario 4, Iteration 464/1000
+
+
+
+Running Scenario 4, Iteration 465/1000
+
+
+
+Running Scenario 4, Iteration 466/1000
+
+
+
+Running Scenario 4, Iteration 467/1000
+
+
+
+Running Scenario 4, Iteration 468/1000
+
+
+
+Running Scenario 4, Iteration 469/1000
+
+
+
+Running Scenario 4, Iteration 470/1000
+
+
+
+Running Scenario 4, Iteration 471/1000
+
+
+
+Running Scenario 4, Iteration 472/1000
+
+
+
+Running Scenario 4, Iteration 473/1000
+
+
+
+Running Scenario 4, Iteration 474/1000
+
+
+
+Running Scenario 4, Iteration 475/1000
+
+
+
+Running Scenario 4, Iteration 476/1000
+
+
+
+Running Scenario 4, Iteration 477/1000
+
+
+
+Running Scenario 4, Iteration 478/1000
+
+
+
+Running Scenario 4, Iteration 479/1000
+
+
+
+Running Scenario 4, Iteration 480/1000
+
+
+
+Running Scenario 4, Iteration 481/1000
+
+
+
+Running Scenario 4, Iteration 482/1000
+
+
+
+Running Scenario 4, Iteration 483/1000
+
+
+
+Running Scenario 4, Iteration 484/1000
+
+
+
+Running Scenario 4, Iteration 485/1000
+
+
+
+Running Scenario 4, Iteration 486/1000
+
+
+
+Running Scenario 4, Iteration 487/1000
+
+
+
+Running Scenario 4, Iteration 488/1000
+
+
+
+Running Scenario 4, Iteration 489/1000
+
+
+
+Running Scenario 4, Iteration 490/1000
+
+
+
+Running Scenario 4, Iteration 491/1000
+
+
+
+Running Scenario 4, Iteration 492/1000
+
+
+
+Running Scenario 4, Iteration 493/1000
+
+
+
+Running Scenario 4, Iteration 494/1000
+
+
+
+Running Scenario 4, Iteration 495/1000
+
+
+
+Running Scenario 4, Iteration 496/1000
+
+
+
+Running Scenario 4, Iteration 497/1000
+
+
+
+Running Scenario 4, Iteration 498/1000
+
+
+
+Running Scenario 4, Iteration 499/1000
+
+
+
+Running Scenario 4, Iteration 500/1000
+
+
+
+Running Scenario 4, Iteration 501/1000
+
+
+
+Running Scenario 4, Iteration 502/1000
+
+
+
+Running Scenario 4, Iteration 503/1000
+
+
+
+Running Scenario 4, Iteration 504/1000
+
+
+
+Running Scenario 4, Iteration 505/1000
+
+
+
+Running Scenario 4, Iteration 506/1000
+
+
+
+Running Scenario 4, Iteration 507/1000
+
+
+
+Running Scenario 4, Iteration 508/1000
+
+
+
+Running Scenario 4, Iteration 509/1000
+
+
+
+Running Scenario 4, Iteration 510/1000
+
+
+
+Running Scenario 4, Iteration 511/1000
+
+
+
+Running Scenario 4, Iteration 512/1000
+
+
+
+Running Scenario 4, Iteration 513/1000
+
+
+
+Running Scenario 4, Iteration 514/1000
+
+
+
+Running Scenario 4, Iteration 515/1000
+
+
+
+Running Scenario 4, Iteration 516/1000
+
+
+
+Running Scenario 4, Iteration 517/1000
+
+
+
+Running Scenario 4, Iteration 518/1000
+
+
+
+Running Scenario 4, Iteration 519/1000
+
+
+
+Running Scenario 4, Iteration 520/1000
+
+
+
+Running Scenario 4, Iteration 521/1000
+
+
+
+Running Scenario 4, Iteration 522/1000
+
+
+
+Running Scenario 4, Iteration 523/1000
+
+
+
+Running Scenario 4, Iteration 524/1000
+
+
+
+Running Scenario 4, Iteration 525/1000
+
+
+
+Running Scenario 4, Iteration 526/1000
+
+
+
+Running Scenario 4, Iteration 527/1000
+
+
+
+Running Scenario 4, Iteration 528/1000
+
+
+
+Running Scenario 4, Iteration 529/1000
+
+
+
+Running Scenario 4, Iteration 530/1000
+
+
+
+Running Scenario 4, Iteration 531/1000
+
+
+
+Running Scenario 4, Iteration 532/1000
+
+
+
+Running Scenario 4, Iteration 533/1000
+
+
+
+Running Scenario 4, Iteration 534/1000
+
+
+
+Running Scenario 4, Iteration 535/1000
+
+
+
+Running Scenario 4, Iteration 536/1000
+
+
+
+Running Scenario 4, Iteration 537/1000
+
+
+
+Running Scenario 4, Iteration 538/1000
+
+
+
+Running Scenario 4, Iteration 539/1000
+
+
+
+Running Scenario 4, Iteration 540/1000
+
+
+
+Running Scenario 4, Iteration 541/1000
+
+
+
+Running Scenario 4, Iteration 542/1000
+
+
+
+Running Scenario 4, Iteration 543/1000
+
+
+
+Running Scenario 4, Iteration 544/1000
+
+
+
+Running Scenario 4, Iteration 545/1000
+
+
+
+Running Scenario 4, Iteration 546/1000
+
+
+
+Running Scenario 4, Iteration 547/1000
+
+
+
+Running Scenario 4, Iteration 548/1000
+
+
+
+Running Scenario 4, Iteration 549/1000
+
+
+
+Running Scenario 4, Iteration 550/1000
+
+
+
+Running Scenario 4, Iteration 551/1000
+
+
+
+Running Scenario 4, Iteration 552/1000
+
+
+
+Running Scenario 4, Iteration 553/1000
+
+
+
+Running Scenario 4, Iteration 554/1000
+
+
+
+Running Scenario 4, Iteration 555/1000
+
+
+
+Running Scenario 4, Iteration 556/1000
+
+
+
+Running Scenario 4, Iteration 557/1000
+
+
+
+Running Scenario 4, Iteration 558/1000
+
+
+
+Running Scenario 4, Iteration 559/1000
+
+
+
+Running Scenario 4, Iteration 560/1000
+
+
+
+Running Scenario 4, Iteration 561/1000
+
+
+
+Running Scenario 4, Iteration 562/1000
+
+
+
+Running Scenario 4, Iteration 563/1000
+
+
+
+Running Scenario 4, Iteration 564/1000
+
+
+
+Running Scenario 4, Iteration 565/1000
+
+
+
+Running Scenario 4, Iteration 566/1000
+
+
+
+Running Scenario 4, Iteration 567/1000
+
+
+
+Running Scenario 4, Iteration 568/1000
+
+
+
+Running Scenario 4, Iteration 569/1000
+
+
+
+Running Scenario 4, Iteration 570/1000
+
+
+
+Running Scenario 4, Iteration 571/1000
+
+
+
+Running Scenario 4, Iteration 572/1000
+
+
+
+Running Scenario 4, Iteration 573/1000
+
+
+
+Running Scenario 4, Iteration 574/1000
+
+
+
+Running Scenario 4, Iteration 575/1000
+
+
+
+Running Scenario 4, Iteration 576/1000
+
+
+
+Running Scenario 4, Iteration 577/1000
+
+
+
+Running Scenario 4, Iteration 578/1000
+
+
+
+Running Scenario 4, Iteration 579/1000
+
+
+
+Running Scenario 4, Iteration 580/1000
+
+
+
+Running Scenario 4, Iteration 581/1000
+
+
+
+Running Scenario 4, Iteration 582/1000
+
+
+
+Running Scenario 4, Iteration 583/1000
+
+
+
+Running Scenario 4, Iteration 584/1000
+
+
+
+Running Scenario 4, Iteration 585/1000
+
+
+
+Running Scenario 4, Iteration 586/1000
+
+
+
+Running Scenario 4, Iteration 587/1000
+
+
+
+Running Scenario 4, Iteration 588/1000
+
+
+
+Running Scenario 4, Iteration 589/1000
+
+
+
+Running Scenario 4, Iteration 590/1000
+
+
+
+Running Scenario 4, Iteration 591/1000
+
+
+
+Running Scenario 4, Iteration 592/1000
+
+
+
+Running Scenario 4, Iteration 593/1000
+
+
+
+Running Scenario 4, Iteration 594/1000
+
+
+
+Running Scenario 4, Iteration 595/1000
+
+
+
+Running Scenario 4, Iteration 596/1000
+
+
+
+Running Scenario 4, Iteration 597/1000
+
+
+
+Running Scenario 4, Iteration 598/1000
+
+
+
+Running Scenario 4, Iteration 599/1000
+
+
+
+Running Scenario 4, Iteration 600/1000
+
+
+
+Running Scenario 4, Iteration 601/1000
+
+
+
+Running Scenario 4, Iteration 602/1000
+
+
+
+Running Scenario 4, Iteration 603/1000
+
+
+
+Running Scenario 4, Iteration 604/1000
+
+
+
+Running Scenario 4, Iteration 605/1000
+
+
+
+Running Scenario 4, Iteration 606/1000
+
+
+
+Running Scenario 4, Iteration 607/1000
+
+
+
+Running Scenario 4, Iteration 608/1000
+
+
+
+Running Scenario 4, Iteration 609/1000
+
+
+
+Running Scenario 4, Iteration 610/1000
+
+
+
+Running Scenario 4, Iteration 611/1000
+
+
+
+Running Scenario 4, Iteration 612/1000
+
+
+
+Running Scenario 4, Iteration 613/1000
+
+
+
+Running Scenario 4, Iteration 614/1000
+
+
+
+Running Scenario 4, Iteration 615/1000
+
+
+
+Running Scenario 4, Iteration 616/1000
+
+
+
+Running Scenario 4, Iteration 617/1000
+
+
+
+Running Scenario 4, Iteration 618/1000
+
+
+
+Running Scenario 4, Iteration 619/1000
+
+
+
+Running Scenario 4, Iteration 620/1000
+
+
+
+Running Scenario 4, Iteration 621/1000
+
+
+
+Running Scenario 4, Iteration 622/1000
+
+
+
+Running Scenario 4, Iteration 623/1000
+
+
+
+Running Scenario 4, Iteration 624/1000
+
+
+
+Running Scenario 4, Iteration 625/1000
+
+
+
+Running Scenario 4, Iteration 626/1000
+
+
+
+Running Scenario 4, Iteration 627/1000
+
+
+
+Running Scenario 4, Iteration 628/1000
+
+
+
+Running Scenario 4, Iteration 629/1000
+
+
+
+Running Scenario 4, Iteration 630/1000
+
+
+
+Running Scenario 4, Iteration 631/1000
+
+
+
+Running Scenario 4, Iteration 632/1000
+
+
+
+Running Scenario 4, Iteration 633/1000
+
+
+
+Running Scenario 4, Iteration 634/1000
+
+
+
+Running Scenario 4, Iteration 635/1000
+
+
+
+Running Scenario 4, Iteration 636/1000
+
+
+
+Running Scenario 4, Iteration 637/1000
+
+
+
+Running Scenario 4, Iteration 638/1000
+
+
+
+Running Scenario 4, Iteration 639/1000
+
+
+
+Running Scenario 4, Iteration 640/1000
+
+
+
+Running Scenario 4, Iteration 641/1000
+
+
+
+Running Scenario 4, Iteration 642/1000
+
+
+
+Running Scenario 4, Iteration 643/1000
+
+
+
+Running Scenario 4, Iteration 644/1000
+
+
+
+Running Scenario 4, Iteration 645/1000
+
+
+
+Running Scenario 4, Iteration 646/1000
+
+
+
+Running Scenario 4, Iteration 647/1000
+
+
+
+Running Scenario 4, Iteration 648/1000
+
+
+
+Running Scenario 4, Iteration 649/1000
+
+
+
+Running Scenario 4, Iteration 650/1000
+
+
+
+Running Scenario 4, Iteration 651/1000
+
+
+
+Running Scenario 4, Iteration 652/1000
+
+
+
+Running Scenario 4, Iteration 653/1000
+
+
+
+Running Scenario 4, Iteration 654/1000
+
+
+
+Running Scenario 4, Iteration 655/1000
+
+
+
+Running Scenario 4, Iteration 656/1000
+
+
+
+Running Scenario 4, Iteration 657/1000
+
+
+
+Running Scenario 4, Iteration 658/1000
+
+
+
+Running Scenario 4, Iteration 659/1000
+
+
+
+Running Scenario 4, Iteration 660/1000
+
+
+
+Running Scenario 4, Iteration 661/1000
+
+
+
+Running Scenario 4, Iteration 662/1000
+
+
+
+Running Scenario 4, Iteration 663/1000
+
+
+
+Running Scenario 4, Iteration 664/1000
+
+
+
+Running Scenario 4, Iteration 665/1000
+
+
+
+Running Scenario 4, Iteration 666/1000
+
+
+
+Running Scenario 4, Iteration 667/1000
+
+
+
+Running Scenario 4, Iteration 668/1000
+
+
+
+Running Scenario 4, Iteration 669/1000
+
+
+
+Running Scenario 4, Iteration 670/1000
+
+
+
+Running Scenario 4, Iteration 671/1000
+
+
+
+Running Scenario 4, Iteration 672/1000
+
+
+
+Running Scenario 4, Iteration 673/1000
+
+
+
+Running Scenario 4, Iteration 674/1000
+
+
+
+Running Scenario 4, Iteration 675/1000
+
+
+
+Running Scenario 4, Iteration 676/1000
+
+
+
+Running Scenario 4, Iteration 677/1000
+
+
+
+Running Scenario 4, Iteration 678/1000
+
+
+
+Running Scenario 4, Iteration 679/1000
+
+
+
+Running Scenario 4, Iteration 680/1000
+
+
+
+Running Scenario 4, Iteration 681/1000
+
+
+
+Running Scenario 4, Iteration 682/1000
+
+
+
+Running Scenario 4, Iteration 683/1000
+
+
+
+Running Scenario 4, Iteration 684/1000
+
+
+
+Running Scenario 4, Iteration 685/1000
+
+
+
+Running Scenario 4, Iteration 686/1000
+
+
+
+Running Scenario 4, Iteration 687/1000
+
+
+
+Running Scenario 4, Iteration 688/1000
+
+
+
+Running Scenario 4, Iteration 689/1000
+
+
+
+Running Scenario 4, Iteration 690/1000
+
+
+
+Running Scenario 4, Iteration 691/1000
+
+
+
+Running Scenario 4, Iteration 692/1000
+
+
+
+Running Scenario 4, Iteration 693/1000
+
+
+
+Running Scenario 4, Iteration 694/1000
+
+
+
+Running Scenario 4, Iteration 695/1000
+
+
+
+Running Scenario 4, Iteration 696/1000
+
+
+
+Running Scenario 4, Iteration 697/1000
+
+
+
+Running Scenario 4, Iteration 698/1000
+
+
+
+Running Scenario 4, Iteration 699/1000
+
+
+
+Running Scenario 4, Iteration 700/1000
+
+
+
+Running Scenario 4, Iteration 701/1000
+
+
+
+Running Scenario 4, Iteration 702/1000
+
+
+
+Running Scenario 4, Iteration 703/1000
+
+
+
+Running Scenario 4, Iteration 704/1000
+
+
+
+Running Scenario 4, Iteration 705/1000
+
+
+
+Running Scenario 4, Iteration 706/1000
+
+
+
+Running Scenario 4, Iteration 707/1000
+
+
+
+Running Scenario 4, Iteration 708/1000
+
+
+
+Running Scenario 4, Iteration 709/1000
+
+
+
+Running Scenario 4, Iteration 710/1000
+
+
+
+Running Scenario 4, Iteration 711/1000
+
+
+
+Running Scenario 4, Iteration 712/1000
+
+
+
+Running Scenario 4, Iteration 713/1000
+
+
+
+Running Scenario 4, Iteration 714/1000
+
+
+
+Running Scenario 4, Iteration 715/1000
+
+
+
+Running Scenario 4, Iteration 716/1000
+
+
+
+Running Scenario 4, Iteration 717/1000
+
+
+
+Running Scenario 4, Iteration 718/1000
+
+
+
+Running Scenario 4, Iteration 719/1000
+
+
+
+Running Scenario 4, Iteration 720/1000
+
+
+
+Running Scenario 4, Iteration 721/1000
+
+
+
+Running Scenario 4, Iteration 722/1000
+
+
+
+Running Scenario 4, Iteration 723/1000
+
+
+
+Running Scenario 4, Iteration 724/1000
+
+
+
+Running Scenario 4, Iteration 725/1000
+
+
+
+Running Scenario 4, Iteration 726/1000
+
+
+
+Running Scenario 4, Iteration 727/1000
+
+
+
+Running Scenario 4, Iteration 728/1000
+
+
+
+Running Scenario 4, Iteration 729/1000
+
+
+
+Running Scenario 4, Iteration 730/1000
+
+
+
+Running Scenario 4, Iteration 731/1000
+
+
+
+Running Scenario 4, Iteration 732/1000
+
+
+
+Running Scenario 4, Iteration 733/1000
+
+
+
+Running Scenario 4, Iteration 734/1000
+
+
+
+Running Scenario 4, Iteration 735/1000
+
+
+
+Running Scenario 4, Iteration 736/1000
+
+
+
+Running Scenario 4, Iteration 737/1000
+
+
+
+Running Scenario 4, Iteration 738/1000
+
+
+
+Running Scenario 4, Iteration 739/1000
+
+
+
+Running Scenario 4, Iteration 740/1000
+
+
+
+Running Scenario 4, Iteration 741/1000
+
+
+
+Running Scenario 4, Iteration 742/1000
+
+
+
+Running Scenario 4, Iteration 743/1000
+
+
+
+Running Scenario 4, Iteration 744/1000
+
+
+
+Running Scenario 4, Iteration 745/1000
+
+
+
+Running Scenario 4, Iteration 746/1000
+
+
+
+Running Scenario 4, Iteration 747/1000
+
+
+
+Running Scenario 4, Iteration 748/1000
+
+
+
+Running Scenario 4, Iteration 749/1000
+
+
+
+Running Scenario 4, Iteration 750/1000
+
+
+
+Running Scenario 4, Iteration 751/1000
+
+
+
+Running Scenario 4, Iteration 752/1000
+
+
+
+Running Scenario 4, Iteration 753/1000
+
+
+
+Running Scenario 4, Iteration 754/1000
+
+
+
+Running Scenario 4, Iteration 755/1000
+
+
+
+Running Scenario 4, Iteration 756/1000
+
+
+
+Running Scenario 4, Iteration 757/1000
+
+
+
+Running Scenario 4, Iteration 758/1000
+
+
+
+Running Scenario 4, Iteration 759/1000
+
+
+
+Running Scenario 4, Iteration 760/1000
+
+
+
+Running Scenario 4, Iteration 761/1000
+
+
+
+Running Scenario 4, Iteration 762/1000
+
+
+
+Running Scenario 4, Iteration 763/1000
+
+
+
+Running Scenario 4, Iteration 764/1000
+
+
+
+Running Scenario 4, Iteration 765/1000
+
+
+
+Running Scenario 4, Iteration 766/1000
+
+
+
+Running Scenario 4, Iteration 767/1000
+
+
+
+Running Scenario 4, Iteration 768/1000
+
+
+
+Running Scenario 4, Iteration 769/1000
+
+
+
+Running Scenario 4, Iteration 770/1000
+
+
+
+Running Scenario 4, Iteration 771/1000
+
+
+
+Running Scenario 4, Iteration 772/1000
+
+
+
+Running Scenario 4, Iteration 773/1000
+
+
+
+Running Scenario 4, Iteration 774/1000
+
+
+
+Running Scenario 4, Iteration 775/1000
+
+
+
+Running Scenario 4, Iteration 776/1000
+
+
+
+Running Scenario 4, Iteration 777/1000
+
+
+
+Running Scenario 4, Iteration 778/1000
+
+
+
+Running Scenario 4, Iteration 779/1000
+
+
+
+Running Scenario 4, Iteration 780/1000
+
+
+
+Running Scenario 4, Iteration 781/1000
+
+
+
+Running Scenario 4, Iteration 782/1000
+
+
+
+Running Scenario 4, Iteration 783/1000
+
+
+
+Running Scenario 4, Iteration 784/1000
+
+
+
+Running Scenario 4, Iteration 785/1000
+
+
+
+Running Scenario 4, Iteration 786/1000
+
+
+
+Running Scenario 4, Iteration 787/1000
+
+
+
+Running Scenario 4, Iteration 788/1000
+
+
+
+Running Scenario 4, Iteration 789/1000
+
+
+
+Running Scenario 4, Iteration 790/1000
+
+
+
+Running Scenario 4, Iteration 791/1000
+
+
+
+Running Scenario 4, Iteration 792/1000
+
+
+
+Running Scenario 4, Iteration 793/1000
+
+
+
+Running Scenario 4, Iteration 794/1000
+
+
+
+Running Scenario 4, Iteration 795/1000
+
+
+
+Running Scenario 4, Iteration 796/1000
+
+
+
+Running Scenario 4, Iteration 797/1000
+
+
+
+Running Scenario 4, Iteration 798/1000
+
+
+
+Running Scenario 4, Iteration 799/1000
+
+
+
+Running Scenario 4, Iteration 800/1000
+
+
+
+Running Scenario 4, Iteration 801/1000
+
+
+
+Running Scenario 4, Iteration 802/1000
+
+
+
+Running Scenario 4, Iteration 803/1000
+
+
+
+Running Scenario 4, Iteration 804/1000
+
+
+
+Running Scenario 4, Iteration 805/1000
+
+
+
+Running Scenario 4, Iteration 806/1000
+
+
+
+Running Scenario 4, Iteration 807/1000
+
+
+
+Running Scenario 4, Iteration 808/1000
+
+
+
+Running Scenario 4, Iteration 809/1000
+
+
+
+Running Scenario 4, Iteration 810/1000
+
+
+
+Running Scenario 4, Iteration 811/1000
+
+
+
+Running Scenario 4, Iteration 812/1000
+
+
+
+Running Scenario 4, Iteration 813/1000
+
+
+
+Running Scenario 4, Iteration 814/1000
+
+
+
+Running Scenario 4, Iteration 815/1000
+
+
+
+Running Scenario 4, Iteration 816/1000
+
+
+
+Running Scenario 4, Iteration 817/1000
+
+
+
+Running Scenario 4, Iteration 818/1000
+
+
+
+Running Scenario 4, Iteration 819/1000
+
+
+
+Running Scenario 4, Iteration 820/1000
+
+
+
+Running Scenario 4, Iteration 821/1000
+
+
+
+Running Scenario 4, Iteration 822/1000
+
+
+
+Running Scenario 4, Iteration 823/1000
+
+
+
+Running Scenario 4, Iteration 824/1000
+
+
+
+Running Scenario 4, Iteration 825/1000
+
+
+
+Running Scenario 4, Iteration 826/1000
+
+
+
+Running Scenario 4, Iteration 827/1000
+
+
+
+Running Scenario 4, Iteration 828/1000
+
+
+
+Running Scenario 4, Iteration 829/1000
+
+
+
+Running Scenario 4, Iteration 830/1000
+
+
+
+Running Scenario 4, Iteration 831/1000
+
+
+
+Running Scenario 4, Iteration 832/1000
+
+
+
+Running Scenario 4, Iteration 833/1000
+
+
+
+Running Scenario 4, Iteration 834/1000
+
+
+
+Running Scenario 4, Iteration 835/1000
+
+
+
+Running Scenario 4, Iteration 836/1000
+
+
+
+Running Scenario 4, Iteration 837/1000
+
+
+
+Running Scenario 4, Iteration 838/1000
+
+
+
+Running Scenario 4, Iteration 839/1000
+
+
+
+Running Scenario 4, Iteration 840/1000
+
+
+
+Running Scenario 4, Iteration 841/1000
+
+
+
+Running Scenario 4, Iteration 842/1000
+
+
+
+Running Scenario 4, Iteration 843/1000
+
+
+
+Running Scenario 4, Iteration 844/1000
+
+
+
+Running Scenario 4, Iteration 845/1000
+
+
+
+Running Scenario 4, Iteration 846/1000
+
+
+
+Running Scenario 4, Iteration 847/1000
+
+
+
+Running Scenario 4, Iteration 848/1000
+
+
+
+Running Scenario 4, Iteration 849/1000
+
+
+
+Running Scenario 4, Iteration 850/1000
+
+
+
+Running Scenario 4, Iteration 851/1000
+
+
+
+Running Scenario 4, Iteration 852/1000
+
+
+
+Running Scenario 4, Iteration 853/1000
+
+
+
+Running Scenario 4, Iteration 854/1000
+
+
+
+Running Scenario 4, Iteration 855/1000
+
+
+
+Running Scenario 4, Iteration 856/1000
+
+
+
+Running Scenario 4, Iteration 857/1000
+
+
+
+Running Scenario 4, Iteration 858/1000
+
+
+
+Running Scenario 4, Iteration 859/1000
+
+
+
+Running Scenario 4, Iteration 860/1000
+
+
+
+Running Scenario 4, Iteration 861/1000
+
+
+
+Running Scenario 4, Iteration 862/1000
+
+
+
+Running Scenario 4, Iteration 863/1000
+
+
+
+Running Scenario 4, Iteration 864/1000
+
+
+
+Running Scenario 4, Iteration 865/1000
+
+
+
+Running Scenario 4, Iteration 866/1000
+
+
+
+Running Scenario 4, Iteration 867/1000
+
+
+
+Running Scenario 4, Iteration 868/1000
+
+
+
+Running Scenario 4, Iteration 869/1000
+
+
+
+Running Scenario 4, Iteration 870/1000
+
+
+
+Running Scenario 4, Iteration 871/1000
+
+
+
+Running Scenario 4, Iteration 872/1000
+
+
+
+Running Scenario 4, Iteration 873/1000
+
+
+
+Running Scenario 4, Iteration 874/1000
+
+
+
+Running Scenario 4, Iteration 875/1000
+
+
+
+Running Scenario 4, Iteration 876/1000
+
+
+
+Running Scenario 4, Iteration 877/1000
+
+
+
+Running Scenario 4, Iteration 878/1000
+
+
+
+Running Scenario 4, Iteration 879/1000
+
+
+
+Running Scenario 4, Iteration 880/1000
+
+
+
+Running Scenario 4, Iteration 881/1000
+
+
+
+Running Scenario 4, Iteration 882/1000
+
+
+
+Running Scenario 4, Iteration 883/1000
+
+
+
+Running Scenario 4, Iteration 884/1000
+
+
+
+Running Scenario 4, Iteration 885/1000
+
+
+
+Running Scenario 4, Iteration 886/1000
+
+
+
+Running Scenario 4, Iteration 887/1000
+
+
+
+Running Scenario 4, Iteration 888/1000
+
+
+
+Running Scenario 4, Iteration 889/1000
+
+
+
+Running Scenario 4, Iteration 890/1000
+
+
+
+Running Scenario 4, Iteration 891/1000
+
+
+
+Running Scenario 4, Iteration 892/1000
+
+
+
+Running Scenario 4, Iteration 893/1000
+
+
+
+Running Scenario 4, Iteration 894/1000
+
+
+
+Running Scenario 4, Iteration 895/1000
+
+
+
+Running Scenario 4, Iteration 896/1000
+
+
+
+Running Scenario 4, Iteration 897/1000
+
+
+
+Running Scenario 4, Iteration 898/1000
+
+
+
+Running Scenario 4, Iteration 899/1000
+
+
+
+Running Scenario 4, Iteration 900/1000
+
+
+
+Running Scenario 4, Iteration 901/1000
+
+
+
+Running Scenario 4, Iteration 902/1000
+
+
+
+Running Scenario 4, Iteration 903/1000
+
+
+
+Running Scenario 4, Iteration 904/1000
+
+
+
+Running Scenario 4, Iteration 905/1000
+
+
+
+Running Scenario 4, Iteration 906/1000
+
+
+
+Running Scenario 4, Iteration 907/1000
+
+
+
+Running Scenario 4, Iteration 908/1000
+
+
+
+Running Scenario 4, Iteration 909/1000
+
+
+
+Running Scenario 4, Iteration 910/1000
+
+
+
+Running Scenario 4, Iteration 911/1000
+
+
+
+Running Scenario 4, Iteration 912/1000
+
+
+
+Running Scenario 4, Iteration 913/1000
+
+
+
+Running Scenario 4, Iteration 914/1000
+
+
+
+Running Scenario 4, Iteration 915/1000
+
+
+
+Running Scenario 4, Iteration 916/1000
+
+
+
+Running Scenario 4, Iteration 917/1000
+
+
+
+Running Scenario 4, Iteration 918/1000
+
+
+
+Running Scenario 4, Iteration 919/1000
+
+
+
+Running Scenario 4, Iteration 920/1000
+
+
+
+Running Scenario 4, Iteration 921/1000
+
+
+
+Running Scenario 4, Iteration 922/1000
+
+
+
+Running Scenario 4, Iteration 923/1000
+
+
+
+Running Scenario 4, Iteration 924/1000
+
+
+
+Running Scenario 4, Iteration 925/1000
+
+
+
+Running Scenario 4, Iteration 926/1000
+
+
+
+Running Scenario 4, Iteration 927/1000
+
+
+
+Running Scenario 4, Iteration 928/1000
+
+
+
+Running Scenario 4, Iteration 929/1000
+
+
+
+Running Scenario 4, Iteration 930/1000
+
+
+
+Running Scenario 4, Iteration 931/1000
+
+
+
+Running Scenario 4, Iteration 932/1000
+
+
+
+Running Scenario 4, Iteration 933/1000
+
+
+
+Running Scenario 4, Iteration 934/1000
+
+
+
+Running Scenario 4, Iteration 935/1000
+
+
+
+Running Scenario 4, Iteration 936/1000
+
+
+
+Running Scenario 4, Iteration 937/1000
+
+
+
+Running Scenario 4, Iteration 938/1000
+
+
+
+Running Scenario 4, Iteration 939/1000
+
+
+
+Running Scenario 4, Iteration 940/1000
+
+
+
+Running Scenario 4, Iteration 941/1000
+
+
+
+Running Scenario 4, Iteration 942/1000
+
+
+
+Running Scenario 4, Iteration 943/1000
+
+
+
+Running Scenario 4, Iteration 944/1000
+
+
+
+Running Scenario 4, Iteration 945/1000
+
+
+
+Running Scenario 4, Iteration 946/1000
+
+
+
+Running Scenario 4, Iteration 947/1000
+
+
+
+Running Scenario 4, Iteration 948/1000
+
+
+
+Running Scenario 4, Iteration 949/1000
+
+
+
+Running Scenario 4, Iteration 950/1000
+
+
+
+Running Scenario 4, Iteration 951/1000
+
+
+
+Running Scenario 4, Iteration 952/1000
+
+
+
+Running Scenario 4, Iteration 953/1000
+
+
+
+Running Scenario 4, Iteration 954/1000
+
+
+
+Running Scenario 4, Iteration 955/1000
+
+
+
+Running Scenario 4, Iteration 956/1000
+
+
+
+Running Scenario 4, Iteration 957/1000
+
+
+
+Running Scenario 4, Iteration 958/1000
+
+
+
+Running Scenario 4, Iteration 959/1000
+
+
+
+Running Scenario 4, Iteration 960/1000
+
+
+
+Running Scenario 4, Iteration 961/1000
+
+
+
+Running Scenario 4, Iteration 962/1000
+
+
+
+Running Scenario 4, Iteration 963/1000
+
+
+
+Running Scenario 4, Iteration 964/1000
+
+
+
+Running Scenario 4, Iteration 965/1000
+
+
+
+Running Scenario 4, Iteration 966/1000
+
+
+
+Running Scenario 4, Iteration 967/1000
+
+
+
+Running Scenario 4, Iteration 968/1000
+
+
+
+Running Scenario 4, Iteration 969/1000
+
+
+
+Running Scenario 4, Iteration 970/1000
+
+
+
+Running Scenario 4, Iteration 971/1000
+
+
+
+Running Scenario 4, Iteration 972/1000
+
+
+
+Running Scenario 4, Iteration 973/1000
+
+
+
+Running Scenario 4, Iteration 974/1000
+
+
+
+Running Scenario 4, Iteration 975/1000
+
+
+
+Running Scenario 4, Iteration 976/1000
+
+
+
+Running Scenario 4, Iteration 977/1000
+
+
+
+Running Scenario 4, Iteration 978/1000
+
+
+
+Running Scenario 4, Iteration 979/1000
+
+
+
+Running Scenario 4, Iteration 980/1000
+
+
+
+Running Scenario 4, Iteration 981/1000
+
+
+
+Running Scenario 4, Iteration 982/1000
+
+
+
+Running Scenario 4, Iteration 983/1000
+
+
+
+Running Scenario 4, Iteration 984/1000
+
+
+
+Running Scenario 4, Iteration 985/1000
+
+
+
+Running Scenario 4, Iteration 986/1000
+
+
+
+Running Scenario 4, Iteration 987/1000
+
+
+
+Running Scenario 4, Iteration 988/1000
+
+
+
+Running Scenario 4, Iteration 989/1000
+
+
+
+Running Scenario 4, Iteration 990/1000
+
+
+
+Running Scenario 4, Iteration 991/1000
+
+
+
+Running Scenario 4, Iteration 992/1000
+
+
+
+Running Scenario 4, Iteration 993/1000
+
+
+
+Running Scenario 4, Iteration 994/1000
+
+
+
+Running Scenario 4, Iteration 995/1000
+
+
+
+Running Scenario 4, Iteration 996/1000
+
+
+
+Running Scenario 4, Iteration 997/1000
+
+
+
+Running Scenario 4, Iteration 998/1000
+
+
+
+Running Scenario 4, Iteration 999/1000
+
+
+
+Running Scenario 4, Iteration 1000/1000
+
+
+Results of Simulation
+
+
+[1] "R2 Control Table"
+  Target_R2_X Analytic_R2_X   Sample R2_X   Target_R2_Y Analytic_R2_Y 
+    0.4000000     0.4000000     0.4002576     0.6000000     0.6000000 
+  Sample R2_Y 
+    0.6004815 
+
+
+
+[1] "Oracle Distribution"
+  mean_Y    var_Y   mean_X    var_X 
+1.534847 2.500000 1.000000 1.666667 
+
+
+[1] "Sample Distributions"
+                   y         X          Z1         Z2           Z3          Z4
+sample_mean 1.521228 0.9892297 0.001911214 0.01086139 -0.004395588 -0.01295274
+sample_sd   1.559296 1.2979842 1.002649353 0.99020932  1.011062978  0.99345004
+sample_var  2.431403 1.6847629 1.005305725 0.98051450  1.022248346  0.98694297
+                      Z5
+sample_mean -0.003613796
+sample_sd    1.011433622
+sample_var   1.022997972
+
+
+
+[1] "Key Oracle Coefficients"
+beta_X_LL beta_X_LH beta_X_HL beta_X_HH beta_Y_LL beta_Y_LH beta_Y_HL beta_Y_HH 
+0.0000000 0.0000000 0.5773503 0.5773503 0.0000000 0.5773503 0.0000000 0.5773503 
+   causal 
+0.5348469 
+
+
+
+[1] "Oracle Coefficients"
+  cause intercept  y         X Z1        Z2        Z3        Z4 Z5
+1     1         1 NA 0.5348469  0 0.5773503 0.0000000 0.5773503 NA
+2     1         1 NA        NA  0 0.0000000 0.5773503 0.5773503 NA
+3     0        NA NA        NA NA        NA        NA        NA NA
+4     0        NA NA        NA NA        NA        NA        NA NA
+5     0        NA NA        NA NA        NA        NA        NA NA
+6     0        NA NA        NA NA        NA        NA        NA NA
+7     0        NA NA        NA NA        NA        NA        NA NA
+
+
+[1] "Sample Coefficients for Y Table"
+                 intercept         X            Z1         Z2           Z3
+true_values      1.0000000 0.5348469  0.000000e+00 0.57735027 0.000000e+00
+linear           1.0002687 0.5345836 -2.919383e-05 0.57735992 2.036561e-04
+stepwise         1.0002172 0.5346327 -4.062636e-05 0.57736203 7.965187e-05
+stepwise_X       1.0000030 0.5346576  5.223499e-05 0.08777208 1.261235e-04
+two_step_LASSO   1.0006562 0.5341932  7.988718e-05 0.57735845 1.097855e-03
+two_step_LASSO_X 0.9999667 0.5346569 -2.140778e-04 0.20078164 2.404691e-04
+                        Z4            Z5
+true_values      0.5773503            NA
+linear           0.5776407  4.840202e-05
+stepwise         0.5776141 -4.169879e-05
+stepwise_X       0.5776611 -2.037772e-04
+two_step_LASSO   0.5778663  2.064347e-04
+two_step_LASSO_X 0.5775979 -2.852337e-04
+
+
+[1] "Grouped Sample Coefficients for Y Table"
+                 intercept         X          Z_LL       Z_LH         Z_HL
+true_values      1.0000000 0.5348469  0.000000e+00 0.57735027 0.000000e+00
+linear           1.0002687 0.5345836 -2.919383e-05 0.57735992 2.036561e-04
+stepwise         1.0002172 0.5346327 -4.062636e-05 0.57736203 7.965187e-05
+stepwise_X       1.0000030 0.5346576  5.223499e-05 0.08777208 1.261235e-04
+two_step_LASSO   1.0006562 0.5341932  7.988718e-05 0.57735845 1.097855e-03
+two_step_LASSO_X 0.9999667 0.5346569 -2.140778e-04 0.20078164 2.404691e-04
+                      Z_HH       Z_dummy
+true_values      0.5773503            NA
+linear           0.5776407  4.840202e-05
+stepwise         0.5776141 -4.169879e-05
+stepwise_X       0.5776611 -2.037772e-04
+two_step_LASSO   0.5778663  2.064347e-04
+two_step_LASSO_X 0.5775979 -2.852337e-04
+
+
+[1] "Individual Covariate Selection Table"
+                 X    Z1    Z2    Z3 Z4    Z5
+linear           1 1.000 1.000 1.000  1 1.000
+stepwise         1 0.175 1.000 0.147  1 0.165
+stepwise_X       1 0.148 0.152 1.000  1 0.152
+two_step_LASSO   1 0.411 1.000 0.368  1 0.411
+two_step_LASSO_X 1 0.363 0.348 1.000  1 0.364
+
+
+[1] "Grouped Covariate Selection Table"
+                 X  Z_LL  Z_LH  Z_HL Z_HH Z_dummy
+linear           1 1.000 1.000 1.000    1   1.000
+stepwise         1 0.175 1.000 0.147    1   0.165
+stepwise_X       1 0.148 0.152 1.000    1   0.152
+two_step_LASSO   1 0.411 1.000 0.368    1   0.411
+two_step_LASSO_X 1 0.363 0.348 1.000    1   0.364
+
+
+[1] "Covariate Selection Dispersion Within Groups Table"
+                 X Z_LL Z_LH Z_HL Z_HH Z_dummy
+linear           0    0    0    0    0       0
+stepwise         0    0    0    0    0       0
+stepwise_X       0    0    0    0    0       0
+two_step_LASSO   0    0    0    0    0       0
+two_step_LASSO_X 0    0    0    0    0       0
+
+
+[1] "Results Table"
+                  pred_mse r_squared_X r_squared_Y    model_SE     emp_SE
+linear           0.9986094   0.4002576   0.6004815 0.010361802 0.01035845
+stepwise         0.9987369   0.4002576   0.6004304 0.009703369 0.00970100
+stepwise_X       1.2815016   0.4002576   0.4872903 0.010952757 0.01095112
+two_step_LASSO   0.9986547   0.4002576   0.6004633 0.010139535 0.01011842
+two_step_LASSO_X 1.2163011   0.4002576   0.5133746 0.010622248 0.01062055
+                 causal_effect_est causal_effect_mcse causal_effect_bias
+linear                   0.5345836       0.0003275630      -0.0002633494
+stepwise                 0.5346327       0.0003067726      -0.0002142727
+stepwise_X               0.5346576       0.0003463048      -0.0001893680
+two_step_LASSO           0.5341932       0.0003199726      -0.0006536751
+two_step_LASSO_X         0.5346569       0.0003358511      -0.0001900426
+                 avg_abs_param_bias coverage open_paths blocked_paths
+linear                  0.008883251    0.935          1             1
+stepwise                0.006469867    0.923          1             1
+stepwise_X              0.076514494    0.953          1             1
+two_step_LASSO          0.007675811    0.920          1             1
+two_step_LASSO_X        0.060926647    0.951          1             1
+
+Saving results to file
+
+[1] "finished!"
+NULL
+[1] "running!"
+
+
+Running Scenario 8, Iteration 1/1000
+
+
+
+Running Scenario 8, Iteration 2/1000
+
+
+
+Running Scenario 8, Iteration 3/1000
+
+
+
+Running Scenario 8, Iteration 4/1000
+
+
+
+Running Scenario 8, Iteration 5/1000
+
+
+
+Running Scenario 8, Iteration 6/1000
+
+
+
+Running Scenario 8, Iteration 7/1000
+
+
+
+Running Scenario 8, Iteration 8/1000
+
+
+
+Running Scenario 8, Iteration 9/1000
+
+
+
+Running Scenario 8, Iteration 10/1000
+
+
+
+Running Scenario 8, Iteration 11/1000
+
+
+
+Running Scenario 8, Iteration 12/1000
+
+
+
+Running Scenario 8, Iteration 13/1000
+
+
+
+Running Scenario 8, Iteration 14/1000
+
+
+
+Running Scenario 8, Iteration 15/1000
+
+
+
+Running Scenario 8, Iteration 16/1000
+
+
+
+Running Scenario 8, Iteration 17/1000
+
+
+
+Running Scenario 8, Iteration 18/1000
+
+
+
+Running Scenario 8, Iteration 19/1000
+
+
+
+Running Scenario 8, Iteration 20/1000
+
+
+
+Running Scenario 8, Iteration 21/1000
+
+
+
+Running Scenario 8, Iteration 22/1000
+
+
+
+Running Scenario 8, Iteration 23/1000
+
+
+
+Running Scenario 8, Iteration 24/1000
+
+
+
+Running Scenario 8, Iteration 25/1000
+
+
+
+Running Scenario 8, Iteration 26/1000
+
+
+
+Running Scenario 8, Iteration 27/1000
+
+
+
+Running Scenario 8, Iteration 28/1000
+
+
+
+Running Scenario 8, Iteration 29/1000
+
+
+
+Running Scenario 8, Iteration 30/1000
+
+
+
+Running Scenario 8, Iteration 31/1000
+
+
+
+Running Scenario 8, Iteration 32/1000
+
+
+
+Running Scenario 8, Iteration 33/1000
+
+
+
+Running Scenario 8, Iteration 34/1000
+
+
+
+Running Scenario 8, Iteration 35/1000
+
+
+
+Running Scenario 8, Iteration 36/1000
+
+
+
+Running Scenario 8, Iteration 37/1000
+
+
+
+Running Scenario 8, Iteration 38/1000
+
+
+
+Running Scenario 8, Iteration 39/1000
+
+
+
+Running Scenario 8, Iteration 40/1000
+
+
+
+Running Scenario 8, Iteration 41/1000
+
+
+
+Running Scenario 8, Iteration 42/1000
+
+
+
+Running Scenario 8, Iteration 43/1000
+
+
+
+Running Scenario 8, Iteration 44/1000
+
+
+
+Running Scenario 8, Iteration 45/1000
+
+
+
+Running Scenario 8, Iteration 46/1000
+
+
+
+Running Scenario 8, Iteration 47/1000
+
+
+
+Running Scenario 8, Iteration 48/1000
+
+
+
+Running Scenario 8, Iteration 49/1000
+
+
+
+Running Scenario 8, Iteration 50/1000
+
+
+
+Running Scenario 8, Iteration 51/1000
+
+
+
+Running Scenario 8, Iteration 52/1000
+
+
+
+Running Scenario 8, Iteration 53/1000
+
+
+
+Running Scenario 8, Iteration 54/1000
+
+
+
+Running Scenario 8, Iteration 55/1000
+
+
+
+Running Scenario 8, Iteration 56/1000
+
+
+
+Running Scenario 8, Iteration 57/1000
+
+
+
+Running Scenario 8, Iteration 58/1000
+
+
+
+Running Scenario 8, Iteration 59/1000
+
+
+
+Running Scenario 8, Iteration 60/1000
+
+
+
+Running Scenario 8, Iteration 61/1000
+
+
+
+Running Scenario 8, Iteration 62/1000
+
+
+
+Running Scenario 8, Iteration 63/1000
+
+
+
+Running Scenario 8, Iteration 64/1000
+
+
+
+Running Scenario 8, Iteration 65/1000
+
+
+
+Running Scenario 8, Iteration 66/1000
+
+
+
+Running Scenario 8, Iteration 67/1000
+
+
+
+Running Scenario 8, Iteration 68/1000
+
+
+
+Running Scenario 8, Iteration 69/1000
+
+
+
+Running Scenario 8, Iteration 70/1000
+
+
+
+Running Scenario 8, Iteration 71/1000
+
+
+
+Running Scenario 8, Iteration 72/1000
+
+
+
+Running Scenario 8, Iteration 73/1000
+
+
+
+Running Scenario 8, Iteration 74/1000
+
+
+
+Running Scenario 8, Iteration 75/1000
+
+
+
+Running Scenario 8, Iteration 76/1000
+
+
+
+Running Scenario 8, Iteration 77/1000
+
+
+
+Running Scenario 8, Iteration 78/1000
+
+
+
+Running Scenario 8, Iteration 79/1000
+
+
+
+Running Scenario 8, Iteration 80/1000
+
+
+
+Running Scenario 8, Iteration 81/1000
+
+
+
+Running Scenario 8, Iteration 82/1000
+
+
+
+Running Scenario 8, Iteration 83/1000
+
+
+
+Running Scenario 8, Iteration 84/1000
+
+
+
+Running Scenario 8, Iteration 85/1000
+
+
+
+Running Scenario 8, Iteration 86/1000
+
+
+
+Running Scenario 8, Iteration 87/1000
+
+
+
+Running Scenario 8, Iteration 88/1000
+
+
+
+Running Scenario 8, Iteration 89/1000
+
+
+
+Running Scenario 8, Iteration 90/1000
+
+
+
+Running Scenario 8, Iteration 91/1000
+
+
+
+Running Scenario 8, Iteration 92/1000
+
+
+
+Running Scenario 8, Iteration 93/1000
+
+
+
+Running Scenario 8, Iteration 94/1000
+
+
+
+Running Scenario 8, Iteration 95/1000
+
+
+
+Running Scenario 8, Iteration 96/1000
+
+
+
+Running Scenario 8, Iteration 97/1000
+
+
+
+Running Scenario 8, Iteration 98/1000
+
+
+
+Running Scenario 8, Iteration 99/1000
+
+
+
+Running Scenario 8, Iteration 100/1000
+
+
+
+Running Scenario 8, Iteration 101/1000
+
+
+
+Running Scenario 8, Iteration 102/1000
+
+
+
+Running Scenario 8, Iteration 103/1000
+
+
+
+Running Scenario 8, Iteration 104/1000
+
+
+
+Running Scenario 8, Iteration 105/1000
+
+
+
+Running Scenario 8, Iteration 106/1000
+
+
+
+Running Scenario 8, Iteration 107/1000
+
+
+
+Running Scenario 8, Iteration 108/1000
+
+
+
+Running Scenario 8, Iteration 109/1000
+
+
+
+Running Scenario 8, Iteration 110/1000
+
+
+
+Running Scenario 8, Iteration 111/1000
+
+
+
+Running Scenario 8, Iteration 112/1000
+
+
+
+Running Scenario 8, Iteration 113/1000
+
+
+
+Running Scenario 8, Iteration 114/1000
+
+
+
+Running Scenario 8, Iteration 115/1000
+
+
+
+Running Scenario 8, Iteration 116/1000
+
+
+
+Running Scenario 8, Iteration 117/1000
+
+
+
+Running Scenario 8, Iteration 118/1000
+
+
+
+Running Scenario 8, Iteration 119/1000
+
+
+
+Running Scenario 8, Iteration 120/1000
+
+
+
+Running Scenario 8, Iteration 121/1000
+
+
+
+Running Scenario 8, Iteration 122/1000
+
+
+
+Running Scenario 8, Iteration 123/1000
+
+
+
+Running Scenario 8, Iteration 124/1000
+
+
+
+Running Scenario 8, Iteration 125/1000
+
+
+
+Running Scenario 8, Iteration 126/1000
+
+
+
+Running Scenario 8, Iteration 127/1000
+
+
+
+Running Scenario 8, Iteration 128/1000
+
+
+
+Running Scenario 8, Iteration 129/1000
+
+
+
+Running Scenario 8, Iteration 130/1000
+
+
+
+Running Scenario 8, Iteration 131/1000
+
+
+
+Running Scenario 8, Iteration 132/1000
+
+
+
+Running Scenario 8, Iteration 133/1000
+
+
+
+Running Scenario 8, Iteration 134/1000
+
+
+
+Running Scenario 8, Iteration 135/1000
+
+
+
+Running Scenario 8, Iteration 136/1000
+
+
+
+Running Scenario 8, Iteration 137/1000
+
+
+
+Running Scenario 8, Iteration 138/1000
+
+
+
+Running Scenario 8, Iteration 139/1000
+
+
+
+Running Scenario 8, Iteration 140/1000
+
+
+
+Running Scenario 8, Iteration 141/1000
+
+
+
+Running Scenario 8, Iteration 142/1000
+
+
+
+Running Scenario 8, Iteration 143/1000
+
+
+
+Running Scenario 8, Iteration 144/1000
+
+
+
+Running Scenario 8, Iteration 145/1000
+
+
+
+Running Scenario 8, Iteration 146/1000
+
+
+
+Running Scenario 8, Iteration 147/1000
+
+
+
+Running Scenario 8, Iteration 148/1000
+
+
+
+Running Scenario 8, Iteration 149/1000
+
+
+
+Running Scenario 8, Iteration 150/1000
+
+
+
+Running Scenario 8, Iteration 151/1000
+
+
+
+Running Scenario 8, Iteration 152/1000
+
+
+
+Running Scenario 8, Iteration 153/1000
+
+
+
+Running Scenario 8, Iteration 154/1000
+
+
+
+Running Scenario 8, Iteration 155/1000
+
+
+
+Running Scenario 8, Iteration 156/1000
+
+
+
+Running Scenario 8, Iteration 157/1000
+
+
+
+Running Scenario 8, Iteration 158/1000
+
+
+
+Running Scenario 8, Iteration 159/1000
+
+
+
+Running Scenario 8, Iteration 160/1000
+
+
+
+Running Scenario 8, Iteration 161/1000
+
+
+
+Running Scenario 8, Iteration 162/1000
+
+
+
+Running Scenario 8, Iteration 163/1000
+
+
+
+Running Scenario 8, Iteration 164/1000
+
+
+
+Running Scenario 8, Iteration 165/1000
+
+
+
+Running Scenario 8, Iteration 166/1000
+
+
+
+Running Scenario 8, Iteration 167/1000
+
+
+
+Running Scenario 8, Iteration 168/1000
+
+
+
+Running Scenario 8, Iteration 169/1000
+
+
+
+Running Scenario 8, Iteration 170/1000
+
+
+
+Running Scenario 8, Iteration 171/1000
+
+
+
+Running Scenario 8, Iteration 172/1000
+
+
+
+Running Scenario 8, Iteration 173/1000
+
+
+
+Running Scenario 8, Iteration 174/1000
+
+
+
+Running Scenario 8, Iteration 175/1000
+
+
+
+Running Scenario 8, Iteration 176/1000
+
+
+
+Running Scenario 8, Iteration 177/1000
+
+
+
+Running Scenario 8, Iteration 178/1000
+
+
+
+Running Scenario 8, Iteration 179/1000
+
+
+
+Running Scenario 8, Iteration 180/1000
+
+
+
+Running Scenario 8, Iteration 181/1000
+
+
+
+Running Scenario 8, Iteration 182/1000
+
+
+
+Running Scenario 8, Iteration 183/1000
+
+
+
+Running Scenario 8, Iteration 184/1000
+
+
+
+Running Scenario 8, Iteration 185/1000
+
+
+
+Running Scenario 8, Iteration 186/1000
+
+
+
+Running Scenario 8, Iteration 187/1000
+
+
+
+Running Scenario 8, Iteration 188/1000
+
+
+
+Running Scenario 8, Iteration 189/1000
+
+
+
+Running Scenario 8, Iteration 190/1000
+
+
+
+Running Scenario 8, Iteration 191/1000
+
+
+
+Running Scenario 8, Iteration 192/1000
+
+
+
+Running Scenario 8, Iteration 193/1000
+
+
+
+Running Scenario 8, Iteration 194/1000
+
+
+
+Running Scenario 8, Iteration 195/1000
+
+
+
+Running Scenario 8, Iteration 196/1000
+
+
+
+Running Scenario 8, Iteration 197/1000
+
+
+
+Running Scenario 8, Iteration 198/1000
+
+
+
+Running Scenario 8, Iteration 199/1000
+
+
+
+Running Scenario 8, Iteration 200/1000
+
+
+
+Running Scenario 8, Iteration 201/1000
+
+
+
+Running Scenario 8, Iteration 202/1000
+
+
+
+Running Scenario 8, Iteration 203/1000
+
+
+
+Running Scenario 8, Iteration 204/1000
+
+
+
+Running Scenario 8, Iteration 205/1000
+
+
+
+Running Scenario 8, Iteration 206/1000
+
+
+
+Running Scenario 8, Iteration 207/1000
+
+
+
+Running Scenario 8, Iteration 208/1000
+
+
+
+Running Scenario 8, Iteration 209/1000
+
+
+
+Running Scenario 8, Iteration 210/1000
+
+
+
+Running Scenario 8, Iteration 211/1000
+
+
+
+Running Scenario 8, Iteration 212/1000
+
+
+
+Running Scenario 8, Iteration 213/1000
+
+
+
+Running Scenario 8, Iteration 214/1000
+
+
+
+Running Scenario 8, Iteration 215/1000
+
+
+
+Running Scenario 8, Iteration 216/1000
+
+
+
+Running Scenario 8, Iteration 217/1000
+
+
+
+Running Scenario 8, Iteration 218/1000
+
+
+
+Running Scenario 8, Iteration 219/1000
+
+
+
+Running Scenario 8, Iteration 220/1000
+
+
+
+Running Scenario 8, Iteration 221/1000
+
+
+
+Running Scenario 8, Iteration 222/1000
+
+
+
+Running Scenario 8, Iteration 223/1000
+
+
+
+Running Scenario 8, Iteration 224/1000
+
+
+
+Running Scenario 8, Iteration 225/1000
+
+
+
+Running Scenario 8, Iteration 226/1000
+
+
+
+Running Scenario 8, Iteration 227/1000
+
+
+
+Running Scenario 8, Iteration 228/1000
+
+
+
+Running Scenario 8, Iteration 229/1000
+
+
+
+Running Scenario 8, Iteration 230/1000
+
+
+
+Running Scenario 8, Iteration 231/1000
+
+
+
+Running Scenario 8, Iteration 232/1000
+
+
+
+Running Scenario 8, Iteration 233/1000
+
+
+
+Running Scenario 8, Iteration 234/1000
+
+
+
+Running Scenario 8, Iteration 235/1000
+
+
+
+Running Scenario 8, Iteration 236/1000
+
+
+
+Running Scenario 8, Iteration 237/1000
+
+
+
+Running Scenario 8, Iteration 238/1000
+
+
+
+Running Scenario 8, Iteration 239/1000
+
+
+
+Running Scenario 8, Iteration 240/1000
+
+
+
+Running Scenario 8, Iteration 241/1000
+
+
+
+Running Scenario 8, Iteration 242/1000
+
+
+
+Running Scenario 8, Iteration 243/1000
+
+
+
+Running Scenario 8, Iteration 244/1000
+
+
+
+Running Scenario 8, Iteration 245/1000
+
+
+
+Running Scenario 8, Iteration 246/1000
+
+
+
+Running Scenario 8, Iteration 247/1000
+
+
+
+Running Scenario 8, Iteration 248/1000
+
+
+
+Running Scenario 8, Iteration 249/1000
+
+
+
+Running Scenario 8, Iteration 250/1000
+
+
+
+Running Scenario 8, Iteration 251/1000
+
+
+
+Running Scenario 8, Iteration 252/1000
+
+
+
+Running Scenario 8, Iteration 253/1000
+
+
+
+Running Scenario 8, Iteration 254/1000
+
+
+
+Running Scenario 8, Iteration 255/1000
+
+
+
+Running Scenario 8, Iteration 256/1000
+
+
+
+Running Scenario 8, Iteration 257/1000
+
+
+
+Running Scenario 8, Iteration 258/1000
+
+
+
+Running Scenario 8, Iteration 259/1000
+
+
+
+Running Scenario 8, Iteration 260/1000
+
+
+
+Running Scenario 8, Iteration 261/1000
+
+
+
+Running Scenario 8, Iteration 262/1000
+
+
+
+Running Scenario 8, Iteration 263/1000
+
+
+
+Running Scenario 8, Iteration 264/1000
+
+
+
+Running Scenario 8, Iteration 265/1000
+
+
+
+Running Scenario 8, Iteration 266/1000
+
+
+
+Running Scenario 8, Iteration 267/1000
+
+
+
+Running Scenario 8, Iteration 268/1000
+
+
+
+Running Scenario 8, Iteration 269/1000
+
+
+
+Running Scenario 8, Iteration 270/1000
+
+
+
+Running Scenario 8, Iteration 271/1000
+
+
+
+Running Scenario 8, Iteration 272/1000
+
+
+
+Running Scenario 8, Iteration 273/1000
+
+
+
+Running Scenario 8, Iteration 274/1000
+
+
+
+Running Scenario 8, Iteration 275/1000
+
+
+
+Running Scenario 8, Iteration 276/1000
+
+
+
+Running Scenario 8, Iteration 277/1000
+
+
+
+Running Scenario 8, Iteration 278/1000
+
+
+
+Running Scenario 8, Iteration 279/1000
+
+
+
+Running Scenario 8, Iteration 280/1000
+
+
+
+Running Scenario 8, Iteration 281/1000
+
+
+
+Running Scenario 8, Iteration 282/1000
+
+
+
+Running Scenario 8, Iteration 283/1000
+
+
+
+Running Scenario 8, Iteration 284/1000
+
+
+
+Running Scenario 8, Iteration 285/1000
+
+
+
+Running Scenario 8, Iteration 286/1000
+
+
+
+Running Scenario 8, Iteration 287/1000
+
+
+
+Running Scenario 8, Iteration 288/1000
+
+
+
+Running Scenario 8, Iteration 289/1000
+
+
+
+Running Scenario 8, Iteration 290/1000
+
+
+
+Running Scenario 8, Iteration 291/1000
+
+
+
+Running Scenario 8, Iteration 292/1000
+
+
+
+Running Scenario 8, Iteration 293/1000
+
+
+
+Running Scenario 8, Iteration 294/1000
+
+
+
+Running Scenario 8, Iteration 295/1000
+
+
+
+Running Scenario 8, Iteration 296/1000
+
+
+
+Running Scenario 8, Iteration 297/1000
+
+
+
+Running Scenario 8, Iteration 298/1000
+
+
+
+Running Scenario 8, Iteration 299/1000
+
+
+
+Running Scenario 8, Iteration 300/1000
+
+
+
+Running Scenario 8, Iteration 301/1000
+
+
+
+Running Scenario 8, Iteration 302/1000
+
+
+
+Running Scenario 8, Iteration 303/1000
+
+
+
+Running Scenario 8, Iteration 304/1000
+
+
+
+Running Scenario 8, Iteration 305/1000
+
+
+
+Running Scenario 8, Iteration 306/1000
+
+
+
+Running Scenario 8, Iteration 307/1000
+
+
+
+Running Scenario 8, Iteration 308/1000
+
+
+
+Running Scenario 8, Iteration 309/1000
+
+
+
+Running Scenario 8, Iteration 310/1000
+
+
+
+Running Scenario 8, Iteration 311/1000
+
+
+
+Running Scenario 8, Iteration 312/1000
+
+
+
+Running Scenario 8, Iteration 313/1000
+
+
+
+Running Scenario 8, Iteration 314/1000
+
+
+
+Running Scenario 8, Iteration 315/1000
+
+
+
+Running Scenario 8, Iteration 316/1000
+
+
+
+Running Scenario 8, Iteration 317/1000
+
+
+
+Running Scenario 8, Iteration 318/1000
+
+
+
+Running Scenario 8, Iteration 319/1000
+
+
+
+Running Scenario 8, Iteration 320/1000
+
+
+
+Running Scenario 8, Iteration 321/1000
+
+
+
+Running Scenario 8, Iteration 322/1000
+
+
+
+Running Scenario 8, Iteration 323/1000
+
+
+
+Running Scenario 8, Iteration 324/1000
+
+
+
+Running Scenario 8, Iteration 325/1000
+
+
+
+Running Scenario 8, Iteration 326/1000
+
+
+
+Running Scenario 8, Iteration 327/1000
+
+
+
+Running Scenario 8, Iteration 328/1000
+
+
+
+Running Scenario 8, Iteration 329/1000
+
+
+
+Running Scenario 8, Iteration 330/1000
+
+
+
+Running Scenario 8, Iteration 331/1000
+
+
+
+Running Scenario 8, Iteration 332/1000
+
+
+
+Running Scenario 8, Iteration 333/1000
+
+
+
+Running Scenario 8, Iteration 334/1000
+
+
+
+Running Scenario 8, Iteration 335/1000
+
+
+
+Running Scenario 8, Iteration 336/1000
+
+
+
+Running Scenario 8, Iteration 337/1000
+
+
+
+Running Scenario 8, Iteration 338/1000
+
+
+
+Running Scenario 8, Iteration 339/1000
+
+
+
+Running Scenario 8, Iteration 340/1000
+
+
+
+Running Scenario 8, Iteration 341/1000
+
+
+
+Running Scenario 8, Iteration 342/1000
+
+
+
+Running Scenario 8, Iteration 343/1000
+
+
+
+Running Scenario 8, Iteration 344/1000
+
+
+
+Running Scenario 8, Iteration 345/1000
+
+
+
+Running Scenario 8, Iteration 346/1000
+
+
+
+Running Scenario 8, Iteration 347/1000
+
+
+
+Running Scenario 8, Iteration 348/1000
+
+
+
+Running Scenario 8, Iteration 349/1000
+
+
+
+Running Scenario 8, Iteration 350/1000
+
+
+
+Running Scenario 8, Iteration 351/1000
+
+
+
+Running Scenario 8, Iteration 352/1000
+
+
+
+Running Scenario 8, Iteration 353/1000
+
+
+
+Running Scenario 8, Iteration 354/1000
+
+
+
+Running Scenario 8, Iteration 355/1000
+
+
+
+Running Scenario 8, Iteration 356/1000
+
+
+
+Running Scenario 8, Iteration 357/1000
+
+
+
+Running Scenario 8, Iteration 358/1000
+
+
+
+Running Scenario 8, Iteration 359/1000
+
+
+
+Running Scenario 8, Iteration 360/1000
+
+
+
+Running Scenario 8, Iteration 361/1000
+
+
+
+Running Scenario 8, Iteration 362/1000
+
+
+
+Running Scenario 8, Iteration 363/1000
+
+
+
+Running Scenario 8, Iteration 364/1000
+
+
+
+Running Scenario 8, Iteration 365/1000
+
+
+
+Running Scenario 8, Iteration 366/1000
+
+
+
+Running Scenario 8, Iteration 367/1000
+
+
+
+Running Scenario 8, Iteration 368/1000
+
+
+
+Running Scenario 8, Iteration 369/1000
+
+
+
+Running Scenario 8, Iteration 370/1000
+
+
+
+Running Scenario 8, Iteration 371/1000
+
+
+
+Running Scenario 8, Iteration 372/1000
+
+
+
+Running Scenario 8, Iteration 373/1000
+
+
+
+Running Scenario 8, Iteration 374/1000
+
+
+
+Running Scenario 8, Iteration 375/1000
+
+
+
+Running Scenario 8, Iteration 376/1000
+
+
+
+Running Scenario 8, Iteration 377/1000
+
+
+
+Running Scenario 8, Iteration 378/1000
+
+
+
+Running Scenario 8, Iteration 379/1000
+
+
+
+Running Scenario 8, Iteration 380/1000
+
+
+
+Running Scenario 8, Iteration 381/1000
+
+
+
+Running Scenario 8, Iteration 382/1000
+
+
+
+Running Scenario 8, Iteration 383/1000
+
+
+
+Running Scenario 8, Iteration 384/1000
+
+
+
+Running Scenario 8, Iteration 385/1000
+
+
+
+Running Scenario 8, Iteration 386/1000
+
+
+
+Running Scenario 8, Iteration 387/1000
+
+
+
+Running Scenario 8, Iteration 388/1000
+
+
+
+Running Scenario 8, Iteration 389/1000
+
+
+
+Running Scenario 8, Iteration 390/1000
+
+
+
+Running Scenario 8, Iteration 391/1000
+
+
+
+Running Scenario 8, Iteration 392/1000
+
+
+
+Running Scenario 8, Iteration 393/1000
+
+
+
+Running Scenario 8, Iteration 394/1000
+
+
+
+Running Scenario 8, Iteration 395/1000
+
+
+
+Running Scenario 8, Iteration 396/1000
+
+
+
+Running Scenario 8, Iteration 397/1000
+
+
+
+Running Scenario 8, Iteration 398/1000
+
+
+
+Running Scenario 8, Iteration 399/1000
+
+
+
+Running Scenario 8, Iteration 400/1000
+
+
+
+Running Scenario 8, Iteration 401/1000
+
+
+
+Running Scenario 8, Iteration 402/1000
+
+
+
+Running Scenario 8, Iteration 403/1000
+
+
+
+Running Scenario 8, Iteration 404/1000
+
+
+
+Running Scenario 8, Iteration 405/1000
+
+
+
+Running Scenario 8, Iteration 406/1000
+
+
+
+Running Scenario 8, Iteration 407/1000
+
+
+
+Running Scenario 8, Iteration 408/1000
+
+
+
+Running Scenario 8, Iteration 409/1000
+
+
+
+Running Scenario 8, Iteration 410/1000
+
+
+
+Running Scenario 8, Iteration 411/1000
+
+
+
+Running Scenario 8, Iteration 412/1000
+
+
+
+Running Scenario 8, Iteration 413/1000
+
+
+
+Running Scenario 8, Iteration 414/1000
+
+
+
+Running Scenario 8, Iteration 415/1000
+
+
+
+Running Scenario 8, Iteration 416/1000
+
+
+
+Running Scenario 8, Iteration 417/1000
+
+
+
+Running Scenario 8, Iteration 418/1000
+
+
+
+Running Scenario 8, Iteration 419/1000
+
+
+
+Running Scenario 8, Iteration 420/1000
+
+
+
+Running Scenario 8, Iteration 421/1000
+
+
+
+Running Scenario 8, Iteration 422/1000
+
+
+
+Running Scenario 8, Iteration 423/1000
+
+
+
+Running Scenario 8, Iteration 424/1000
+
+
+
+Running Scenario 8, Iteration 425/1000
+
+
+
+Running Scenario 8, Iteration 426/1000
+
+
+
+Running Scenario 8, Iteration 427/1000
+
+
+
+Running Scenario 8, Iteration 428/1000
+
+
+
+Running Scenario 8, Iteration 429/1000
+
+
+
+Running Scenario 8, Iteration 430/1000
+
+
+
+Running Scenario 8, Iteration 431/1000
+
+
+
+Running Scenario 8, Iteration 432/1000
+
+
+
+Running Scenario 8, Iteration 433/1000
+
+
+
+Running Scenario 8, Iteration 434/1000
+
+
+
+Running Scenario 8, Iteration 435/1000
+
+
+
+Running Scenario 8, Iteration 436/1000
+
+
+
+Running Scenario 8, Iteration 437/1000
+
+
+
+Running Scenario 8, Iteration 438/1000
+
+
+
+Running Scenario 8, Iteration 439/1000
+
+
+
+Running Scenario 8, Iteration 440/1000
+
+
+
+Running Scenario 8, Iteration 441/1000
+
+
+
+Running Scenario 8, Iteration 442/1000
+
+
+
+Running Scenario 8, Iteration 443/1000
+
+
+
+Running Scenario 8, Iteration 444/1000
+
+
+
+Running Scenario 8, Iteration 445/1000
+
+
+
+Running Scenario 8, Iteration 446/1000
+
+
+
+Running Scenario 8, Iteration 447/1000
+
+
+
+Running Scenario 8, Iteration 448/1000
+
+
+
+Running Scenario 8, Iteration 449/1000
+
+
+
+Running Scenario 8, Iteration 450/1000
+
+
+
+Running Scenario 8, Iteration 451/1000
+
+
+
+Running Scenario 8, Iteration 452/1000
+
+
+
+Running Scenario 8, Iteration 453/1000
+
+
+
+Running Scenario 8, Iteration 454/1000
+
+
+
+Running Scenario 8, Iteration 455/1000
+
+
+
+Running Scenario 8, Iteration 456/1000
+
+
+
+Running Scenario 8, Iteration 457/1000
+
+
+
+Running Scenario 8, Iteration 458/1000
+
+
+
+Running Scenario 8, Iteration 459/1000
+
+
+
+Running Scenario 8, Iteration 460/1000
+
+
+
+Running Scenario 8, Iteration 461/1000
+
+
+
+Running Scenario 8, Iteration 462/1000
+
+
+
+Running Scenario 8, Iteration 463/1000
+
+
+
+Running Scenario 8, Iteration 464/1000
+
+
+
+Running Scenario 8, Iteration 465/1000
+
+
+
+Running Scenario 8, Iteration 466/1000
+
+
+
+Running Scenario 8, Iteration 467/1000
+
+
+
+Running Scenario 8, Iteration 468/1000
+
+
+
+Running Scenario 8, Iteration 469/1000
+
+
+
+Running Scenario 8, Iteration 470/1000
+
+
+
+Running Scenario 8, Iteration 471/1000
+
+
+
+Running Scenario 8, Iteration 472/1000
+
+
+
+Running Scenario 8, Iteration 473/1000
+
+
+
+Running Scenario 8, Iteration 474/1000
+
+
+
+Running Scenario 8, Iteration 475/1000
+
+
+
+Running Scenario 8, Iteration 476/1000
+
+
+
+Running Scenario 8, Iteration 477/1000
+
+
+
+Running Scenario 8, Iteration 478/1000
+
+
+
+Running Scenario 8, Iteration 479/1000
+
+
+
+Running Scenario 8, Iteration 480/1000
+
+
+
+Running Scenario 8, Iteration 481/1000
+
+
+
+Running Scenario 8, Iteration 482/1000
+
+
+
+Running Scenario 8, Iteration 483/1000
+
+
+
+Running Scenario 8, Iteration 484/1000
+
+
+
+Running Scenario 8, Iteration 485/1000
+
+
+
+Running Scenario 8, Iteration 486/1000
+
+
+
+Running Scenario 8, Iteration 487/1000
+
+
+
+Running Scenario 8, Iteration 488/1000
+
+
+
+Running Scenario 8, Iteration 489/1000
+
+
+
+Running Scenario 8, Iteration 490/1000
+
+
+
+Running Scenario 8, Iteration 491/1000
+
+
+
+Running Scenario 8, Iteration 492/1000
+
+
+
+Running Scenario 8, Iteration 493/1000
+
+
+
+Running Scenario 8, Iteration 494/1000
+
+
+
+Running Scenario 8, Iteration 495/1000
+
+
+
+Running Scenario 8, Iteration 496/1000
+
+
+
+Running Scenario 8, Iteration 497/1000
+
+
+
+Running Scenario 8, Iteration 498/1000
+
+
+
+Running Scenario 8, Iteration 499/1000
+
+
+
+Running Scenario 8, Iteration 500/1000
+
+
+
+Running Scenario 8, Iteration 501/1000
+
+
+
+Running Scenario 8, Iteration 502/1000
+
+
+
+Running Scenario 8, Iteration 503/1000
+
+
+
+Running Scenario 8, Iteration 504/1000
+
+
+
+Running Scenario 8, Iteration 505/1000
+
+
+
+Running Scenario 8, Iteration 506/1000
+
+
+
+Running Scenario 8, Iteration 507/1000
+
+
+
+Running Scenario 8, Iteration 508/1000
+
+
+
+Running Scenario 8, Iteration 509/1000
+
+
+
+Running Scenario 8, Iteration 510/1000
+
+
+
+Running Scenario 8, Iteration 511/1000
+
+
+
+Running Scenario 8, Iteration 512/1000
+
+
+
+Running Scenario 8, Iteration 513/1000
+
+
+
+Running Scenario 8, Iteration 514/1000
+
+
+
+Running Scenario 8, Iteration 515/1000
+
+
+
+Running Scenario 8, Iteration 516/1000
+
+
+
+Running Scenario 8, Iteration 517/1000
+
+
+
+Running Scenario 8, Iteration 518/1000
+
+
+
+Running Scenario 8, Iteration 519/1000
+
+
+
+Running Scenario 8, Iteration 520/1000
+
+
+
+Running Scenario 8, Iteration 521/1000
+
+
+
+Running Scenario 8, Iteration 522/1000
+
+
+
+Running Scenario 8, Iteration 523/1000
+
+
+
+Running Scenario 8, Iteration 524/1000
+
+
+
+Running Scenario 8, Iteration 525/1000
+
+
+
+Running Scenario 8, Iteration 526/1000
+
+
+
+Running Scenario 8, Iteration 527/1000
+
+
+
+Running Scenario 8, Iteration 528/1000
+
+
+
+Running Scenario 8, Iteration 529/1000
+
+
+
+Running Scenario 8, Iteration 530/1000
+
+
+
+Running Scenario 8, Iteration 531/1000
+
+
+
+Running Scenario 8, Iteration 532/1000
+
+
+
+Running Scenario 8, Iteration 533/1000
+
+
+
+Running Scenario 8, Iteration 534/1000
+
+
+
+Running Scenario 8, Iteration 535/1000
+
+
+
+Running Scenario 8, Iteration 536/1000
+
+
+
+Running Scenario 8, Iteration 537/1000
+
+
+
+Running Scenario 8, Iteration 538/1000
+
+
+
+Running Scenario 8, Iteration 539/1000
+
+
+
+Running Scenario 8, Iteration 540/1000
+
+
+
+Running Scenario 8, Iteration 541/1000
+
+
+
+Running Scenario 8, Iteration 542/1000
+
+
+
+Running Scenario 8, Iteration 543/1000
+
+
+
+Running Scenario 8, Iteration 544/1000
+
+
+
+Running Scenario 8, Iteration 545/1000
+
+
+
+Running Scenario 8, Iteration 546/1000
+
+
+
+Running Scenario 8, Iteration 547/1000
+
+
+
+Running Scenario 8, Iteration 548/1000
+
+
+
+Running Scenario 8, Iteration 549/1000
+
+
+
+Running Scenario 8, Iteration 550/1000
+
+
+
+Running Scenario 8, Iteration 551/1000
+
+
+
+Running Scenario 8, Iteration 552/1000
+
+
+
+Running Scenario 8, Iteration 553/1000
+
+
+
+Running Scenario 8, Iteration 554/1000
+
+
+
+Running Scenario 8, Iteration 555/1000
+
+
+
+Running Scenario 8, Iteration 556/1000
+
+
+
+Running Scenario 8, Iteration 557/1000
+
+
+
+Running Scenario 8, Iteration 558/1000
+
+
+
+Running Scenario 8, Iteration 559/1000
+
+
+
+Running Scenario 8, Iteration 560/1000
+
+
+
+Running Scenario 8, Iteration 561/1000
+
+
+
+Running Scenario 8, Iteration 562/1000
+
+
+
+Running Scenario 8, Iteration 563/1000
+
+
+
+Running Scenario 8, Iteration 564/1000
+
+
+
+Running Scenario 8, Iteration 565/1000
+
+
+
+Running Scenario 8, Iteration 566/1000
+
+
+
+Running Scenario 8, Iteration 567/1000
+
+
+
+Running Scenario 8, Iteration 568/1000
+
+
+
+Running Scenario 8, Iteration 569/1000
+
+
+
+Running Scenario 8, Iteration 570/1000
+
+
+
+Running Scenario 8, Iteration 571/1000
+
+
+
+Running Scenario 8, Iteration 572/1000
+
+
+
+Running Scenario 8, Iteration 573/1000
+
+
+
+Running Scenario 8, Iteration 574/1000
+
+
+
+Running Scenario 8, Iteration 575/1000
+
+
+
+Running Scenario 8, Iteration 576/1000
+
+
+
+Running Scenario 8, Iteration 577/1000
+
+
+
+Running Scenario 8, Iteration 578/1000
+
+
+
+Running Scenario 8, Iteration 579/1000
+
+
+
+Running Scenario 8, Iteration 580/1000
+
+
+
+Running Scenario 8, Iteration 581/1000
+
+
+
+Running Scenario 8, Iteration 582/1000
+
+
+
+Running Scenario 8, Iteration 583/1000
+
+
+
+Running Scenario 8, Iteration 584/1000
+
+
+
+Running Scenario 8, Iteration 585/1000
+
+
+
+Running Scenario 8, Iteration 586/1000
+
+
+
+Running Scenario 8, Iteration 587/1000
+
+
+
+Running Scenario 8, Iteration 588/1000
+
+
+
+Running Scenario 8, Iteration 589/1000
+
+
+
+Running Scenario 8, Iteration 590/1000
+
+
+
+Running Scenario 8, Iteration 591/1000
+
+
+
+Running Scenario 8, Iteration 592/1000
+
+
+
+Running Scenario 8, Iteration 593/1000
+
+
+
+Running Scenario 8, Iteration 594/1000
+
+
+
+Running Scenario 8, Iteration 595/1000
+
+
+
+Running Scenario 8, Iteration 596/1000
+
+
+
+Running Scenario 8, Iteration 597/1000
+
+
+
+Running Scenario 8, Iteration 598/1000
+
+
+
+Running Scenario 8, Iteration 599/1000
+
+
+
+Running Scenario 8, Iteration 600/1000
+
+
+
+Running Scenario 8, Iteration 601/1000
+
+
+
+Running Scenario 8, Iteration 602/1000
+
+
+
+Running Scenario 8, Iteration 603/1000
+
+
+
+Running Scenario 8, Iteration 604/1000
+
+
+
+Running Scenario 8, Iteration 605/1000
+
+
+
+Running Scenario 8, Iteration 606/1000
+
+
+
+Running Scenario 8, Iteration 607/1000
+
+
+
+Running Scenario 8, Iteration 608/1000
+
+
+
+Running Scenario 8, Iteration 609/1000
+
+
+
+Running Scenario 8, Iteration 610/1000
+
+
+
+Running Scenario 8, Iteration 611/1000
+
+
+
+Running Scenario 8, Iteration 612/1000
+
+
+
+Running Scenario 8, Iteration 613/1000
+
+
+
+Running Scenario 8, Iteration 614/1000
+
+
+
+Running Scenario 8, Iteration 615/1000
+
+
+
+Running Scenario 8, Iteration 616/1000
+
+
+
+Running Scenario 8, Iteration 617/1000
+
+
+
+Running Scenario 8, Iteration 618/1000
+
+
+
+Running Scenario 8, Iteration 619/1000
+
+
+
+Running Scenario 8, Iteration 620/1000
+
+
+
+Running Scenario 8, Iteration 621/1000
+
+
+
+Running Scenario 8, Iteration 622/1000
+
+
+
+Running Scenario 8, Iteration 623/1000
+
+
+
+Running Scenario 8, Iteration 624/1000
+
+
+
+Running Scenario 8, Iteration 625/1000
+
+
+
+Running Scenario 8, Iteration 626/1000
+
+
+
+Running Scenario 8, Iteration 627/1000
+
+
+
+Running Scenario 8, Iteration 628/1000
+
+
+
+Running Scenario 8, Iteration 629/1000
+
+
+
+Running Scenario 8, Iteration 630/1000
+
+
+
+Running Scenario 8, Iteration 631/1000
+
+
+
+Running Scenario 8, Iteration 632/1000
+
+
+
+Running Scenario 8, Iteration 633/1000
+
+
+
+Running Scenario 8, Iteration 634/1000
+
+
+
+Running Scenario 8, Iteration 635/1000
+
+
+
+Running Scenario 8, Iteration 636/1000
+
+
+
+Running Scenario 8, Iteration 637/1000
+
+
+
+Running Scenario 8, Iteration 638/1000
+
+
+
+Running Scenario 8, Iteration 639/1000
+
+
+
+Running Scenario 8, Iteration 640/1000
+
+
+
+Running Scenario 8, Iteration 641/1000
+
+
+
+Running Scenario 8, Iteration 642/1000
+
+
+
+Running Scenario 8, Iteration 643/1000
+
+
+
+Running Scenario 8, Iteration 644/1000
+
+
+
+Running Scenario 8, Iteration 645/1000
+
+
+
+Running Scenario 8, Iteration 646/1000
+
+
+
+Running Scenario 8, Iteration 647/1000
+
+
+
+Running Scenario 8, Iteration 648/1000
+
+
+
+Running Scenario 8, Iteration 649/1000
+
+
+
+Running Scenario 8, Iteration 650/1000
+
+
+
+Running Scenario 8, Iteration 651/1000
+
+
+
+Running Scenario 8, Iteration 652/1000
+
+
+
+Running Scenario 8, Iteration 653/1000
+
+
+
+Running Scenario 8, Iteration 654/1000
+
+
+
+Running Scenario 8, Iteration 655/1000
+
+
+
+Running Scenario 8, Iteration 656/1000
+
+
+
+Running Scenario 8, Iteration 657/1000
+
+
+
+Running Scenario 8, Iteration 658/1000
+
+
+
+Running Scenario 8, Iteration 659/1000
+
+
+
+Running Scenario 8, Iteration 660/1000
+
+
+
+Running Scenario 8, Iteration 661/1000
+
+
+
+Running Scenario 8, Iteration 662/1000
+
+
+
+Running Scenario 8, Iteration 663/1000
+
+
+
+Running Scenario 8, Iteration 664/1000
+
+
+
+Running Scenario 8, Iteration 665/1000
+
+
+
+Running Scenario 8, Iteration 666/1000
+
+
+
+Running Scenario 8, Iteration 667/1000
+
+
+
+Running Scenario 8, Iteration 668/1000
+
+
+
+Running Scenario 8, Iteration 669/1000
+
+
+
+Running Scenario 8, Iteration 670/1000
+
+
+
+Running Scenario 8, Iteration 671/1000
+
+
+
+Running Scenario 8, Iteration 672/1000
+
+
+
+Running Scenario 8, Iteration 673/1000
+
+
+
+Running Scenario 8, Iteration 674/1000
+
+
+
+Running Scenario 8, Iteration 675/1000
+
+
+
+Running Scenario 8, Iteration 676/1000
+
+
+
+Running Scenario 8, Iteration 677/1000
+
+
+
+Running Scenario 8, Iteration 678/1000
+
+
+
+Running Scenario 8, Iteration 679/1000
+
+
+
+Running Scenario 8, Iteration 680/1000
+
+
+
+Running Scenario 8, Iteration 681/1000
+
+
+
+Running Scenario 8, Iteration 682/1000
+
+
+
+Running Scenario 8, Iteration 683/1000
+
+
+
+Running Scenario 8, Iteration 684/1000
+
+
+
+Running Scenario 8, Iteration 685/1000
+
+
+
+Running Scenario 8, Iteration 686/1000
+
+
+
+Running Scenario 8, Iteration 687/1000
+
+
+
+Running Scenario 8, Iteration 688/1000
+
+
+
+Running Scenario 8, Iteration 689/1000
+
+
+
+Running Scenario 8, Iteration 690/1000
+
+
+
+Running Scenario 8, Iteration 691/1000
+
+
+
+Running Scenario 8, Iteration 692/1000
+
+
+
+Running Scenario 8, Iteration 693/1000
+
+
+
+Running Scenario 8, Iteration 694/1000
+
+
+
+Running Scenario 8, Iteration 695/1000
+
+
+
+Running Scenario 8, Iteration 696/1000
+
+
+
+Running Scenario 8, Iteration 697/1000
+
+
+
+Running Scenario 8, Iteration 698/1000
+
+
+
+Running Scenario 8, Iteration 699/1000
+
+
+
+Running Scenario 8, Iteration 700/1000
+
+
+
+Running Scenario 8, Iteration 701/1000
+
+
+
+Running Scenario 8, Iteration 702/1000
+
+
+
+Running Scenario 8, Iteration 703/1000
+
+
+
+Running Scenario 8, Iteration 704/1000
+
+
+
+Running Scenario 8, Iteration 705/1000
+
+
+
+Running Scenario 8, Iteration 706/1000
+
+
+
+Running Scenario 8, Iteration 707/1000
+
+
+
+Running Scenario 8, Iteration 708/1000
+
+
+
+Running Scenario 8, Iteration 709/1000
+
+
+
+Running Scenario 8, Iteration 710/1000
+
+
+
+Running Scenario 8, Iteration 711/1000
+
+
+
+Running Scenario 8, Iteration 712/1000
+
+
+
+Running Scenario 8, Iteration 713/1000
+
+
+
+Running Scenario 8, Iteration 714/1000
+
+
+
+Running Scenario 8, Iteration 715/1000
+
+
+
+Running Scenario 8, Iteration 716/1000
+
+
+
+Running Scenario 8, Iteration 717/1000
+
+
+
+Running Scenario 8, Iteration 718/1000
+
+
+
+Running Scenario 8, Iteration 719/1000
+
+
+
+Running Scenario 8, Iteration 720/1000
+
+
+
+Running Scenario 8, Iteration 721/1000
+
+
+
+Running Scenario 8, Iteration 722/1000
+
+
+
+Running Scenario 8, Iteration 723/1000
+
+
+
+Running Scenario 8, Iteration 724/1000
+
+
+
+Running Scenario 8, Iteration 725/1000
+
+
+
+Running Scenario 8, Iteration 726/1000
+
+
+
+Running Scenario 8, Iteration 727/1000
+
+
+
+Running Scenario 8, Iteration 728/1000
+
+
+
+Running Scenario 8, Iteration 729/1000
+
+
+
+Running Scenario 8, Iteration 730/1000
+
+
+
+Running Scenario 8, Iteration 731/1000
+
+
+
+Running Scenario 8, Iteration 732/1000
+
+
+
+Running Scenario 8, Iteration 733/1000
+
+
+
+Running Scenario 8, Iteration 734/1000
+
+
+
+Running Scenario 8, Iteration 735/1000
+
+
+
+Running Scenario 8, Iteration 736/1000
+
+
+
+Running Scenario 8, Iteration 737/1000
+
+
+
+Running Scenario 8, Iteration 738/1000
+
+
+
+Running Scenario 8, Iteration 739/1000
+
+
+
+Running Scenario 8, Iteration 740/1000
+
+
+
+Running Scenario 8, Iteration 741/1000
+
+
+
+Running Scenario 8, Iteration 742/1000
+
+
+
+Running Scenario 8, Iteration 743/1000
+
+
+
+Running Scenario 8, Iteration 744/1000
+
+
+
+Running Scenario 8, Iteration 745/1000
+
+
+
+Running Scenario 8, Iteration 746/1000
+
+
+
+Running Scenario 8, Iteration 747/1000
+
+
+
+Running Scenario 8, Iteration 748/1000
+
+
+
+Running Scenario 8, Iteration 749/1000
+
+
+
+Running Scenario 8, Iteration 750/1000
+
+
+
+Running Scenario 8, Iteration 751/1000
+
+
+
+Running Scenario 8, Iteration 752/1000
+
+
+
+Running Scenario 8, Iteration 753/1000
+
+
+
+Running Scenario 8, Iteration 754/1000
+
+
+
+Running Scenario 8, Iteration 755/1000
+
+
+
+Running Scenario 8, Iteration 756/1000
+
+
+
+Running Scenario 8, Iteration 757/1000
+
+
+
+Running Scenario 8, Iteration 758/1000
+
+
+
+Running Scenario 8, Iteration 759/1000
+
+
+
+Running Scenario 8, Iteration 760/1000
+
+
+
+Running Scenario 8, Iteration 761/1000
+
+
+
+Running Scenario 8, Iteration 762/1000
+
+
+
+Running Scenario 8, Iteration 763/1000
+
+
+
+Running Scenario 8, Iteration 764/1000
+
+
+
+Running Scenario 8, Iteration 765/1000
+
+
+
+Running Scenario 8, Iteration 766/1000
+
+
+
+Running Scenario 8, Iteration 767/1000
+
+
+
+Running Scenario 8, Iteration 768/1000
+
+
+
+Running Scenario 8, Iteration 769/1000
+
+
+
+Running Scenario 8, Iteration 770/1000
+
+
+
+Running Scenario 8, Iteration 771/1000
+
+
+
+Running Scenario 8, Iteration 772/1000
+
+
+
+Running Scenario 8, Iteration 773/1000
+
+
+
+Running Scenario 8, Iteration 774/1000
+
+
+
+Running Scenario 8, Iteration 775/1000
+
+
+
+Running Scenario 8, Iteration 776/1000
+
+
+
+Running Scenario 8, Iteration 777/1000
+
+
+
+Running Scenario 8, Iteration 778/1000
+
+
+
+Running Scenario 8, Iteration 779/1000
+
+
+
+Running Scenario 8, Iteration 780/1000
+
+
+
+Running Scenario 8, Iteration 781/1000
+
+
+
+Running Scenario 8, Iteration 782/1000
+
+
+
+Running Scenario 8, Iteration 783/1000
+
+
+
+Running Scenario 8, Iteration 784/1000
+
+
+
+Running Scenario 8, Iteration 785/1000
+
+
+
+Running Scenario 8, Iteration 786/1000
+
+
+
+Running Scenario 8, Iteration 787/1000
+
+
+
+Running Scenario 8, Iteration 788/1000
+
+
+
+Running Scenario 8, Iteration 789/1000
+
+
+
+Running Scenario 8, Iteration 790/1000
+
+
+
+Running Scenario 8, Iteration 791/1000
+
+
+
+Running Scenario 8, Iteration 792/1000
+
+
+
+Running Scenario 8, Iteration 793/1000
+
+
+
+Running Scenario 8, Iteration 794/1000
+
+
+
+Running Scenario 8, Iteration 795/1000
+
+
+
+Running Scenario 8, Iteration 796/1000
+
+
+
+Running Scenario 8, Iteration 797/1000
+
+
+
+Running Scenario 8, Iteration 798/1000
+
+
+
+Running Scenario 8, Iteration 799/1000
+
+
+
+Running Scenario 8, Iteration 800/1000
+
+
+
+Running Scenario 8, Iteration 801/1000
+
+
+
+Running Scenario 8, Iteration 802/1000
+
+
+
+Running Scenario 8, Iteration 803/1000
+
+
+
+Running Scenario 8, Iteration 804/1000
+
+
+
+Running Scenario 8, Iteration 805/1000
+
+
+
+Running Scenario 8, Iteration 806/1000
+
+
+
+Running Scenario 8, Iteration 807/1000
+
+
+
+Running Scenario 8, Iteration 808/1000
+
+
+
+Running Scenario 8, Iteration 809/1000
+
+
+
+Running Scenario 8, Iteration 810/1000
+
+
+
+Running Scenario 8, Iteration 811/1000
+
+
+
+Running Scenario 8, Iteration 812/1000
+
+
+
+Running Scenario 8, Iteration 813/1000
+
+
+
+Running Scenario 8, Iteration 814/1000
+
+
+
+Running Scenario 8, Iteration 815/1000
+
+
+
+Running Scenario 8, Iteration 816/1000
+
+
+
+Running Scenario 8, Iteration 817/1000
+
+
+
+Running Scenario 8, Iteration 818/1000
+
+
+
+Running Scenario 8, Iteration 819/1000
+
+
+
+Running Scenario 8, Iteration 820/1000
+
+
+
+Running Scenario 8, Iteration 821/1000
+
+
+
+Running Scenario 8, Iteration 822/1000
+
+
+
+Running Scenario 8, Iteration 823/1000
+
+
+
+Running Scenario 8, Iteration 824/1000
+
+
+
+Running Scenario 8, Iteration 825/1000
+
+
+
+Running Scenario 8, Iteration 826/1000
+
+
+
+Running Scenario 8, Iteration 827/1000
+
+
+
+Running Scenario 8, Iteration 828/1000
+
+
+
+Running Scenario 8, Iteration 829/1000
+
+
+
+Running Scenario 8, Iteration 830/1000
+
+
+
+Running Scenario 8, Iteration 831/1000
+
+
+
+Running Scenario 8, Iteration 832/1000
+
+
+
+Running Scenario 8, Iteration 833/1000
+
+
+
+Running Scenario 8, Iteration 834/1000
+
+
+
+Running Scenario 8, Iteration 835/1000
+
+
+
+Running Scenario 8, Iteration 836/1000
+
+
+
+Running Scenario 8, Iteration 837/1000
+
+
+
+Running Scenario 8, Iteration 838/1000
+
+
+
+Running Scenario 8, Iteration 839/1000
+
+
+
+Running Scenario 8, Iteration 840/1000
+
+
+
+Running Scenario 8, Iteration 841/1000
+
+
+
+Running Scenario 8, Iteration 842/1000
+
+
+
+Running Scenario 8, Iteration 843/1000
+
+
+
+Running Scenario 8, Iteration 844/1000
+
+
+
+Running Scenario 8, Iteration 845/1000
+
+
+
+Running Scenario 8, Iteration 846/1000
+
+
+
+Running Scenario 8, Iteration 847/1000
+
+
+
+Running Scenario 8, Iteration 848/1000
+
+
+
+Running Scenario 8, Iteration 849/1000
+
+
+
+Running Scenario 8, Iteration 850/1000
+
+
+
+Running Scenario 8, Iteration 851/1000
+
+
+
+Running Scenario 8, Iteration 852/1000
+
+
+
+Running Scenario 8, Iteration 853/1000
+
+
+
+Running Scenario 8, Iteration 854/1000
+
+
+
+Running Scenario 8, Iteration 855/1000
+
+
+
+Running Scenario 8, Iteration 856/1000
+
+
+
+Running Scenario 8, Iteration 857/1000
+
+
+
+Running Scenario 8, Iteration 858/1000
+
+
+
+Running Scenario 8, Iteration 859/1000
+
+
+
+Running Scenario 8, Iteration 860/1000
+
+
+
+Running Scenario 8, Iteration 861/1000
+
+
+
+Running Scenario 8, Iteration 862/1000
+
+
+
+Running Scenario 8, Iteration 863/1000
+
+
+
+Running Scenario 8, Iteration 864/1000
+
+
+
+Running Scenario 8, Iteration 865/1000
+
+
+
+Running Scenario 8, Iteration 866/1000
+
+
+
+Running Scenario 8, Iteration 867/1000
+
+
+
+Running Scenario 8, Iteration 868/1000
+
+
+
+Running Scenario 8, Iteration 869/1000
+
+
+
+Running Scenario 8, Iteration 870/1000
+
+
+
+Running Scenario 8, Iteration 871/1000
+
+
+
+Running Scenario 8, Iteration 872/1000
+
+
+
+Running Scenario 8, Iteration 873/1000
+
+
+
+Running Scenario 8, Iteration 874/1000
+
+
+
+Running Scenario 8, Iteration 875/1000
+
+
+
+Running Scenario 8, Iteration 876/1000
+
+
+
+Running Scenario 8, Iteration 877/1000
+
+
+
+Running Scenario 8, Iteration 878/1000
+
+
+
+Running Scenario 8, Iteration 879/1000
+
+
+
+Running Scenario 8, Iteration 880/1000
+
+
+
+Running Scenario 8, Iteration 881/1000
+
+
+
+Running Scenario 8, Iteration 882/1000
+
+
+
+Running Scenario 8, Iteration 883/1000
+
+
+
+Running Scenario 8, Iteration 884/1000
+
+
+
+Running Scenario 8, Iteration 885/1000
+
+
+
+Running Scenario 8, Iteration 886/1000
+
+
+
+Running Scenario 8, Iteration 887/1000
+
+
+
+Running Scenario 8, Iteration 888/1000
+
+
+
+Running Scenario 8, Iteration 889/1000
+
+
+
+Running Scenario 8, Iteration 890/1000
+
+
+
+Running Scenario 8, Iteration 891/1000
+
+
+
+Running Scenario 8, Iteration 892/1000
+
+
+
+Running Scenario 8, Iteration 893/1000
+
+
+
+Running Scenario 8, Iteration 894/1000
+
+
+
+Running Scenario 8, Iteration 895/1000
+
+
+
+Running Scenario 8, Iteration 896/1000
+
+
+
+Running Scenario 8, Iteration 897/1000
+
+
+
+Running Scenario 8, Iteration 898/1000
+
+
+
+Running Scenario 8, Iteration 899/1000
+
+
+
+Running Scenario 8, Iteration 900/1000
+
+
+
+Running Scenario 8, Iteration 901/1000
+
+
+
+Running Scenario 8, Iteration 902/1000
+
+
+
+Running Scenario 8, Iteration 903/1000
+
+
+
+Running Scenario 8, Iteration 904/1000
+
+
+
+Running Scenario 8, Iteration 905/1000
+
+
+
+Running Scenario 8, Iteration 906/1000
+
+
+
+Running Scenario 8, Iteration 907/1000
+
+
+
+Running Scenario 8, Iteration 908/1000
+
+
+
+Running Scenario 8, Iteration 909/1000
+
+
+
+Running Scenario 8, Iteration 910/1000
+
+
+
+Running Scenario 8, Iteration 911/1000
+
+
+
+Running Scenario 8, Iteration 912/1000
+
+
+
+Running Scenario 8, Iteration 913/1000
+
+
+
+Running Scenario 8, Iteration 914/1000
+
+
+
+Running Scenario 8, Iteration 915/1000
+
+
+
+Running Scenario 8, Iteration 916/1000
+
+
+
+Running Scenario 8, Iteration 917/1000
+
+
+
+Running Scenario 8, Iteration 918/1000
+
+
+
+Running Scenario 8, Iteration 919/1000
+
+
+
+Running Scenario 8, Iteration 920/1000
+
+
+
+Running Scenario 8, Iteration 921/1000
+
+
+
+Running Scenario 8, Iteration 922/1000
+
+
+
+Running Scenario 8, Iteration 923/1000
+
+
+
+Running Scenario 8, Iteration 924/1000
+
+
+
+Running Scenario 8, Iteration 925/1000
+
+
+
+Running Scenario 8, Iteration 926/1000
+
+
+
+Running Scenario 8, Iteration 927/1000
+
+
+
+Running Scenario 8, Iteration 928/1000
+
+
+
+Running Scenario 8, Iteration 929/1000
+
+
+
+Running Scenario 8, Iteration 930/1000
+
+
+
+Running Scenario 8, Iteration 931/1000
+
+
+
+Running Scenario 8, Iteration 932/1000
+
+
+
+Running Scenario 8, Iteration 933/1000
+
+
+
+Running Scenario 8, Iteration 934/1000
+
+
+
+Running Scenario 8, Iteration 935/1000
+
+
+
+Running Scenario 8, Iteration 936/1000
+
+
+
+Running Scenario 8, Iteration 937/1000
+
+
+
+Running Scenario 8, Iteration 938/1000
+
+
+
+Running Scenario 8, Iteration 939/1000
+
+
+
+Running Scenario 8, Iteration 940/1000
+
+
+
+Running Scenario 8, Iteration 941/1000
+
+
+
+Running Scenario 8, Iteration 942/1000
+
+
+
+Running Scenario 8, Iteration 943/1000
+
+
+
+Running Scenario 8, Iteration 944/1000
+
+
+
+Running Scenario 8, Iteration 945/1000
+
+
+
+Running Scenario 8, Iteration 946/1000
+
+
+
+Running Scenario 8, Iteration 947/1000
+
+
+
+Running Scenario 8, Iteration 948/1000
+
+
+
+Running Scenario 8, Iteration 949/1000
+
+
+
+Running Scenario 8, Iteration 950/1000
+
+
+
+Running Scenario 8, Iteration 951/1000
+
+
+
+Running Scenario 8, Iteration 952/1000
+
+
+
+Running Scenario 8, Iteration 953/1000
+
+
+
+Running Scenario 8, Iteration 954/1000
+
+
+
+Running Scenario 8, Iteration 955/1000
+
+
+
+Running Scenario 8, Iteration 956/1000
+
+
+
+Running Scenario 8, Iteration 957/1000
+
+
+
+Running Scenario 8, Iteration 958/1000
+
+
+
+Running Scenario 8, Iteration 959/1000
+
+
+
+Running Scenario 8, Iteration 960/1000
+
+
+
+Running Scenario 8, Iteration 961/1000
+
+
+
+Running Scenario 8, Iteration 962/1000
+
+
+
+Running Scenario 8, Iteration 963/1000
+
+
+
+Running Scenario 8, Iteration 964/1000
+
+
+
+Running Scenario 8, Iteration 965/1000
+
+
+
+Running Scenario 8, Iteration 966/1000
+
+
+
+Running Scenario 8, Iteration 967/1000
+
+
+
+Running Scenario 8, Iteration 968/1000
+
+
+
+Running Scenario 8, Iteration 969/1000
+
+
+
+Running Scenario 8, Iteration 970/1000
+
+
+
+Running Scenario 8, Iteration 971/1000
+
+
+
+Running Scenario 8, Iteration 972/1000
+
+
+
+Running Scenario 8, Iteration 973/1000
+
+
+
+Running Scenario 8, Iteration 974/1000
+
+
+
+Running Scenario 8, Iteration 975/1000
+
+
+
+Running Scenario 8, Iteration 976/1000
+
+
+
+Running Scenario 8, Iteration 977/1000
+
+
+
+Running Scenario 8, Iteration 978/1000
+
+
+
+Running Scenario 8, Iteration 979/1000
+
+
+
+Running Scenario 8, Iteration 980/1000
+
+
+
+Running Scenario 8, Iteration 981/1000
+
+
+
+Running Scenario 8, Iteration 982/1000
+
+
+
+Running Scenario 8, Iteration 983/1000
+
+
+
+Running Scenario 8, Iteration 984/1000
+
+
+
+Running Scenario 8, Iteration 985/1000
+
+
+
+Running Scenario 8, Iteration 986/1000
+
+
+
+Running Scenario 8, Iteration 987/1000
+
+
+
+Running Scenario 8, Iteration 988/1000
+
+
+
+Running Scenario 8, Iteration 989/1000
+
+
+
+Running Scenario 8, Iteration 990/1000
+
+
+
+Running Scenario 8, Iteration 991/1000
+
+
+
+Running Scenario 8, Iteration 992/1000
+
+
+
+Running Scenario 8, Iteration 993/1000
+
+
+
+Running Scenario 8, Iteration 994/1000
+
+
+
+Running Scenario 8, Iteration 995/1000
+
+
+
+Running Scenario 8, Iteration 996/1000
+
+
+
+Running Scenario 8, Iteration 997/1000
+
+
+
+Running Scenario 8, Iteration 998/1000
+
+
+
+Running Scenario 8, Iteration 999/1000
+
+
+
+Running Scenario 8, Iteration 1000/1000
+
+
+Results of Simulation
+
+
+[1] "R2 Control Table"
+  Target_R2_X Analytic_R2_X   Sample R2_X   Target_R2_Y Analytic_R2_Y 
+    0.4000000     0.4000000     0.4009866     0.6000000     0.6000000 
+  Sample R2_Y 
+    0.6001558 
+
+
+
+[1] "Oracle Distribution"
+  mean_Y    var_Y   mean_X    var_X 
+1.534847 2.500000 1.000000 1.666667 
+
+
+[1] "Sample Distributions"
+                   y        X           Z1         Z2          Z3           Z4
+sample_mean 1.537670 1.001898 -0.007556279 -0.0018612 0.001517576 -0.005516506
+sample_sd   1.573792 1.284090  0.994876846  1.0069119 0.996489749  0.995725081
+sample_var  2.476821 1.648887  0.989779940  1.0138715 0.992991819  0.991468436
+                      Z5         Z6         Z7          Z8           Z9
+sample_mean -0.005555374 0.01257736 0.01056273 0.008516549 0.0009028269
+sample_sd    1.006461637 0.99488993 1.00703500 1.006919969 1.0037829904
+sample_var   1.012965028 0.98980598 1.01411948 1.013887825 1.0075802918
+
+
+
+[1] "Key Oracle Coefficients"
+beta_X_LL beta_X_LH beta_X_HL beta_X_HH beta_Y_LL beta_Y_LH beta_Y_HL beta_Y_HH 
+0.0000000 0.0000000 0.4082483 0.4082483 0.0000000 0.4082483 0.0000000 0.4082483 
+   causal 
+0.5348469 
+
+
+
+[1] "Oracle Coefficients"
+   cause intercept  y         X Z1 Z2        Z3        Z4        Z5        Z6
+1      1         1 NA 0.5348469  0  0 0.4082483 0.4082483 0.0000000 0.0000000
+2      1         1 NA        NA  0  0 0.0000000 0.0000000 0.4082483 0.4082483
+3      0        NA NA        NA NA NA        NA        NA        NA        NA
+4      0        NA NA        NA NA NA        NA        NA        NA        NA
+5      0        NA NA        NA NA NA        NA        NA        NA        NA
+6      0        NA NA        NA NA NA        NA        NA        NA        NA
+7      0        NA NA        NA NA NA        NA        NA        NA        NA
+8      0        NA NA        NA NA NA        NA        NA        NA        NA
+9      0        NA NA        NA NA NA        NA        NA        NA        NA
+10     0        NA NA        NA NA NA        NA        NA        NA        NA
+11     0        NA NA        NA NA NA        NA        NA        NA        NA
+          Z7        Z8 Z9
+1  0.4082483 0.4082483 NA
+2  0.4082483 0.4082483 NA
+3         NA        NA NA
+4         NA        NA NA
+5         NA        NA NA
+6         NA        NA NA
+7         NA        NA NA
+8         NA        NA NA
+9         NA        NA NA
+10        NA        NA NA
+11        NA        NA NA
+
+
+[1] "Sample Coefficients for Y Table"
+                 intercept         X            Z1            Z2         Z3
+true_values      1.0000000 0.5348469  0.000000e+00  0.000000e+00 0.40824829
+linear           1.0001544 0.5345767 -1.251025e-04 -1.816004e-04 0.40822033
+stepwise         1.0002627 0.5344804 -4.758664e-05 -2.732713e-04 0.40822053
+stepwise_X       0.9999487 0.5345198 -6.736550e-05  1.150183e-04 0.06243067
+two_step_LASSO   1.0004591 0.5342784 -1.443458e-04 -4.899717e-05 0.40822401
+two_step_LASSO_X 1.0001871 0.5344265  5.478323e-05 -7.531811e-05 0.17396289
+                         Z4            Z5            Z6        Z7        Z8
+true_values      0.40824829  0.000000e+00  0.000000e+00 0.4082483 0.4082483
+linear           0.40874695 -6.568341e-05  9.708072e-05 0.4080860 0.4085124
+stepwise         0.40874640  3.418081e-04 -6.639349e-06 0.4081275 0.4085491
+stepwise_X       0.06039173 -1.509336e-04  3.320194e-04 0.4078024 0.4083735
+two_step_LASSO   0.40874585  5.557878e-04  4.444937e-04 0.4082068 0.4086321
+two_step_LASSO_X 0.18239895  3.403005e-05  3.008209e-04 0.4079585 0.4085461
+                            Z9
+true_values                 NA
+linear            2.414082e-04
+stepwise          1.820936e-04
+stepwise_X       -6.077215e-06
+two_step_LASSO    2.739967e-04
+two_step_LASSO_X  1.861448e-04
+
+
+[1] "Grouped Sample Coefficients for Y Table"
+                 intercept         X          Z_LL      Z_LH         Z_HL
+true_values      1.0000000 0.5348469  0.000000e+00 0.4082483 0.000000e+00
+linear           1.0001544 0.5345767 -1.533515e-04 0.4084836 1.569865e-05
+stepwise         1.0002627 0.5344804 -1.604290e-04 0.4084835 1.675844e-04
+stepwise_X       0.9999487 0.5345198  2.382641e-05 0.0614112 9.054292e-05
+two_step_LASSO   1.0004591 0.5342784 -9.667150e-05 0.4084849 5.001408e-04
+two_step_LASSO_X 1.0001871 0.5344265 -1.026744e-05 0.1781809 1.674255e-04
+                      Z_HH       Z_dummy
+true_values      0.4082483            NA
+linear           0.4082992  2.414082e-04
+stepwise         0.4083383  1.820936e-04
+stepwise_X       0.4080880 -6.077215e-06
+two_step_LASSO   0.4084195  2.739967e-04
+two_step_LASSO_X 0.4082523  1.861448e-04
+
+
+[1] "Individual Covariate Selection Table"
+                 X    Z1    Z2    Z3    Z4    Z5    Z6 Z7 Z8    Z9
+linear           1 1.000 1.000 1.000 1.000 1.000 1.000  1  1 1.000
+stepwise         1 0.176 0.155 1.000 1.000 0.168 0.168  1  1 0.157
+stepwise_X       1 0.156 0.152 0.153 0.148 1.000 1.000  1  1 0.163
+two_step_LASSO   1 0.452 0.433 1.000 1.000 0.428 0.407  1  1 0.439
+two_step_LASSO_X 1 0.429 0.431 0.426 0.446 1.000 1.000  1  1 0.445
+
+
+[1] "Grouped Covariate Selection Table"
+                 X   Z_LL   Z_LH   Z_HL Z_HH Z_dummy
+linear           1 1.0000 1.0000 1.0000    1   1.000
+stepwise         1 0.1655 1.0000 0.1680    1   0.157
+stepwise_X       1 0.1540 0.1505 1.0000    1   0.163
+two_step_LASSO   1 0.4425 1.0000 0.4175    1   0.439
+two_step_LASSO_X 1 0.4300 0.4360 1.0000    1   0.445
+
+
+[1] "Covariate Selection Dispersion Within Groups Table"
+                 X      Z_LL     Z_LH      Z_HL Z_HH Z_dummy
+linear           0 0.0000000 0.00e+00 0.0000000    0       0
+stepwise         0 0.0002205 0.00e+00 0.0000000    0       0
+stepwise_X       0 0.0000080 1.25e-05 0.0000000    0       0
+two_step_LASSO   0 0.0001805 0.00e+00 0.0002205    0       0
+two_step_LASSO_X 0 0.0000020 2.00e-04 0.0000000    0       0
+
+
+[1] "Results Table"
+                  pred_mse r_squared_X r_squared_Y    model_SE      emp_SE
+linear           0.9993525   0.4009866   0.6001558 0.010084752 0.010081127
+stepwise         0.9995564   0.4009866   0.6000743 0.009330292 0.009323084
+stepwise_X       1.2831440   0.4009866   0.4866284 0.010708757 0.010703754
+two_step_LASSO   0.9994118   0.4009866   0.6001321 0.009752061 0.009735456
+two_step_LASSO_X 1.1876227   0.4009866   0.5248561 0.010215763 0.010207101
+                 causal_effect_est causal_effect_mcse causal_effect_bias
+linear                   0.5345767       0.0003187932      -0.0002702311
+stepwise                 0.5344804       0.0002948218      -0.0003664910
+stepwise_X               0.5345198       0.0003384824      -0.0003271376
+two_step_LASSO           0.5342784       0.0003078621      -0.0005685709
+two_step_LASSO_X         0.5344265       0.0003227769      -0.0004203822
+                 avg_abs_param_bias coverage open_paths blocked_paths
+linear                  0.008578653    0.951          2             2
+stepwise                0.006167735    0.942          2             2
+stepwise_X              0.069121814    0.961          2             2
+two_step_LASSO          0.007502409    0.936          2             2
+two_step_LASSO_X        0.048755879    0.964          2             2
+
+Saving results to file
+
+[1] "finished!"
+NULL
+[1] "running!"
+
+
+Running Scenario 16, Iteration 1/1000
+
+
+
+Running Scenario 16, Iteration 2/1000
+
+
+
+Running Scenario 16, Iteration 3/1000
+
+
+
+Running Scenario 16, Iteration 4/1000
+
+
+
+Running Scenario 16, Iteration 5/1000
+
+
+
+Running Scenario 16, Iteration 6/1000
+
+
+
+Running Scenario 16, Iteration 7/1000
+
+
+
+Running Scenario 16, Iteration 8/1000
+
+
+
+Running Scenario 16, Iteration 9/1000
+
+
+
+Running Scenario 16, Iteration 10/1000
+
+
+
+Running Scenario 16, Iteration 11/1000
+
+
+
+Running Scenario 16, Iteration 12/1000
+
+
+
+Running Scenario 16, Iteration 13/1000
+
+
+
+Running Scenario 16, Iteration 14/1000
+
+
+
+Running Scenario 16, Iteration 15/1000
+
+
+
+Running Scenario 16, Iteration 16/1000
+
+
+
+Running Scenario 16, Iteration 17/1000
+
+
+
+Running Scenario 16, Iteration 18/1000
+
+
+
+Running Scenario 16, Iteration 19/1000
+
+
+
+Running Scenario 16, Iteration 20/1000
+
+
+
+Running Scenario 16, Iteration 21/1000
+
+
+
+Running Scenario 16, Iteration 22/1000
+
+
+
+Running Scenario 16, Iteration 23/1000
+
+
+
+Running Scenario 16, Iteration 24/1000
+
+
+
+Running Scenario 16, Iteration 25/1000
+
+
+
+Running Scenario 16, Iteration 26/1000
+
+
+
+Running Scenario 16, Iteration 27/1000
+
+
+
+Running Scenario 16, Iteration 28/1000
+
+
+
+Running Scenario 16, Iteration 29/1000
+
+
+
+Running Scenario 16, Iteration 30/1000
+
+
+
+Running Scenario 16, Iteration 31/1000
+
+
+
+Running Scenario 16, Iteration 32/1000
+
+
+
+Running Scenario 16, Iteration 33/1000
+
+
+
+Running Scenario 16, Iteration 34/1000
+
+
+
+Running Scenario 16, Iteration 35/1000
+
+
+
+Running Scenario 16, Iteration 36/1000
+
+
+
+Running Scenario 16, Iteration 37/1000
+
+
+
+Running Scenario 16, Iteration 38/1000
+
+
+
+Running Scenario 16, Iteration 39/1000
+
+
+
+Running Scenario 16, Iteration 40/1000
+
+
+
+Running Scenario 16, Iteration 41/1000
+
+
+
+Running Scenario 16, Iteration 42/1000
+
+
+
+Running Scenario 16, Iteration 43/1000
+
+
+
+Running Scenario 16, Iteration 44/1000
+
+
+
+Running Scenario 16, Iteration 45/1000
+
+
+
+Running Scenario 16, Iteration 46/1000
+
+
+
+Running Scenario 16, Iteration 47/1000
+
+
+
+Running Scenario 16, Iteration 48/1000
+
+
+
+Running Scenario 16, Iteration 49/1000
+
+
+
+Running Scenario 16, Iteration 50/1000
+
+
+
+Running Scenario 16, Iteration 51/1000
+
+
+
+Running Scenario 16, Iteration 52/1000
+
+
+
+Running Scenario 16, Iteration 53/1000
+
+
+
+Running Scenario 16, Iteration 54/1000
+
+
+
+Running Scenario 16, Iteration 55/1000
+
+
+
+Running Scenario 16, Iteration 56/1000
+
+
+
+Running Scenario 16, Iteration 57/1000
+
+
+
+Running Scenario 16, Iteration 58/1000
+
+
+
+Running Scenario 16, Iteration 59/1000
+
+
+
+Running Scenario 16, Iteration 60/1000
+
+
+
+Running Scenario 16, Iteration 61/1000
+
+
+
+Running Scenario 16, Iteration 62/1000
+
+
+
+Running Scenario 16, Iteration 63/1000
+
+
+
+Running Scenario 16, Iteration 64/1000
+
+
+
+Running Scenario 16, Iteration 65/1000
+
+
+
+Running Scenario 16, Iteration 66/1000
+
+
+
+Running Scenario 16, Iteration 67/1000
+
+
+
+Running Scenario 16, Iteration 68/1000
+
+
+
+Running Scenario 16, Iteration 69/1000
+
+
+
+Running Scenario 16, Iteration 70/1000
+
+
+
+Running Scenario 16, Iteration 71/1000
+
+
+
+Running Scenario 16, Iteration 72/1000
+
+
+
+Running Scenario 16, Iteration 73/1000
+
+
+
+Running Scenario 16, Iteration 74/1000
+
+
+
+Running Scenario 16, Iteration 75/1000
+
+
+
+Running Scenario 16, Iteration 76/1000
+
+
+
+Running Scenario 16, Iteration 77/1000
+
+
+
+Running Scenario 16, Iteration 78/1000
+
+
+
+Running Scenario 16, Iteration 79/1000
+
+
+
+Running Scenario 16, Iteration 80/1000
+
+
+
+Running Scenario 16, Iteration 81/1000
+
+
+
+Running Scenario 16, Iteration 82/1000
+
+
+
+Running Scenario 16, Iteration 83/1000
+
+
+
+Running Scenario 16, Iteration 84/1000
+
+
+
+Running Scenario 16, Iteration 85/1000
+
+
+
+Running Scenario 16, Iteration 86/1000
+
+
+
+Running Scenario 16, Iteration 87/1000
+
+
+
+Running Scenario 16, Iteration 88/1000
+
+
+
+Running Scenario 16, Iteration 89/1000
+
+
+
+Running Scenario 16, Iteration 90/1000
+
+
+
+Running Scenario 16, Iteration 91/1000
+
+
+
+Running Scenario 16, Iteration 92/1000
+
+
+
+Running Scenario 16, Iteration 93/1000
+
+
+
+Running Scenario 16, Iteration 94/1000
+
+
+
+Running Scenario 16, Iteration 95/1000
+
+
+
+Running Scenario 16, Iteration 96/1000
+
+
+
+Running Scenario 16, Iteration 97/1000
+
+
+
+Running Scenario 16, Iteration 98/1000
+
+
+
+Running Scenario 16, Iteration 99/1000
+
+
+
+Running Scenario 16, Iteration 100/1000
+
+
+
+Running Scenario 16, Iteration 101/1000
+
+
+
+Running Scenario 16, Iteration 102/1000
+
+
+
+Running Scenario 16, Iteration 103/1000
+
+
+
+Running Scenario 16, Iteration 104/1000
+
+
+
+Running Scenario 16, Iteration 105/1000
+
+
+
+Running Scenario 16, Iteration 106/1000
+
+
+
+Running Scenario 16, Iteration 107/1000
+
+
+
+Running Scenario 16, Iteration 108/1000
+
+
+
+Running Scenario 16, Iteration 109/1000
+
+
+
+Running Scenario 16, Iteration 110/1000
+
+
+
+Running Scenario 16, Iteration 111/1000
+
+
+
+Running Scenario 16, Iteration 112/1000
+
+
+
+Running Scenario 16, Iteration 113/1000
+
+
+
+Running Scenario 16, Iteration 114/1000
+
+
+
+Running Scenario 16, Iteration 115/1000
+
+
+
+Running Scenario 16, Iteration 116/1000
+
+
+
+Running Scenario 16, Iteration 117/1000
+
+
+
+Running Scenario 16, Iteration 118/1000
+
+
+
+Running Scenario 16, Iteration 119/1000
+
+
+
+Running Scenario 16, Iteration 120/1000
+
+
+
+Running Scenario 16, Iteration 121/1000
+
+
+
+Running Scenario 16, Iteration 122/1000
+
+
+
+Running Scenario 16, Iteration 123/1000
+
+
+
+Running Scenario 16, Iteration 124/1000
+
+
+
+Running Scenario 16, Iteration 125/1000
+
+
+
+Running Scenario 16, Iteration 126/1000
+
+
+
+Running Scenario 16, Iteration 127/1000
+
+
+
+Running Scenario 16, Iteration 128/1000
+
+
+
+Running Scenario 16, Iteration 129/1000
+
+
+
+Running Scenario 16, Iteration 130/1000
+
+
+
+Running Scenario 16, Iteration 131/1000
+
+
+
+Running Scenario 16, Iteration 132/1000
+
+
+
+Running Scenario 16, Iteration 133/1000
+
+
+
+Running Scenario 16, Iteration 134/1000
+
+
+
+Running Scenario 16, Iteration 135/1000
+
+
+
+Running Scenario 16, Iteration 136/1000
+
+
+
+Running Scenario 16, Iteration 137/1000
+
+
+
+Running Scenario 16, Iteration 138/1000
+
+
+
+Running Scenario 16, Iteration 139/1000
+
+
+
+Running Scenario 16, Iteration 140/1000
+
+
+
+Running Scenario 16, Iteration 141/1000
+
+
+
+Running Scenario 16, Iteration 142/1000
+
+
+
+Running Scenario 16, Iteration 143/1000
+
+
+
+Running Scenario 16, Iteration 144/1000
+
+
+
+Running Scenario 16, Iteration 145/1000
+
+
+
+Running Scenario 16, Iteration 146/1000
+
+
+
+Running Scenario 16, Iteration 147/1000
+
+
+
+Running Scenario 16, Iteration 148/1000
+
+
+
+Running Scenario 16, Iteration 149/1000
+
+
+
+Running Scenario 16, Iteration 150/1000
+
+
+
+Running Scenario 16, Iteration 151/1000
+
+
+
+Running Scenario 16, Iteration 152/1000
+
+
+
+Running Scenario 16, Iteration 153/1000
+
+
+
+Running Scenario 16, Iteration 154/1000
+
+
+
+Running Scenario 16, Iteration 155/1000
+
+
+
+Running Scenario 16, Iteration 156/1000
+
+
+
+Running Scenario 16, Iteration 157/1000
+
+
+
+Running Scenario 16, Iteration 158/1000
+
+
+
+Running Scenario 16, Iteration 159/1000
+
+
+
+Running Scenario 16, Iteration 160/1000
+
+
+
+Running Scenario 16, Iteration 161/1000
+
+
+
+Running Scenario 16, Iteration 162/1000
+
+
+
+Running Scenario 16, Iteration 163/1000
+
+
+
+Running Scenario 16, Iteration 164/1000
+
+
+
+Running Scenario 16, Iteration 165/1000
+
+
+
+Running Scenario 16, Iteration 166/1000
+
+
+
+Running Scenario 16, Iteration 167/1000
+
+
+
+Running Scenario 16, Iteration 168/1000
+
+
+
+Running Scenario 16, Iteration 169/1000
+
+
+
+Running Scenario 16, Iteration 170/1000
+
+
+
+Running Scenario 16, Iteration 171/1000
+
+
+
+Running Scenario 16, Iteration 172/1000
+
+
+
+Running Scenario 16, Iteration 173/1000
+
+
+
+Running Scenario 16, Iteration 174/1000
+
+
+
+Running Scenario 16, Iteration 175/1000
+
+
+
+Running Scenario 16, Iteration 176/1000
+
+
+
+Running Scenario 16, Iteration 177/1000
+
+
+
+Running Scenario 16, Iteration 178/1000
+
+
+
+Running Scenario 16, Iteration 179/1000
+
+
+
+Running Scenario 16, Iteration 180/1000
+
+
+
+Running Scenario 16, Iteration 181/1000
+
+
+
+Running Scenario 16, Iteration 182/1000
+
+
+
+Running Scenario 16, Iteration 183/1000
+
+
+
+Running Scenario 16, Iteration 184/1000
+
+
+
+Running Scenario 16, Iteration 185/1000
+
+
+
+Running Scenario 16, Iteration 186/1000
+
+
+
+Running Scenario 16, Iteration 187/1000
+
+
+
+Running Scenario 16, Iteration 188/1000
+
+
+
+Running Scenario 16, Iteration 189/1000
+
+
+
+Running Scenario 16, Iteration 190/1000
+
+
+
+Running Scenario 16, Iteration 191/1000
+
+
+
+Running Scenario 16, Iteration 192/1000
+
+
+
+Running Scenario 16, Iteration 193/1000
+
+
+
+Running Scenario 16, Iteration 194/1000
+
+
+
+Running Scenario 16, Iteration 195/1000
+
+
+
+Running Scenario 16, Iteration 196/1000
+
+
+
+Running Scenario 16, Iteration 197/1000
+
+
+
+Running Scenario 16, Iteration 198/1000
+
+
+
+Running Scenario 16, Iteration 199/1000
+
+
+
+Running Scenario 16, Iteration 200/1000
+
+
+
+Running Scenario 16, Iteration 201/1000
+
+
+
+Running Scenario 16, Iteration 202/1000
+
+
+
+Running Scenario 16, Iteration 203/1000
+
+
+
+Running Scenario 16, Iteration 204/1000
+
+
+
+Running Scenario 16, Iteration 205/1000
+
+
+
+Running Scenario 16, Iteration 206/1000
+
+
+
+Running Scenario 16, Iteration 207/1000
+
+
+
+Running Scenario 16, Iteration 208/1000
+
+
+
+Running Scenario 16, Iteration 209/1000
+
+
+
+Running Scenario 16, Iteration 210/1000
+
+
+
+Running Scenario 16, Iteration 211/1000
+
+
+
+Running Scenario 16, Iteration 212/1000
+
+
+
+Running Scenario 16, Iteration 213/1000
+
+
+
+Running Scenario 16, Iteration 214/1000
+
+
+
+Running Scenario 16, Iteration 215/1000
+
+
+
+Running Scenario 16, Iteration 216/1000
+
+
+
+Running Scenario 16, Iteration 217/1000
+
+
+
+Running Scenario 16, Iteration 218/1000
+
+
+
+Running Scenario 16, Iteration 219/1000
+
+
+
+Running Scenario 16, Iteration 220/1000
+
+
+
+Running Scenario 16, Iteration 221/1000
+
+
+
+Running Scenario 16, Iteration 222/1000
+
+
+
+Running Scenario 16, Iteration 223/1000
+
+
+
+Running Scenario 16, Iteration 224/1000
+
+
+
+Running Scenario 16, Iteration 225/1000
+
+
+
+Running Scenario 16, Iteration 226/1000
+
+
+
+Running Scenario 16, Iteration 227/1000
+
+
+
+Running Scenario 16, Iteration 228/1000
+
+
+
+Running Scenario 16, Iteration 229/1000
+
+
+
+Running Scenario 16, Iteration 230/1000
+
+
+
+Running Scenario 16, Iteration 231/1000
+
+
+
+Running Scenario 16, Iteration 232/1000
+
+
+
+Running Scenario 16, Iteration 233/1000
+
+
+
+Running Scenario 16, Iteration 234/1000
+
+
+
+Running Scenario 16, Iteration 235/1000
+
+
+
+Running Scenario 16, Iteration 236/1000
+
+
+
+Running Scenario 16, Iteration 237/1000
+
+
+
+Running Scenario 16, Iteration 238/1000
+
+
+
+Running Scenario 16, Iteration 239/1000
+
+
+
+Running Scenario 16, Iteration 240/1000
+
+
+
+Running Scenario 16, Iteration 241/1000
+
+
+
+Running Scenario 16, Iteration 242/1000
+
+
+
+Running Scenario 16, Iteration 243/1000
+
+
+
+Running Scenario 16, Iteration 244/1000
+
+
+
+Running Scenario 16, Iteration 245/1000
+
+
+
+Running Scenario 16, Iteration 246/1000
+
+
+
+Running Scenario 16, Iteration 247/1000
+
+
+
+Running Scenario 16, Iteration 248/1000
+
+
+
+Running Scenario 16, Iteration 249/1000
+
+
+
+Running Scenario 16, Iteration 250/1000
+
+
+
+Running Scenario 16, Iteration 251/1000
+
+
+
+Running Scenario 16, Iteration 252/1000
+
+
+
+Running Scenario 16, Iteration 253/1000
+
+
+
+Running Scenario 16, Iteration 254/1000
+
+
+
+Running Scenario 16, Iteration 255/1000
+
+
+
+Running Scenario 16, Iteration 256/1000
+
+
+
+Running Scenario 16, Iteration 257/1000
+
+
+
+Running Scenario 16, Iteration 258/1000
+
+
+
+Running Scenario 16, Iteration 259/1000
+
+
+
+Running Scenario 16, Iteration 260/1000
+
+
+
+Running Scenario 16, Iteration 261/1000
+
+
+
+Running Scenario 16, Iteration 262/1000
+
+
+
+Running Scenario 16, Iteration 263/1000
+
+
+
+Running Scenario 16, Iteration 264/1000
+
+
+
+Running Scenario 16, Iteration 265/1000
+
+
+
+Running Scenario 16, Iteration 266/1000
+
+
+
+Running Scenario 16, Iteration 267/1000
+
+
+
+Running Scenario 16, Iteration 268/1000
+
+
+
+Running Scenario 16, Iteration 269/1000
+
+
+
+Running Scenario 16, Iteration 270/1000
+
+
+
+Running Scenario 16, Iteration 271/1000
+
+
+
+Running Scenario 16, Iteration 272/1000
+
+
+
+Running Scenario 16, Iteration 273/1000
+
+
+
+Running Scenario 16, Iteration 274/1000
+
+
+
+Running Scenario 16, Iteration 275/1000
+
+
+
+Running Scenario 16, Iteration 276/1000
+
+
+
+Running Scenario 16, Iteration 277/1000
+
+
+
+Running Scenario 16, Iteration 278/1000
+
+
+
+Running Scenario 16, Iteration 279/1000
+
+
+
+Running Scenario 16, Iteration 280/1000
+
+
+
+Running Scenario 16, Iteration 281/1000
+
+
+
+Running Scenario 16, Iteration 282/1000
+
+
+
+Running Scenario 16, Iteration 283/1000
+
+
+
+Running Scenario 16, Iteration 284/1000
+
+
+
+Running Scenario 16, Iteration 285/1000
+
+
+
+Running Scenario 16, Iteration 286/1000
+
+
+
+Running Scenario 16, Iteration 287/1000
+
+
+
+Running Scenario 16, Iteration 288/1000
+
+
+
+Running Scenario 16, Iteration 289/1000
+
+
+
+Running Scenario 16, Iteration 290/1000
+
+
+
+Running Scenario 16, Iteration 291/1000
+
+
+
+Running Scenario 16, Iteration 292/1000
+
+
+
+Running Scenario 16, Iteration 293/1000
+
+
+
+Running Scenario 16, Iteration 294/1000
+
+
+
+Running Scenario 16, Iteration 295/1000
+
+
+
+Running Scenario 16, Iteration 296/1000
+
+
+
+Running Scenario 16, Iteration 297/1000
+
+
+
+Running Scenario 16, Iteration 298/1000
+
+
+
+Running Scenario 16, Iteration 299/1000
+
+
+
+Running Scenario 16, Iteration 300/1000
+
+
+
+Running Scenario 16, Iteration 301/1000
+
+
+
+Running Scenario 16, Iteration 302/1000
+
+
+
+Running Scenario 16, Iteration 303/1000
+
+
+
+Running Scenario 16, Iteration 304/1000
+
+
+
+Running Scenario 16, Iteration 305/1000
+
+
+
+Running Scenario 16, Iteration 306/1000
+
+
+
+Running Scenario 16, Iteration 307/1000
+
+
+
+Running Scenario 16, Iteration 308/1000
+
+
+
+Running Scenario 16, Iteration 309/1000
+
+
+
+Running Scenario 16, Iteration 310/1000
+
+
+
+Running Scenario 16, Iteration 311/1000
+
+
+
+Running Scenario 16, Iteration 312/1000
+
+
+
+Running Scenario 16, Iteration 313/1000
+
+
+
+Running Scenario 16, Iteration 314/1000
+
+
+
+Running Scenario 16, Iteration 315/1000
+
+
+
+Running Scenario 16, Iteration 316/1000
+
+
+
+Running Scenario 16, Iteration 317/1000
+
+
+
+Running Scenario 16, Iteration 318/1000
+
+
+
+Running Scenario 16, Iteration 319/1000
+
+
+
+Running Scenario 16, Iteration 320/1000
+
+
+
+Running Scenario 16, Iteration 321/1000
+
+
+
+Running Scenario 16, Iteration 322/1000
+
+
+
+Running Scenario 16, Iteration 323/1000
+
+
+
+Running Scenario 16, Iteration 324/1000
+
+
+
+Running Scenario 16, Iteration 325/1000
+
+
+
+Running Scenario 16, Iteration 326/1000
+
+
+
+Running Scenario 16, Iteration 327/1000
+
+
+
+Running Scenario 16, Iteration 328/1000
+
+
+
+Running Scenario 16, Iteration 329/1000
+
+
+
+Running Scenario 16, Iteration 330/1000
+
+
+
+Running Scenario 16, Iteration 331/1000
+
+
+
+Running Scenario 16, Iteration 332/1000
+
+
+
+Running Scenario 16, Iteration 333/1000
+
+
+
+Running Scenario 16, Iteration 334/1000
+
+
+
+Running Scenario 16, Iteration 335/1000
+
+
+
+Running Scenario 16, Iteration 336/1000
+
+
+
+Running Scenario 16, Iteration 337/1000
+
+
+
+Running Scenario 16, Iteration 338/1000
+
+
+
+Running Scenario 16, Iteration 339/1000
+
+
+
+Running Scenario 16, Iteration 340/1000
+
+
+
+Running Scenario 16, Iteration 341/1000
+
+
+
+Running Scenario 16, Iteration 342/1000
+
+
+
+Running Scenario 16, Iteration 343/1000
+
+
+
+Running Scenario 16, Iteration 344/1000
+
+
+
+Running Scenario 16, Iteration 345/1000
+
+
+
+Running Scenario 16, Iteration 346/1000
+
+
+
+Running Scenario 16, Iteration 347/1000
+
+
+
+Running Scenario 16, Iteration 348/1000
+
+
+
+Running Scenario 16, Iteration 349/1000
+
+
+
+Running Scenario 16, Iteration 350/1000
+
+
+
+Running Scenario 16, Iteration 351/1000
+
+
+
+Running Scenario 16, Iteration 352/1000
+
+
+
+Running Scenario 16, Iteration 353/1000
+
+
+
+Running Scenario 16, Iteration 354/1000
+
+
+
+Running Scenario 16, Iteration 355/1000
+
+
+
+Running Scenario 16, Iteration 356/1000
+
+
+
+Running Scenario 16, Iteration 357/1000
+
+
+
+Running Scenario 16, Iteration 358/1000
+
+
+
+Running Scenario 16, Iteration 359/1000
+
+
+
+Running Scenario 16, Iteration 360/1000
+
+
+
+Running Scenario 16, Iteration 361/1000
+
+
+
+Running Scenario 16, Iteration 362/1000
+
+
+
+Running Scenario 16, Iteration 363/1000
+
+
+
+Running Scenario 16, Iteration 364/1000
+
+
+
+Running Scenario 16, Iteration 365/1000
+
+
+
+Running Scenario 16, Iteration 366/1000
+
+
+
+Running Scenario 16, Iteration 367/1000
+
+
+
+Running Scenario 16, Iteration 368/1000
+
+
+
+Running Scenario 16, Iteration 369/1000
+
+
+
+Running Scenario 16, Iteration 370/1000
+
+
+
+Running Scenario 16, Iteration 371/1000
+
+
+
+Running Scenario 16, Iteration 372/1000
+
+
+
+Running Scenario 16, Iteration 373/1000
+
+
+
+Running Scenario 16, Iteration 374/1000
+
+
+
+Running Scenario 16, Iteration 375/1000
+
+
+
+Running Scenario 16, Iteration 376/1000
+
+
+
+Running Scenario 16, Iteration 377/1000
+
+
+
+Running Scenario 16, Iteration 378/1000
+
+
+
+Running Scenario 16, Iteration 379/1000
+
+
+
+Running Scenario 16, Iteration 380/1000
+
+
+
+Running Scenario 16, Iteration 381/1000
+
+
+
+Running Scenario 16, Iteration 382/1000
+
+
+
+Running Scenario 16, Iteration 383/1000
+
+
+
+Running Scenario 16, Iteration 384/1000
+
+
+
+Running Scenario 16, Iteration 385/1000
+
+
+
+Running Scenario 16, Iteration 386/1000
+
+
+
+Running Scenario 16, Iteration 387/1000
+
+
+
+Running Scenario 16, Iteration 388/1000
+
+
+
+Running Scenario 16, Iteration 389/1000
+
+
+
+Running Scenario 16, Iteration 390/1000
+
+
+
+Running Scenario 16, Iteration 391/1000
+
+
+
+Running Scenario 16, Iteration 392/1000
+
+
+
+Running Scenario 16, Iteration 393/1000
+
+
+
+Running Scenario 16, Iteration 394/1000
+
+
+
+Running Scenario 16, Iteration 395/1000
+
+
+
+Running Scenario 16, Iteration 396/1000
+
+
+
+Running Scenario 16, Iteration 397/1000
+
+
+
+Running Scenario 16, Iteration 398/1000
+
+
+
+Running Scenario 16, Iteration 399/1000
+
+
+
+Running Scenario 16, Iteration 400/1000
+
+
+
+Running Scenario 16, Iteration 401/1000
+
+
+
+Running Scenario 16, Iteration 402/1000
+
+
+
+Running Scenario 16, Iteration 403/1000
+
+
+
+Running Scenario 16, Iteration 404/1000
+
+
+
+Running Scenario 16, Iteration 405/1000
+
+
+
+Running Scenario 16, Iteration 406/1000
+
+
+
+Running Scenario 16, Iteration 407/1000
+
+
+
+Running Scenario 16, Iteration 408/1000
+
+
+
+Running Scenario 16, Iteration 409/1000
+
+
+
+Running Scenario 16, Iteration 410/1000
+
+
+
+Running Scenario 16, Iteration 411/1000
+
+
+
+Running Scenario 16, Iteration 412/1000
+
+
+
+Running Scenario 16, Iteration 413/1000
+
+
+
+Running Scenario 16, Iteration 414/1000
+
+
+
+Running Scenario 16, Iteration 415/1000
+
+
+
+Running Scenario 16, Iteration 416/1000
+
+
+
+Running Scenario 16, Iteration 417/1000
+
+
+
+Running Scenario 16, Iteration 418/1000
+
+
+
+Running Scenario 16, Iteration 419/1000
+
+
+
+Running Scenario 16, Iteration 420/1000
+
+
+
+Running Scenario 16, Iteration 421/1000
+
+
+
+Running Scenario 16, Iteration 422/1000
+
+
+
+Running Scenario 16, Iteration 423/1000
+
+
+
+Running Scenario 16, Iteration 424/1000
+
+
+
+Running Scenario 16, Iteration 425/1000
+
+
+
+Running Scenario 16, Iteration 426/1000
+
+
+
+Running Scenario 16, Iteration 427/1000
+
+
+
+Running Scenario 16, Iteration 428/1000
+
+
+
+Running Scenario 16, Iteration 429/1000
+
+
+
+Running Scenario 16, Iteration 430/1000
+
+
+
+Running Scenario 16, Iteration 431/1000
+
+
+
+Running Scenario 16, Iteration 432/1000
+
+
+
+Running Scenario 16, Iteration 433/1000
+
+
+
+Running Scenario 16, Iteration 434/1000
+
+
+
+Running Scenario 16, Iteration 435/1000
+
+
+
+Running Scenario 16, Iteration 436/1000
+
+
+
+Running Scenario 16, Iteration 437/1000
+
+
+
+Running Scenario 16, Iteration 438/1000
+
+
+
+Running Scenario 16, Iteration 439/1000
+
+
+
+Running Scenario 16, Iteration 440/1000
+
+
+
+Running Scenario 16, Iteration 441/1000
+
+
+
+Running Scenario 16, Iteration 442/1000
+
+
+
+Running Scenario 16, Iteration 443/1000
+
+
+
+Running Scenario 16, Iteration 444/1000
+
+
+
+Running Scenario 16, Iteration 445/1000
+
+
+
+Running Scenario 16, Iteration 446/1000
+
+
+
+Running Scenario 16, Iteration 447/1000
+
+
+
+Running Scenario 16, Iteration 448/1000
+
+
+
+Running Scenario 16, Iteration 449/1000
+
+
+
+Running Scenario 16, Iteration 450/1000
+
+
+
+Running Scenario 16, Iteration 451/1000
+
+
+
+Running Scenario 16, Iteration 452/1000
+
+
+
+Running Scenario 16, Iteration 453/1000
+
+
+
+Running Scenario 16, Iteration 454/1000
+
+
+
+Running Scenario 16, Iteration 455/1000
+
+
+
+Running Scenario 16, Iteration 456/1000
+
+
+
+Running Scenario 16, Iteration 457/1000
+
+
+
+Running Scenario 16, Iteration 458/1000
+
+
+
+Running Scenario 16, Iteration 459/1000
+
+
+
+Running Scenario 16, Iteration 460/1000
+
+
+
+Running Scenario 16, Iteration 461/1000
+
+
+
+Running Scenario 16, Iteration 462/1000
+
+
+
+Running Scenario 16, Iteration 463/1000
+
+
+
+Running Scenario 16, Iteration 464/1000
+
+
+
+Running Scenario 16, Iteration 465/1000
+
+
+
+Running Scenario 16, Iteration 466/1000
+
+
+
+Running Scenario 16, Iteration 467/1000
+
+
+
+Running Scenario 16, Iteration 468/1000
+
+
+
+Running Scenario 16, Iteration 469/1000
+
+
+
+Running Scenario 16, Iteration 470/1000
+
+
+
+Running Scenario 16, Iteration 471/1000
+
+
+
+Running Scenario 16, Iteration 472/1000
+
+
+
+Running Scenario 16, Iteration 473/1000
+
+
+
+Running Scenario 16, Iteration 474/1000
+
+
+
+Running Scenario 16, Iteration 475/1000
+
+
+
+Running Scenario 16, Iteration 476/1000
+
+
+
+Running Scenario 16, Iteration 477/1000
+
+
+
+Running Scenario 16, Iteration 478/1000
+
+
+
+Running Scenario 16, Iteration 479/1000
+
+
+
+Running Scenario 16, Iteration 480/1000
+
+
+
+Running Scenario 16, Iteration 481/1000
+
+
+
+Running Scenario 16, Iteration 482/1000
+
+
+
+Running Scenario 16, Iteration 483/1000
+
+
+
+Running Scenario 16, Iteration 484/1000
+
+
+
+Running Scenario 16, Iteration 485/1000
+
+
+
+Running Scenario 16, Iteration 486/1000
+
+
+
+Running Scenario 16, Iteration 487/1000
+
+
+
+Running Scenario 16, Iteration 488/1000
+
+
+
+Running Scenario 16, Iteration 489/1000
+
+
+
+Running Scenario 16, Iteration 490/1000
+
+
+
+Running Scenario 16, Iteration 491/1000
+
+
+
+Running Scenario 16, Iteration 492/1000
+
+
+
+Running Scenario 16, Iteration 493/1000
+
+
+
+Running Scenario 16, Iteration 494/1000
+
+
+
+Running Scenario 16, Iteration 495/1000
+
+
+
+Running Scenario 16, Iteration 496/1000
+
+
+
+Running Scenario 16, Iteration 497/1000
+
+
+
+Running Scenario 16, Iteration 498/1000
+
+
+
+Running Scenario 16, Iteration 499/1000
+
+
+
+Running Scenario 16, Iteration 500/1000
+
+
+
+Running Scenario 16, Iteration 501/1000
+
+
+
+Running Scenario 16, Iteration 502/1000
+
+
+
+Running Scenario 16, Iteration 503/1000
+
+
+
+Running Scenario 16, Iteration 504/1000
+
+
+
+Running Scenario 16, Iteration 505/1000
+
+
+
+Running Scenario 16, Iteration 506/1000
+
+
+
+Running Scenario 16, Iteration 507/1000
+
+
+
+Running Scenario 16, Iteration 508/1000
+
+
+
+Running Scenario 16, Iteration 509/1000
+
+
+
+Running Scenario 16, Iteration 510/1000
+
+
+
+Running Scenario 16, Iteration 511/1000
+
+
+
+Running Scenario 16, Iteration 512/1000
+
+
+
+Running Scenario 16, Iteration 513/1000
+
+
+
+Running Scenario 16, Iteration 514/1000
+
+
+
+Running Scenario 16, Iteration 515/1000
+
+
+
+Running Scenario 16, Iteration 516/1000
+
+
+
+Running Scenario 16, Iteration 517/1000
+
+
+
+Running Scenario 16, Iteration 518/1000
+
+
+
+Running Scenario 16, Iteration 519/1000
+
+
+
+Running Scenario 16, Iteration 520/1000
+
+
+
+Running Scenario 16, Iteration 521/1000
+
+
+
+Running Scenario 16, Iteration 522/1000
+
+
+
+Running Scenario 16, Iteration 523/1000
+
+
+
+Running Scenario 16, Iteration 524/1000
+
+
+
+Running Scenario 16, Iteration 525/1000
+
+
+
+Running Scenario 16, Iteration 526/1000
+
+
+
+Running Scenario 16, Iteration 527/1000
+
+
+
+Running Scenario 16, Iteration 528/1000
+
+
+
+Running Scenario 16, Iteration 529/1000
+
+
+
+Running Scenario 16, Iteration 530/1000
+
+
+
+Running Scenario 16, Iteration 531/1000
+
+
+
+Running Scenario 16, Iteration 532/1000
+
+
+
+Running Scenario 16, Iteration 533/1000
+
+
+
+Running Scenario 16, Iteration 534/1000
+
+
+
+Running Scenario 16, Iteration 535/1000
+
+
+
+Running Scenario 16, Iteration 536/1000
+
+
+
+Running Scenario 16, Iteration 537/1000
+
+
+
+Running Scenario 16, Iteration 538/1000
+
+
+
+Running Scenario 16, Iteration 539/1000
+
+
+
+Running Scenario 16, Iteration 540/1000
+
+
+
+Running Scenario 16, Iteration 541/1000
+
+
+
+Running Scenario 16, Iteration 542/1000
+
+
+
+Running Scenario 16, Iteration 543/1000
+
+
+
+Running Scenario 16, Iteration 544/1000
+
+
+
+Running Scenario 16, Iteration 545/1000
+
+
+
+Running Scenario 16, Iteration 546/1000
+
+
+
+Running Scenario 16, Iteration 547/1000
+
+
+
+Running Scenario 16, Iteration 548/1000
+
+
+
+Running Scenario 16, Iteration 549/1000
+
+
+
+Running Scenario 16, Iteration 550/1000
+
+
+
+Running Scenario 16, Iteration 551/1000
+
+
+
+Running Scenario 16, Iteration 552/1000
+
+
+
+Running Scenario 16, Iteration 553/1000
+
+
+
+Running Scenario 16, Iteration 554/1000
+
+
+
+Running Scenario 16, Iteration 555/1000
+
+
+
+Running Scenario 16, Iteration 556/1000
+
+
+
+Running Scenario 16, Iteration 557/1000
+
+
+
+Running Scenario 16, Iteration 558/1000
+
+
+
+Running Scenario 16, Iteration 559/1000
+
+
+
+Running Scenario 16, Iteration 560/1000
+
+
+
+Running Scenario 16, Iteration 561/1000
+
+
+
+Running Scenario 16, Iteration 562/1000
+
+
+
+Running Scenario 16, Iteration 563/1000
+
+
+
+Running Scenario 16, Iteration 564/1000
+
+
+
+Running Scenario 16, Iteration 565/1000
+
+
+
+Running Scenario 16, Iteration 566/1000
+
+
+
+Running Scenario 16, Iteration 567/1000
+
+
+
+Running Scenario 16, Iteration 568/1000
+
+
+
+Running Scenario 16, Iteration 569/1000
+
+
+
+Running Scenario 16, Iteration 570/1000
+
+
+
+Running Scenario 16, Iteration 571/1000
+
+
+
+Running Scenario 16, Iteration 572/1000
+
+
+
+Running Scenario 16, Iteration 573/1000
+
+
+
+Running Scenario 16, Iteration 574/1000
+
+
+
+Running Scenario 16, Iteration 575/1000
+
+
+
+Running Scenario 16, Iteration 576/1000
+
+
+
+Running Scenario 16, Iteration 577/1000
+
+
+
+Running Scenario 16, Iteration 578/1000
+
+
+
+Running Scenario 16, Iteration 579/1000
+
+
+
+Running Scenario 16, Iteration 580/1000
+
+
+
+Running Scenario 16, Iteration 581/1000
+
+
+
+Running Scenario 16, Iteration 582/1000
+
+
+
+Running Scenario 16, Iteration 583/1000
+
+
+
+Running Scenario 16, Iteration 584/1000
+
+
+
+Running Scenario 16, Iteration 585/1000
+
+
+
+Running Scenario 16, Iteration 586/1000
+
+
+
+Running Scenario 16, Iteration 587/1000
+
+
+
+Running Scenario 16, Iteration 588/1000
+
+
+
+Running Scenario 16, Iteration 589/1000
+
+
+
+Running Scenario 16, Iteration 590/1000
+
+
+
+Running Scenario 16, Iteration 591/1000
+
+
+
+Running Scenario 16, Iteration 592/1000
+
+
+
+Running Scenario 16, Iteration 593/1000
+
+
+
+Running Scenario 16, Iteration 594/1000
+
+
+
+Running Scenario 16, Iteration 595/1000
+
+
+
+Running Scenario 16, Iteration 596/1000
+
+
+
+Running Scenario 16, Iteration 597/1000
+
+
+
+Running Scenario 16, Iteration 598/1000
+
+
+
+Running Scenario 16, Iteration 599/1000
+
+
+
+Running Scenario 16, Iteration 600/1000
+
+
+
+Running Scenario 16, Iteration 601/1000
+
+
+
+Running Scenario 16, Iteration 602/1000
+
+
+
+Running Scenario 16, Iteration 603/1000
+
+
+
+Running Scenario 16, Iteration 604/1000
+
+
+
+Running Scenario 16, Iteration 605/1000
+
+
+
+Running Scenario 16, Iteration 606/1000
+
+
+
+Running Scenario 16, Iteration 607/1000
+
+
+
+Running Scenario 16, Iteration 608/1000
+
+
+
+Running Scenario 16, Iteration 609/1000
+
+
+
+Running Scenario 16, Iteration 610/1000
+
+
+
+Running Scenario 16, Iteration 611/1000
+
+
+
+Running Scenario 16, Iteration 612/1000
+
+
+
+Running Scenario 16, Iteration 613/1000
+
+
+
+Running Scenario 16, Iteration 614/1000
+
+
+
+Running Scenario 16, Iteration 615/1000
+
+
+
+Running Scenario 16, Iteration 616/1000
+
+
+
+Running Scenario 16, Iteration 617/1000
+
+
+
+Running Scenario 16, Iteration 618/1000
+
+
+
+Running Scenario 16, Iteration 619/1000
+
+
+
+Running Scenario 16, Iteration 620/1000
+
+
+
+Running Scenario 16, Iteration 621/1000
+
+
+
+Running Scenario 16, Iteration 622/1000
+
+
+
+Running Scenario 16, Iteration 623/1000
+
+
+
+Running Scenario 16, Iteration 624/1000
+
+
+
+Running Scenario 16, Iteration 625/1000
+
+
+
+Running Scenario 16, Iteration 626/1000
+
+
+
+Running Scenario 16, Iteration 627/1000
+
+
+
+Running Scenario 16, Iteration 628/1000
+
+
+
+Running Scenario 16, Iteration 629/1000
+
+
+
+Running Scenario 16, Iteration 630/1000
+
+
+
+Running Scenario 16, Iteration 631/1000
+
+
+
+Running Scenario 16, Iteration 632/1000
+
+
+
+Running Scenario 16, Iteration 633/1000
+
+
+
+Running Scenario 16, Iteration 634/1000
+
+
+
+Running Scenario 16, Iteration 635/1000
+
+
+
+Running Scenario 16, Iteration 636/1000
+
+
+
+Running Scenario 16, Iteration 637/1000
+
+
+
+Running Scenario 16, Iteration 638/1000
+
+
+
+Running Scenario 16, Iteration 639/1000
+
+
+
+Running Scenario 16, Iteration 640/1000
+
+
+
+Running Scenario 16, Iteration 641/1000
+
+
+
+Running Scenario 16, Iteration 642/1000
+
+
+
+Running Scenario 16, Iteration 643/1000
+
+
+
+Running Scenario 16, Iteration 644/1000
+
+
+
+Running Scenario 16, Iteration 645/1000
+
+
+
+Running Scenario 16, Iteration 646/1000
+
+
+
+Running Scenario 16, Iteration 647/1000
+
+
+
+Running Scenario 16, Iteration 648/1000
+
+
+
+Running Scenario 16, Iteration 649/1000
+
+
+
+Running Scenario 16, Iteration 650/1000
+
+
+
+Running Scenario 16, Iteration 651/1000
+
+
+
+Running Scenario 16, Iteration 652/1000
+
+
+
+Running Scenario 16, Iteration 653/1000
+
+
+
+Running Scenario 16, Iteration 654/1000
+
+
+
+Running Scenario 16, Iteration 655/1000
+
+
+
+Running Scenario 16, Iteration 656/1000
+
+
+
+Running Scenario 16, Iteration 657/1000
+
+
+
+Running Scenario 16, Iteration 658/1000
+
+
+
+Running Scenario 16, Iteration 659/1000
+
+
+
+Running Scenario 16, Iteration 660/1000
+
+
+
+Running Scenario 16, Iteration 661/1000
+
+
+
+Running Scenario 16, Iteration 662/1000
+
+
+
+Running Scenario 16, Iteration 663/1000
+
+
+
+Running Scenario 16, Iteration 664/1000
+
+
+
+Running Scenario 16, Iteration 665/1000
+
+
+
+Running Scenario 16, Iteration 666/1000
+
+
+
+Running Scenario 16, Iteration 667/1000
+
+
+
+Running Scenario 16, Iteration 668/1000
+
+
+
+Running Scenario 16, Iteration 669/1000
+
+
+
+Running Scenario 16, Iteration 670/1000
+
+
+
+Running Scenario 16, Iteration 671/1000
+
+
+
+Running Scenario 16, Iteration 672/1000
+
+
+
+Running Scenario 16, Iteration 673/1000
+
+
+
+Running Scenario 16, Iteration 674/1000
+
+
+
+Running Scenario 16, Iteration 675/1000
+
+
+
+Running Scenario 16, Iteration 676/1000
+
+
+
+Running Scenario 16, Iteration 677/1000
+
+
+
+Running Scenario 16, Iteration 678/1000
+
+
+
+Running Scenario 16, Iteration 679/1000
+
+
+
+Running Scenario 16, Iteration 680/1000
+
+
+
+Running Scenario 16, Iteration 681/1000
+
+
+
+Running Scenario 16, Iteration 682/1000
+
+
+
+Running Scenario 16, Iteration 683/1000
+
+
+
+Running Scenario 16, Iteration 684/1000
+
+
+
+Running Scenario 16, Iteration 685/1000
+
+
+
+Running Scenario 16, Iteration 686/1000
+
+
+
+Running Scenario 16, Iteration 687/1000
+
+
+
+Running Scenario 16, Iteration 688/1000
+
+
+
+Running Scenario 16, Iteration 689/1000
+
+
+
+Running Scenario 16, Iteration 690/1000
+
+
+
+Running Scenario 16, Iteration 691/1000
+
+
+
+Running Scenario 16, Iteration 692/1000
+
+
+
+Running Scenario 16, Iteration 693/1000
+
+
+
+Running Scenario 16, Iteration 694/1000
+
+
+
+Running Scenario 16, Iteration 695/1000
+
+
+
+Running Scenario 16, Iteration 696/1000
+
+
+
+Running Scenario 16, Iteration 697/1000
+
+
+
+Running Scenario 16, Iteration 698/1000
+
+
+
+Running Scenario 16, Iteration 699/1000
+
+
+
+Running Scenario 16, Iteration 700/1000
+
+
+
+Running Scenario 16, Iteration 701/1000
+
+
+
+Running Scenario 16, Iteration 702/1000
+
+
+
+Running Scenario 16, Iteration 703/1000
+
+
+
+Running Scenario 16, Iteration 704/1000
+
+
+
+Running Scenario 16, Iteration 705/1000
+
+
+
+Running Scenario 16, Iteration 706/1000
+
+
+
+Running Scenario 16, Iteration 707/1000
+
+
+
+Running Scenario 16, Iteration 708/1000
+
+
+
+Running Scenario 16, Iteration 709/1000
+
+
+
+Running Scenario 16, Iteration 710/1000
+
+
+
+Running Scenario 16, Iteration 711/1000
+
+
+
+Running Scenario 16, Iteration 712/1000
+
+
+
+Running Scenario 16, Iteration 713/1000
+
+
+
+Running Scenario 16, Iteration 714/1000
+
+
+
+Running Scenario 16, Iteration 715/1000
+
+
+
+Running Scenario 16, Iteration 716/1000
+
+
+
+Running Scenario 16, Iteration 717/1000
+
+
+
+Running Scenario 16, Iteration 718/1000
+
+
+
+Running Scenario 16, Iteration 719/1000
+
+
+
+Running Scenario 16, Iteration 720/1000
+
+
+
+Running Scenario 16, Iteration 721/1000
+
+
+
+Running Scenario 16, Iteration 722/1000
+
+
+
+Running Scenario 16, Iteration 723/1000
+
+
+
+Running Scenario 16, Iteration 724/1000
+
+
+
+Running Scenario 16, Iteration 725/1000
+
+
+
+Running Scenario 16, Iteration 726/1000
+
+
+
+Running Scenario 16, Iteration 727/1000
+
+
+
+Running Scenario 16, Iteration 728/1000
+
+
+
+Running Scenario 16, Iteration 729/1000
+
+
+
+Running Scenario 16, Iteration 730/1000
+
+
+
+Running Scenario 16, Iteration 731/1000
+
+
+
+Running Scenario 16, Iteration 732/1000
+
+
+
+Running Scenario 16, Iteration 733/1000
+
+
+
+Running Scenario 16, Iteration 734/1000
+
+
+
+Running Scenario 16, Iteration 735/1000
+
+
+
+Running Scenario 16, Iteration 736/1000
+
+
+
+Running Scenario 16, Iteration 737/1000
+
+
+
+Running Scenario 16, Iteration 738/1000
+
+
+
+Running Scenario 16, Iteration 739/1000
+
+
+
+Running Scenario 16, Iteration 740/1000
+
+
+
+Running Scenario 16, Iteration 741/1000
+
+
+
+Running Scenario 16, Iteration 742/1000
+
+
+
+Running Scenario 16, Iteration 743/1000
+
+
+
+Running Scenario 16, Iteration 744/1000
+
+
+
+Running Scenario 16, Iteration 745/1000
+
+
+
+Running Scenario 16, Iteration 746/1000
+
+
+
+Running Scenario 16, Iteration 747/1000
+
+
+
+Running Scenario 16, Iteration 748/1000
+
+
+
+Running Scenario 16, Iteration 749/1000
+
+
+
+Running Scenario 16, Iteration 750/1000
+
+
+
+Running Scenario 16, Iteration 751/1000
+
+
+
+Running Scenario 16, Iteration 752/1000
+
+
+
+Running Scenario 16, Iteration 753/1000
+
+
+
+Running Scenario 16, Iteration 754/1000
+
+
+
+Running Scenario 16, Iteration 755/1000
+
+
+
+Running Scenario 16, Iteration 756/1000
+
+
+
+Running Scenario 16, Iteration 757/1000
+
+
+
+Running Scenario 16, Iteration 758/1000
+
+
+
+Running Scenario 16, Iteration 759/1000
+
+
+
+Running Scenario 16, Iteration 760/1000
+
+
+
+Running Scenario 16, Iteration 761/1000
+
+
+
+Running Scenario 16, Iteration 762/1000
+
+
+
+Running Scenario 16, Iteration 763/1000
+
+
+
+Running Scenario 16, Iteration 764/1000
+
+
+
+Running Scenario 16, Iteration 765/1000
+
+
+
+Running Scenario 16, Iteration 766/1000
+
+
+
+Running Scenario 16, Iteration 767/1000
+
+
+
+Running Scenario 16, Iteration 768/1000
+
+
+
+Running Scenario 16, Iteration 769/1000
+
+
+
+Running Scenario 16, Iteration 770/1000
+
+
+
+Running Scenario 16, Iteration 771/1000
+
+
+
+Running Scenario 16, Iteration 772/1000
+
+
+
+Running Scenario 16, Iteration 773/1000
+
+
+
+Running Scenario 16, Iteration 774/1000
+
+
+
+Running Scenario 16, Iteration 775/1000
+
+
+
+Running Scenario 16, Iteration 776/1000
+
+
+
+Running Scenario 16, Iteration 777/1000
+
+
+
+Running Scenario 16, Iteration 778/1000
+
+
+
+Running Scenario 16, Iteration 779/1000
+
+
+
+Running Scenario 16, Iteration 780/1000
+
+
+
+Running Scenario 16, Iteration 781/1000
+
+
+
+Running Scenario 16, Iteration 782/1000
+
+
+
+Running Scenario 16, Iteration 783/1000
+
+
+
+Running Scenario 16, Iteration 784/1000
+
+
+
+Running Scenario 16, Iteration 785/1000
+
+
+
+Running Scenario 16, Iteration 786/1000
+
+
+
+Running Scenario 16, Iteration 787/1000
+
+
+
+Running Scenario 16, Iteration 788/1000
+
+
+
+Running Scenario 16, Iteration 789/1000
+
+
+
+Running Scenario 16, Iteration 790/1000
+
+
+
+Running Scenario 16, Iteration 791/1000
+
+
+
+Running Scenario 16, Iteration 792/1000
+
+
+
+Running Scenario 16, Iteration 793/1000
+
+
+
+Running Scenario 16, Iteration 794/1000
+
+
+
+Running Scenario 16, Iteration 795/1000
+
+
+
+Running Scenario 16, Iteration 796/1000
+
+
+
+Running Scenario 16, Iteration 797/1000
+
+
+
+Running Scenario 16, Iteration 798/1000
+
+
+
+Running Scenario 16, Iteration 799/1000
+
+
+
+Running Scenario 16, Iteration 800/1000
+
+
+
+Running Scenario 16, Iteration 801/1000
+
+
+
+Running Scenario 16, Iteration 802/1000
+
+
+
+Running Scenario 16, Iteration 803/1000
+
+
+
+Running Scenario 16, Iteration 804/1000
+
+
+
+Running Scenario 16, Iteration 805/1000
+
+
+
+Running Scenario 16, Iteration 806/1000
+
+
+
+Running Scenario 16, Iteration 807/1000
+
+
+
+Running Scenario 16, Iteration 808/1000
+
+
+
+Running Scenario 16, Iteration 809/1000
+
+
+
+Running Scenario 16, Iteration 810/1000
+
+
+
+Running Scenario 16, Iteration 811/1000
+
+
+
+Running Scenario 16, Iteration 812/1000
+
+
+
+Running Scenario 16, Iteration 813/1000
+
+
+
+Running Scenario 16, Iteration 814/1000
+
+
+
+Running Scenario 16, Iteration 815/1000
+
+
+
+Running Scenario 16, Iteration 816/1000
+
+
+
+Running Scenario 16, Iteration 817/1000
+
+
+
+Running Scenario 16, Iteration 818/1000
+
+
+
+Running Scenario 16, Iteration 819/1000
+
+
+
+Running Scenario 16, Iteration 820/1000
+
+
+
+Running Scenario 16, Iteration 821/1000
+
+
+
+Running Scenario 16, Iteration 822/1000
+
+
+
+Running Scenario 16, Iteration 823/1000
+
+
+
+Running Scenario 16, Iteration 824/1000
+
+
+
+Running Scenario 16, Iteration 825/1000
+
+
+
+Running Scenario 16, Iteration 826/1000
+
+
+
+Running Scenario 16, Iteration 827/1000
+
+
+
+Running Scenario 16, Iteration 828/1000
+
+
+
+Running Scenario 16, Iteration 829/1000
+
+
+
+Running Scenario 16, Iteration 830/1000
+
+
+
+Running Scenario 16, Iteration 831/1000
+
+
+
+Running Scenario 16, Iteration 832/1000
+
+
+
+Running Scenario 16, Iteration 833/1000
+
+
+
+Running Scenario 16, Iteration 834/1000
+
+
+
+Running Scenario 16, Iteration 835/1000
+
+
+
+Running Scenario 16, Iteration 836/1000
+
+
+
+Running Scenario 16, Iteration 837/1000
+
+
+
+Running Scenario 16, Iteration 838/1000
+
+
+
+Running Scenario 16, Iteration 839/1000
+
+
+
+Running Scenario 16, Iteration 840/1000
+
+
+
+Running Scenario 16, Iteration 841/1000
+
+
+
+Running Scenario 16, Iteration 842/1000
+
+
+
+Running Scenario 16, Iteration 843/1000
+
+
+
+Running Scenario 16, Iteration 844/1000
+
+
+
+Running Scenario 16, Iteration 845/1000
+
+
+
+Running Scenario 16, Iteration 846/1000
+
+
+
+Running Scenario 16, Iteration 847/1000
+
+
+
+Running Scenario 16, Iteration 848/1000
+
+
+
+Running Scenario 16, Iteration 849/1000
+
+
+
+Running Scenario 16, Iteration 850/1000
+
+
+
+Running Scenario 16, Iteration 851/1000
+
+
+
+Running Scenario 16, Iteration 852/1000
+
+
+
+Running Scenario 16, Iteration 853/1000
+
+
+
+Running Scenario 16, Iteration 854/1000
+
+
+
+Running Scenario 16, Iteration 855/1000
+
+
+
+Running Scenario 16, Iteration 856/1000
+
+
+
+Running Scenario 16, Iteration 857/1000
+
+
+
+Running Scenario 16, Iteration 858/1000
+
+
+
+Running Scenario 16, Iteration 859/1000
+
+
+
+Running Scenario 16, Iteration 860/1000
+
+
+
+Running Scenario 16, Iteration 861/1000
+
+
+
+Running Scenario 16, Iteration 862/1000
+
+
+
+Running Scenario 16, Iteration 863/1000
+
+
+
+Running Scenario 16, Iteration 864/1000
+
+
+
+Running Scenario 16, Iteration 865/1000
+
+
+
+Running Scenario 16, Iteration 866/1000
+
+
+
+Running Scenario 16, Iteration 867/1000
+
+
+
+Running Scenario 16, Iteration 868/1000
+
+
+
+Running Scenario 16, Iteration 869/1000
+
+
+
+Running Scenario 16, Iteration 870/1000
+
+
+
+Running Scenario 16, Iteration 871/1000
+
+
+
+Running Scenario 16, Iteration 872/1000
+
+
+
+Running Scenario 16, Iteration 873/1000
+
+
+
+Running Scenario 16, Iteration 874/1000
+
+
+
+Running Scenario 16, Iteration 875/1000
+
+
+
+Running Scenario 16, Iteration 876/1000
+
+
+
+Running Scenario 16, Iteration 877/1000
+
+
+
+Running Scenario 16, Iteration 878/1000
+
+
+
+Running Scenario 16, Iteration 879/1000
+
+
+
+Running Scenario 16, Iteration 880/1000
+
+
+
+Running Scenario 16, Iteration 881/1000
+
+
+
+Running Scenario 16, Iteration 882/1000
+
+
+
+Running Scenario 16, Iteration 883/1000
+
+
+
+Running Scenario 16, Iteration 884/1000
+
+
+
+Running Scenario 16, Iteration 885/1000
+
+
+
+Running Scenario 16, Iteration 886/1000
+
+
+
+Running Scenario 16, Iteration 887/1000
+
+
+
+Running Scenario 16, Iteration 888/1000
+
+
+
+Running Scenario 16, Iteration 889/1000
+
+
+
+Running Scenario 16, Iteration 890/1000
+
+
+
+Running Scenario 16, Iteration 891/1000
+
+
+
+Running Scenario 16, Iteration 892/1000
+
+
+
+Running Scenario 16, Iteration 893/1000
+
+
+
+Running Scenario 16, Iteration 894/1000
+
+
+
+Running Scenario 16, Iteration 895/1000
+
+
+
+Running Scenario 16, Iteration 896/1000
+
+
+
+Running Scenario 16, Iteration 897/1000
+
+
+
+Running Scenario 16, Iteration 898/1000
+
+
+
+Running Scenario 16, Iteration 899/1000
+
+
+
+Running Scenario 16, Iteration 900/1000
+
+
+
+Running Scenario 16, Iteration 901/1000
+
+
+
+Running Scenario 16, Iteration 902/1000
+
+
+
+Running Scenario 16, Iteration 903/1000
+
+
+
+Running Scenario 16, Iteration 904/1000
+
+
+
+Running Scenario 16, Iteration 905/1000
+
+
+
+Running Scenario 16, Iteration 906/1000
+
+
+
+Running Scenario 16, Iteration 907/1000
+
+
+
+Running Scenario 16, Iteration 908/1000
+
+
+
+Running Scenario 16, Iteration 909/1000
+
+
+
+Running Scenario 16, Iteration 910/1000
+
+
+
+Running Scenario 16, Iteration 911/1000
+
+
+
+Running Scenario 16, Iteration 912/1000
+
+
+
+Running Scenario 16, Iteration 913/1000
+
+
+
+Running Scenario 16, Iteration 914/1000
+
+
+
+Running Scenario 16, Iteration 915/1000
+
+
+
+Running Scenario 16, Iteration 916/1000
+
+
+
+Running Scenario 16, Iteration 917/1000
+
+
+
+Running Scenario 16, Iteration 918/1000
+
+
+
+Running Scenario 16, Iteration 919/1000
+
+
+
+Running Scenario 16, Iteration 920/1000
+
+
+
+Running Scenario 16, Iteration 921/1000
+
+
+
+Running Scenario 16, Iteration 922/1000
+
+
+
+Running Scenario 16, Iteration 923/1000
+
+
+
+Running Scenario 16, Iteration 924/1000
+
+
+
+Running Scenario 16, Iteration 925/1000
+
+
+
+Running Scenario 16, Iteration 926/1000
+
+
+
+Running Scenario 16, Iteration 927/1000
+
+
+
+Running Scenario 16, Iteration 928/1000
+
+
+
+Running Scenario 16, Iteration 929/1000
+
+
+
+Running Scenario 16, Iteration 930/1000
+
+
+
+Running Scenario 16, Iteration 931/1000
+
+
+
+Running Scenario 16, Iteration 932/1000
+
+
+
+Running Scenario 16, Iteration 933/1000
+
+
+
+Running Scenario 16, Iteration 934/1000
+
+
+
+Running Scenario 16, Iteration 935/1000
+
+
+
+Running Scenario 16, Iteration 936/1000
+
+
+
+Running Scenario 16, Iteration 937/1000
+
+
+
+Running Scenario 16, Iteration 938/1000
+
+
+
+Running Scenario 16, Iteration 939/1000
+
+
+
+Running Scenario 16, Iteration 940/1000
+
+
+
+Running Scenario 16, Iteration 941/1000
+
+
+
+Running Scenario 16, Iteration 942/1000
+
+
+
+Running Scenario 16, Iteration 943/1000
+
+
+
+Running Scenario 16, Iteration 944/1000
+
+
+
+Running Scenario 16, Iteration 945/1000
+
+
+
+Running Scenario 16, Iteration 946/1000
+
+
+
+Running Scenario 16, Iteration 947/1000
+
+
+
+Running Scenario 16, Iteration 948/1000
+
+
+
+Running Scenario 16, Iteration 949/1000
+
+
+
+Running Scenario 16, Iteration 950/1000
+
+
+
+Running Scenario 16, Iteration 951/1000
+
+
+
+Running Scenario 16, Iteration 952/1000
+
+
+
+Running Scenario 16, Iteration 953/1000
+
+
+
+Running Scenario 16, Iteration 954/1000
+
+
+
+Running Scenario 16, Iteration 955/1000
+
+
+
+Running Scenario 16, Iteration 956/1000
+
+
+
+Running Scenario 16, Iteration 957/1000
+
+
+
+Running Scenario 16, Iteration 958/1000
+
+
+
+Running Scenario 16, Iteration 959/1000
+
+
+
+Running Scenario 16, Iteration 960/1000
+
+
+
+Running Scenario 16, Iteration 961/1000
+
+
+
+Running Scenario 16, Iteration 962/1000
+
+
+
+Running Scenario 16, Iteration 963/1000
+
+
+
+Running Scenario 16, Iteration 964/1000
+
+
+
+Running Scenario 16, Iteration 965/1000
+
+
+
+Running Scenario 16, Iteration 966/1000
+
+
+
+Running Scenario 16, Iteration 967/1000
+
+
+
+Running Scenario 16, Iteration 968/1000
+
+
+
+Running Scenario 16, Iteration 969/1000
+
+
+
+Running Scenario 16, Iteration 970/1000
+
+
+
+Running Scenario 16, Iteration 971/1000
+
+
+
+Running Scenario 16, Iteration 972/1000
+
+
+
+Running Scenario 16, Iteration 973/1000
+
+
+
+Running Scenario 16, Iteration 974/1000
+
+
+
+Running Scenario 16, Iteration 975/1000
+
+
+
+Running Scenario 16, Iteration 976/1000
+
+
+
+Running Scenario 16, Iteration 977/1000
+
+
+
+Running Scenario 16, Iteration 978/1000
+
+
+
+Running Scenario 16, Iteration 979/1000
+
+
+
+Running Scenario 16, Iteration 980/1000
+
+
+
+Running Scenario 16, Iteration 981/1000
+
+
+
+Running Scenario 16, Iteration 982/1000
+
+
+
+Running Scenario 16, Iteration 983/1000
+
+
+
+Running Scenario 16, Iteration 984/1000
+
+
+
+Running Scenario 16, Iteration 985/1000
+
+
+
+Running Scenario 16, Iteration 986/1000
+
+
+
+Running Scenario 16, Iteration 987/1000
+
+
+
+Running Scenario 16, Iteration 988/1000
+
+
+
+Running Scenario 16, Iteration 989/1000
+
+
+
+Running Scenario 16, Iteration 990/1000
+
+
+
+Running Scenario 16, Iteration 991/1000
+
+
+
+Running Scenario 16, Iteration 992/1000
+
+
+
+Running Scenario 16, Iteration 993/1000
+
+
+
+Running Scenario 16, Iteration 994/1000
+
+
+
+Running Scenario 16, Iteration 995/1000
+
+
+
+Running Scenario 16, Iteration 996/1000
+
+
+
+Running Scenario 16, Iteration 997/1000
+
+
+
+Running Scenario 16, Iteration 998/1000
+
+
+
+Running Scenario 16, Iteration 999/1000
+
+
+
+Running Scenario 16, Iteration 1000/1000
+
+
+Results of Simulation
+
+
+[1] "R2 Control Table"
+  Target_R2_X Analytic_R2_X   Sample R2_X   Target_R2_Y Analytic_R2_Y 
+    0.4000000     0.4000000     0.4008597     0.6000000     0.6000000 
+  Sample R2_Y 
+    0.6005976 
+
+
+
+[1] "Oracle Distribution"
+  mean_Y    var_Y   mean_X    var_X 
+1.534847 2.500000 1.000000 1.666667 
+
+
+[1] "Sample Distributions"
+                   y         X           Z1           Z2          Z3
+sample_mean 1.544644 0.9955492 -0.004204906 -0.003269016 0.002073915
+sample_sd   1.581032 1.2904541  0.994035690  1.009750490 1.001280526
+sample_var  2.499662 1.6652718  0.988106953  1.019596052 1.002562692
+                       Z4          Z5         Z6           Z7         Z8
+sample_mean -0.0002686301 0.005065979 0.01711476 -0.004919417 0.01156835
+sample_sd    1.0033360142 0.998768362 1.00277984  0.992441850 1.00244144
+sample_var   1.0066831574 0.997538242 1.00556742  0.984940826 1.00488885
+                    Z9          Z10          Z11         Z12         Z13
+sample_mean 0.01272258 -0.003525752 -0.001288112 -0.01217422 0.006107103
+sample_sd   0.98762448  0.989702667  1.002467280  0.99539224 1.004995889
+sample_var  0.97540212  0.979511369  1.004940648  0.99080571 1.010016737
+                    Z14         Z15       Z16         Z17
+sample_mean -0.01917293 0.001408154 0.0187890 0.008571246
+sample_sd    0.99902330 0.996213336 0.9849897 0.997658834
+sample_var   0.99804755 0.992441010 0.9702046 0.995323149
+
+
+
+[1] "Key Oracle Coefficients"
+beta_X_LL beta_X_LH beta_X_HL beta_X_HH beta_Y_LL beta_Y_LH beta_Y_HL beta_Y_HH 
+0.0000000 0.0000000 0.2886751 0.2886751 0.0000000 0.2886751 0.0000000 0.2886751 
+   causal 
+0.5348469 
+
+
+
+[1] "Oracle Coefficients"
+   cause intercept  y         X Z1 Z2 Z3 Z4        Z5        Z6        Z7
+1      1         1 NA 0.5348469  0  0  0  0 0.2886751 0.2886751 0.2886751
+2      1         1 NA        NA  0  0  0  0 0.0000000 0.0000000 0.0000000
+3      0        NA NA        NA NA NA NA NA        NA        NA        NA
+4      0        NA NA        NA NA NA NA NA        NA        NA        NA
+5      0        NA NA        NA NA NA NA NA        NA        NA        NA
+6      0        NA NA        NA NA NA NA NA        NA        NA        NA
+7      0        NA NA        NA NA NA NA NA        NA        NA        NA
+8      0        NA NA        NA NA NA NA NA        NA        NA        NA
+9      0        NA NA        NA NA NA NA NA        NA        NA        NA
+10     0        NA NA        NA NA NA NA NA        NA        NA        NA
+11     0        NA NA        NA NA NA NA NA        NA        NA        NA
+12     0        NA NA        NA NA NA NA NA        NA        NA        NA
+13     0        NA NA        NA NA NA NA NA        NA        NA        NA
+14     0        NA NA        NA NA NA NA NA        NA        NA        NA
+15     0        NA NA        NA NA NA NA NA        NA        NA        NA
+16     0        NA NA        NA NA NA NA NA        NA        NA        NA
+17     0        NA NA        NA NA NA NA NA        NA        NA        NA
+18     0        NA NA        NA NA NA NA NA        NA        NA        NA
+19     0        NA NA        NA NA NA NA NA        NA        NA        NA
+          Z8        Z9       Z10       Z11       Z12       Z13       Z14
+1  0.2886751 0.0000000 0.0000000 0.0000000 0.0000000 0.2886751 0.2886751
+2  0.0000000 0.2886751 0.2886751 0.2886751 0.2886751 0.2886751 0.2886751
+3         NA        NA        NA        NA        NA        NA        NA
+4         NA        NA        NA        NA        NA        NA        NA
+5         NA        NA        NA        NA        NA        NA        NA
+6         NA        NA        NA        NA        NA        NA        NA
+7         NA        NA        NA        NA        NA        NA        NA
+8         NA        NA        NA        NA        NA        NA        NA
+9         NA        NA        NA        NA        NA        NA        NA
+10        NA        NA        NA        NA        NA        NA        NA
+11        NA        NA        NA        NA        NA        NA        NA
+12        NA        NA        NA        NA        NA        NA        NA
+13        NA        NA        NA        NA        NA        NA        NA
+14        NA        NA        NA        NA        NA        NA        NA
+15        NA        NA        NA        NA        NA        NA        NA
+16        NA        NA        NA        NA        NA        NA        NA
+17        NA        NA        NA        NA        NA        NA        NA
+18        NA        NA        NA        NA        NA        NA        NA
+19        NA        NA        NA        NA        NA        NA        NA
+         Z15       Z16 Z17
+1  0.2886751 0.2886751  NA
+2  0.2886751 0.2886751  NA
+3         NA        NA  NA
+4         NA        NA  NA
+5         NA        NA  NA
+6         NA        NA  NA
+7         NA        NA  NA
+8         NA        NA  NA
+9         NA        NA  NA
+10        NA        NA  NA
+11        NA        NA  NA
+12        NA        NA  NA
+13        NA        NA  NA
+14        NA        NA  NA
+15        NA        NA  NA
+16        NA        NA  NA
+17        NA        NA  NA
+18        NA        NA  NA
+19        NA        NA  NA
+
+
+[1] "Sample Coefficients for Y Table"
+                 intercept         X            Z1           Z2            Z3
+true_values       1.000000 0.5348469  0.000000e+00 0.0000000000  0.000000e+00
+linear            1.000897 0.5341091 -2.724117e-04 0.0002325866 -4.182053e-05
+stepwise          1.000728 0.5342780 -1.995746e-04 0.0001547298 -8.568589e-05
+stepwise_X        1.000758 0.5340866  4.224110e-05 0.0001512243  2.370374e-04
+two_step_LASSO    1.000915 0.5340906 -2.423885e-04 0.0002534116 -1.576128e-04
+two_step_LASSO_X  1.000816 0.5340662 -5.580205e-05 0.0005653253  2.638926e-04
+                            Z4         Z5         Z6         Z7        Z8
+true_values       0.000000e+00 0.28867513 0.28867513 0.28867513 0.2886751
+linear           -2.086337e-04 0.28873494 0.28834132 0.28855541 0.2888082
+stepwise          1.164750e-05 0.28874516 0.28833796 0.28855064 0.2887906
+stepwise_X       -3.058824e-04 0.04775195 0.04119043 0.04682968 0.0534527
+two_step_LASSO   -7.128066e-05 0.28873388 0.28833418 0.28855349 0.2888016
+two_step_LASSO_X -1.714214e-04 0.14833279 0.14513668 0.14303965 0.1519120
+                           Z9          Z10           Z11          Z12       Z13
+true_values      0.0000000000 0.0000000000  0.000000e+00 0.0000000000 0.2886751
+linear           0.0007913209 0.0004668537 -7.481673e-05 0.0007842166 0.2886408
+stepwise         0.0005247288 0.0002886113 -1.853306e-04 0.0005810838 0.2885873
+stepwise_X       0.0004297438 0.0005238119 -4.328358e-04 0.0006043671 0.2887236
+two_step_LASSO   0.0007216779 0.0005987091 -3.708526e-05 0.0007684752 0.2886426
+two_step_LASSO_X 0.0006904700 0.0006512216 -3.752946e-04 0.0006706807 0.2887341
+                       Z14       Z15       Z16           Z17
+true_values      0.2886751 0.2886751 0.2886751            NA
+linear           0.2889567 0.2890045 0.2889498 -0.0001908921
+stepwise         0.2889064 0.2889541 0.2888906 -0.0001243580
+stepwise_X       0.2889423 0.2892278 0.2888395 -0.0002357034
+two_step_LASSO   0.2889609 0.2890057 0.2889543 -0.0002027244
+two_step_LASSO_X 0.2890264 0.2891825 0.2887214 -0.0001538696
+
+
+[1] "Grouped Sample Coefficients for Y Table"
+                 intercept         X          Z_LL       Z_LH         Z_HL
+true_values       1.000000 0.5348469  0.000000e+00 0.28867513 0.0000000000
+linear            1.000897 0.5341091 -7.256982e-05 0.28860996 0.0004918936
+stepwise          1.000728 0.5342780 -2.972082e-05 0.28860608 0.0003022733
+stepwise_X        1.000758 0.5340866  3.115511e-05 0.04730619 0.0002812717
+two_step_LASSO    1.000915 0.5340906 -5.446758e-05 0.28860579 0.0005129442
+two_step_LASSO_X  1.000816 0.5340662  1.504986e-04 0.14710528 0.0004092694
+                      Z_HH       Z_dummy
+true_values      0.2886751            NA
+linear           0.2888879 -0.0001908921
+stepwise         0.2888346 -0.0001243580
+stepwise_X       0.2889333 -0.0002357034
+two_step_LASSO   0.2888909 -0.0002027244
+two_step_LASSO_X 0.2889161 -0.0001538696
+
+
+[1] "Individual Covariate Selection Table"
+                 X    Z1    Z2    Z3    Z4    Z5    Z6    Z7    Z8    Z9   Z10
+linear           1 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+stepwise         1 0.148 0.172 0.166 0.175 1.000 1.000 1.000 1.000 0.163 0.150
+stepwise_X       1 0.174 0.147 0.188 0.194 0.165 0.143 0.162 0.184 1.000 1.000
+two_step_LASSO   1 0.502 0.508 0.529 0.520 1.000 1.000 1.000 1.000 0.493 0.472
+two_step_LASSO_X 1 0.520 0.511 0.532 0.520 0.514 0.503 0.496 0.525 1.000 1.000
+                   Z11   Z12 Z13 Z14 Z15 Z16   Z17
+linear           1.000 1.000   1   1   1   1 1.000
+stepwise         0.166 0.144   1   1   1   1 0.173
+stepwise_X       1.000 1.000   1   1   1   1 0.162
+two_step_LASSO   0.508 0.506   1   1   1   1 0.521
+two_step_LASSO_X 1.000 1.000   1   1   1   1 0.518
+
+
+[1] "Grouped Covariate Selection Table"
+                 X    Z_LL   Z_LH    Z_HL Z_HH Z_dummy
+linear           1 1.00000 1.0000 1.00000    1   1.000
+stepwise         1 0.16525 1.0000 0.15575    1   0.173
+stepwise_X       1 0.17575 0.1635 1.00000    1   0.162
+two_step_LASSO   1 0.51475 1.0000 0.49475    1   0.521
+two_step_LASSO_X 1 0.52075 0.5095 1.00000    1   0.518
+
+
+[1] "Covariate Selection Dispersion Within Groups Table"
+                 X         Z_LL         Z_LH         Z_HL Z_HH Z_dummy
+linear           0 0.0000000000 0.0000000000 0.0000000000    0       0
+stepwise         0 0.0001462500 0.0000000000 0.0001095833    0       0
+stepwise_X       0 0.0004375833 0.0002816667 0.0000000000    0       0
+two_step_LASSO   0 0.0001462500 0.0000000000 0.0002742500    0       0
+two_step_LASSO_X 0 0.0000742500 0.0001616667 0.0000000000    0       0
+
+
+[1] "Results Table"
+                  pred_mse r_squared_X r_squared_Y    model_SE      emp_SE
+linear           0.9981345   0.4008597   0.6005976 0.010361707 0.010335382
+stepwise         0.9985214   0.4008597   0.6004427 0.009521112 0.009504079
+stepwise_X       1.2770525   0.4008597   0.4889978 0.011043559 0.011017327
+two_step_LASSO   0.9982099   0.4008597   0.6005674 0.010098144 0.010069750
+two_step_LASSO_X 1.1616584   0.4008597   0.5351923 0.010527609 0.010498594
+                 causal_effect_est causal_effect_mcse causal_effect_bias
+linear                   0.5341091       0.0003268335      -0.0007377789
+stepwise                 0.5342780       0.0003005454      -0.0005689654
+stepwise_X               0.5340866       0.0003483985      -0.0007603412
+two_step_LASSO           0.5340906       0.0003184334      -0.0007563639
+two_step_LASSO_X         0.5340662       0.0003319947      -0.0007806921
+                 avg_abs_param_bias coverage open_paths blocked_paths
+linear                  0.008370963    0.953          4             4
+stepwise                0.005842796    0.936          4             4
+stepwise_X              0.056619134    0.965          4             4
+two_step_LASSO          0.007510849    0.937          4             4
+two_step_LASSO_X        0.036703654    0.962          4             4
+
+Saving results to file
+
+[1] "finished!"
+NULL
+[1] "running!"
+
+
+Running Scenario 32, Iteration 1/1000
+
+
+
+Running Scenario 32, Iteration 2/1000
+
+
+
+Running Scenario 32, Iteration 3/1000
+
+
+
+Running Scenario 32, Iteration 4/1000
+
+
+
+Running Scenario 32, Iteration 5/1000
+
+
+
+Running Scenario 32, Iteration 6/1000
+
+
+
+Running Scenario 32, Iteration 7/1000
+
+
+
+Running Scenario 32, Iteration 8/1000
+
+
+
+Running Scenario 32, Iteration 9/1000
+
+
+
+Running Scenario 32, Iteration 10/1000
+
+
+
+Running Scenario 32, Iteration 11/1000
+
+
+
+Running Scenario 32, Iteration 12/1000
+
+
+
+Running Scenario 32, Iteration 13/1000
+
+
+
+Running Scenario 32, Iteration 14/1000
+
+
+
+Running Scenario 32, Iteration 15/1000
+
+
+
+Running Scenario 32, Iteration 16/1000
+
+
+
+Running Scenario 32, Iteration 17/1000
+
+
+
+Running Scenario 32, Iteration 18/1000
+
+
+
+Running Scenario 32, Iteration 19/1000
+
+
+
+Running Scenario 32, Iteration 20/1000
+
+
+
+Running Scenario 32, Iteration 21/1000
+
+
+
+Running Scenario 32, Iteration 22/1000
+
+
+
+Running Scenario 32, Iteration 23/1000
+
+
+
+Running Scenario 32, Iteration 24/1000
+
+
+
+Running Scenario 32, Iteration 25/1000
+
+
+
+Running Scenario 32, Iteration 26/1000
+
+
+
+Running Scenario 32, Iteration 27/1000
+
+
+
+Running Scenario 32, Iteration 28/1000
+
+
+
+Running Scenario 32, Iteration 29/1000
+
+
+
+Running Scenario 32, Iteration 30/1000
+
+
+
+Running Scenario 32, Iteration 31/1000
+
+
+
+Running Scenario 32, Iteration 32/1000
+
+
+
+Running Scenario 32, Iteration 33/1000
+
+
+
+Running Scenario 32, Iteration 34/1000
+
+
+
+Running Scenario 32, Iteration 35/1000
+
+
+
+Running Scenario 32, Iteration 36/1000
+
+
+
+Running Scenario 32, Iteration 37/1000
+
+
+
+Running Scenario 32, Iteration 38/1000
+
+
+
+Running Scenario 32, Iteration 39/1000
+
+
+
+Running Scenario 32, Iteration 40/1000
+
+
+
+Running Scenario 32, Iteration 41/1000
+
+
+
+Running Scenario 32, Iteration 42/1000
+
+
+
+Running Scenario 32, Iteration 43/1000
+
+
+
+Running Scenario 32, Iteration 44/1000
+
+
+
+Running Scenario 32, Iteration 45/1000
+
+
+
+Running Scenario 32, Iteration 46/1000
+
+
+
+Running Scenario 32, Iteration 47/1000
+
+
+
+Running Scenario 32, Iteration 48/1000
+
+
+
+Running Scenario 32, Iteration 49/1000
+
+
+
+Running Scenario 32, Iteration 50/1000
+
+
+
+Running Scenario 32, Iteration 51/1000
+
+
+
+Running Scenario 32, Iteration 52/1000
+
+
+
+Running Scenario 32, Iteration 53/1000
+
+
+
+Running Scenario 32, Iteration 54/1000
+
+
+
+Running Scenario 32, Iteration 55/1000
+
+
+
+Running Scenario 32, Iteration 56/1000
+
+
+
+Running Scenario 32, Iteration 57/1000
+
+
+
+Running Scenario 32, Iteration 58/1000
+
+
+
+Running Scenario 32, Iteration 59/1000
+
+
+
+Running Scenario 32, Iteration 60/1000
+
+
+
+Running Scenario 32, Iteration 61/1000
+
+
+
+Running Scenario 32, Iteration 62/1000
+
+
+
+Running Scenario 32, Iteration 63/1000
+
+
+
+Running Scenario 32, Iteration 64/1000
+
+
+
+Running Scenario 32, Iteration 65/1000
+
+
+
+Running Scenario 32, Iteration 66/1000
+
+
+
+Running Scenario 32, Iteration 67/1000
+
+
+
+Running Scenario 32, Iteration 68/1000
+
+
+
+Running Scenario 32, Iteration 69/1000
+
+
+
+Running Scenario 32, Iteration 70/1000
+
+
+
+Running Scenario 32, Iteration 71/1000
+
+
+
+Running Scenario 32, Iteration 72/1000
+
+
+
+Running Scenario 32, Iteration 73/1000
+
+
+
+Running Scenario 32, Iteration 74/1000
+
+
+
+Running Scenario 32, Iteration 75/1000
+
+
+
+Running Scenario 32, Iteration 76/1000
+
+
+
+Running Scenario 32, Iteration 77/1000
+
+
+
+Running Scenario 32, Iteration 78/1000
+
+
+
+Running Scenario 32, Iteration 79/1000
+
+
+
+Running Scenario 32, Iteration 80/1000
+
+
+
+Running Scenario 32, Iteration 81/1000
+
+
+
+Running Scenario 32, Iteration 82/1000
+
+
+
+Running Scenario 32, Iteration 83/1000
+
+
+
+Running Scenario 32, Iteration 84/1000
+
+
+
+Running Scenario 32, Iteration 85/1000
+
+
+
+Running Scenario 32, Iteration 86/1000
+
+
+
+Running Scenario 32, Iteration 87/1000
+
+
+
+Running Scenario 32, Iteration 88/1000
+
+
+
+Running Scenario 32, Iteration 89/1000
+
+
+
+Running Scenario 32, Iteration 90/1000
+
+
+
+Running Scenario 32, Iteration 91/1000
+
+
+
+Running Scenario 32, Iteration 92/1000
+
+
+
+Running Scenario 32, Iteration 93/1000
+
+
+
+Running Scenario 32, Iteration 94/1000
+
+
+
+Running Scenario 32, Iteration 95/1000
+
+
+
+Running Scenario 32, Iteration 96/1000
+
+
+
+Running Scenario 32, Iteration 97/1000
+
+
+
+Running Scenario 32, Iteration 98/1000
+
+
+
+Running Scenario 32, Iteration 99/1000
+
+
+
+Running Scenario 32, Iteration 100/1000
+
+
+
+Running Scenario 32, Iteration 101/1000
+
+
+
+Running Scenario 32, Iteration 102/1000
+
+
+
+Running Scenario 32, Iteration 103/1000
+
+
+
+Running Scenario 32, Iteration 104/1000
+
+
+
+Running Scenario 32, Iteration 105/1000
+
+
+
+Running Scenario 32, Iteration 106/1000
+
+
+
+Running Scenario 32, Iteration 107/1000
+
+
+
+Running Scenario 32, Iteration 108/1000
+
+
+
+Running Scenario 32, Iteration 109/1000
+
+
+
+Running Scenario 32, Iteration 110/1000
+
+
+
+Running Scenario 32, Iteration 111/1000
+
+
+
+Running Scenario 32, Iteration 112/1000
+
+
+
+Running Scenario 32, Iteration 113/1000
+
+
+
+Running Scenario 32, Iteration 114/1000
+
+
+
+Running Scenario 32, Iteration 115/1000
+
+
+
+Running Scenario 32, Iteration 116/1000
+
+
+
+Running Scenario 32, Iteration 117/1000
+
+
+
+Running Scenario 32, Iteration 118/1000
+
+
+
+Running Scenario 32, Iteration 119/1000
+
+
+
+Running Scenario 32, Iteration 120/1000
+
+
+
+Running Scenario 32, Iteration 121/1000
+
+
+
+Running Scenario 32, Iteration 122/1000
+
+
+
+Running Scenario 32, Iteration 123/1000
+
+
+
+Running Scenario 32, Iteration 124/1000
+
+
+
+Running Scenario 32, Iteration 125/1000
+
+
+
+Running Scenario 32, Iteration 126/1000
+
+
+
+Running Scenario 32, Iteration 127/1000
+
+
+
+Running Scenario 32, Iteration 128/1000
+
+
+
+Running Scenario 32, Iteration 129/1000
+
+
+
+Running Scenario 32, Iteration 130/1000
+
+
+
+Running Scenario 32, Iteration 131/1000
+
+
+
+Running Scenario 32, Iteration 132/1000
+
+
+
+Running Scenario 32, Iteration 133/1000
+
+
+
+Running Scenario 32, Iteration 134/1000
+
+
+
+Running Scenario 32, Iteration 135/1000
+
+
+
+Running Scenario 32, Iteration 136/1000
+
+
+
+Running Scenario 32, Iteration 137/1000
+
+
+
+Running Scenario 32, Iteration 138/1000
+
+
+
+Running Scenario 32, Iteration 139/1000
+
+
+
+Running Scenario 32, Iteration 140/1000
+
+
+
+Running Scenario 32, Iteration 141/1000
+
+
+
+Running Scenario 32, Iteration 142/1000
+
+
+
+Running Scenario 32, Iteration 143/1000
+
+
+
+Running Scenario 32, Iteration 144/1000
+
+
+
+Running Scenario 32, Iteration 145/1000
+
+
+
+Running Scenario 32, Iteration 146/1000
+
+
+
+Running Scenario 32, Iteration 147/1000
+
+
+
+Running Scenario 32, Iteration 148/1000
+
+
+
+Running Scenario 32, Iteration 149/1000
+
+
+
+Running Scenario 32, Iteration 150/1000
+
+
+
+Running Scenario 32, Iteration 151/1000
+
+
+
+Running Scenario 32, Iteration 152/1000
+
+
+
+Running Scenario 32, Iteration 153/1000
+
+
+
+Running Scenario 32, Iteration 154/1000
+
+
+
+Running Scenario 32, Iteration 155/1000
+
+
+
+Running Scenario 32, Iteration 156/1000
+
+
+
+Running Scenario 32, Iteration 157/1000
+
+
+
+Running Scenario 32, Iteration 158/1000
+
+
+
+Running Scenario 32, Iteration 159/1000
+
+
+
+Running Scenario 32, Iteration 160/1000
+
+
+
+Running Scenario 32, Iteration 161/1000
+
+
+
+Running Scenario 32, Iteration 162/1000
+
+
+
+Running Scenario 32, Iteration 163/1000
+
+
+
+Running Scenario 32, Iteration 164/1000
+
+
+
+Running Scenario 32, Iteration 165/1000
+
+
+
+Running Scenario 32, Iteration 166/1000
+
+
+
+Running Scenario 32, Iteration 167/1000
+
+
+
+Running Scenario 32, Iteration 168/1000
+
+
+
+Running Scenario 32, Iteration 169/1000
+
+
+
+Running Scenario 32, Iteration 170/1000
+
+
+
+Running Scenario 32, Iteration 171/1000
+
+
+
+Running Scenario 32, Iteration 172/1000
+
+
+
+Running Scenario 32, Iteration 173/1000
+
+
+
+Running Scenario 32, Iteration 174/1000
+
+
+
+Running Scenario 32, Iteration 175/1000
+
+
+
+Running Scenario 32, Iteration 176/1000
+
+
+
+Running Scenario 32, Iteration 177/1000
+
+
+
+Running Scenario 32, Iteration 178/1000
+
+
+
+Running Scenario 32, Iteration 179/1000
+
+
+
+Running Scenario 32, Iteration 180/1000
+
+
+
+Running Scenario 32, Iteration 181/1000
+
+
+
+Running Scenario 32, Iteration 182/1000
+
+
+
+Running Scenario 32, Iteration 183/1000
+
+
+
+Running Scenario 32, Iteration 184/1000
+
+
+
+Running Scenario 32, Iteration 185/1000
+
+
+
+Running Scenario 32, Iteration 186/1000
+
+
+
+Running Scenario 32, Iteration 187/1000
+
+
+
+Running Scenario 32, Iteration 188/1000
+
+
+
+Running Scenario 32, Iteration 189/1000
+
+
+
+Running Scenario 32, Iteration 190/1000
+
+
+
+Running Scenario 32, Iteration 191/1000
+
+
+
+Running Scenario 32, Iteration 192/1000
+
+
+
+Running Scenario 32, Iteration 193/1000
+
+
+
+Running Scenario 32, Iteration 194/1000
+
+
+
+Running Scenario 32, Iteration 195/1000
+
+
+
+Running Scenario 32, Iteration 196/1000
+
+
+
+Running Scenario 32, Iteration 197/1000
+
+
+
+Running Scenario 32, Iteration 198/1000
+
+
+
+Running Scenario 32, Iteration 199/1000
+
+
+
+Running Scenario 32, Iteration 200/1000
+
+
+
+Running Scenario 32, Iteration 201/1000
+
+
+
+Running Scenario 32, Iteration 202/1000
+
+
+
+Running Scenario 32, Iteration 203/1000
+
+
+
+Running Scenario 32, Iteration 204/1000
+
+
+
+Running Scenario 32, Iteration 205/1000
+
+
+
+Running Scenario 32, Iteration 206/1000
+
+
+
+Running Scenario 32, Iteration 207/1000
+
+
+
+Running Scenario 32, Iteration 208/1000
+
+
+
+Running Scenario 32, Iteration 209/1000
+
+
+
+Running Scenario 32, Iteration 210/1000
+
+
+
+Running Scenario 32, Iteration 211/1000
+
+
+
+Running Scenario 32, Iteration 212/1000
+
+
+
+Running Scenario 32, Iteration 213/1000
+
+
+
+Running Scenario 32, Iteration 214/1000
+
+
+
+Running Scenario 32, Iteration 215/1000
+
+
+
+Running Scenario 32, Iteration 216/1000
+
+
+
+Running Scenario 32, Iteration 217/1000
+
+
+
+Running Scenario 32, Iteration 218/1000
+
+
+
+Running Scenario 32, Iteration 219/1000
+
+
+
+Running Scenario 32, Iteration 220/1000
+
+
+
+Running Scenario 32, Iteration 221/1000
+
+
+
+Running Scenario 32, Iteration 222/1000
+
+
+
+Running Scenario 32, Iteration 223/1000
+
+
+
+Running Scenario 32, Iteration 224/1000
+
+
+
+Running Scenario 32, Iteration 225/1000
+
+
+
+Running Scenario 32, Iteration 226/1000
+
+
+
+Running Scenario 32, Iteration 227/1000
+
+
+
+Running Scenario 32, Iteration 228/1000
+
+
+
+Running Scenario 32, Iteration 229/1000
+
+
+
+Running Scenario 32, Iteration 230/1000
+
+
+
+Running Scenario 32, Iteration 231/1000
+
+
+
+Running Scenario 32, Iteration 232/1000
+
+
+
+Running Scenario 32, Iteration 233/1000
+
+
+
+Running Scenario 32, Iteration 234/1000
+
+
+
+Running Scenario 32, Iteration 235/1000
+
+
+
+Running Scenario 32, Iteration 236/1000
+
+
+
+Running Scenario 32, Iteration 237/1000
+
+
+
+Running Scenario 32, Iteration 238/1000
+
+
+
+Running Scenario 32, Iteration 239/1000
+
+
+
+Running Scenario 32, Iteration 240/1000
+
+
+
+Running Scenario 32, Iteration 241/1000
+
+
+
+Running Scenario 32, Iteration 242/1000
+
+
+
+Running Scenario 32, Iteration 243/1000
+
+
+
+Running Scenario 32, Iteration 244/1000
+
+
+
+Running Scenario 32, Iteration 245/1000
+
+
+
+Running Scenario 32, Iteration 246/1000
+
+
+
+Running Scenario 32, Iteration 247/1000
+
+
+
+Running Scenario 32, Iteration 248/1000
+
+
+
+Running Scenario 32, Iteration 249/1000
+
+
+
+Running Scenario 32, Iteration 250/1000
+
+
+
+Running Scenario 32, Iteration 251/1000
+
+
+
+Running Scenario 32, Iteration 252/1000
+
+
+
+Running Scenario 32, Iteration 253/1000
+
+
+
+Running Scenario 32, Iteration 254/1000
+
+
+
+Running Scenario 32, Iteration 255/1000
+
+
+
+Running Scenario 32, Iteration 256/1000
+
+
+
+Running Scenario 32, Iteration 257/1000
+
+
+
+Running Scenario 32, Iteration 258/1000
+
+
+
+Running Scenario 32, Iteration 259/1000
+
+
+
+Running Scenario 32, Iteration 260/1000
+
+
+
+Running Scenario 32, Iteration 261/1000
+
+
+
+Running Scenario 32, Iteration 262/1000
+
+
+
+Running Scenario 32, Iteration 263/1000
+
+
+
+Running Scenario 32, Iteration 264/1000
+
+
+
+Running Scenario 32, Iteration 265/1000
+
+
+
+Running Scenario 32, Iteration 266/1000
+
+
+
+Running Scenario 32, Iteration 267/1000
+
+
+
+Running Scenario 32, Iteration 268/1000
+
+
+
+Running Scenario 32, Iteration 269/1000
+
+
+
+Running Scenario 32, Iteration 270/1000
+
+
+
+Running Scenario 32, Iteration 271/1000
+
+
+
+Running Scenario 32, Iteration 272/1000
+
+
+
+Running Scenario 32, Iteration 273/1000
+
+
+
+Running Scenario 32, Iteration 274/1000
+
+
+
+Running Scenario 32, Iteration 275/1000
+
+
+
+Running Scenario 32, Iteration 276/1000
+
+
+
+Running Scenario 32, Iteration 277/1000
+
+
+
+Running Scenario 32, Iteration 278/1000
+
+
+
+Running Scenario 32, Iteration 279/1000
+
+
+
+Running Scenario 32, Iteration 280/1000
+
+
+
+Running Scenario 32, Iteration 281/1000
+
+
+
+Running Scenario 32, Iteration 282/1000
+
+
+
+Running Scenario 32, Iteration 283/1000
+
+
+
+Running Scenario 32, Iteration 284/1000
+
+
+
+Running Scenario 32, Iteration 285/1000
+
+
+
+Running Scenario 32, Iteration 286/1000
+
+
+
+Running Scenario 32, Iteration 287/1000
+
+
+
+Running Scenario 32, Iteration 288/1000
+
+
+
+Running Scenario 32, Iteration 289/1000
+
+
+
+Running Scenario 32, Iteration 290/1000
+
+
+
+Running Scenario 32, Iteration 291/1000
+
+
+
+Running Scenario 32, Iteration 292/1000
+
+
+
+Running Scenario 32, Iteration 293/1000
+
+
+
+Running Scenario 32, Iteration 294/1000
+
+
+
+Running Scenario 32, Iteration 295/1000
+
+
+
+Running Scenario 32, Iteration 296/1000
+
+
+
+Running Scenario 32, Iteration 297/1000
+
+
+
+Running Scenario 32, Iteration 298/1000
+
+
+
+Running Scenario 32, Iteration 299/1000
+
+
+
+Running Scenario 32, Iteration 300/1000
+
+
+
+Running Scenario 32, Iteration 301/1000
+
+
+
+Running Scenario 32, Iteration 302/1000
+
+
+
+Running Scenario 32, Iteration 303/1000
+
+
+
+Running Scenario 32, Iteration 304/1000
+
+
+
+Running Scenario 32, Iteration 305/1000
+
+
+
+Running Scenario 32, Iteration 306/1000
+
+
+
+Running Scenario 32, Iteration 307/1000
+
+
+
+Running Scenario 32, Iteration 308/1000
+
+
+
+Running Scenario 32, Iteration 309/1000
+
+
+
+Running Scenario 32, Iteration 310/1000
+
+
+
+Running Scenario 32, Iteration 311/1000
+
+
+
+Running Scenario 32, Iteration 312/1000
+
+
+
+Running Scenario 32, Iteration 313/1000
+
+
+
+Running Scenario 32, Iteration 314/1000
+
+
+
+Running Scenario 32, Iteration 315/1000
+
+
+
+Running Scenario 32, Iteration 316/1000
+
+
+
+Running Scenario 32, Iteration 317/1000
+
+
+
+Running Scenario 32, Iteration 318/1000
+
+
+
+Running Scenario 32, Iteration 319/1000
+
+
+
+Running Scenario 32, Iteration 320/1000
+
+
+
+Running Scenario 32, Iteration 321/1000
+
+
+
+Running Scenario 32, Iteration 322/1000
+
+
+
+Running Scenario 32, Iteration 323/1000
+
+
+
+Running Scenario 32, Iteration 324/1000
+
+
+
+Running Scenario 32, Iteration 325/1000
+
+
+
+Running Scenario 32, Iteration 326/1000
+
+
+
+Running Scenario 32, Iteration 327/1000
+
+
+
+Running Scenario 32, Iteration 328/1000
+
+
+
+Running Scenario 32, Iteration 329/1000
+
+
+
+Running Scenario 32, Iteration 330/1000
+
+
+
+Running Scenario 32, Iteration 331/1000
+
+
+
+Running Scenario 32, Iteration 332/1000
+
+
+
+Running Scenario 32, Iteration 333/1000
+
+
+
+Running Scenario 32, Iteration 334/1000
+
+
+
+Running Scenario 32, Iteration 335/1000
+
+
+
+Running Scenario 32, Iteration 336/1000
+
+
+
+Running Scenario 32, Iteration 337/1000
+
+
+
+Running Scenario 32, Iteration 338/1000
+
+
+
+Running Scenario 32, Iteration 339/1000
+
+
+
+Running Scenario 32, Iteration 340/1000
+
+
+
+Running Scenario 32, Iteration 341/1000
+
+
+
+Running Scenario 32, Iteration 342/1000
+
+
+
+Running Scenario 32, Iteration 343/1000
+
+
+
+Running Scenario 32, Iteration 344/1000
+
+
+
+Running Scenario 32, Iteration 345/1000
+
+
+
+Running Scenario 32, Iteration 346/1000
+
+
+
+Running Scenario 32, Iteration 347/1000
+
+
+
+Running Scenario 32, Iteration 348/1000
+
+slurmstepd: error: *** JOB 10261619 ON bp1-compute051 CANCELLED AT 2024-09-19T15:11:32 DUE TO TIME LIMIT ***
