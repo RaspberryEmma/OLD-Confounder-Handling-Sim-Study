@@ -9,15 +9,15 @@
 # Emma Tarmey
 #
 # Started:          16/09/2024
-# Most Recent Edit: 23/09/2024
+# Most Recent Edit: 24/09/2024
 # ****************************************
 #
 #SBATCH --partition=compute
 #SBATCH --job-name=conf_sim_study
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=1
-#SBATCH --time=0-20:00:00
+#SBATCH --cpus-per-task=2
+#SBATCH --time=2-00:00:00
 #SBATCH --mem-per-cpu=20G
 #SBATCH --account=MATH033344
 
