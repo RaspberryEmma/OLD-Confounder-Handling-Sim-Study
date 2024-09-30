@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 18/09/2024
+# Most Recent Edit: 30/09/2024
 # ****************************************
 
 
@@ -175,20 +175,21 @@ r_squared_Y <- function(model          = NULL,
 }
 
 
-# Standard error of the model
-# https://people.duke.edu/~rnau/mathreg.htm
-model_SE <- function(n_rep = NULL, causal_effect_estimates = NULL, oracle_causal_effect = NULL) {
-  errors         <- causal_effect_estimates - oracle_causal_effect
-  sum_sq_errors  <- sum(errors^2)
-  model_SE_value <- sqrt(sum_sq_errors / (n_rep-1))
+# Estimated standard error of causal effect from the model
+# i.e estimate from the software
+model_SE <- function(model = NULL) {
+  model_SE_value <- (coef(summary(model))[, "Std. Error"])['X']
   return (model_SE_value)
 }
 
 
-# Standard error of the variable
-# https://en.wikipedia.org/wiki/Standard_error
-emp_SE <- function(causal_effect_estimates = NULL) {
-  return (sd(causal_effect_estimates))
+# Empirical standard error of the variable of the causal effect
+# i.e genuine measure across iterations
+emp_SE <- function(n_rep = NULL, causal_effect_estimates = NULL, oracle_causal_effect = NULL) {
+  errors        <- causal_effect_estimates - oracle_causal_effect
+  sum_sq_errors <- sum(errors^2)
+  emp_SE_value  <- sqrt(sum_sq_errors / (n_rep)) # not (n_rep - 1) in this case!
+  return (emp_SE_value)
 }
 
 
@@ -1498,7 +1499,7 @@ run <- function(graph             = NULL,
         }
         
         else if (result == "model_SE") {
-          result_value <- NaN # calculated afterwards
+          result_value <- model_SE(model = model)
         }
         
         else if (result == "emp_SE") {
@@ -1622,23 +1623,14 @@ run <- function(graph             = NULL,
     }
   }
   
-  # Standard error of model
-  if ("model_SE" %in% results_methods) {
-    for (m in 1:M) {
-      method                      <- model_methods[m]
-      causal_effect_estimates     <- model_coefs[method, 'X', ]
-      results_aggr[m, "model_SE"] <- model_SE(n_rep = n_rep,
-                                              causal_effect_estimates = causal_effect_estimates,
-                                              oracle_causal_effect    = coef_data[1, "X"])
-    }
-  }
-  
   # Empirical standard error of causal effect
   if ("emp_SE" %in% results_methods) {
     for (m in 1:M) {
-      method                    <- model_methods[m]
-      causal_effect_estimates   <- model_coefs[method, 'X', ]
-      results_aggr[m, "emp_SE"] <- emp_SE(causal_effect_estimates = causal_effect_estimates)
+      method                      <- model_methods[m]
+      causal_effect_estimates     <- model_coefs[method, 'X', ]
+      results_aggr[m, "emp_SE"]   <- emp_SE(n_rep                   = n_rep,
+                                            causal_effect_estimates = causal_effect_estimates,
+                                            oracle_causal_effect    = coef_data[1, "X"])
     }
   }
   

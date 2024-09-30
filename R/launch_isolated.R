@@ -10,9 +10,8 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 18/09/2024
+# Most Recent Edit: 30/09/2024
 # ****************************************
-
 
 # clear R memory
 rm(list=ls())
@@ -39,9 +38,6 @@ if (Sys.getenv("RSTUDIO") == "1") {
 source("simulation.R")
 source("results.R")
 
-# fix RNG for reproducibility
-set.seed(2024)
-
 # top-level simulation parameters
 n_obs_init        <- 10000 # suff high for number of confounders (!)
 n_rep_init        <- 1000
@@ -53,9 +49,9 @@ data_split_init   <- NULL
 target_r_sq_X_init     <- 0.4 # oracle R-squared value, proportion of variance in X explained by all Z's, we induce
 target_r_sq_Y_init     <- 0.6 # oracle R-squared value, proportion of variance in Y explained by X and all Z's, we induce
 
-asymmetry_init <- 200.0   # measure of asymmetry within oracle coefficients, set to 1.0 to keep them symmetric
-l_zero_X_init  <- TRUE    # force 'L' subgroups affecting X to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
-l_zero_Y_init  <- TRUE    # force 'L' subgroups affecting Y to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
+asymmetry_init <- NaN   # measure of asymmetry within oracle coefficients, set to 1.0 to keep them symmetric
+l_zero_X_init  <- TRUE  # force 'L' subgroups affecting X to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
+l_zero_Y_init  <- TRUE  # force 'L' subgroups affecting Y to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
 
 oracle_error_mean_init <- 0.00 # error term mean
 oracle_error_sd_init   <- 1.00 # error term sd
@@ -71,10 +67,15 @@ results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
                      "avg_abs_param_bias", "coverage",
                      "open_paths", "blocked_paths")
 
-#c_values <- c(4, 8)
-c_values        <- c(4, 8, 16, 32, 64, 128, 256)
+#c_values <- c(4)
+c_values <- c(128, 256)
+#c_values        <- c(4, 8, 16, 32, 64, 128, 256)
 
 for (c in c_values) {
+  # fix RNG for reproducibility per case
+  # (i.e. running c values in a diff order will not yield diff results)
+  set.seed(2024)
+  
   # initialise DAG
   coef_data      <- generate_coef_data(c             = c,
                                        target_r_sq_X = target_r_sq_X_init,
