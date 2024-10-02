@@ -1172,6 +1172,7 @@ run <- function(graph             = NULL,
                          dim      = c(M, B-1, n_rep),
                          dimnames = list(model_methods, beta_names[-c(1)], 1:n_rep) )
   
+  # run simulation repetitions
   for (i in 1:n_rep) {
     # progress
     message( paste("\n\nRunning Scenario ", c, ", Iteration ", i, "/", n_rep, "\n", sep = "") )

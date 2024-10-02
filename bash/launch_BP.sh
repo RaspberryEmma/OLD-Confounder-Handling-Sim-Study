@@ -9,17 +9,19 @@
 # Emma Tarmey
 #
 # Started:          16/09/2024
-# Most Recent Edit: 24/09/2024
+# Most Recent Edit: 02/10/2024
 # ****************************************
 #
 #SBATCH --partition=compute
 #SBATCH --job-name=conf_sim_study
-#SBATCH --nodes=4
-#SBATCH --ntasks-per-node=4
-#SBATCH --cpus-per-task=4
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=16
 #SBATCH --time=4-00:00:00
-#SBATCH --mem-per-cpu=30G
+#SBATCH --mem-per-cpu=20G
 #SBATCH --account=MATH033344
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=aa22294@bristol.ac.uk
 
 
 # Change into working directory
