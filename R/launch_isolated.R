@@ -68,7 +68,7 @@ results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
                      "open_paths", "blocked_paths")
 
 #c_values <- c(4)
-c_values <- c(128, 256)
+c_values <- c(128)
 #c_values        <- c(4, 8, 16, 32, 64, 128, 256)
 
 for (c in c_values) {
