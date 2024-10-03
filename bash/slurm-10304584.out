@@ -1,0 +1,4919 @@
+cpu-bind=MASK - bp1-compute198, task  0  0 [1034543]: mask 0xff000000ff set
+
+***** START *****
+***** Confounder Handling Simulation Study - Simulation *****
+Start Time: Wed Oct 2 16:39:42 BST 2024
+Working Directory: /user/home/aa22294/Confounder-Handling-Sim-Study/R
+JOB ID: 10304584
+SLURM ARRAY ID:
+
+Loading required package: dagitty
+Loading required package: dplyr
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Loading required package: ggcorrplot
+Loading required package: ggplot2
+Loading required package: glmnet
+Loading required package: Matrix
+Loaded glmnet 4.1-8
+Loading required package: igraph
+
+Attaching package: 'igraph'
+
+The following objects are masked from 'package:dplyr':
+
+    as_data_frame, groups, union
+
+The following object is masked from 'package:dagitty':
+
+    edges
+
+The following objects are masked from 'package:stats':
+
+    decompose, spectrum
+
+The following object is masked from 'package:base':
+
+    union
+
+Loading required package: lars
+Loaded lars 1.3
+
+Loading required package: matrixStats
+
+Attaching package: 'matrixStats'
+
+The following object is masked from 'package:dplyr':
+
+    count
+
+Loading required package: microbenchmark
+Loading required package: sjmisc
+Loading required package: tidyr
+
+Attaching package: 'tidyr'
+
+The following object is masked from 'package:sjmisc':
+
+    replace_na
+
+The following object is masked from 'package:igraph':
+
+    crossing
+
+The following objects are masked from 'package:Matrix':
+
+    expand, pack, unpack
+
+[1] "running!"
+
+
+Running Scenario 64, Iteration 1/1000
+
+
+
+Running Scenario 64, Iteration 2/1000
+
+
+
+Running Scenario 64, Iteration 3/1000
+
+
+
+Running Scenario 64, Iteration 4/1000
+
+
+
+Running Scenario 64, Iteration 5/1000
+
+
+
+Running Scenario 64, Iteration 6/1000
+
+
+
+Running Scenario 64, Iteration 7/1000
+
+
+
+Running Scenario 64, Iteration 8/1000
+
+
+
+Running Scenario 64, Iteration 9/1000
+
+
+
+Running Scenario 64, Iteration 10/1000
+
+
+
+Running Scenario 64, Iteration 11/1000
+
+
+
+Running Scenario 64, Iteration 12/1000
+
+
+
+Running Scenario 64, Iteration 13/1000
+
+
+
+Running Scenario 64, Iteration 14/1000
+
+
+
+Running Scenario 64, Iteration 15/1000
+
+
+
+Running Scenario 64, Iteration 16/1000
+
+
+
+Running Scenario 64, Iteration 17/1000
+
+
+
+Running Scenario 64, Iteration 18/1000
+
+
+
+Running Scenario 64, Iteration 19/1000
+
+
+
+Running Scenario 64, Iteration 20/1000
+
+
+
+Running Scenario 64, Iteration 21/1000
+
+
+
+Running Scenario 64, Iteration 22/1000
+
+
+
+Running Scenario 64, Iteration 23/1000
+
+
+
+Running Scenario 64, Iteration 24/1000
+
+
+
+Running Scenario 64, Iteration 25/1000
+
+
+
+Running Scenario 64, Iteration 26/1000
+
+
+
+Running Scenario 64, Iteration 27/1000
+
+
+
+Running Scenario 64, Iteration 28/1000
+
+
+
+Running Scenario 64, Iteration 29/1000
+
+
+
+Running Scenario 64, Iteration 30/1000
+
+
+
+Running Scenario 64, Iteration 31/1000
+
+
+
+Running Scenario 64, Iteration 32/1000
+
+
+
+Running Scenario 64, Iteration 33/1000
+
+
+
+Running Scenario 64, Iteration 34/1000
+
+
+
+Running Scenario 64, Iteration 35/1000
+
+
+
+Running Scenario 64, Iteration 36/1000
+
+
+
+Running Scenario 64, Iteration 37/1000
+
+
+
+Running Scenario 64, Iteration 38/1000
+
+
+
+Running Scenario 64, Iteration 39/1000
+
+
+
+Running Scenario 64, Iteration 40/1000
+
+
+
+Running Scenario 64, Iteration 41/1000
+
+
+
+Running Scenario 64, Iteration 42/1000
+
+
+
+Running Scenario 64, Iteration 43/1000
+
+
+
+Running Scenario 64, Iteration 44/1000
+
+
+
+Running Scenario 64, Iteration 45/1000
+
+
+
+Running Scenario 64, Iteration 46/1000
+
+
+
+Running Scenario 64, Iteration 47/1000
+
+
+
+Running Scenario 64, Iteration 48/1000
+
+
+
+Running Scenario 64, Iteration 49/1000
+
+
+
+Running Scenario 64, Iteration 50/1000
+
+
+
+Running Scenario 64, Iteration 51/1000
+
+
+
+Running Scenario 64, Iteration 52/1000
+
+
+
+Running Scenario 64, Iteration 53/1000
+
+
+
+Running Scenario 64, Iteration 54/1000
+
+
+
+Running Scenario 64, Iteration 55/1000
+
+
+
+Running Scenario 64, Iteration 56/1000
+
+
+
+Running Scenario 64, Iteration 57/1000
+
+
+
+Running Scenario 64, Iteration 58/1000
+
+
+
+Running Scenario 64, Iteration 59/1000
+
+
+
+Running Scenario 64, Iteration 60/1000
+
+
+
+Running Scenario 64, Iteration 61/1000
+
+
+
+Running Scenario 64, Iteration 62/1000
+
+
+
+Running Scenario 64, Iteration 63/1000
+
+
+
+Running Scenario 64, Iteration 64/1000
+
+
+
+Running Scenario 64, Iteration 65/1000
+
+
+
+Running Scenario 64, Iteration 66/1000
+
+
+
+Running Scenario 64, Iteration 67/1000
+
+
+
+Running Scenario 64, Iteration 68/1000
+
+
+
+Running Scenario 64, Iteration 69/1000
+
+
+
+Running Scenario 64, Iteration 70/1000
+
+
+
+Running Scenario 64, Iteration 71/1000
+
+
+
+Running Scenario 64, Iteration 72/1000
+
+
+
+Running Scenario 64, Iteration 73/1000
+
+
+
+Running Scenario 64, Iteration 74/1000
+
+
+
+Running Scenario 64, Iteration 75/1000
+
+
+
+Running Scenario 64, Iteration 76/1000
+
+
+
+Running Scenario 64, Iteration 77/1000
+
+
+
+Running Scenario 64, Iteration 78/1000
+
+
+
+Running Scenario 64, Iteration 79/1000
+
+
+
+Running Scenario 64, Iteration 80/1000
+
+
+
+Running Scenario 64, Iteration 81/1000
+
+
+
+Running Scenario 64, Iteration 82/1000
+
+
+
+Running Scenario 64, Iteration 83/1000
+
+
+
+Running Scenario 64, Iteration 84/1000
+
+
+
+Running Scenario 64, Iteration 85/1000
+
+
+
+Running Scenario 64, Iteration 86/1000
+
+
+
+Running Scenario 64, Iteration 87/1000
+
+
+
+Running Scenario 64, Iteration 88/1000
+
+
+
+Running Scenario 64, Iteration 89/1000
+
+
+
+Running Scenario 64, Iteration 90/1000
+
+
+
+Running Scenario 64, Iteration 91/1000
+
+
+
+Running Scenario 64, Iteration 92/1000
+
+
+
+Running Scenario 64, Iteration 93/1000
+
+
+
+Running Scenario 64, Iteration 94/1000
+
+
+
+Running Scenario 64, Iteration 95/1000
+
+
+
+Running Scenario 64, Iteration 96/1000
+
+
+
+Running Scenario 64, Iteration 97/1000
+
+
+
+Running Scenario 64, Iteration 98/1000
+
+
+
+Running Scenario 64, Iteration 99/1000
+
+
+
+Running Scenario 64, Iteration 100/1000
+
+
+
+Running Scenario 64, Iteration 101/1000
+
+
+
+Running Scenario 64, Iteration 102/1000
+
+
+
+Running Scenario 64, Iteration 103/1000
+
+
+
+Running Scenario 64, Iteration 104/1000
+
+
+
+Running Scenario 64, Iteration 105/1000
+
+
+
+Running Scenario 64, Iteration 106/1000
+
+
+
+Running Scenario 64, Iteration 107/1000
+
+
+
+Running Scenario 64, Iteration 108/1000
+
+
+
+Running Scenario 64, Iteration 109/1000
+
+
+
+Running Scenario 64, Iteration 110/1000
+
+
+
+Running Scenario 64, Iteration 111/1000
+
+
+
+Running Scenario 64, Iteration 112/1000
+
+
+
+Running Scenario 64, Iteration 113/1000
+
+
+
+Running Scenario 64, Iteration 114/1000
+
+
+
+Running Scenario 64, Iteration 115/1000
+
+
+
+Running Scenario 64, Iteration 116/1000
+
+
+
+Running Scenario 64, Iteration 117/1000
+
+
+
+Running Scenario 64, Iteration 118/1000
+
+
+
+Running Scenario 64, Iteration 119/1000
+
+
+
+Running Scenario 64, Iteration 120/1000
+
+
+
+Running Scenario 64, Iteration 121/1000
+
+
+
+Running Scenario 64, Iteration 122/1000
+
+
+
+Running Scenario 64, Iteration 123/1000
+
+
+
+Running Scenario 64, Iteration 124/1000
+
+
+
+Running Scenario 64, Iteration 125/1000
+
+
+
+Running Scenario 64, Iteration 126/1000
+
+
+
+Running Scenario 64, Iteration 127/1000
+
+
+
+Running Scenario 64, Iteration 128/1000
+
+
+
+Running Scenario 64, Iteration 129/1000
+
+
+
+Running Scenario 64, Iteration 130/1000
+
+
+
+Running Scenario 64, Iteration 131/1000
+
+
+
+Running Scenario 64, Iteration 132/1000
+
+
+
+Running Scenario 64, Iteration 133/1000
+
+
+
+Running Scenario 64, Iteration 134/1000
+
+
+
+Running Scenario 64, Iteration 135/1000
+
+
+
+Running Scenario 64, Iteration 136/1000
+
+
+
+Running Scenario 64, Iteration 137/1000
+
+
+
+Running Scenario 64, Iteration 138/1000
+
+
+
+Running Scenario 64, Iteration 139/1000
+
+
+
+Running Scenario 64, Iteration 140/1000
+
+
+
+Running Scenario 64, Iteration 141/1000
+
+
+
+Running Scenario 64, Iteration 142/1000
+
+
+
+Running Scenario 64, Iteration 143/1000
+
+
+
+Running Scenario 64, Iteration 144/1000
+
+
+
+Running Scenario 64, Iteration 145/1000
+
+
+
+Running Scenario 64, Iteration 146/1000
+
+
+
+Running Scenario 64, Iteration 147/1000
+
+
+
+Running Scenario 64, Iteration 148/1000
+
+
+
+Running Scenario 64, Iteration 149/1000
+
+
+
+Running Scenario 64, Iteration 150/1000
+
+
+
+Running Scenario 64, Iteration 151/1000
+
+
+
+Running Scenario 64, Iteration 152/1000
+
+
+
+Running Scenario 64, Iteration 153/1000
+
+
+
+Running Scenario 64, Iteration 154/1000
+
+
+
+Running Scenario 64, Iteration 155/1000
+
+
+
+Running Scenario 64, Iteration 156/1000
+
+
+
+Running Scenario 64, Iteration 157/1000
+
+
+
+Running Scenario 64, Iteration 158/1000
+
+
+
+Running Scenario 64, Iteration 159/1000
+
+
+
+Running Scenario 64, Iteration 160/1000
+
+
+
+Running Scenario 64, Iteration 161/1000
+
+
+
+Running Scenario 64, Iteration 162/1000
+
+
+
+Running Scenario 64, Iteration 163/1000
+
+
+
+Running Scenario 64, Iteration 164/1000
+
+
+
+Running Scenario 64, Iteration 165/1000
+
+
+
+Running Scenario 64, Iteration 166/1000
+
+
+
+Running Scenario 64, Iteration 167/1000
+
+
+
+Running Scenario 64, Iteration 168/1000
+
+
+
+Running Scenario 64, Iteration 169/1000
+
+
+
+Running Scenario 64, Iteration 170/1000
+
+
+
+Running Scenario 64, Iteration 171/1000
+
+
+
+Running Scenario 64, Iteration 172/1000
+
+
+
+Running Scenario 64, Iteration 173/1000
+
+
+
+Running Scenario 64, Iteration 174/1000
+
+
+
+Running Scenario 64, Iteration 175/1000
+
+
+
+Running Scenario 64, Iteration 176/1000
+
+
+
+Running Scenario 64, Iteration 177/1000
+
+
+
+Running Scenario 64, Iteration 178/1000
+
+
+
+Running Scenario 64, Iteration 179/1000
+
+
+
+Running Scenario 64, Iteration 180/1000
+
+
+
+Running Scenario 64, Iteration 181/1000
+
+
+
+Running Scenario 64, Iteration 182/1000
+
+
+
+Running Scenario 64, Iteration 183/1000
+
+
+
+Running Scenario 64, Iteration 184/1000
+
+
+
+Running Scenario 64, Iteration 185/1000
+
+
+
+Running Scenario 64, Iteration 186/1000
+
+
+
+Running Scenario 64, Iteration 187/1000
+
+
+
+Running Scenario 64, Iteration 188/1000
+
+
+
+Running Scenario 64, Iteration 189/1000
+
+
+
+Running Scenario 64, Iteration 190/1000
+
+
+
+Running Scenario 64, Iteration 191/1000
+
+
+
+Running Scenario 64, Iteration 192/1000
+
+
+
+Running Scenario 64, Iteration 193/1000
+
+
+
+Running Scenario 64, Iteration 194/1000
+
+
+
+Running Scenario 64, Iteration 195/1000
+
+
+
+Running Scenario 64, Iteration 196/1000
+
+
+
+Running Scenario 64, Iteration 197/1000
+
+
+
+Running Scenario 64, Iteration 198/1000
+
+
+
+Running Scenario 64, Iteration 199/1000
+
+
+
+Running Scenario 64, Iteration 200/1000
+
+
+
+Running Scenario 64, Iteration 201/1000
+
+
+
+Running Scenario 64, Iteration 202/1000
+
+
+
+Running Scenario 64, Iteration 203/1000
+
+
+
+Running Scenario 64, Iteration 204/1000
+
+
+
+Running Scenario 64, Iteration 205/1000
+
+
+
+Running Scenario 64, Iteration 206/1000
+
+
+
+Running Scenario 64, Iteration 207/1000
+
+
+
+Running Scenario 64, Iteration 208/1000
+
+
+
+Running Scenario 64, Iteration 209/1000
+
+
+
+Running Scenario 64, Iteration 210/1000
+
+
+
+Running Scenario 64, Iteration 211/1000
+
+
+
+Running Scenario 64, Iteration 212/1000
+
+
+
+Running Scenario 64, Iteration 213/1000
+
+
+
+Running Scenario 64, Iteration 214/1000
+
+
+
+Running Scenario 64, Iteration 215/1000
+
+
+
+Running Scenario 64, Iteration 216/1000
+
+
+
+Running Scenario 64, Iteration 217/1000
+
+
+
+Running Scenario 64, Iteration 218/1000
+
+
+
+Running Scenario 64, Iteration 219/1000
+
+
+
+Running Scenario 64, Iteration 220/1000
+
+
+
+Running Scenario 64, Iteration 221/1000
+
+
+
+Running Scenario 64, Iteration 222/1000
+
+
+
+Running Scenario 64, Iteration 223/1000
+
+
+
+Running Scenario 64, Iteration 224/1000
+
+
+
+Running Scenario 64, Iteration 225/1000
+
+
+
+Running Scenario 64, Iteration 226/1000
+
+
+
+Running Scenario 64, Iteration 227/1000
+
+
+
+Running Scenario 64, Iteration 228/1000
+
+
+
+Running Scenario 64, Iteration 229/1000
+
+
+
+Running Scenario 64, Iteration 230/1000
+
+
+
+Running Scenario 64, Iteration 231/1000
+
+
+
+Running Scenario 64, Iteration 232/1000
+
+
+
+Running Scenario 64, Iteration 233/1000
+
+
+
+Running Scenario 64, Iteration 234/1000
+
+
+
+Running Scenario 64, Iteration 235/1000
+
+
+
+Running Scenario 64, Iteration 236/1000
+
+
+
+Running Scenario 64, Iteration 237/1000
+
+
+
+Running Scenario 64, Iteration 238/1000
+
+
+
+Running Scenario 64, Iteration 239/1000
+
+
+
+Running Scenario 64, Iteration 240/1000
+
+
+
+Running Scenario 64, Iteration 241/1000
+
+
+
+Running Scenario 64, Iteration 242/1000
+
+
+
+Running Scenario 64, Iteration 243/1000
+
+
+
+Running Scenario 64, Iteration 244/1000
+
+
+
+Running Scenario 64, Iteration 245/1000
+
+
+
+Running Scenario 64, Iteration 246/1000
+
+
+
+Running Scenario 64, Iteration 247/1000
+
+
+
+Running Scenario 64, Iteration 248/1000
+
+
+
+Running Scenario 64, Iteration 249/1000
+
+
+
+Running Scenario 64, Iteration 250/1000
+
+
+
+Running Scenario 64, Iteration 251/1000
+
+
+
+Running Scenario 64, Iteration 252/1000
+
+
+
+Running Scenario 64, Iteration 253/1000
+
+
+
+Running Scenario 64, Iteration 254/1000
+
+
+
+Running Scenario 64, Iteration 255/1000
+
+
+
+Running Scenario 64, Iteration 256/1000
+
+
+
+Running Scenario 64, Iteration 257/1000
+
+
+
+Running Scenario 64, Iteration 258/1000
+
+
+
+Running Scenario 64, Iteration 259/1000
+
+
+
+Running Scenario 64, Iteration 260/1000
+
+
+
+Running Scenario 64, Iteration 261/1000
+
+
+
+Running Scenario 64, Iteration 262/1000
+
+
+
+Running Scenario 64, Iteration 263/1000
+
+
+
+Running Scenario 64, Iteration 264/1000
+
+
+
+Running Scenario 64, Iteration 265/1000
+
+
+
+Running Scenario 64, Iteration 266/1000
+
+
+
+Running Scenario 64, Iteration 267/1000
+
+
+
+Running Scenario 64, Iteration 268/1000
+
+
+
+Running Scenario 64, Iteration 269/1000
+
+
+
+Running Scenario 64, Iteration 270/1000
+
+
+
+Running Scenario 64, Iteration 271/1000
+
+
+
+Running Scenario 64, Iteration 272/1000
+
+
+
+Running Scenario 64, Iteration 273/1000
+
+
+
+Running Scenario 64, Iteration 274/1000
+
+
+
+Running Scenario 64, Iteration 275/1000
+
+
+
+Running Scenario 64, Iteration 276/1000
+
+
+
+Running Scenario 64, Iteration 277/1000
+
+
+
+Running Scenario 64, Iteration 278/1000
+
+
+
+Running Scenario 64, Iteration 279/1000
+
+
+
+Running Scenario 64, Iteration 280/1000
+
+
+
+Running Scenario 64, Iteration 281/1000
+
+
+
+Running Scenario 64, Iteration 282/1000
+
+
+
+Running Scenario 64, Iteration 283/1000
+
+
+
+Running Scenario 64, Iteration 284/1000
+
+
+
+Running Scenario 64, Iteration 285/1000
+
+
+
+Running Scenario 64, Iteration 286/1000
+
+
+
+Running Scenario 64, Iteration 287/1000
+
+
+
+Running Scenario 64, Iteration 288/1000
+
+
+
+Running Scenario 64, Iteration 289/1000
+
+
+
+Running Scenario 64, Iteration 290/1000
+
+
+
+Running Scenario 64, Iteration 291/1000
+
+
+
+Running Scenario 64, Iteration 292/1000
+
+
+
+Running Scenario 64, Iteration 293/1000
+
+
+
+Running Scenario 64, Iteration 294/1000
+
+
+
+Running Scenario 64, Iteration 295/1000
+
+
+
+Running Scenario 64, Iteration 296/1000
+
+
+
+Running Scenario 64, Iteration 297/1000
+
+
+
+Running Scenario 64, Iteration 298/1000
+
+
+
+Running Scenario 64, Iteration 299/1000
+
+
+
+Running Scenario 64, Iteration 300/1000
+
+
+
+Running Scenario 64, Iteration 301/1000
+
+
+
+Running Scenario 64, Iteration 302/1000
+
+
+
+Running Scenario 64, Iteration 303/1000
+
+
+
+Running Scenario 64, Iteration 304/1000
+
+
+
+Running Scenario 64, Iteration 305/1000
+
+
+
+Running Scenario 64, Iteration 306/1000
+
+
+
+Running Scenario 64, Iteration 307/1000
+
+
+
+Running Scenario 64, Iteration 308/1000
+
+
+
+Running Scenario 64, Iteration 309/1000
+
+
+
+Running Scenario 64, Iteration 310/1000
+
+
+
+Running Scenario 64, Iteration 311/1000
+
+
+
+Running Scenario 64, Iteration 312/1000
+
+
+
+Running Scenario 64, Iteration 313/1000
+
+
+
+Running Scenario 64, Iteration 314/1000
+
+
+
+Running Scenario 64, Iteration 315/1000
+
+
+
+Running Scenario 64, Iteration 316/1000
+
+
+
+Running Scenario 64, Iteration 317/1000
+
+
+
+Running Scenario 64, Iteration 318/1000
+
+
+
+Running Scenario 64, Iteration 319/1000
+
+
+
+Running Scenario 64, Iteration 320/1000
+
+
+
+Running Scenario 64, Iteration 321/1000
+
+
+
+Running Scenario 64, Iteration 322/1000
+
+
+
+Running Scenario 64, Iteration 323/1000
+
+
+
+Running Scenario 64, Iteration 324/1000
+
+
+
+Running Scenario 64, Iteration 325/1000
+
+
+
+Running Scenario 64, Iteration 326/1000
+
+
+
+Running Scenario 64, Iteration 327/1000
+
+
+
+Running Scenario 64, Iteration 328/1000
+
+
+
+Running Scenario 64, Iteration 329/1000
+
+
+
+Running Scenario 64, Iteration 330/1000
+
+
+
+Running Scenario 64, Iteration 331/1000
+
+
+
+Running Scenario 64, Iteration 332/1000
+
+
+
+Running Scenario 64, Iteration 333/1000
+
+
+
+Running Scenario 64, Iteration 334/1000
+
+
+
+Running Scenario 64, Iteration 335/1000
+
+
+
+Running Scenario 64, Iteration 336/1000
+
+
+
+Running Scenario 64, Iteration 337/1000
+
+
+
+Running Scenario 64, Iteration 338/1000
+
+
+
+Running Scenario 64, Iteration 339/1000
+
+
+
+Running Scenario 64, Iteration 340/1000
+
+
+
+Running Scenario 64, Iteration 341/1000
+
+
+
+Running Scenario 64, Iteration 342/1000
+
+
+
+Running Scenario 64, Iteration 343/1000
+
+
+
+Running Scenario 64, Iteration 344/1000
+
+
+
+Running Scenario 64, Iteration 345/1000
+
+
+
+Running Scenario 64, Iteration 346/1000
+
+
+
+Running Scenario 64, Iteration 347/1000
+
+
+
+Running Scenario 64, Iteration 348/1000
+
+
+
+Running Scenario 64, Iteration 349/1000
+
+
+
+Running Scenario 64, Iteration 350/1000
+
+
+
+Running Scenario 64, Iteration 351/1000
+
+
+
+Running Scenario 64, Iteration 352/1000
+
+
+
+Running Scenario 64, Iteration 353/1000
+
+
+
+Running Scenario 64, Iteration 354/1000
+
+
+
+Running Scenario 64, Iteration 355/1000
+
+
+
+Running Scenario 64, Iteration 356/1000
+
+
+
+Running Scenario 64, Iteration 357/1000
+
+
+
+Running Scenario 64, Iteration 358/1000
+
+
+
+Running Scenario 64, Iteration 359/1000
+
+
+
+Running Scenario 64, Iteration 360/1000
+
+
+
+Running Scenario 64, Iteration 361/1000
+
+
+
+Running Scenario 64, Iteration 362/1000
+
+
+
+Running Scenario 64, Iteration 363/1000
+
+
+
+Running Scenario 64, Iteration 364/1000
+
+
+
+Running Scenario 64, Iteration 365/1000
+
+
+
+Running Scenario 64, Iteration 366/1000
+
+
+
+Running Scenario 64, Iteration 367/1000
+
+
+
+Running Scenario 64, Iteration 368/1000
+
+
+
+Running Scenario 64, Iteration 369/1000
+
+
+
+Running Scenario 64, Iteration 370/1000
+
+
+
+Running Scenario 64, Iteration 371/1000
+
+
+
+Running Scenario 64, Iteration 372/1000
+
+
+
+Running Scenario 64, Iteration 373/1000
+
+
+
+Running Scenario 64, Iteration 374/1000
+
+
+
+Running Scenario 64, Iteration 375/1000
+
+
+
+Running Scenario 64, Iteration 376/1000
+
+
+
+Running Scenario 64, Iteration 377/1000
+
+
+
+Running Scenario 64, Iteration 378/1000
+
+
+
+Running Scenario 64, Iteration 379/1000
+
+
+
+Running Scenario 64, Iteration 380/1000
+
+
+
+Running Scenario 64, Iteration 381/1000
+
+
+
+Running Scenario 64, Iteration 382/1000
+
+
+
+Running Scenario 64, Iteration 383/1000
+
+
+
+Running Scenario 64, Iteration 384/1000
+
+
+
+Running Scenario 64, Iteration 385/1000
+
+
+
+Running Scenario 64, Iteration 386/1000
+
+
+
+Running Scenario 64, Iteration 387/1000
+
+
+
+Running Scenario 64, Iteration 388/1000
+
+
+
+Running Scenario 64, Iteration 389/1000
+
+
+
+Running Scenario 64, Iteration 390/1000
+
+
+
+Running Scenario 64, Iteration 391/1000
+
+
+
+Running Scenario 64, Iteration 392/1000
+
+
+
+Running Scenario 64, Iteration 393/1000
+
+
+
+Running Scenario 64, Iteration 394/1000
+
+
+
+Running Scenario 64, Iteration 395/1000
+
+
+
+Running Scenario 64, Iteration 396/1000
+
+
+
+Running Scenario 64, Iteration 397/1000
+
+
+
+Running Scenario 64, Iteration 398/1000
+
+
+
+Running Scenario 64, Iteration 399/1000
+
+
+
+Running Scenario 64, Iteration 400/1000
+
+
+
+Running Scenario 64, Iteration 401/1000
+
+
+
+Running Scenario 64, Iteration 402/1000
+
+
+
+Running Scenario 64, Iteration 403/1000
+
+
+
+Running Scenario 64, Iteration 404/1000
+
+
+
+Running Scenario 64, Iteration 405/1000
+
+
+
+Running Scenario 64, Iteration 406/1000
+
+
+
+Running Scenario 64, Iteration 407/1000
+
+
+
+Running Scenario 64, Iteration 408/1000
+
+
+
+Running Scenario 64, Iteration 409/1000
+
+
+
+Running Scenario 64, Iteration 410/1000
+
+
+
+Running Scenario 64, Iteration 411/1000
+
+
+
+Running Scenario 64, Iteration 412/1000
+
+
+
+Running Scenario 64, Iteration 413/1000
+
+
+
+Running Scenario 64, Iteration 414/1000
+
+
+
+Running Scenario 64, Iteration 415/1000
+
+
+
+Running Scenario 64, Iteration 416/1000
+
+
+
+Running Scenario 64, Iteration 417/1000
+
+
+
+Running Scenario 64, Iteration 418/1000
+
+
+
+Running Scenario 64, Iteration 419/1000
+
+
+
+Running Scenario 64, Iteration 420/1000
+
+
+
+Running Scenario 64, Iteration 421/1000
+
+
+
+Running Scenario 64, Iteration 422/1000
+
+
+
+Running Scenario 64, Iteration 423/1000
+
+
+
+Running Scenario 64, Iteration 424/1000
+
+
+
+Running Scenario 64, Iteration 425/1000
+
+
+
+Running Scenario 64, Iteration 426/1000
+
+
+
+Running Scenario 64, Iteration 427/1000
+
+
+
+Running Scenario 64, Iteration 428/1000
+
+
+
+Running Scenario 64, Iteration 429/1000
+
+
+
+Running Scenario 64, Iteration 430/1000
+
+
+
+Running Scenario 64, Iteration 431/1000
+
+
+
+Running Scenario 64, Iteration 432/1000
+
+
+
+Running Scenario 64, Iteration 433/1000
+
+
+
+Running Scenario 64, Iteration 434/1000
+
+
+
+Running Scenario 64, Iteration 435/1000
+
+
+
+Running Scenario 64, Iteration 436/1000
+
+
+
+Running Scenario 64, Iteration 437/1000
+
+
+
+Running Scenario 64, Iteration 438/1000
+
+
+
+Running Scenario 64, Iteration 439/1000
+
+
+
+Running Scenario 64, Iteration 440/1000
+
+
+
+Running Scenario 64, Iteration 441/1000
+
+
+
+Running Scenario 64, Iteration 442/1000
+
+
+
+Running Scenario 64, Iteration 443/1000
+
+
+
+Running Scenario 64, Iteration 444/1000
+
+
+
+Running Scenario 64, Iteration 445/1000
+
+
+
+Running Scenario 64, Iteration 446/1000
+
+
+
+Running Scenario 64, Iteration 447/1000
+
+
+
+Running Scenario 64, Iteration 448/1000
+
+
+
+Running Scenario 64, Iteration 449/1000
+
+
+
+Running Scenario 64, Iteration 450/1000
+
+
+
+Running Scenario 64, Iteration 451/1000
+
+
+
+Running Scenario 64, Iteration 452/1000
+
+
+
+Running Scenario 64, Iteration 453/1000
+
+
+
+Running Scenario 64, Iteration 454/1000
+
+
+
+Running Scenario 64, Iteration 455/1000
+
+
+
+Running Scenario 64, Iteration 456/1000
+
+
+
+Running Scenario 64, Iteration 457/1000
+
+
+
+Running Scenario 64, Iteration 458/1000
+
+
+
+Running Scenario 64, Iteration 459/1000
+
+
+
+Running Scenario 64, Iteration 460/1000
+
+
+
+Running Scenario 64, Iteration 461/1000
+
+
+
+Running Scenario 64, Iteration 462/1000
+
+
+
+Running Scenario 64, Iteration 463/1000
+
+
+
+Running Scenario 64, Iteration 464/1000
+
+
+
+Running Scenario 64, Iteration 465/1000
+
+
+
+Running Scenario 64, Iteration 466/1000
+
+
+
+Running Scenario 64, Iteration 467/1000
+
+
+
+Running Scenario 64, Iteration 468/1000
+
+
+
+Running Scenario 64, Iteration 469/1000
+
+
+
+Running Scenario 64, Iteration 470/1000
+
+
+
+Running Scenario 64, Iteration 471/1000
+
+
+
+Running Scenario 64, Iteration 472/1000
+
+
+
+Running Scenario 64, Iteration 473/1000
+
+
+
+Running Scenario 64, Iteration 474/1000
+
+
+
+Running Scenario 64, Iteration 475/1000
+
+
+
+Running Scenario 64, Iteration 476/1000
+
+
+
+Running Scenario 64, Iteration 477/1000
+
+
+
+Running Scenario 64, Iteration 478/1000
+
+
+
+Running Scenario 64, Iteration 479/1000
+
+
+
+Running Scenario 64, Iteration 480/1000
+
+
+
+Running Scenario 64, Iteration 481/1000
+
+
+
+Running Scenario 64, Iteration 482/1000
+
+
+
+Running Scenario 64, Iteration 483/1000
+
+
+
+Running Scenario 64, Iteration 484/1000
+
+
+
+Running Scenario 64, Iteration 485/1000
+
+
+
+Running Scenario 64, Iteration 486/1000
+
+
+
+Running Scenario 64, Iteration 487/1000
+
+
+
+Running Scenario 64, Iteration 488/1000
+
+
+
+Running Scenario 64, Iteration 489/1000
+
+
+
+Running Scenario 64, Iteration 490/1000
+
+
+
+Running Scenario 64, Iteration 491/1000
+
+
+
+Running Scenario 64, Iteration 492/1000
+
+
+
+Running Scenario 64, Iteration 493/1000
+
+
+
+Running Scenario 64, Iteration 494/1000
+
+
+
+Running Scenario 64, Iteration 495/1000
+
+
+
+Running Scenario 64, Iteration 496/1000
+
+
+
+Running Scenario 64, Iteration 497/1000
+
+
+
+Running Scenario 64, Iteration 498/1000
+
+
+
+Running Scenario 64, Iteration 499/1000
+
+
+
+Running Scenario 64, Iteration 500/1000
+
+
+
+Running Scenario 64, Iteration 501/1000
+
+
+
+Running Scenario 64, Iteration 502/1000
+
+
+
+Running Scenario 64, Iteration 503/1000
+
+
+
+Running Scenario 64, Iteration 504/1000
+
+
+
+Running Scenario 64, Iteration 505/1000
+
+
+
+Running Scenario 64, Iteration 506/1000
+
+
+
+Running Scenario 64, Iteration 507/1000
+
+
+
+Running Scenario 64, Iteration 508/1000
+
+
+
+Running Scenario 64, Iteration 509/1000
+
+
+
+Running Scenario 64, Iteration 510/1000
+
+
+
+Running Scenario 64, Iteration 511/1000
+
+
+
+Running Scenario 64, Iteration 512/1000
+
+
+
+Running Scenario 64, Iteration 513/1000
+
+
+
+Running Scenario 64, Iteration 514/1000
+
+
+
+Running Scenario 64, Iteration 515/1000
+
+
+
+Running Scenario 64, Iteration 516/1000
+
+
+
+Running Scenario 64, Iteration 517/1000
+
+
+
+Running Scenario 64, Iteration 518/1000
+
+
+
+Running Scenario 64, Iteration 519/1000
+
+
+
+Running Scenario 64, Iteration 520/1000
+
+
+
+Running Scenario 64, Iteration 521/1000
+
+
+
+Running Scenario 64, Iteration 522/1000
+
+
+
+Running Scenario 64, Iteration 523/1000
+
+
+
+Running Scenario 64, Iteration 524/1000
+
+
+
+Running Scenario 64, Iteration 525/1000
+
+
+
+Running Scenario 64, Iteration 526/1000
+
+
+
+Running Scenario 64, Iteration 527/1000
+
+
+
+Running Scenario 64, Iteration 528/1000
+
+
+
+Running Scenario 64, Iteration 529/1000
+
+
+
+Running Scenario 64, Iteration 530/1000
+
+
+
+Running Scenario 64, Iteration 531/1000
+
+
+
+Running Scenario 64, Iteration 532/1000
+
+
+
+Running Scenario 64, Iteration 533/1000
+
+
+
+Running Scenario 64, Iteration 534/1000
+
+
+
+Running Scenario 64, Iteration 535/1000
+
+
+
+Running Scenario 64, Iteration 536/1000
+
+
+
+Running Scenario 64, Iteration 537/1000
+
+
+
+Running Scenario 64, Iteration 538/1000
+
+
+
+Running Scenario 64, Iteration 539/1000
+
+
+
+Running Scenario 64, Iteration 540/1000
+
+
+
+Running Scenario 64, Iteration 541/1000
+
+
+
+Running Scenario 64, Iteration 542/1000
+
+
+
+Running Scenario 64, Iteration 543/1000
+
+
+
+Running Scenario 64, Iteration 544/1000
+
+
+
+Running Scenario 64, Iteration 545/1000
+
+
+
+Running Scenario 64, Iteration 546/1000
+
+
+
+Running Scenario 64, Iteration 547/1000
+
+
+
+Running Scenario 64, Iteration 548/1000
+
+
+
+Running Scenario 64, Iteration 549/1000
+
+
+
+Running Scenario 64, Iteration 550/1000
+
+
+
+Running Scenario 64, Iteration 551/1000
+
+
+
+Running Scenario 64, Iteration 552/1000
+
+
+
+Running Scenario 64, Iteration 553/1000
+
+
+
+Running Scenario 64, Iteration 554/1000
+
+
+
+Running Scenario 64, Iteration 555/1000
+
+
+
+Running Scenario 64, Iteration 556/1000
+
+
+
+Running Scenario 64, Iteration 557/1000
+
+
+
+Running Scenario 64, Iteration 558/1000
+
+
+
+Running Scenario 64, Iteration 559/1000
+
+
+
+Running Scenario 64, Iteration 560/1000
+
+
+
+Running Scenario 64, Iteration 561/1000
+
+
+
+Running Scenario 64, Iteration 562/1000
+
+
+
+Running Scenario 64, Iteration 563/1000
+
+
+
+Running Scenario 64, Iteration 564/1000
+
+
+
+Running Scenario 64, Iteration 565/1000
+
+
+
+Running Scenario 64, Iteration 566/1000
+
+
+
+Running Scenario 64, Iteration 567/1000
+
+
+
+Running Scenario 64, Iteration 568/1000
+
+
+
+Running Scenario 64, Iteration 569/1000
+
+
+
+Running Scenario 64, Iteration 570/1000
+
+
+
+Running Scenario 64, Iteration 571/1000
+
+
+
+Running Scenario 64, Iteration 572/1000
+
+
+
+Running Scenario 64, Iteration 573/1000
+
+
+
+Running Scenario 64, Iteration 574/1000
+
+
+
+Running Scenario 64, Iteration 575/1000
+
+
+
+Running Scenario 64, Iteration 576/1000
+
+
+
+Running Scenario 64, Iteration 577/1000
+
+
+
+Running Scenario 64, Iteration 578/1000
+
+
+
+Running Scenario 64, Iteration 579/1000
+
+
+
+Running Scenario 64, Iteration 580/1000
+
+
+
+Running Scenario 64, Iteration 581/1000
+
+
+
+Running Scenario 64, Iteration 582/1000
+
+
+
+Running Scenario 64, Iteration 583/1000
+
+
+
+Running Scenario 64, Iteration 584/1000
+
+
+
+Running Scenario 64, Iteration 585/1000
+
+
+
+Running Scenario 64, Iteration 586/1000
+
+
+
+Running Scenario 64, Iteration 587/1000
+
+
+
+Running Scenario 64, Iteration 588/1000
+
+
+
+Running Scenario 64, Iteration 589/1000
+
+
+
+Running Scenario 64, Iteration 590/1000
+
+
+
+Running Scenario 64, Iteration 591/1000
+
+
+
+Running Scenario 64, Iteration 592/1000
+
+
+
+Running Scenario 64, Iteration 593/1000
+
+
+
+Running Scenario 64, Iteration 594/1000
+
+
+
+Running Scenario 64, Iteration 595/1000
+
+
+
+Running Scenario 64, Iteration 596/1000
+
+
+
+Running Scenario 64, Iteration 597/1000
+
+
+
+Running Scenario 64, Iteration 598/1000
+
+
+
+Running Scenario 64, Iteration 599/1000
+
+
+
+Running Scenario 64, Iteration 600/1000
+
+
+
+Running Scenario 64, Iteration 601/1000
+
+
+
+Running Scenario 64, Iteration 602/1000
+
+
+
+Running Scenario 64, Iteration 603/1000
+
+
+
+Running Scenario 64, Iteration 604/1000
+
+
+
+Running Scenario 64, Iteration 605/1000
+
+
+
+Running Scenario 64, Iteration 606/1000
+
+
+
+Running Scenario 64, Iteration 607/1000
+
+
+
+Running Scenario 64, Iteration 608/1000
+
+
+
+Running Scenario 64, Iteration 609/1000
+
+
+
+Running Scenario 64, Iteration 610/1000
+
+
+
+Running Scenario 64, Iteration 611/1000
+
+
+
+Running Scenario 64, Iteration 612/1000
+
+
+
+Running Scenario 64, Iteration 613/1000
+
+
+
+Running Scenario 64, Iteration 614/1000
+
+
+
+Running Scenario 64, Iteration 615/1000
+
+
+
+Running Scenario 64, Iteration 616/1000
+
+
+
+Running Scenario 64, Iteration 617/1000
+
+
+
+Running Scenario 64, Iteration 618/1000
+
+
+
+Running Scenario 64, Iteration 619/1000
+
+
+
+Running Scenario 64, Iteration 620/1000
+
+
+
+Running Scenario 64, Iteration 621/1000
+
+
+
+Running Scenario 64, Iteration 622/1000
+
+
+
+Running Scenario 64, Iteration 623/1000
+
+
+
+Running Scenario 64, Iteration 624/1000
+
+
+
+Running Scenario 64, Iteration 625/1000
+
+
+
+Running Scenario 64, Iteration 626/1000
+
+
+
+Running Scenario 64, Iteration 627/1000
+
+
+
+Running Scenario 64, Iteration 628/1000
+
+
+
+Running Scenario 64, Iteration 629/1000
+
+
+
+Running Scenario 64, Iteration 630/1000
+
+
+
+Running Scenario 64, Iteration 631/1000
+
+
+
+Running Scenario 64, Iteration 632/1000
+
+
+
+Running Scenario 64, Iteration 633/1000
+
+
+
+Running Scenario 64, Iteration 634/1000
+
+
+
+Running Scenario 64, Iteration 635/1000
+
+
+
+Running Scenario 64, Iteration 636/1000
+
+
+
+Running Scenario 64, Iteration 637/1000
+
+
+
+Running Scenario 64, Iteration 638/1000
+
+
+
+Running Scenario 64, Iteration 639/1000
+
+
+
+Running Scenario 64, Iteration 640/1000
+
+
+
+Running Scenario 64, Iteration 641/1000
+
+
+
+Running Scenario 64, Iteration 642/1000
+
+
+
+Running Scenario 64, Iteration 643/1000
+
+
+
+Running Scenario 64, Iteration 644/1000
+
+
+
+Running Scenario 64, Iteration 645/1000
+
+
+
+Running Scenario 64, Iteration 646/1000
+
+
+
+Running Scenario 64, Iteration 647/1000
+
+
+
+Running Scenario 64, Iteration 648/1000
+
+
+
+Running Scenario 64, Iteration 649/1000
+
+
+
+Running Scenario 64, Iteration 650/1000
+
+
+
+Running Scenario 64, Iteration 651/1000
+
+
+
+Running Scenario 64, Iteration 652/1000
+
+
+
+Running Scenario 64, Iteration 653/1000
+
+
+
+Running Scenario 64, Iteration 654/1000
+
+
+
+Running Scenario 64, Iteration 655/1000
+
+
+
+Running Scenario 64, Iteration 656/1000
+
+
+
+Running Scenario 64, Iteration 657/1000
+
+
+
+Running Scenario 64, Iteration 658/1000
+
+
+
+Running Scenario 64, Iteration 659/1000
+
+
+
+Running Scenario 64, Iteration 660/1000
+
+
+
+Running Scenario 64, Iteration 661/1000
+
+
+
+Running Scenario 64, Iteration 662/1000
+
+
+
+Running Scenario 64, Iteration 663/1000
+
+
+
+Running Scenario 64, Iteration 664/1000
+
+
+
+Running Scenario 64, Iteration 665/1000
+
+
+
+Running Scenario 64, Iteration 666/1000
+
+
+
+Running Scenario 64, Iteration 667/1000
+
+
+
+Running Scenario 64, Iteration 668/1000
+
+
+
+Running Scenario 64, Iteration 669/1000
+
+
+
+Running Scenario 64, Iteration 670/1000
+
+
+
+Running Scenario 64, Iteration 671/1000
+
+
+
+Running Scenario 64, Iteration 672/1000
+
+
+
+Running Scenario 64, Iteration 673/1000
+
+
+
+Running Scenario 64, Iteration 674/1000
+
+
+
+Running Scenario 64, Iteration 675/1000
+
+
+
+Running Scenario 64, Iteration 676/1000
+
+
+
+Running Scenario 64, Iteration 677/1000
+
+
+
+Running Scenario 64, Iteration 678/1000
+
+
+
+Running Scenario 64, Iteration 679/1000
+
+
+
+Running Scenario 64, Iteration 680/1000
+
+
+
+Running Scenario 64, Iteration 681/1000
+
+
+
+Running Scenario 64, Iteration 682/1000
+
+
+
+Running Scenario 64, Iteration 683/1000
+
+
+
+Running Scenario 64, Iteration 684/1000
+
+
+
+Running Scenario 64, Iteration 685/1000
+
+
+
+Running Scenario 64, Iteration 686/1000
+
+
+
+Running Scenario 64, Iteration 687/1000
+
+
+
+Running Scenario 64, Iteration 688/1000
+
+
+
+Running Scenario 64, Iteration 689/1000
+
+
+
+Running Scenario 64, Iteration 690/1000
+
+
+
+Running Scenario 64, Iteration 691/1000
+
+
+
+Running Scenario 64, Iteration 692/1000
+
+
+
+Running Scenario 64, Iteration 693/1000
+
+
+
+Running Scenario 64, Iteration 694/1000
+
+
+
+Running Scenario 64, Iteration 695/1000
+
+
+
+Running Scenario 64, Iteration 696/1000
+
+
+
+Running Scenario 64, Iteration 697/1000
+
+
+
+Running Scenario 64, Iteration 698/1000
+
+
+
+Running Scenario 64, Iteration 699/1000
+
+
+
+Running Scenario 64, Iteration 700/1000
+
+
+
+Running Scenario 64, Iteration 701/1000
+
+
+
+Running Scenario 64, Iteration 702/1000
+
+
+
+Running Scenario 64, Iteration 703/1000
+
+
+
+Running Scenario 64, Iteration 704/1000
+
+
+
+Running Scenario 64, Iteration 705/1000
+
+
+
+Running Scenario 64, Iteration 706/1000
+
+
+
+Running Scenario 64, Iteration 707/1000
+
+
+
+Running Scenario 64, Iteration 708/1000
+
+
+
+Running Scenario 64, Iteration 709/1000
+
+
+
+Running Scenario 64, Iteration 710/1000
+
+
+
+Running Scenario 64, Iteration 711/1000
+
+
+
+Running Scenario 64, Iteration 712/1000
+
+
+
+Running Scenario 64, Iteration 713/1000
+
+
+
+Running Scenario 64, Iteration 714/1000
+
+
+
+Running Scenario 64, Iteration 715/1000
+
+
+
+Running Scenario 64, Iteration 716/1000
+
+
+
+Running Scenario 64, Iteration 717/1000
+
+
+
+Running Scenario 64, Iteration 718/1000
+
+
+
+Running Scenario 64, Iteration 719/1000
+
+
+
+Running Scenario 64, Iteration 720/1000
+
+
+
+Running Scenario 64, Iteration 721/1000
+
+
+
+Running Scenario 64, Iteration 722/1000
+
+
+
+Running Scenario 64, Iteration 723/1000
+
+
+
+Running Scenario 64, Iteration 724/1000
+
+
+
+Running Scenario 64, Iteration 725/1000
+
+
+
+Running Scenario 64, Iteration 726/1000
+
+
+
+Running Scenario 64, Iteration 727/1000
+
+
+
+Running Scenario 64, Iteration 728/1000
+
+
+
+Running Scenario 64, Iteration 729/1000
+
+
+
+Running Scenario 64, Iteration 730/1000
+
+
+
+Running Scenario 64, Iteration 731/1000
+
+
+
+Running Scenario 64, Iteration 732/1000
+
+
+
+Running Scenario 64, Iteration 733/1000
+
+
+
+Running Scenario 64, Iteration 734/1000
+
+
+
+Running Scenario 64, Iteration 735/1000
+
+
+
+Running Scenario 64, Iteration 736/1000
+
+
+
+Running Scenario 64, Iteration 737/1000
+
+
+
+Running Scenario 64, Iteration 738/1000
+
+
+
+Running Scenario 64, Iteration 739/1000
+
+
+
+Running Scenario 64, Iteration 740/1000
+
+
+
+Running Scenario 64, Iteration 741/1000
+
+
+
+Running Scenario 64, Iteration 742/1000
+
+
+
+Running Scenario 64, Iteration 743/1000
+
+
+
+Running Scenario 64, Iteration 744/1000
+
+
+
+Running Scenario 64, Iteration 745/1000
+
+
+
+Running Scenario 64, Iteration 746/1000
+
+
+
+Running Scenario 64, Iteration 747/1000
+
+
+
+Running Scenario 64, Iteration 748/1000
+
+
+
+Running Scenario 64, Iteration 749/1000
+
+
+
+Running Scenario 64, Iteration 750/1000
+
+
+
+Running Scenario 64, Iteration 751/1000
+
+
+
+Running Scenario 64, Iteration 752/1000
+
+
+
+Running Scenario 64, Iteration 753/1000
+
+
+
+Running Scenario 64, Iteration 754/1000
+
+
+
+Running Scenario 64, Iteration 755/1000
+
+
+
+Running Scenario 64, Iteration 756/1000
+
+
+
+Running Scenario 64, Iteration 757/1000
+
+
+
+Running Scenario 64, Iteration 758/1000
+
+
+
+Running Scenario 64, Iteration 759/1000
+
+
+
+Running Scenario 64, Iteration 760/1000
+
+
+
+Running Scenario 64, Iteration 761/1000
+
+
+
+Running Scenario 64, Iteration 762/1000
+
+
+
+Running Scenario 64, Iteration 763/1000
+
+
+
+Running Scenario 64, Iteration 764/1000
+
+
+
+Running Scenario 64, Iteration 765/1000
+
+
+
+Running Scenario 64, Iteration 766/1000
+
+
+
+Running Scenario 64, Iteration 767/1000
+
+
+
+Running Scenario 64, Iteration 768/1000
+
+
+
+Running Scenario 64, Iteration 769/1000
+
+
+
+Running Scenario 64, Iteration 770/1000
+
+
+
+Running Scenario 64, Iteration 771/1000
+
+
+
+Running Scenario 64, Iteration 772/1000
+
+
+
+Running Scenario 64, Iteration 773/1000
+
+
+
+Running Scenario 64, Iteration 774/1000
+
+
+
+Running Scenario 64, Iteration 775/1000
+
+
+
+Running Scenario 64, Iteration 776/1000
+
+
+
+Running Scenario 64, Iteration 777/1000
+
+
+
+Running Scenario 64, Iteration 778/1000
+
+
+
+Running Scenario 64, Iteration 779/1000
+
+
+
+Running Scenario 64, Iteration 780/1000
+
+
+
+Running Scenario 64, Iteration 781/1000
+
+
+
+Running Scenario 64, Iteration 782/1000
+
+
+
+Running Scenario 64, Iteration 783/1000
+
+
+
+Running Scenario 64, Iteration 784/1000
+
+
+
+Running Scenario 64, Iteration 785/1000
+
+
+
+Running Scenario 64, Iteration 786/1000
+
+
+
+Running Scenario 64, Iteration 787/1000
+
+
+
+Running Scenario 64, Iteration 788/1000
+
+
+
+Running Scenario 64, Iteration 789/1000
+
+
+
+Running Scenario 64, Iteration 790/1000
+
+
+
+Running Scenario 64, Iteration 791/1000
+
+
+
+Running Scenario 64, Iteration 792/1000
+
+
+
+Running Scenario 64, Iteration 793/1000
+
+
+
+Running Scenario 64, Iteration 794/1000
+
+
+
+Running Scenario 64, Iteration 795/1000
+
+
+
+Running Scenario 64, Iteration 796/1000
+
+
+
+Running Scenario 64, Iteration 797/1000
+
+
+
+Running Scenario 64, Iteration 798/1000
+
+
+
+Running Scenario 64, Iteration 799/1000
+
+
+
+Running Scenario 64, Iteration 800/1000
+
+
+
+Running Scenario 64, Iteration 801/1000
+
+
+
+Running Scenario 64, Iteration 802/1000
+
+
+
+Running Scenario 64, Iteration 803/1000
+
+
+
+Running Scenario 64, Iteration 804/1000
+
+
+
+Running Scenario 64, Iteration 805/1000
+
+
+
+Running Scenario 64, Iteration 806/1000
+
+
+
+Running Scenario 64, Iteration 807/1000
+
+
+
+Running Scenario 64, Iteration 808/1000
+
+
+
+Running Scenario 64, Iteration 809/1000
+
+
+
+Running Scenario 64, Iteration 810/1000
+
+
+
+Running Scenario 64, Iteration 811/1000
+
+
+
+Running Scenario 64, Iteration 812/1000
+
+
+
+Running Scenario 64, Iteration 813/1000
+
+
+
+Running Scenario 64, Iteration 814/1000
+
+
+
+Running Scenario 64, Iteration 815/1000
+
+
+
+Running Scenario 64, Iteration 816/1000
+
+
+
+Running Scenario 64, Iteration 817/1000
+
+
+
+Running Scenario 64, Iteration 818/1000
+
+
+
+Running Scenario 64, Iteration 819/1000
+
+
+
+Running Scenario 64, Iteration 820/1000
+
+
+
+Running Scenario 64, Iteration 821/1000
+
+
+
+Running Scenario 64, Iteration 822/1000
+
+
+
+Running Scenario 64, Iteration 823/1000
+
+
+
+Running Scenario 64, Iteration 824/1000
+
+
+
+Running Scenario 64, Iteration 825/1000
+
+
+
+Running Scenario 64, Iteration 826/1000
+
+
+
+Running Scenario 64, Iteration 827/1000
+
+
+
+Running Scenario 64, Iteration 828/1000
+
+
+
+Running Scenario 64, Iteration 829/1000
+
+
+
+Running Scenario 64, Iteration 830/1000
+
+
+
+Running Scenario 64, Iteration 831/1000
+
+
+
+Running Scenario 64, Iteration 832/1000
+
+
+
+Running Scenario 64, Iteration 833/1000
+
+
+
+Running Scenario 64, Iteration 834/1000
+
+
+
+Running Scenario 64, Iteration 835/1000
+
+
+
+Running Scenario 64, Iteration 836/1000
+
+
+
+Running Scenario 64, Iteration 837/1000
+
+
+
+Running Scenario 64, Iteration 838/1000
+
+
+
+Running Scenario 64, Iteration 839/1000
+
+
+
+Running Scenario 64, Iteration 840/1000
+
+
+
+Running Scenario 64, Iteration 841/1000
+
+
+
+Running Scenario 64, Iteration 842/1000
+
+
+
+Running Scenario 64, Iteration 843/1000
+
+
+
+Running Scenario 64, Iteration 844/1000
+
+
+
+Running Scenario 64, Iteration 845/1000
+
+
+
+Running Scenario 64, Iteration 846/1000
+
+
+
+Running Scenario 64, Iteration 847/1000
+
+
+
+Running Scenario 64, Iteration 848/1000
+
+
+
+Running Scenario 64, Iteration 849/1000
+
+
+
+Running Scenario 64, Iteration 850/1000
+
+
+
+Running Scenario 64, Iteration 851/1000
+
+
+
+Running Scenario 64, Iteration 852/1000
+
+
+
+Running Scenario 64, Iteration 853/1000
+
+
+
+Running Scenario 64, Iteration 854/1000
+
+
+
+Running Scenario 64, Iteration 855/1000
+
+
+
+Running Scenario 64, Iteration 856/1000
+
+
+
+Running Scenario 64, Iteration 857/1000
+
+
+
+Running Scenario 64, Iteration 858/1000
+
+
+
+Running Scenario 64, Iteration 859/1000
+
+
+
+Running Scenario 64, Iteration 860/1000
+
+
+
+Running Scenario 64, Iteration 861/1000
+
+
+
+Running Scenario 64, Iteration 862/1000
+
+
+
+Running Scenario 64, Iteration 863/1000
+
+
+
+Running Scenario 64, Iteration 864/1000
+
+
+
+Running Scenario 64, Iteration 865/1000
+
+
+
+Running Scenario 64, Iteration 866/1000
+
+
+
+Running Scenario 64, Iteration 867/1000
+
+
+
+Running Scenario 64, Iteration 868/1000
+
+
+
+Running Scenario 64, Iteration 869/1000
+
+
+
+Running Scenario 64, Iteration 870/1000
+
+
+
+Running Scenario 64, Iteration 871/1000
+
+
+
+Running Scenario 64, Iteration 872/1000
+
+
+
+Running Scenario 64, Iteration 873/1000
+
+
+
+Running Scenario 64, Iteration 874/1000
+
+
+
+Running Scenario 64, Iteration 875/1000
+
+
+
+Running Scenario 64, Iteration 876/1000
+
+
+
+Running Scenario 64, Iteration 877/1000
+
+
+
+Running Scenario 64, Iteration 878/1000
+
+
+
+Running Scenario 64, Iteration 879/1000
+
+
+
+Running Scenario 64, Iteration 880/1000
+
+
+
+Running Scenario 64, Iteration 881/1000
+
+
+
+Running Scenario 64, Iteration 882/1000
+
+
+
+Running Scenario 64, Iteration 883/1000
+
+
+
+Running Scenario 64, Iteration 884/1000
+
+
+
+Running Scenario 64, Iteration 885/1000
+
+
+
+Running Scenario 64, Iteration 886/1000
+
+
+
+Running Scenario 64, Iteration 887/1000
+
+
+
+Running Scenario 64, Iteration 888/1000
+
+
+
+Running Scenario 64, Iteration 889/1000
+
+
+
+Running Scenario 64, Iteration 890/1000
+
+
+
+Running Scenario 64, Iteration 891/1000
+
+
+
+Running Scenario 64, Iteration 892/1000
+
+
+
+Running Scenario 64, Iteration 893/1000
+
+
+
+Running Scenario 64, Iteration 894/1000
+
+
+
+Running Scenario 64, Iteration 895/1000
+
+
+
+Running Scenario 64, Iteration 896/1000
+
+
+
+Running Scenario 64, Iteration 897/1000
+
+
+
+Running Scenario 64, Iteration 898/1000
+
+
+
+Running Scenario 64, Iteration 899/1000
+
+
+
+Running Scenario 64, Iteration 900/1000
+
+
+
+Running Scenario 64, Iteration 901/1000
+
+
+
+Running Scenario 64, Iteration 902/1000
+
+
+
+Running Scenario 64, Iteration 903/1000
+
+
+
+Running Scenario 64, Iteration 904/1000
+
+
+
+Running Scenario 64, Iteration 905/1000
+
+
+
+Running Scenario 64, Iteration 906/1000
+
+
+
+Running Scenario 64, Iteration 907/1000
+
+
+
+Running Scenario 64, Iteration 908/1000
+
+
+
+Running Scenario 64, Iteration 909/1000
+
+
+
+Running Scenario 64, Iteration 910/1000
+
+
+
+Running Scenario 64, Iteration 911/1000
+
+
+
+Running Scenario 64, Iteration 912/1000
+
+
+
+Running Scenario 64, Iteration 913/1000
+
+
+
+Running Scenario 64, Iteration 914/1000
+
+
+
+Running Scenario 64, Iteration 915/1000
+
+
+
+Running Scenario 64, Iteration 916/1000
+
+
+
+Running Scenario 64, Iteration 917/1000
+
+
+
+Running Scenario 64, Iteration 918/1000
+
+
+
+Running Scenario 64, Iteration 919/1000
+
+
+
+Running Scenario 64, Iteration 920/1000
+
+
+
+Running Scenario 64, Iteration 921/1000
+
+
+
+Running Scenario 64, Iteration 922/1000
+
+
+
+Running Scenario 64, Iteration 923/1000
+
+
+
+Running Scenario 64, Iteration 924/1000
+
+
+
+Running Scenario 64, Iteration 925/1000
+
+
+
+Running Scenario 64, Iteration 926/1000
+
+
+
+Running Scenario 64, Iteration 927/1000
+
+
+
+Running Scenario 64, Iteration 928/1000
+
+
+
+Running Scenario 64, Iteration 929/1000
+
+
+
+Running Scenario 64, Iteration 930/1000
+
+
+
+Running Scenario 64, Iteration 931/1000
+
+
+
+Running Scenario 64, Iteration 932/1000
+
+
+
+Running Scenario 64, Iteration 933/1000
+
+
+
+Running Scenario 64, Iteration 934/1000
+
+
+
+Running Scenario 64, Iteration 935/1000
+
+
+
+Running Scenario 64, Iteration 936/1000
+
+
+
+Running Scenario 64, Iteration 937/1000
+
+
+
+Running Scenario 64, Iteration 938/1000
+
+
+
+Running Scenario 64, Iteration 939/1000
+
+
+
+Running Scenario 64, Iteration 940/1000
+
+
+
+Running Scenario 64, Iteration 941/1000
+
+
+
+Running Scenario 64, Iteration 942/1000
+
+
+
+Running Scenario 64, Iteration 943/1000
+
+
+
+Running Scenario 64, Iteration 944/1000
+
+
+
+Running Scenario 64, Iteration 945/1000
+
+
+
+Running Scenario 64, Iteration 946/1000
+
+
+
+Running Scenario 64, Iteration 947/1000
+
+
+
+Running Scenario 64, Iteration 948/1000
+
+
+
+Running Scenario 64, Iteration 949/1000
+
+
+
+Running Scenario 64, Iteration 950/1000
+
+
+
+Running Scenario 64, Iteration 951/1000
+
+
+
+Running Scenario 64, Iteration 952/1000
+
+
+
+Running Scenario 64, Iteration 953/1000
+
+
+
+Running Scenario 64, Iteration 954/1000
+
+
+
+Running Scenario 64, Iteration 955/1000
+
+
+
+Running Scenario 64, Iteration 956/1000
+
+
+
+Running Scenario 64, Iteration 957/1000
+
+
+
+Running Scenario 64, Iteration 958/1000
+
+
+
+Running Scenario 64, Iteration 959/1000
+
+
+
+Running Scenario 64, Iteration 960/1000
+
+
+
+Running Scenario 64, Iteration 961/1000
+
+
+
+Running Scenario 64, Iteration 962/1000
+
+
+
+Running Scenario 64, Iteration 963/1000
+
+
+
+Running Scenario 64, Iteration 964/1000
+
+
+
+Running Scenario 64, Iteration 965/1000
+
+
+
+Running Scenario 64, Iteration 966/1000
+
+
+
+Running Scenario 64, Iteration 967/1000
+
+
+
+Running Scenario 64, Iteration 968/1000
+
+
+
+Running Scenario 64, Iteration 969/1000
+
+
+
+Running Scenario 64, Iteration 970/1000
+
+
+
+Running Scenario 64, Iteration 971/1000
+
+
+
+Running Scenario 64, Iteration 972/1000
+
+
+
+Running Scenario 64, Iteration 973/1000
+
+
+
+Running Scenario 64, Iteration 974/1000
+
+
+
+Running Scenario 64, Iteration 975/1000
+
+
+
+Running Scenario 64, Iteration 976/1000
+
+
+
+Running Scenario 64, Iteration 977/1000
+
+
+
+Running Scenario 64, Iteration 978/1000
+
+
+
+Running Scenario 64, Iteration 979/1000
+
+
+
+Running Scenario 64, Iteration 980/1000
+
+
+
+Running Scenario 64, Iteration 981/1000
+
+
+
+Running Scenario 64, Iteration 982/1000
+
+
+
+Running Scenario 64, Iteration 983/1000
+
+
+
+Running Scenario 64, Iteration 984/1000
+
+
+
+Running Scenario 64, Iteration 985/1000
+
+
+
+Running Scenario 64, Iteration 986/1000
+
+
+
+Running Scenario 64, Iteration 987/1000
+
+
+
+Running Scenario 64, Iteration 988/1000
+
+
+
+Running Scenario 64, Iteration 989/1000
+
+
+
+Running Scenario 64, Iteration 990/1000
+
+
+
+Running Scenario 64, Iteration 991/1000
+
+
+
+Running Scenario 64, Iteration 992/1000
+
+
+
+Running Scenario 64, Iteration 993/1000
+
+
+
+Running Scenario 64, Iteration 994/1000
+
+
+
+Running Scenario 64, Iteration 995/1000
+
+
+
+Running Scenario 64, Iteration 996/1000
+
+
+
+Running Scenario 64, Iteration 997/1000
+
+
+
+Running Scenario 64, Iteration 998/1000
+
+
+
+Running Scenario 64, Iteration 999/1000
+
+
+
+Running Scenario 64, Iteration 1000/1000
+
+
+Results of Simulation
+
+
+[1] "R2 Control Table"
+  Target_R2_X Analytic_R2_X   Sample R2_X   Target_R2_Y Analytic_R2_Y 
+    0.4000000     0.4000000     0.4035715     0.6000000     0.6000000 
+  Sample R2_Y 
+    0.6028659 
+
+
+
+[1] "Oracle Distribution"
+  mean_Y    var_Y   mean_X    var_X 
+1.534847 2.500000 1.000000 1.666667 
+
+
+[1] "Sample Distributions"
+                   y        X          Z1          Z2           Z3           Z4
+sample_mean 1.528068 1.004079 0.007496411 -0.01784717 -0.006394768 -0.005666559
+sample_sd   1.587146 1.294634 1.015027402  1.01170581  1.003486778  1.005801408
+sample_var  2.519031 1.676076 1.030280627  1.02354865  1.006985713  1.011636472
+                    Z5          Z6          Z7           Z8          Z9
+sample_mean 0.01120996 0.008729297 -0.02672309 0.0006574792 0.009376717
+sample_sd   1.00764990 1.014449059  1.00916120 1.0139802527 1.007708486
+sample_var  1.01535832 1.029106894  1.01840633 1.0281559529 1.015476392
+                     Z10          Z11          Z12        Z13          Z14
+sample_mean -0.007506953 -0.001675316 -0.002841086 -0.0215432 -0.004348419
+sample_sd    1.011189520  1.002523641  0.994597708  1.0031977  0.996321186
+sample_var   1.022504246  1.005053650  0.989224601  1.0064056  0.992655905
+                   Z15          Z16         Z17          Z18          Z19
+sample_mean 0.00589585 -0.007329811 0.002030283 -0.008425733 -0.003790565
+sample_sd   1.01388824  0.996281605 0.996725956  1.010170219  0.985079464
+sample_var  1.02796937  0.992577036 0.993462632  1.020443870  0.970381550
+                    Z20          Z21           Z22        Z23         Z24
+sample_mean 0.002228197 -0.008420533 -0.0004139724 0.01806563 0.006280072
+sample_sd   1.002874873  1.000130088  1.0100579707 0.98637448 1.000727899
+sample_var  1.005758011  1.000260192  1.0202171041 0.97293461 1.001456328
+                    Z25          Z26         Z27         Z28          Z29
+sample_mean 0.009317813 -0.001363423 0.004174252 0.004765855 0.0006858972
+sample_sd   1.003492971  1.001129401 0.984670806 0.993842746 1.0064210237
+sample_var  1.006998142  1.002260078 0.969576597 0.987723404 1.0128832770
+                     Z30        Z31         Z32          Z33          Z34
+sample_mean -0.003435417 0.00339442 -0.01721559 -0.003358095 -0.003519506
+sample_sd    1.009882722 0.99906317  1.00193029  1.001053537  1.019065316
+sample_var   1.019863112 0.99812723  1.00386431  1.002108184  1.038494118
+                     Z35        Z36          Z37          Z38        Z39
+sample_mean -0.004357856 0.00022759 -0.009414268 -0.008602128 0.00326315
+sample_sd    1.007165715 1.00736969  0.993697713  1.000791826 0.99743507
+sample_var   1.014382778 1.01479369  0.987435146  1.001584280 0.99487673
+                    Z40          Z41         Z42         Z43         Z44
+sample_mean 0.006312164 -0.007608116 0.001838862 0.007716811 -0.01280139
+sample_sd   1.006482214  0.993376576 1.010024363 1.000366892  0.99274279
+sample_var  1.013006447  0.986797022 1.020149215 1.000733918  0.98553824
+                     Z45          Z46        Z47         Z48         Z49
+sample_mean -0.004190365 -0.001435561 0.01176664 0.001437295 0.004054834
+sample_sd    1.000755164  1.006938784 0.99544636 1.004616673 0.983693166
+sample_var   1.001510898  1.013925714 0.99091346 1.009254659 0.967652245
+                    Z50        Z51          Z52         Z53         Z54
+sample_mean 0.001266215 -0.0164623 -0.004010677 0.001929399 -0.01299534
+sample_sd   0.995219588  1.0084791  0.998420915 0.988822806  1.01559575
+sample_var  0.990462028  1.0170301  0.996844323 0.977770542  1.03143472
+                    Z55         Z56         Z57           Z58         Z59
+sample_mean 0.004331906 -0.01293478 0.004531126 -0.0004712099 0.006792352
+sample_sd   0.998682336  0.99642701 1.008449440  0.9927002784 0.998740807
+sample_var  0.997366409  0.99286679 1.016970273  0.9854538427 0.997483200
+                    Z60         Z61         Z62          Z63          Z64
+sample_mean 0.007271305 -0.01954168 0.007520771 -0.006154272 0.0007284943
+sample_sd   0.991040486  0.99339829 1.003103353  1.007288972 1.0082749669
+sample_var  0.982161244  0.98684015 1.006216337  1.014631073 1.0166184088
+                    Z65
+sample_mean 0.003428887
+sample_sd   0.997838969
+sample_var  0.995682608
+
+
+
+[1] "Key Oracle Coefficients"
+beta_X_LL beta_X_LH beta_X_HL beta_X_HH beta_Y_LL beta_Y_LH beta_Y_HL beta_Y_HH 
+0.0000000 0.0000000 0.1443376 0.1443376 0.0000000 0.1443376 0.0000000 0.1443376 
+   causal 
+0.5348469 
+
+
+
+[1] "Oracle Coefficients"
+   cause intercept  y         X Z1 Z2 Z3 Z4 Z5 Z6 Z7 Z8 Z9 Z10 Z11 Z12 Z13 Z14
+1      1         1 NA 0.5348469  0  0  0  0  0  0  0  0  0   0   0   0   0   0
+2      1         1 NA        NA  0  0  0  0  0  0  0  0  0   0   0   0   0   0
+3      0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+4      0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+5      0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+6      0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+7      0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+8      0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+9      0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+10     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+11     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+12     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+13     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+14     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+15     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+16     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+17     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+18     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+19     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+20     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+21     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+22     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+23     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+24     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+25     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+26     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+27     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+28     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+29     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+30     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+31     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+32     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+33     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+34     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+35     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+36     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+37     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+38     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+39     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+40     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+41     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+42     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+43     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+44     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+45     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+46     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+47     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+48     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+49     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+50     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+51     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+52     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+53     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+54     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+55     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+56     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+57     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+58     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+59     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+60     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+61     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+62     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+63     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+64     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+65     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+66     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+67     0        NA NA        NA NA NA NA NA NA NA NA NA NA  NA  NA  NA  NA  NA
+   Z15 Z16       Z17       Z18       Z19       Z20       Z21       Z22
+1    0   0 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+2    0   0 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+3   NA  NA        NA        NA        NA        NA        NA        NA
+4   NA  NA        NA        NA        NA        NA        NA        NA
+5   NA  NA        NA        NA        NA        NA        NA        NA
+6   NA  NA        NA        NA        NA        NA        NA        NA
+7   NA  NA        NA        NA        NA        NA        NA        NA
+8   NA  NA        NA        NA        NA        NA        NA        NA
+9   NA  NA        NA        NA        NA        NA        NA        NA
+10  NA  NA        NA        NA        NA        NA        NA        NA
+11  NA  NA        NA        NA        NA        NA        NA        NA
+12  NA  NA        NA        NA        NA        NA        NA        NA
+13  NA  NA        NA        NA        NA        NA        NA        NA
+14  NA  NA        NA        NA        NA        NA        NA        NA
+15  NA  NA        NA        NA        NA        NA        NA        NA
+16  NA  NA        NA        NA        NA        NA        NA        NA
+17  NA  NA        NA        NA        NA        NA        NA        NA
+18  NA  NA        NA        NA        NA        NA        NA        NA
+19  NA  NA        NA        NA        NA        NA        NA        NA
+20  NA  NA        NA        NA        NA        NA        NA        NA
+21  NA  NA        NA        NA        NA        NA        NA        NA
+22  NA  NA        NA        NA        NA        NA        NA        NA
+23  NA  NA        NA        NA        NA        NA        NA        NA
+24  NA  NA        NA        NA        NA        NA        NA        NA
+25  NA  NA        NA        NA        NA        NA        NA        NA
+26  NA  NA        NA        NA        NA        NA        NA        NA
+27  NA  NA        NA        NA        NA        NA        NA        NA
+28  NA  NA        NA        NA        NA        NA        NA        NA
+29  NA  NA        NA        NA        NA        NA        NA        NA
+30  NA  NA        NA        NA        NA        NA        NA        NA
+31  NA  NA        NA        NA        NA        NA        NA        NA
+32  NA  NA        NA        NA        NA        NA        NA        NA
+33  NA  NA        NA        NA        NA        NA        NA        NA
+34  NA  NA        NA        NA        NA        NA        NA        NA
+35  NA  NA        NA        NA        NA        NA        NA        NA
+36  NA  NA        NA        NA        NA        NA        NA        NA
+37  NA  NA        NA        NA        NA        NA        NA        NA
+38  NA  NA        NA        NA        NA        NA        NA        NA
+39  NA  NA        NA        NA        NA        NA        NA        NA
+40  NA  NA        NA        NA        NA        NA        NA        NA
+41  NA  NA        NA        NA        NA        NA        NA        NA
+42  NA  NA        NA        NA        NA        NA        NA        NA
+43  NA  NA        NA        NA        NA        NA        NA        NA
+44  NA  NA        NA        NA        NA        NA        NA        NA
+45  NA  NA        NA        NA        NA        NA        NA        NA
+46  NA  NA        NA        NA        NA        NA        NA        NA
+47  NA  NA        NA        NA        NA        NA        NA        NA
+48  NA  NA        NA        NA        NA        NA        NA        NA
+49  NA  NA        NA        NA        NA        NA        NA        NA
+50  NA  NA        NA        NA        NA        NA        NA        NA
+51  NA  NA        NA        NA        NA        NA        NA        NA
+52  NA  NA        NA        NA        NA        NA        NA        NA
+53  NA  NA        NA        NA        NA        NA        NA        NA
+54  NA  NA        NA        NA        NA        NA        NA        NA
+55  NA  NA        NA        NA        NA        NA        NA        NA
+56  NA  NA        NA        NA        NA        NA        NA        NA
+57  NA  NA        NA        NA        NA        NA        NA        NA
+58  NA  NA        NA        NA        NA        NA        NA        NA
+59  NA  NA        NA        NA        NA        NA        NA        NA
+60  NA  NA        NA        NA        NA        NA        NA        NA
+61  NA  NA        NA        NA        NA        NA        NA        NA
+62  NA  NA        NA        NA        NA        NA        NA        NA
+63  NA  NA        NA        NA        NA        NA        NA        NA
+64  NA  NA        NA        NA        NA        NA        NA        NA
+65  NA  NA        NA        NA        NA        NA        NA        NA
+66  NA  NA        NA        NA        NA        NA        NA        NA
+67  NA  NA        NA        NA        NA        NA        NA        NA
+         Z23       Z24       Z25       Z26       Z27       Z28       Z29
+1  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+2  0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+3         NA        NA        NA        NA        NA        NA        NA
+4         NA        NA        NA        NA        NA        NA        NA
+5         NA        NA        NA        NA        NA        NA        NA
+6         NA        NA        NA        NA        NA        NA        NA
+7         NA        NA        NA        NA        NA        NA        NA
+8         NA        NA        NA        NA        NA        NA        NA
+9         NA        NA        NA        NA        NA        NA        NA
+10        NA        NA        NA        NA        NA        NA        NA
+11        NA        NA        NA        NA        NA        NA        NA
+12        NA        NA        NA        NA        NA        NA        NA
+13        NA        NA        NA        NA        NA        NA        NA
+14        NA        NA        NA        NA        NA        NA        NA
+15        NA        NA        NA        NA        NA        NA        NA
+16        NA        NA        NA        NA        NA        NA        NA
+17        NA        NA        NA        NA        NA        NA        NA
+18        NA        NA        NA        NA        NA        NA        NA
+19        NA        NA        NA        NA        NA        NA        NA
+20        NA        NA        NA        NA        NA        NA        NA
+21        NA        NA        NA        NA        NA        NA        NA
+22        NA        NA        NA        NA        NA        NA        NA
+23        NA        NA        NA        NA        NA        NA        NA
+24        NA        NA        NA        NA        NA        NA        NA
+25        NA        NA        NA        NA        NA        NA        NA
+26        NA        NA        NA        NA        NA        NA        NA
+27        NA        NA        NA        NA        NA        NA        NA
+28        NA        NA        NA        NA        NA        NA        NA
+29        NA        NA        NA        NA        NA        NA        NA
+30        NA        NA        NA        NA        NA        NA        NA
+31        NA        NA        NA        NA        NA        NA        NA
+32        NA        NA        NA        NA        NA        NA        NA
+33        NA        NA        NA        NA        NA        NA        NA
+34        NA        NA        NA        NA        NA        NA        NA
+35        NA        NA        NA        NA        NA        NA        NA
+36        NA        NA        NA        NA        NA        NA        NA
+37        NA        NA        NA        NA        NA        NA        NA
+38        NA        NA        NA        NA        NA        NA        NA
+39        NA        NA        NA        NA        NA        NA        NA
+40        NA        NA        NA        NA        NA        NA        NA
+41        NA        NA        NA        NA        NA        NA        NA
+42        NA        NA        NA        NA        NA        NA        NA
+43        NA        NA        NA        NA        NA        NA        NA
+44        NA        NA        NA        NA        NA        NA        NA
+45        NA        NA        NA        NA        NA        NA        NA
+46        NA        NA        NA        NA        NA        NA        NA
+47        NA        NA        NA        NA        NA        NA        NA
+48        NA        NA        NA        NA        NA        NA        NA
+49        NA        NA        NA        NA        NA        NA        NA
+50        NA        NA        NA        NA        NA        NA        NA
+51        NA        NA        NA        NA        NA        NA        NA
+52        NA        NA        NA        NA        NA        NA        NA
+53        NA        NA        NA        NA        NA        NA        NA
+54        NA        NA        NA        NA        NA        NA        NA
+55        NA        NA        NA        NA        NA        NA        NA
+56        NA        NA        NA        NA        NA        NA        NA
+57        NA        NA        NA        NA        NA        NA        NA
+58        NA        NA        NA        NA        NA        NA        NA
+59        NA        NA        NA        NA        NA        NA        NA
+60        NA        NA        NA        NA        NA        NA        NA
+61        NA        NA        NA        NA        NA        NA        NA
+62        NA        NA        NA        NA        NA        NA        NA
+63        NA        NA        NA        NA        NA        NA        NA
+64        NA        NA        NA        NA        NA        NA        NA
+65        NA        NA        NA        NA        NA        NA        NA
+66        NA        NA        NA        NA        NA        NA        NA
+67        NA        NA        NA        NA        NA        NA        NA
+         Z30       Z31       Z32       Z33       Z34       Z35       Z36
+1  0.1443376 0.1443376 0.1443376 0.0000000 0.0000000 0.0000000 0.0000000
+2  0.0000000 0.0000000 0.0000000 0.1443376 0.1443376 0.1443376 0.1443376
+3         NA        NA        NA        NA        NA        NA        NA
+4         NA        NA        NA        NA        NA        NA        NA
+5         NA        NA        NA        NA        NA        NA        NA
+6         NA        NA        NA        NA        NA        NA        NA
+7         NA        NA        NA        NA        NA        NA        NA
+8         NA        NA        NA        NA        NA        NA        NA
+9         NA        NA        NA        NA        NA        NA        NA
+10        NA        NA        NA        NA        NA        NA        NA
+11        NA        NA        NA        NA        NA        NA        NA
+12        NA        NA        NA        NA        NA        NA        NA
+13        NA        NA        NA        NA        NA        NA        NA
+14        NA        NA        NA        NA        NA        NA        NA
+15        NA        NA        NA        NA        NA        NA        NA
+16        NA        NA        NA        NA        NA        NA        NA
+17        NA        NA        NA        NA        NA        NA        NA
+18        NA        NA        NA        NA        NA        NA        NA
+19        NA        NA        NA        NA        NA        NA        NA
+20        NA        NA        NA        NA        NA        NA        NA
+21        NA        NA        NA        NA        NA        NA        NA
+22        NA        NA        NA        NA        NA        NA        NA
+23        NA        NA        NA        NA        NA        NA        NA
+24        NA        NA        NA        NA        NA        NA        NA
+25        NA        NA        NA        NA        NA        NA        NA
+26        NA        NA        NA        NA        NA        NA        NA
+27        NA        NA        NA        NA        NA        NA        NA
+28        NA        NA        NA        NA        NA        NA        NA
+29        NA        NA        NA        NA        NA        NA        NA
+30        NA        NA        NA        NA        NA        NA        NA
+31        NA        NA        NA        NA        NA        NA        NA
+32        NA        NA        NA        NA        NA        NA        NA
+33        NA        NA        NA        NA        NA        NA        NA
+34        NA        NA        NA        NA        NA        NA        NA
+35        NA        NA        NA        NA        NA        NA        NA
+36        NA        NA        NA        NA        NA        NA        NA
+37        NA        NA        NA        NA        NA        NA        NA
+38        NA        NA        NA        NA        NA        NA        NA
+39        NA        NA        NA        NA        NA        NA        NA
+40        NA        NA        NA        NA        NA        NA        NA
+41        NA        NA        NA        NA        NA        NA        NA
+42        NA        NA        NA        NA        NA        NA        NA
+43        NA        NA        NA        NA        NA        NA        NA
+44        NA        NA        NA        NA        NA        NA        NA
+45        NA        NA        NA        NA        NA        NA        NA
+46        NA        NA        NA        NA        NA        NA        NA
+47        NA        NA        NA        NA        NA        NA        NA
+48        NA        NA        NA        NA        NA        NA        NA
+49        NA        NA        NA        NA        NA        NA        NA
+50        NA        NA        NA        NA        NA        NA        NA
+51        NA        NA        NA        NA        NA        NA        NA
+52        NA        NA        NA        NA        NA        NA        NA
+53        NA        NA        NA        NA        NA        NA        NA
+54        NA        NA        NA        NA        NA        NA        NA
+55        NA        NA        NA        NA        NA        NA        NA
+56        NA        NA        NA        NA        NA        NA        NA
+57        NA        NA        NA        NA        NA        NA        NA
+58        NA        NA        NA        NA        NA        NA        NA
+59        NA        NA        NA        NA        NA        NA        NA
+60        NA        NA        NA        NA        NA        NA        NA
+61        NA        NA        NA        NA        NA        NA        NA
+62        NA        NA        NA        NA        NA        NA        NA
+63        NA        NA        NA        NA        NA        NA        NA
+64        NA        NA        NA        NA        NA        NA        NA
+65        NA        NA        NA        NA        NA        NA        NA
+66        NA        NA        NA        NA        NA        NA        NA
+67        NA        NA        NA        NA        NA        NA        NA
+         Z37       Z38       Z39       Z40       Z41       Z42       Z43
+1  0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
+2  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+3         NA        NA        NA        NA        NA        NA        NA
+4         NA        NA        NA        NA        NA        NA        NA
+5         NA        NA        NA        NA        NA        NA        NA
+6         NA        NA        NA        NA        NA        NA        NA
+7         NA        NA        NA        NA        NA        NA        NA
+8         NA        NA        NA        NA        NA        NA        NA
+9         NA        NA        NA        NA        NA        NA        NA
+10        NA        NA        NA        NA        NA        NA        NA
+11        NA        NA        NA        NA        NA        NA        NA
+12        NA        NA        NA        NA        NA        NA        NA
+13        NA        NA        NA        NA        NA        NA        NA
+14        NA        NA        NA        NA        NA        NA        NA
+15        NA        NA        NA        NA        NA        NA        NA
+16        NA        NA        NA        NA        NA        NA        NA
+17        NA        NA        NA        NA        NA        NA        NA
+18        NA        NA        NA        NA        NA        NA        NA
+19        NA        NA        NA        NA        NA        NA        NA
+20        NA        NA        NA        NA        NA        NA        NA
+21        NA        NA        NA        NA        NA        NA        NA
+22        NA        NA        NA        NA        NA        NA        NA
+23        NA        NA        NA        NA        NA        NA        NA
+24        NA        NA        NA        NA        NA        NA        NA
+25        NA        NA        NA        NA        NA        NA        NA
+26        NA        NA        NA        NA        NA        NA        NA
+27        NA        NA        NA        NA        NA        NA        NA
+28        NA        NA        NA        NA        NA        NA        NA
+29        NA        NA        NA        NA        NA        NA        NA
+30        NA        NA        NA        NA        NA        NA        NA
+31        NA        NA        NA        NA        NA        NA        NA
+32        NA        NA        NA        NA        NA        NA        NA
+33        NA        NA        NA        NA        NA        NA        NA
+34        NA        NA        NA        NA        NA        NA        NA
+35        NA        NA        NA        NA        NA        NA        NA
+36        NA        NA        NA        NA        NA        NA        NA
+37        NA        NA        NA        NA        NA        NA        NA
+38        NA        NA        NA        NA        NA        NA        NA
+39        NA        NA        NA        NA        NA        NA        NA
+40        NA        NA        NA        NA        NA        NA        NA
+41        NA        NA        NA        NA        NA        NA        NA
+42        NA        NA        NA        NA        NA        NA        NA
+43        NA        NA        NA        NA        NA        NA        NA
+44        NA        NA        NA        NA        NA        NA        NA
+45        NA        NA        NA        NA        NA        NA        NA
+46        NA        NA        NA        NA        NA        NA        NA
+47        NA        NA        NA        NA        NA        NA        NA
+48        NA        NA        NA        NA        NA        NA        NA
+49        NA        NA        NA        NA        NA        NA        NA
+50        NA        NA        NA        NA        NA        NA        NA
+51        NA        NA        NA        NA        NA        NA        NA
+52        NA        NA        NA        NA        NA        NA        NA
+53        NA        NA        NA        NA        NA        NA        NA
+54        NA        NA        NA        NA        NA        NA        NA
+55        NA        NA        NA        NA        NA        NA        NA
+56        NA        NA        NA        NA        NA        NA        NA
+57        NA        NA        NA        NA        NA        NA        NA
+58        NA        NA        NA        NA        NA        NA        NA
+59        NA        NA        NA        NA        NA        NA        NA
+60        NA        NA        NA        NA        NA        NA        NA
+61        NA        NA        NA        NA        NA        NA        NA
+62        NA        NA        NA        NA        NA        NA        NA
+63        NA        NA        NA        NA        NA        NA        NA
+64        NA        NA        NA        NA        NA        NA        NA
+65        NA        NA        NA        NA        NA        NA        NA
+66        NA        NA        NA        NA        NA        NA        NA
+67        NA        NA        NA        NA        NA        NA        NA
+         Z44       Z45       Z46       Z47       Z48       Z49       Z50
+1  0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.1443376 0.1443376
+2  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+3         NA        NA        NA        NA        NA        NA        NA
+4         NA        NA        NA        NA        NA        NA        NA
+5         NA        NA        NA        NA        NA        NA        NA
+6         NA        NA        NA        NA        NA        NA        NA
+7         NA        NA        NA        NA        NA        NA        NA
+8         NA        NA        NA        NA        NA        NA        NA
+9         NA        NA        NA        NA        NA        NA        NA
+10        NA        NA        NA        NA        NA        NA        NA
+11        NA        NA        NA        NA        NA        NA        NA
+12        NA        NA        NA        NA        NA        NA        NA
+13        NA        NA        NA        NA        NA        NA        NA
+14        NA        NA        NA        NA        NA        NA        NA
+15        NA        NA        NA        NA        NA        NA        NA
+16        NA        NA        NA        NA        NA        NA        NA
+17        NA        NA        NA        NA        NA        NA        NA
+18        NA        NA        NA        NA        NA        NA        NA
+19        NA        NA        NA        NA        NA        NA        NA
+20        NA        NA        NA        NA        NA        NA        NA
+21        NA        NA        NA        NA        NA        NA        NA
+22        NA        NA        NA        NA        NA        NA        NA
+23        NA        NA        NA        NA        NA        NA        NA
+24        NA        NA        NA        NA        NA        NA        NA
+25        NA        NA        NA        NA        NA        NA        NA
+26        NA        NA        NA        NA        NA        NA        NA
+27        NA        NA        NA        NA        NA        NA        NA
+28        NA        NA        NA        NA        NA        NA        NA
+29        NA        NA        NA        NA        NA        NA        NA
+30        NA        NA        NA        NA        NA        NA        NA
+31        NA        NA        NA        NA        NA        NA        NA
+32        NA        NA        NA        NA        NA        NA        NA
+33        NA        NA        NA        NA        NA        NA        NA
+34        NA        NA        NA        NA        NA        NA        NA
+35        NA        NA        NA        NA        NA        NA        NA
+36        NA        NA        NA        NA        NA        NA        NA
+37        NA        NA        NA        NA        NA        NA        NA
+38        NA        NA        NA        NA        NA        NA        NA
+39        NA        NA        NA        NA        NA        NA        NA
+40        NA        NA        NA        NA        NA        NA        NA
+41        NA        NA        NA        NA        NA        NA        NA
+42        NA        NA        NA        NA        NA        NA        NA
+43        NA        NA        NA        NA        NA        NA        NA
+44        NA        NA        NA        NA        NA        NA        NA
+45        NA        NA        NA        NA        NA        NA        NA
+46        NA        NA        NA        NA        NA        NA        NA
+47        NA        NA        NA        NA        NA        NA        NA
+48        NA        NA        NA        NA        NA        NA        NA
+49        NA        NA        NA        NA        NA        NA        NA
+50        NA        NA        NA        NA        NA        NA        NA
+51        NA        NA        NA        NA        NA        NA        NA
+52        NA        NA        NA        NA        NA        NA        NA
+53        NA        NA        NA        NA        NA        NA        NA
+54        NA        NA        NA        NA        NA        NA        NA
+55        NA        NA        NA        NA        NA        NA        NA
+56        NA        NA        NA        NA        NA        NA        NA
+57        NA        NA        NA        NA        NA        NA        NA
+58        NA        NA        NA        NA        NA        NA        NA
+59        NA        NA        NA        NA        NA        NA        NA
+60        NA        NA        NA        NA        NA        NA        NA
+61        NA        NA        NA        NA        NA        NA        NA
+62        NA        NA        NA        NA        NA        NA        NA
+63        NA        NA        NA        NA        NA        NA        NA
+64        NA        NA        NA        NA        NA        NA        NA
+65        NA        NA        NA        NA        NA        NA        NA
+66        NA        NA        NA        NA        NA        NA        NA
+67        NA        NA        NA        NA        NA        NA        NA
+         Z51       Z52       Z53       Z54       Z55       Z56       Z57
+1  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+2  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+3         NA        NA        NA        NA        NA        NA        NA
+4         NA        NA        NA        NA        NA        NA        NA
+5         NA        NA        NA        NA        NA        NA        NA
+6         NA        NA        NA        NA        NA        NA        NA
+7         NA        NA        NA        NA        NA        NA        NA
+8         NA        NA        NA        NA        NA        NA        NA
+9         NA        NA        NA        NA        NA        NA        NA
+10        NA        NA        NA        NA        NA        NA        NA
+11        NA        NA        NA        NA        NA        NA        NA
+12        NA        NA        NA        NA        NA        NA        NA
+13        NA        NA        NA        NA        NA        NA        NA
+14        NA        NA        NA        NA        NA        NA        NA
+15        NA        NA        NA        NA        NA        NA        NA
+16        NA        NA        NA        NA        NA        NA        NA
+17        NA        NA        NA        NA        NA        NA        NA
+18        NA        NA        NA        NA        NA        NA        NA
+19        NA        NA        NA        NA        NA        NA        NA
+20        NA        NA        NA        NA        NA        NA        NA
+21        NA        NA        NA        NA        NA        NA        NA
+22        NA        NA        NA        NA        NA        NA        NA
+23        NA        NA        NA        NA        NA        NA        NA
+24        NA        NA        NA        NA        NA        NA        NA
+25        NA        NA        NA        NA        NA        NA        NA
+26        NA        NA        NA        NA        NA        NA        NA
+27        NA        NA        NA        NA        NA        NA        NA
+28        NA        NA        NA        NA        NA        NA        NA
+29        NA        NA        NA        NA        NA        NA        NA
+30        NA        NA        NA        NA        NA        NA        NA
+31        NA        NA        NA        NA        NA        NA        NA
+32        NA        NA        NA        NA        NA        NA        NA
+33        NA        NA        NA        NA        NA        NA        NA
+34        NA        NA        NA        NA        NA        NA        NA
+35        NA        NA        NA        NA        NA        NA        NA
+36        NA        NA        NA        NA        NA        NA        NA
+37        NA        NA        NA        NA        NA        NA        NA
+38        NA        NA        NA        NA        NA        NA        NA
+39        NA        NA        NA        NA        NA        NA        NA
+40        NA        NA        NA        NA        NA        NA        NA
+41        NA        NA        NA        NA        NA        NA        NA
+42        NA        NA        NA        NA        NA        NA        NA
+43        NA        NA        NA        NA        NA        NA        NA
+44        NA        NA        NA        NA        NA        NA        NA
+45        NA        NA        NA        NA        NA        NA        NA
+46        NA        NA        NA        NA        NA        NA        NA
+47        NA        NA        NA        NA        NA        NA        NA
+48        NA        NA        NA        NA        NA        NA        NA
+49        NA        NA        NA        NA        NA        NA        NA
+50        NA        NA        NA        NA        NA        NA        NA
+51        NA        NA        NA        NA        NA        NA        NA
+52        NA        NA        NA        NA        NA        NA        NA
+53        NA        NA        NA        NA        NA        NA        NA
+54        NA        NA        NA        NA        NA        NA        NA
+55        NA        NA        NA        NA        NA        NA        NA
+56        NA        NA        NA        NA        NA        NA        NA
+57        NA        NA        NA        NA        NA        NA        NA
+58        NA        NA        NA        NA        NA        NA        NA
+59        NA        NA        NA        NA        NA        NA        NA
+60        NA        NA        NA        NA        NA        NA        NA
+61        NA        NA        NA        NA        NA        NA        NA
+62        NA        NA        NA        NA        NA        NA        NA
+63        NA        NA        NA        NA        NA        NA        NA
+64        NA        NA        NA        NA        NA        NA        NA
+65        NA        NA        NA        NA        NA        NA        NA
+66        NA        NA        NA        NA        NA        NA        NA
+67        NA        NA        NA        NA        NA        NA        NA
+         Z58       Z59       Z60       Z61       Z62       Z63       Z64 Z65
+1  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376  NA
+2  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376  NA
+3         NA        NA        NA        NA        NA        NA        NA  NA
+4         NA        NA        NA        NA        NA        NA        NA  NA
+5         NA        NA        NA        NA        NA        NA        NA  NA
+6         NA        NA        NA        NA        NA        NA        NA  NA
+7         NA        NA        NA        NA        NA        NA        NA  NA
+8         NA        NA        NA        NA        NA        NA        NA  NA
+9         NA        NA        NA        NA        NA        NA        NA  NA
+10        NA        NA        NA        NA        NA        NA        NA  NA
+11        NA        NA        NA        NA        NA        NA        NA  NA
+12        NA        NA        NA        NA        NA        NA        NA  NA
+13        NA        NA        NA        NA        NA        NA        NA  NA
+14        NA        NA        NA        NA        NA        NA        NA  NA
+15        NA        NA        NA        NA        NA        NA        NA  NA
+16        NA        NA        NA        NA        NA        NA        NA  NA
+17        NA        NA        NA        NA        NA        NA        NA  NA
+18        NA        NA        NA        NA        NA        NA        NA  NA
+19        NA        NA        NA        NA        NA        NA        NA  NA
+20        NA        NA        NA        NA        NA        NA        NA  NA
+21        NA        NA        NA        NA        NA        NA        NA  NA
+22        NA        NA        NA        NA        NA        NA        NA  NA
+23        NA        NA        NA        NA        NA        NA        NA  NA
+24        NA        NA        NA        NA        NA        NA        NA  NA
+25        NA        NA        NA        NA        NA        NA        NA  NA
+26        NA        NA        NA        NA        NA        NA        NA  NA
+27        NA        NA        NA        NA        NA        NA        NA  NA
+28        NA        NA        NA        NA        NA        NA        NA  NA
+29        NA        NA        NA        NA        NA        NA        NA  NA
+30        NA        NA        NA        NA        NA        NA        NA  NA
+31        NA        NA        NA        NA        NA        NA        NA  NA
+32        NA        NA        NA        NA        NA        NA        NA  NA
+33        NA        NA        NA        NA        NA        NA        NA  NA
+34        NA        NA        NA        NA        NA        NA        NA  NA
+35        NA        NA        NA        NA        NA        NA        NA  NA
+36        NA        NA        NA        NA        NA        NA        NA  NA
+37        NA        NA        NA        NA        NA        NA        NA  NA
+38        NA        NA        NA        NA        NA        NA        NA  NA
+39        NA        NA        NA        NA        NA        NA        NA  NA
+40        NA        NA        NA        NA        NA        NA        NA  NA
+41        NA        NA        NA        NA        NA        NA        NA  NA
+42        NA        NA        NA        NA        NA        NA        NA  NA
+43        NA        NA        NA        NA        NA        NA        NA  NA
+44        NA        NA        NA        NA        NA        NA        NA  NA
+45        NA        NA        NA        NA        NA        NA        NA  NA
+46        NA        NA        NA        NA        NA        NA        NA  NA
+47        NA        NA        NA        NA        NA        NA        NA  NA
+48        NA        NA        NA        NA        NA        NA        NA  NA
+49        NA        NA        NA        NA        NA        NA        NA  NA
+50        NA        NA        NA        NA        NA        NA        NA  NA
+51        NA        NA        NA        NA        NA        NA        NA  NA
+52        NA        NA        NA        NA        NA        NA        NA  NA
+53        NA        NA        NA        NA        NA        NA        NA  NA
+54        NA        NA        NA        NA        NA        NA        NA  NA
+55        NA        NA        NA        NA        NA        NA        NA  NA
+56        NA        NA        NA        NA        NA        NA        NA  NA
+57        NA        NA        NA        NA        NA        NA        NA  NA
+58        NA        NA        NA        NA        NA        NA        NA  NA
+59        NA        NA        NA        NA        NA        NA        NA  NA
+60        NA        NA        NA        NA        NA        NA        NA  NA
+61        NA        NA        NA        NA        NA        NA        NA  NA
+62        NA        NA        NA        NA        NA        NA        NA  NA
+63        NA        NA        NA        NA        NA        NA        NA  NA
+64        NA        NA        NA        NA        NA        NA        NA  NA
+65        NA        NA        NA        NA        NA        NA        NA  NA
+66        NA        NA        NA        NA        NA        NA        NA  NA
+67        NA        NA        NA        NA        NA        NA        NA  NA
+
+
+[1] "Sample Coefficients for Y Table"
+                 intercept         X            Z1            Z2            Z3
+true_values      1.0000000 0.5348469  0.000000e+00  0.000000e+00  0.000000e+00
+linear           0.9999026 0.5350740  4.148447e-04 -2.786681e-06 -2.168266e-04
+stepwise         0.9998535 0.5351194  3.969480e-04  1.698488e-05 -4.733733e-05
+stepwise_X       1.0002325 0.5349218 -3.375559e-05 -7.855220e-05  5.688326e-05
+two_step_LASSO   0.9994029 0.5355676  4.616657e-04  4.559808e-06 -1.007159e-04
+two_step_LASSO_X 1.0001774 0.5350734  3.853665e-04  1.327103e-05  5.747945e-05
+                            Z4            Z5           Z6            Z7
+true_values       0.000000e+00  0.000000e+00 0.0000000000  0.000000e+00
+linear           -4.710871e-05 -1.249761e-04 0.0001420331  1.587612e-04
+stepwise         -1.163533e-04  1.263734e-04 0.0002375191 -7.667689e-05
+stepwise_X        3.315075e-05  7.002465e-05 0.0002333507  2.378038e-04
+two_step_LASSO   -1.179855e-04 -1.397515e-04 0.0002058312  1.052162e-04
+two_step_LASSO_X -1.150067e-04 -1.707729e-04 0.0003760853  1.349831e-04
+                            Z8            Z9           Z10          Z11
+true_values       0.000000e+00  0.000000e+00  0.000000e+00 0.000000e+00
+linear           -1.053197e-04 -2.641072e-04 -2.420822e-05 4.520225e-04
+stepwise         -2.279629e-04 -6.323238e-05  1.697976e-04 9.992887e-05
+stepwise_X        7.549898e-06 -5.980197e-05  2.907972e-05 7.903355e-05
+two_step_LASSO   -1.610490e-04 -2.521412e-04  4.356901e-05 3.672433e-04
+two_step_LASSO_X -4.655283e-05 -4.694738e-05  3.599068e-04 2.919270e-04
+                           Z12          Z13           Z14           Z15
+true_values       0.000000e+00 0.0000000000  0.000000e+00  0.000000e+00
+linear           -5.512348e-05 0.0004370399  1.622957e-04  2.078591e-04
+stepwise          4.894751e-06 0.0003310075  1.564336e-04  3.548823e-04
+stepwise_X       -4.006144e-05 0.0003839193 -6.948022e-05 -4.503475e-05
+two_step_LASSO   -3.023307e-07 0.0004352044  1.578042e-04  1.999619e-04
+two_step_LASSO_X  2.654351e-05 0.0004029119 -1.899065e-04  8.442061e-05
+                          Z16        Z17       Z18        Z19        Z20
+true_values      0.000000e+00 0.14433757 0.1443376 0.14433757 0.14433757
+linear           2.403410e-04 0.14409080 0.1440816 0.14416228 0.14396821
+stepwise         3.757078e-04 0.14408061 0.1440918 0.14415414 0.14396232
+stepwise_X       3.716932e-05 0.02438967 0.0222073 0.02360804 0.02161837
+two_step_LASSO   3.476148e-04 0.14408228 0.1440781 0.14415305 0.14395791
+two_step_LASSO_X 1.906186e-04 0.08833210 0.0846207 0.08758224 0.08433324
+                        Z21        Z22        Z23        Z24        Z25
+true_values      0.14433757 0.14433757 0.14433757 0.14433757 0.14433757
+linear           0.14465630 0.14496807 0.14461256 0.14455975 0.14452071
+stepwise         0.14465546 0.14495803 0.14462959 0.14454502 0.14451311
+stepwise_X       0.02319491 0.02566408 0.02195028 0.02145157 0.02450621
+two_step_LASSO   0.14465070 0.14495567 0.14461212 0.14455462 0.14451541
+two_step_LASSO_X 0.08355154 0.08692394 0.08419463 0.08401321 0.08591590
+                        Z26        Z27        Z28        Z29        Z30
+true_values      0.14433757 0.14433757 0.14433757 0.14433757 0.14433757
+linear           0.14426452 0.14447408 0.14417958 0.14411789 0.14455473
+stepwise         0.14428143 0.14447076 0.14416649 0.14414962 0.14454874
+stepwise_X       0.02177399 0.02209526 0.02508358 0.02275514 0.02352642
+two_step_LASSO   0.14426383 0.14447031 0.14417154 0.14411193 0.14455210
+two_step_LASSO_X 0.08373165 0.08508124 0.08813493 0.08594630 0.08297041
+                        Z31        Z32           Z33           Z34
+true_values      0.14433757 0.14433757  0.000000e+00  0.0000000000
+linear           0.14440983 0.14436493  1.712622e-04  0.0001435729
+stepwise         0.14440312 0.14436675  5.938725e-05  0.0003306916
+stepwise_X       0.02134272 0.02122223  4.197603e-05  0.0003206766
+two_step_LASSO   0.14440045 0.14435648 -7.990596e-05 -0.0000498617
+two_step_LASSO_X 0.08515670 0.08527178  6.499358e-05  0.0003494575
+                           Z35           Z36           Z37           Z38
+true_values       0.000000e+00  0.000000e+00  0.0000000000  0.0000000000
+linear           -2.216503e-04  1.395054e-04 -0.0004003178 -0.0006291764
+stepwise         -2.896485e-04  1.718494e-04 -0.0002522580 -0.0003710949
+stepwise_X       -2.042621e-04  2.991523e-04 -0.0003695047 -0.0007609231
+two_step_LASSO   -4.208108e-04 -4.118786e-05 -0.0006985202 -0.0008426032
+two_step_LASSO_X -2.712778e-05  1.175145e-04 -0.0005844947 -0.0007069911
+                           Z39          Z40           Z41           Z42
+true_values       0.0000000000 0.0000000000  0.000000e+00  0.000000e+00
+linear           -0.0002285972 0.0005049186  2.118789e-04  1.116629e-04
+stepwise         -0.0001192368 0.0004905035 -9.257627e-05  1.063467e-04
+stepwise_X       -0.0001657392 0.0006378032  1.622498e-04  2.436374e-04
+two_step_LASSO   -0.0005522092 0.0002423855 -5.701028e-05 -3.021890e-04
+two_step_LASSO_X -0.0003244866 0.0006125656 -4.653545e-05  9.751357e-05
+                          Z43           Z44           Z45           Z46
+true_values      0.0000000000  0.000000e+00  0.000000e+00  0.0000000000
+linear           0.0005587911 -5.695928e-05  1.867592e-04 -0.0007328510
+stepwise         0.0004297473 -1.377352e-04 -9.380809e-05 -0.0005433780
+stepwise_X       0.0006851856  6.572491e-05  2.062670e-04 -0.0003499952
+two_step_LASSO   0.0002491121 -2.853571e-04 -1.840892e-04 -0.0011203896
+two_step_LASSO_X 0.0007666009 -6.982905e-05  2.366038e-04 -0.0006164626
+                          Z47           Z48       Z49       Z50       Z51
+true_values      0.0000000000  0.0000000000 0.1443376 0.1443376 0.1443376
+linear           0.0010104788  0.0001277393 0.1445410 0.1443143 0.1439686
+stepwise         0.0004668582  0.0001822258 0.1445394 0.1443156 0.1439552
+stepwise_X       0.0013992911  0.0004296668 0.1444676 0.1444552 0.1442968
+two_step_LASSO   0.0006508444 -0.0001660607 0.1444660 0.1442395 0.1438860
+two_step_LASSO_X 0.0012634517  0.0002674722 0.1445343 0.1444724 0.1440197
+                       Z52       Z53       Z54       Z55       Z56       Z57
+true_values      0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+linear           0.1444414 0.1446737 0.1443936 0.1442669 0.1441112 0.1443853
+stepwise         0.1444684 0.1446476 0.1443728 0.1442707 0.1441235 0.1443896
+stepwise_X       0.1446750 0.1445650 0.1445643 0.1444144 0.1445138 0.1442882
+two_step_LASSO   0.1443720 0.1445910 0.1443153 0.1441910 0.1440379 0.1443048
+two_step_LASSO_X 0.1444740 0.1445525 0.1444212 0.1443798 0.1441508 0.1441419
+                       Z58       Z59       Z60       Z61       Z62       Z63
+true_values      0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+linear           0.1443955 0.1441106 0.1441999 0.1444226 0.1441359 0.1438364
+stepwise         0.1443868 0.1441168 0.1442078 0.1443950 0.1441249 0.1438493
+stepwise_X       0.1444417 0.1442173 0.1443712 0.1441549 0.1443225 0.1435762
+two_step_LASSO   0.1443173 0.1440402 0.1441237 0.1443477 0.1440550 0.1437601
+two_step_LASSO_X 0.1444138 0.1441235 0.1442278 0.1444181 0.1441645 0.1437034
+                       Z64           Z65
+true_values      0.1443376            NA
+linear           0.1442493 -1.028922e-04
+stepwise         0.1442404  1.205495e-04
+stepwise_X       0.1442047 -2.157496e-04
+two_step_LASSO   0.1441747  3.228414e-05
+two_step_LASSO_X 0.1441847 -4.180290e-04
+
+
+[1] "Grouped Sample Coefficients for Y Table"
+                 intercept         X         Z_LL       Z_LH          Z_HL
+true_values      1.0000000 0.5348469 0.000000e+00 0.14433757  0.000000e+00
+linear           0.9999026 0.5350740 8.592128e-05 0.14437411  5.606359e-05
+stepwise         0.9998535 0.5351194 1.086822e-04 0.14437356  2.111712e-05
+stepwise_X       1.0002325 0.5349218 5.257992e-05 0.02289936  1.650754e-04
+two_step_LASSO   0.9994029 0.5355676 9.729533e-05 0.14436791 -2.286158e-04
+two_step_LASSO_X 1.0001774 0.5350734 1.096455e-04 0.08536003  8.751538e-05
+                      Z_HH       Z_dummy
+true_values      0.1443376            NA
+linear           0.1442779 -1.028922e-04
+stepwise         0.1442752  1.205495e-04
+stepwise_X       0.1443455 -2.157496e-04
+two_step_LASSO   0.1442014  3.228414e-05
+two_step_LASSO_X 0.1442739 -4.180290e-04
+
+
+[1] "Individual Covariate Selection Table"
+                 X    Z1    Z2    Z3    Z4    Z5    Z6    Z7    Z8    Z9   Z10
+linear           1 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+stepwise         1 0.170 0.160 0.168 0.172 0.160 0.188 0.146 0.152 0.141 0.170
+stepwise_X       1 0.168 0.133 0.150 0.156 0.151 0.141 0.160 0.143 0.142 0.161
+two_step_LASSO   1 0.613 0.584 0.595 0.598 0.576 0.596 0.595 0.590 0.606 0.607
+two_step_LASSO_X 1 0.633 0.584 0.584 0.557 0.569 0.593 0.588 0.566 0.601 0.583
+                   Z11   Z12   Z13   Z14   Z15   Z16   Z17   Z18   Z19   Z20
+linear           1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+stepwise         0.167 0.151 0.147 0.166 0.163 0.162 1.000 1.000 1.000 1.000
+stepwise_X       0.146 0.142 0.182 0.158 0.159 0.144 0.170 0.155 0.165 0.151
+two_step_LASSO   0.612 0.574 0.592 0.600 0.613 0.572 1.000 1.000 1.000 1.000
+two_step_LASSO_X 0.614 0.593 0.625 0.595 0.596 0.602 0.612 0.587 0.608 0.585
+                   Z21   Z22   Z23   Z24   Z25   Z26   Z27   Z28   Z29   Z30
+linear           1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+stepwise         1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+stepwise_X       0.159 0.177 0.152 0.148 0.170 0.151 0.152 0.175 0.159 0.163
+two_step_LASSO   1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+two_step_LASSO_X 0.576 0.600 0.582 0.580 0.594 0.580 0.588 0.611 0.596 0.576
+                   Z31   Z32   Z33   Z34   Z35   Z36   Z37   Z38   Z39   Z40
+linear           1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+stepwise         1.000 1.000 0.164 0.168 0.157 0.168 0.181 0.164 0.154 0.143
+stepwise_X       0.148 0.147 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+two_step_LASSO   1.000 1.000 0.606 0.621 0.583 0.617 0.586 0.609 0.615 0.583
+two_step_LASSO_X 0.589 0.589 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000
+                   Z41   Z42   Z43   Z44   Z45   Z46   Z47   Z48 Z49 Z50 Z51
+linear           1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000   1   1   1
+stepwise         0.178 0.155 0.138 0.176 0.158 0.131 0.158 0.160   1   1   1
+stepwise_X       1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000   1   1   1
+two_step_LASSO   0.604 0.588 0.585 0.594 0.586 0.573 0.614 0.606   1   1   1
+two_step_LASSO_X 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000   1   1   1
+                 Z52 Z53 Z54 Z55 Z56 Z57 Z58 Z59 Z60 Z61 Z62 Z63 Z64   Z65
+linear             1   1   1   1   1   1   1   1   1   1   1   1   1 1.000
+stepwise           1   1   1   1   1   1   1   1   1   1   1   1   1 0.172
+stepwise_X         1   1   1   1   1   1   1   1   1   1   1   1   1 0.163
+two_step_LASSO     1   1   1   1   1   1   1   1   1   1   1   1   1 0.593
+two_step_LASSO_X   1   1   1   1   1   1   1   1   1   1   1   1   1 0.595
+
+
+[1] "Grouped Covariate Selection Table"
+                 X      Z_LL      Z_LH      Z_HL Z_HH Z_dummy
+linear           1 1.0000000 1.0000000 1.0000000    1   1.000
+stepwise         1 0.1614375 1.0000000 0.1595625    1   0.172
+stepwise_X       1 0.1522500 0.1588750 1.0000000    1   0.163
+two_step_LASSO   1 0.5951875 1.0000000 0.5981250    1   0.593
+two_step_LASSO_X 1 0.5926875 0.5908125 1.0000000    1   0.595
+
+
+[1] "Covariate Selection Dispersion Within Groups Table"
+                 X         Z_LL         Z_LH         Z_HL Z_HH Z_dummy
+linear           0 0.0000000000 0.0000000000 0.0000000000    0       0
+stepwise         0 0.0001418625 0.0000000000 0.0001913292    0       0
+stepwise_X       0 0.0001512667 0.0001001167 0.0000000000    0       0
+two_step_LASSO   0 0.0001814958 0.0000000000 0.0002245167    0       0
+two_step_LASSO_X 0 0.0004072958 0.0001390958 0.0000000000    0       0
+
+
+[1] "Results Table"
+                  pred_mse r_squared_X r_squared_Y    model_SE      emp_SE
+linear           0.9928419   0.4035715   0.6028659 0.010029003 0.009671106
+stepwise         0.9942338   0.4035715   0.6023091 0.008848907 0.009053697
+stepwise_X       1.2751962   0.4035715   0.4899456 0.011341108 0.010324599
+two_step_LASSO   0.9929847   0.4035715   0.6028088 0.009415697 0.009554748
+two_step_LASSO_X 1.1296031   0.4035715   0.5481652 0.010686424 0.009757454
+                 causal_effect_est causal_effect_mcse causal_effect_bias
+linear                   0.5350740       0.0003058959       2.270868e-04
+stepwise                 0.5351194       0.0002863165       2.724953e-04
+stepwise_X               0.5349218       0.0003266473       7.487605e-05
+two_step_LASSO           0.5355676       0.0003014377       7.207043e-04
+two_step_LASSO_X         0.5350734       0.0003086290       2.264743e-04
+                 avg_abs_param_bias coverage open_paths blocked_paths
+linear                  0.008083677    0.955         16            16
+stepwise                0.005584634    0.951         16            16
+stepwise_X              0.034350934    0.964         16            16
+two_step_LASSO          0.007529061    0.946         16            16
+two_step_LASSO_X        0.021000026    0.969         16            16
+
+Saving results to file
+
+[1] "finished!"
+NULL
+
+End Time: Thu Oct 3 07:17:40 BST 2024
+***** END *****
+
