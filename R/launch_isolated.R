@@ -10,13 +10,19 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 30/09/2024
+# Most Recent Edit: 15/10/2024
 # ****************************************
+
 
 # clear R memory
 rm(list=ls())
 
-# all external libraries
+
+# fix RNG for reproducibility
+set.seed(2024)
+
+
+# check all external libraries
 using<-function(...) {
   libs <- unlist(list(...))
   req  <- unlist(lapply(libs, require, character.only=TRUE))
@@ -29,52 +35,61 @@ using<-function(...) {
 using("dagitty", "dplyr", "ggcorrplot", "ggplot2", "glmnet",
       "igraph", "lars", "matrixStats", "microbenchmark", "sjmisc", "tidyr")
 
+
 # fix wd issue
 if (Sys.getenv("RSTUDIO") == "1") {
   setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 }
 
-# simulation-proper code
+
+# import simulation-proper code
 source("simulation.R")
 source("results.R")
 
-# top-level simulation parameters
-n_obs_init        <- 10000 # suff high for number of confounders (!)
-n_rep_init        <- 1000
-SE_req_init       <- 0.05
-data_split_init   <- NULL
 
-# important that rX < rY for numerical reasons
-# c <= 0 for suff. high values of asymmetry - watch carefully!
-target_r_sq_X_init     <- 0.4 # oracle R-squared value, proportion of variance in X explained by all Z's, we induce
-target_r_sq_Y_init     <- 0.6 # oracle R-squared value, proportion of variance in Y explained by X and all Z's, we induce
-
-asymmetry_init <- NaN   # measure of asymmetry within oracle coefficients, set to 1.0 to keep them symmetric
-l_zero_X_init  <- TRUE  # force 'L' subgroups affecting X to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
-l_zero_Y_init  <- TRUE  # force 'L' subgroups affecting Y to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
-
-oracle_error_mean_init <- 0.00 # error term mean
-oracle_error_sd_init   <- 1.00 # error term sd
-
-
-# models to fit and results metrics to measure
+# define model types to fit and results metrics to measure
 #model_methods <- c("linear")
 model_methods   <- c("linear", "stepwise", "stepwise_X", "two_step_LASSO", "two_step_LASSO_X")
-
 results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
                      "model_SE", "emp_SE",
                      "causal_effect_est", "causal_effect_mcse", "causal_effect_bias",
                      "avg_abs_param_bias", "coverage",
                      "open_paths", "blocked_paths")
 
-c_values <- c(128)
-#c_values <- c(128)
-#c_values        <- c(4, 8, 16, 32, 64, 128, 256)
 
-for (c in c_values) {
-  # fix RNG for reproducibility per case
-  # (i.e. running c values in a diff order will not yield diff results)
-  set.seed(2024)
+# fixed top-level simulation parameters
+n_rep_init             <- 100   # number of repetitons of each scenario
+SE_req_init            <- 0.05  # target standard error (determines lower bound for n_rep)
+data_split_init        <- NULL  # determines whether wqe split test and training sets
+asymmetry_init         <- NaN   # measure of asymmetry within oracle coefficients, set to 1.0 to keep them symmetric
+l_zero_X_init          <- TRUE  # force 'L' subgroups affecting X to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
+l_zero_Y_init          <- TRUE  # force 'L' subgroups affecting Y to have an oracle coefficient of 0.0, set to FALSE to use asymmetry
+oracle_error_mean_init <- 0.00  # error term mean
+oracle_error_sd_init   <- 1.00  # error term sd
+
+
+# top level parameters varied between scenarios
+# NB: num_conf must be an integer multiple of 4
+# NB: notation for num_conf is c in rest of code, difficult refactor TBC
+# NB: important that rX < rY for numerical reasons
+# NB: you may create c <= 0 for suff. high values of asymmetry - watch carefully!
+# NB: system ill defined for suff. low n_obs
+# scenario = c(n_scenario, num_conf, unmeasured_conf, n_obs, causal_strength, r_sq_X, r_sq_Y)
+scenarios <- list(c(1,  8, 0,  1000, 1.0, 0.4, 0.6),
+                  c(2,  8, 0, 10000, 1.0, 0.4, 0.6),
+                  c(3, 16, 0,  1000, 1.0, 0.4, 0.6),
+                  c(4, 16, 0, 10000, 1.0, 0.4, 0.6))
+
+
+for (scenario in scenarios) {
+  # extract param values
+  n_scenario         <- scenario[1]
+  c                  <- scenario[2]
+  n_unmeas_conf      <- scenario[3]
+  n_obs_init         <- scenario[4]
+  causal_str         <- scenario[5]
+  target_r_sq_X_init <- scenario[6]
+  target_r_sq_Y_init <- scenario[7]
   
   # initialise DAG
   coef_data      <- generate_coef_data(c             = c,
@@ -86,9 +101,10 @@ for (c in c_values) {
   DAG_adj_matrix <- adjacency_matrix_from_coef_data(coef_data = coef_data)
   DAG_labels     <- colnames(DAG_adj_matrix)
   DAG_graph      <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
-
+  
   # simulation procedure call
-  run(graph             = DAG_graph,
+  run(n_scenario        = n_scenario,
+      graph             = DAG_graph,
       coef_data         = coef_data,
       n_obs             = n_obs_init,
       n_rep             = n_rep_init,
@@ -105,10 +121,9 @@ for (c in c_values) {
       oracle_error_mean = oracle_error_mean_init,
       oracle_error_sd   = oracle_error_sd_init,
       record_results    = TRUE)
-
+  
   # generate results plots
-  generate_all_plots(case = c)
+  generate_all_plots(case = n_scenario)
 }
-
 
 

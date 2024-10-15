@@ -6,7 +6,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 18/09/2024
+# Most Recent Edit: 15/10/2024
 # ****************************************
 
 
@@ -43,7 +43,7 @@ detect_most_recent_timestamp <- function() {
 
 
 generate_all_plots <- function(case = NULL) {
-  case_string <- paste("c", case, sep = "")
+  case_string <- paste("s", case, sep = "")
   
   # import
   data    <- read.csv(paste("../data/", case_string, "-dataset.csv", sep = ""))

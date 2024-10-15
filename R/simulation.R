@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 30/09/2024
+# Most Recent Edit: 15/10/2024
 # ****************************************
 
 
@@ -1085,7 +1085,8 @@ var_across_groups <- function(table = NULL, case = NULL) {
 }
 
 
-run_once <- function(graph             = NULL,
+run_once <- function(n_scenario        = NULL,
+                     graph             = NULL,
                      coef_data         = NULL,
                      n_obs             = NULL,
                      labels            = NULL,
@@ -1104,7 +1105,8 @@ run_once <- function(graph             = NULL,
                      using_shiny       = FALSE) {
   
   # run one iteration
-  run(graph = graph,
+  run(n_scenario        = n_scenario,
+      graph             = graph,
       coef_data         = coef_data,
       n_obs             = n_obs,
       n_rep             = 1,
@@ -1126,7 +1128,8 @@ run_once <- function(graph             = NULL,
 }
 
 
-run <- function(graph             = NULL,
+run <- function(n_scenario        = NULL,
+                graph             = NULL,
                 coef_data         = NULL,
                 n_obs             = NULL,
                 n_rep             = NULL,
@@ -1175,7 +1178,7 @@ run <- function(graph             = NULL,
   # run simulation repetitions
   for (i in 1:n_rep) {
     # progress
-    message( paste("\n\nRunning Scenario ", c, ", Iteration ", i, "/", n_rep, "\n", sep = "") )
+    message( paste("\nRunning Scenario ", n_scenario, ", Iteration ", i, "/", n_rep, "\n", sep = "") )
     
     # generate data according to split parameter
     # if NULL, use the same data for testing and training
@@ -1780,7 +1783,7 @@ run <- function(graph             = NULL,
   )
   
   if (record_results) {
-    case_string <- paste("c", (ncol(coef_data) - 5), sep = "")
+    case_string <- paste("s", n_scenario, sep = "")
     
     if (using_shiny) { setwd("..") }
     
