@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 15/10/2024
+# Most Recent Edit: 29/10/2024
 # ****************************************
 
 
@@ -639,7 +639,8 @@ generate_dataset <- function(coef_data         = NULL,
                              n_obs             = NULL,
                              oracle_error_mean = NULL,
                              oracle_error_sd   = NULL,
-                             labels            = NULL) {
+                             labels            = NULL,
+                             target_r_sq_Y     = NULL) {
   # initialize
   n_node            <- length(labels)
   dataset           <- data.frame(matrix(NA, nrow = n_obs, ncol = n_node))
@@ -682,8 +683,31 @@ generate_dataset <- function(coef_data         = NULL,
         }
         
         # error term
-        error        <- rnorm(n = n_obs, mean = oracle_error_mean, sd = oracle_error_sd)
-        dataset[, i] <- rowSums( cbind(dataset[, i], error), na.rm = TRUE)
+        if (labels[i] == 'y') {
+          num_conf <- length(labels) - 3
+          Zs       <- paste("Z", c(1, (1 + 0.25*num_conf), (1 + 0.5*num_conf), (1 + 0.75*num_conf)), sep='')
+          
+          var_error_Y  <- determine_var_error_Y(num_conf      = c,
+                                                beta_Xs       = as.numeric(coef_data[2, Zs]),
+                                                beta_Ys       = as.numeric(coef_data[1, Zs]),
+                                                causal        = as.numeric(coef_data[1, 'X']),
+                                                target_r_sq_Y = target_r_sq_Y)
+          
+          # TESTING
+          # print(labels)
+          # print(Zs)
+          # print(as.numeric(coef_data[2, Zs]))
+          # print(as.numeric(coef_data[1, Zs]))
+          # print(as.numeric(coef_data[1, 'X']))
+          # print(var_error_Y)
+          
+          error        <- rnorm(n = n_obs, mean = oracle_error_mean, sd = sqrt(var_error_Y))
+          dataset[, i] <- rowSums( cbind(dataset[, i], error), na.rm = TRUE)
+        }
+        else {
+          error        <- rnorm(n = n_obs, mean = oracle_error_mean, sd = oracle_error_sd)
+          dataset[, i] <- rowSums( cbind(dataset[, i], error), na.rm = TRUE)
+        }
         
         # remove i from "caused" list
         caused <- caused[ !caused == i]
@@ -808,22 +832,24 @@ var_Y_formula <- function(num_conf = NULL,
 }
 
 
-analytic_r_sq_X <- function(num_conf = NULL,
-                            beta_Xs  = NULL) {
+analytic_r_sq_X <- function(num_conf    = NULL,
+                            beta_Xs     = NULL,
+                            var_error_X = NULL) {
   
   numerator   <- ((num_conf/4) * sum(beta_Xs^2))
-  denominator <- ((num_conf/4) * sum(beta_Xs^2)) + 1
+  denominator <- ((num_conf/4) * sum(beta_Xs^2)) + var_error_X
   return (numerator / denominator)
 }
 
 
-analytic_r_sq_Y <- function(num_conf = NULL,
-                            beta_Xs  = NULL,
-                            beta_Ys  = NULL,
-                            causal   = NULL) {
+analytic_r_sq_Y <- function(num_conf    = NULL,
+                            beta_Xs     = NULL,
+                            beta_Ys     = NULL,
+                            causal      = NULL,
+                            var_error_Y = NULL) {
   
   numerator   <- ((num_conf/4) * sum( ((causal*beta_Xs) + beta_Ys)^2 )) + causal^2
-  denominator <- ((num_conf/4) * sum( ((causal*beta_Xs) + beta_Ys)^2 )) + causal^2 + 1
+  denominator <- ((num_conf/4) * sum( ((causal*beta_Xs) + beta_Ys)^2 )) + causal^2 + var_error_Y
   
   return (numerator / denominator)
 }
@@ -1085,6 +1111,36 @@ var_across_groups <- function(table = NULL, case = NULL) {
 }
 
 
+# NB: beta_Xs gives only the unique values from each of the 4 subgroups
+# hence multiplying by (num_conf/4) to get total variance
+determine_var_error_X <- function(num_conf = NULL, beta_Xs = NULL, target_r_sq_X = NULL) {
+  r_sq_X <- target_r_sq_X
+  
+  LHS <- ((1 - r_sq_X) / r_sq_X)
+  RHS <- (num_conf / 4) * sum(beta_Xs^2)
+  
+  return (LHS * RHS)
+}
+
+
+# determines the variance of the error term for the outcome Y to be used in data-set generation
+# the idea is to scale var(epsilon_Y) up and down as we scale the causal effect c
+# s.t. the values for r_squared_X and r_squared_Y can remain constant
+determine_var_error_Y <- function(num_conf = NULL, beta_Xs = NULL, beta_Ys = NULL, causal = NULL, target_r_sq_Y = NULL) {
+  r_sq_Y <- target_r_sq_Y
+  
+  sum_sq_coefs <- 0.0
+  for (i in 1:4) {
+    sum_sq_coefs <- sum_sq_coefs + ( (causal * beta_Xs[i]) + beta_Ys[i] )^2
+  }
+  sum_sq_coefs <- (num_conf / 4) * sum_sq_coefs
+  
+  top <- (sum_sq_coefs) + (causal^2) + (-1 * r_sq_Y * sum_sq_coefs) + (-1 * r_sq_Y * causal^2)
+  btm <- r_sq_Y
+  return (top / btm)
+}
+
+
 run_once <- function(n_scenario        = NULL,
                      graph             = NULL,
                      coef_data         = NULL,
@@ -1188,7 +1244,8 @@ run <- function(n_scenario        = NULL,
                                n_obs             = n_obs,
                                oracle_error_mean = oracle_error_mean,
                                oracle_error_sd   = oracle_error_sd,
-                               labels            = labels)
+                               labels            = labels,
+                               target_r_sq_Y     = target_r_sq_Y)
       
       # test on same data
       test_data <- data
@@ -1205,14 +1262,16 @@ run <- function(n_scenario        = NULL,
                                n_obs             = train_split,
                                oracle_error_mean = oracle_error_mean,
                                oracle_error_sd   = oracle_error_sd,
-                               labels            = labels)
+                               labels            = labels,
+                               target_r_sq_Y     = target_r_sq_Y)
       
       # generate seperate testing data
       test_data <- generate_dataset(coef_data         = coef_data,
                                     n_obs             = test_split,
                                     oracle_error_mean = oracle_error_mean,
                                     oracle_error_sd   = oracle_error_sd,
-                                    labels            = labels)
+                                    labels            = labels,
+                                    target_r_sq_Y     = target_r_sq_Y)
       
       # record this data
       representative_data <- rbind(data, test_data)
@@ -1693,21 +1752,41 @@ run <- function(n_scenario        = NULL,
   
   # Generate Sample Variances Table
   sample_mean <- sapply(data, mean, na.rm = T)
-  sample_sd   <- sapply(data, sd, na.rm = T)
-  sample_var  <- sapply(data, sd, na.rm = T)^2
+  sample_sd   <- sapply(data,   sd, na.rm = T)
+  sample_var  <- sapply(data,   sd, na.rm = T)^2
   sample_vars <- rbind(sample_mean, sample_sd, sample_var)
   
   # Generate R2 Table
   r2_values        <- c(target_r_sq_X,
-                        analytic_r_sq_X(num_conf = c, beta_Xs = oracle_beta_Xs),
+                        analytic_r_sq_X(num_conf    = c,
+                                        beta_Xs     = oracle_beta_Xs,
+                                        var_error_X = determine_var_error_X(num_conf      = c,
+                                                                            beta_Xs       = oracle_beta_Xs,
+                                                                            target_r_sq_X = target_r_sq_X)),
                         results_aggr[1, 'r_squared_X'],
                         target_r_sq_Y,
-                        analytic_r_sq_Y(num_conf = c,
-                                        beta_Xs  = oracle_beta_Xs,
-                                        beta_Ys  = oracle_beta_Ys,
-                                        causal   = oracle_causal),
+                        analytic_r_sq_Y(num_conf    = c,
+                                        beta_Xs     = oracle_beta_Xs,
+                                        beta_Ys     = oracle_beta_Ys,
+                                        causal      = oracle_causal,
+                                        var_error_Y = determine_var_error_Y(num_conf      = c,
+                                                                            beta_Xs       = oracle_beta_Xs,
+                                                                            beta_Ys       = oracle_beta_Ys,
+                                                                            causal        = oracle_causal,
+                                                                            target_r_sq_Y = target_r_sq_Y)),
                         results_aggr[1, 'r_squared_Y'])
   names(r2_values) <- c("Target_R2_X", "Analytic_R2_X", "Sample R2_X", "Target_R2_Y", "Analytic_R2_Y", "Sample R2_Y")
+  
+  # Generate error sub-table
+  error_subtable        <- c(determine_var_error_Y(num_conf      = c,
+                                                   beta_Xs       = oracle_beta_Xs,
+                                                   beta_Ys       = oracle_beta_Ys,
+                                                   causal        = oracle_causal,
+                                                   target_r_sq_Y = target_r_sq_Y),
+                             results_aggr['linear', 'pred_mse'])
+  
+  names(error_subtable) <- c("Analytic_var_error_Y",
+                             "Predictive_mean_square_error_Y")
   
   message("\nResults of Simulation")
   
@@ -1715,10 +1794,13 @@ run <- function(n_scenario        = NULL,
   print("R2 Control Table")
   print(r2_values)
   
-  
   writeLines("\n\n")
   print("Oracle Distribution")
   print(oracle_var)
+  
+  writeLines("\n\n")
+  print("Outcome Y Error")
+  print(error_subtable)
   
   writeLines("\n")
   print("Sample Distributions")

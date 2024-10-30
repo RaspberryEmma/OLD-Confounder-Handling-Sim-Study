@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 15/10/2024
+# Most Recent Edit: 29/10/2024
 # ****************************************
 
 
@@ -58,7 +58,7 @@ results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
 
 
 # fixed top-level simulation parameters
-n_rep_init             <- 100   # number of repetitons of each scenario
+n_rep_init             <- 10    # number of repetitons of each scenario
 SE_req_init            <- 0.05  # target standard error (determines lower bound for n_rep)
 data_split_init        <- NULL  # determines whether wqe split test and training sets
 asymmetry_init         <- NaN   # measure of asymmetry within oracle coefficients, set to 1.0 to keep them symmetric
@@ -75,10 +75,12 @@ oracle_error_sd_init   <- 1.00  # error term sd
 # NB: you may create c <= 0 for suff. high values of asymmetry - watch carefully!
 # NB: system ill defined for suff. low n_obs
 # scenario = c(n_scenario, num_conf, unmeasured_conf, n_obs, causal_strength, r_sq_X, r_sq_Y)
-scenarios <- list(c(1,  8, 0,  1000, 1.0, 0.4, 0.6),
-                  c(2,  8, 0, 10000, 1.0, 0.4, 0.6),
-                  c(3, 16, 0,  1000, 1.0, 0.4, 0.6),
-                  c(4, 16, 0, 10000, 1.0, 0.4, 0.6))
+scenarios <- list(c(1,  8, 0,  1000, 2.5, 0.4, 0.6))
+
+#scenarios <- list(c(1,  8, 0,  1000, 1.0, 0.4, 0.6),
+#                  c(2,  8, 0, 10000, 1.0, 0.4, 0.6),
+#                  c(3, 16, 0,  1000, 1.0, 0.4, 0.6),
+#                  c(4, 16, 0, 10000, 1.0, 0.4, 0.6))
 
 
 for (scenario in scenarios) {
@@ -98,6 +100,11 @@ for (scenario in scenarios) {
                                        asymmetry     = asymmetry_init,
                                        l_zero_X      = l_zero_X_init,
                                        l_zero_Y      = l_zero_Y_init)
+  
+  # replace initial causal effect with target value
+  coef_data[1, 'X'] <- causal_str
+  
+  # construct DAG objects
   DAG_adj_matrix <- adjacency_matrix_from_coef_data(coef_data = coef_data)
   DAG_labels     <- colnames(DAG_adj_matrix)
   DAG_graph      <- graph_from_adjacency_matrix(DAG_adj_matrix, mode = "directed")
@@ -125,5 +132,6 @@ for (scenario in scenarios) {
   # generate results plots
   generate_all_plots(case = n_scenario)
 }
+
 
 
