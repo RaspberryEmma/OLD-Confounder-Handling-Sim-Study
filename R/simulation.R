@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 29/10/2024
+# Most Recent Edit: 14/11/2024
 # ****************************************
 
 
@@ -752,7 +752,7 @@ beta_X_levels_condition <- function(num_conf      = NULL,
 
 # The values for all beta coefficients used for generating Y
 # Tuned to induce the given value of R2_X in generated data-sets
-beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmetry = NULL, l_zero_X = NULL, l_zero_Y = NULL) {
+beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, dissimilarity = NULL, l_zero_X = NULL, l_zero_Y = NULL) {
   
   # short-hand
   m   <- num_conf
@@ -764,8 +764,8 @@ beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmet
     b_2 <- 0
   }
   else {
-    b_1 <- (1/asymmetry) * b
-    b_2 <- (1/asymmetry) * b
+    b_1 <- (1/dissimilarity) * b
+    b_2 <- (1/dissimilarity) * b
   }
   
   numerator   <- ((b_1^2 + b_2^2) * (r_X - 1)) + ((4/m) * r_X)
@@ -779,7 +779,7 @@ beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmet
 
 
 # The values for all beta coefficients used for generating Y
-beta_Y_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmetry = NULL, l_zero_X = NULL, l_zero_Y = NULL) {
+beta_Y_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, dissimilarity = NULL, l_zero_X = NULL, l_zero_Y = NULL) {
   
   # short-hand
   m   <- num_conf
@@ -791,8 +791,8 @@ beta_Y_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, asymmet
     d_3 <- 0
   }
   else {
-    d_1 <- (1/asymmetry) * b
-    d_3 <- (1/asymmetry) * b
+    d_1 <- (1/dissimilarity) * b
+    d_3 <- (1/dissimilarity) * b
   }
   
   numerator   <- ((d_1^2 + d_3^2) * (r_X - 1)) + ((4/m) * r_X)
@@ -882,7 +882,7 @@ analytic_levels_causal_effect <- function(num_conf      = NULL,
 generate_coef_data <- function(c             = NULL,
                                target_r_sq_X = NULL,
                                target_r_sq_Y = NULL,
-                               asymmetry     = NULL,
+                               dissimilarity     = NULL,
                                l_zero_X      = NULL,
                                l_zero_Y      = NULL) {
   
@@ -931,8 +931,8 @@ generate_coef_data <- function(c             = NULL,
   }
   
   # Adjust all beta values in order to control R2
-  beta_Xs               <- beta_X_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
-  beta_Ys               <- beta_Y_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
+  beta_Xs               <- beta_X_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
+  beta_Ys               <- beta_Y_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
   oracle_causal_effect  <- analytic_levels_causal_effect(num_conf = c, beta_Xs = beta_Xs, beta_Ys = beta_Ys, target_r_sq_Y = target_r_sq_Y)
   
   # subset by caused / uncaused
@@ -1141,69 +1141,112 @@ determine_var_error_Y <- function(num_conf = NULL, beta_Xs = NULL, beta_Ys = NUL
 }
 
 
-run_once <- function(n_scenario        = NULL,
-                     graph             = NULL,
-                     coef_data         = NULL,
-                     n_obs             = NULL,
-                     labels            = NULL,
-                     model_methods     = NULL,
-                     results_methods   = NULL,
-                     SE_req            = NULL,
-                     data_split        = NULL,
-                     target_r_sq_X     = NULL,
-                     target_r_sq_Y     = NULL,
-                     asymmetry         = NULL,
-                     l_zero_X          = NULL,
-                     l_zero_Y          = NULL,
-                     oracle_error_mean = NULL,
-                     oracle_error_sd   = NULL,
-                     record_results    = NULL,
-                     using_shiny       = FALSE) {
+run_once <- function(
+  # indices
+  n_simulation    = NULL,
+  n_scenario      = NULL,
+  
+  # fixed params
+  n_rep  = NULL,
+  
+  # simulation-run and scenario params
+  n_obs           = NULL,
+  Z_correlation   = NULL,
+  target_r_sq_X   = NULL,
+  target_r_sq_Y   = NULL,
+  causal_effect   = NULL,
+  dissimilarity   = NULL,
+  c               = NULL,
+  num_unmeas_conf = NULL,
+  
+  # data and tech
+  graph           = NULL,
+  coef_data       = NULL,
+  labels          = NULL,
+  model_methods   = NULL,
+  results_methods = NULL,
+  SE_req          = NULL,
+  data_split      = NULL,
+  l_zero_X        = NULL,
+  l_zero_Y        = NULL,
+  oracle_error_mean = NULL,
+  oracle_error_sd   = NULL,
+  record_results  = NULL,
+  using_shiny       = FALSE) {
   
   # run one iteration
-  run(n_scenario        = n_scenario,
-      graph             = graph,
-      coef_data         = coef_data,
-      n_obs             = n_obs,
-      n_rep             = 1,
-      labels            = labels,
-      model_methods     = model_methods,
-      results_methods   = results_methods,
-      SE_req            = SE_req,
-      data_split        = data_split,
-      target_r_sq_X     = target_r_sq_X,
-      target_r_sq_Y     = target_r_sq_Y,
-      asymmetry         = asymmetry,
-      l_zero_X          = l_zero_X,
-      l_zero_Y          = l_zero_Y,
-      oracle_error_mean = oracle_error_mean,
-      oracle_error_sd   = oracle_error_sd,
-      using_shiny       = using_shiny,
-      record_results    = record_results,
-      messages          = TRUE)
+  run(
+    # indices
+    n_simulation    = n_simulation,
+    n_scenario      = n_scenario,
+    
+    # fixed params
+    n_rep  = 1,      # one
+    
+    # simulation-run and scenario params
+    n_obs           = n_obs,
+    Z_correlation   = Z_correlation,
+    target_r_sq_X   = target_r_sq_X,
+    target_r_sq_Y   = target_r_sq_Y,
+    causal_effect   = causal_effect,
+    dissimilarity   = dissimilarity,
+    c               = c,
+    num_unmeas_conf = num_unmeas_conf,
+    
+    # data and tech
+    graph           = graph,
+    coef_data       = coef_data,
+    labels          = labels,
+    model_methods   = model_methods,
+    results_methods = results_methods,
+    SE_req          = SE_req,
+    data_split      = data_split,
+    l_zero_X        = l_zero_X,
+    l_zero_Y        = l_zero_Y,
+    oracle_error_mean = oracle_error_mean,
+    oracle_error_sd   = oracle_error_sd,
+    record_results  = FALSE,
+    
+    # extra
+    messages = TRUE)
 }
 
 
-run <- function(n_scenario        = NULL,
-                graph             = NULL,
-                coef_data         = NULL,
-                n_obs             = NULL,
-                n_rep             = NULL,
-                labels            = NULL,
-                model_methods     = NULL,
-                results_methods   = NULL,
-                SE_req            = NULL,
-                data_split        = NULL,
-                target_r_sq_X     = NULL,
-                target_r_sq_Y     = NULL,
-                asymmetry         = NULL,
-                l_zero_X          = NULL,
-                l_zero_Y          = NULL,
-                oracle_error_mean = NULL,
-                oracle_error_sd   = NULL,
-                record_results    = NULL,
-                using_shiny       = FALSE,
-                messages          = FALSE) {
+run <- function(
+  # indices
+  n_simulation    = NULL,
+  n_scenario      = NULL,
+  
+  # fixed params
+  n_rep  = NULL,
+  
+  # simulation-run and scenario params
+  n_obs           = NULL,
+  Z_correlation   = NULL,
+  target_r_sq_X   = NULL,
+  target_r_sq_Y   = NULL,
+  causal_effect   = NULL,
+  dissimilarity   = NULL,
+  c               = NULL,
+  num_unmeas_conf = NULL,
+  
+  # data and tech
+  graph           = NULL,
+  coef_data       = NULL,
+  labels          = NULL,
+  model_methods   = NULL,
+  results_methods = NULL,
+  SE_req          = NULL,
+  data_split      = NULL,
+  l_zero_X        = NULL,
+  l_zero_Y        = NULL,
+  oracle_error_mean = NULL,
+  oracle_error_sd   = NULL,
+  record_results  = NULL,
+  
+  # extra
+  using_shiny       = FALSE,
+  messages          = FALSE) {
   
   print("running!")
   
@@ -1234,7 +1277,7 @@ run <- function(n_scenario        = NULL,
   # run simulation repetitions
   for (i in 1:n_rep) {
     # progress
-    message( paste("\nRunning Scenario ", n_scenario, ", Iteration ", i, "/", n_rep, "\n", sep = "") )
+    message( paste("\nRunning Simulation Run ", n_simulation, ", Scenario ", n_scenario, ", Iteration ", i, "/", n_rep, "\n", sep = "") )
     
     # generate data according to split parameter
     # if NULL, use the same data for testing and training
@@ -1722,8 +1765,8 @@ run <- function(n_scenario        = NULL,
   var_labels    <- colnames(coef_data)[-c(1, 2)]
   metric_names  <- c("mean_Y", "var_Y", "mean_X", "var_X")
   
-  oracle_beta_Xs <- beta_X_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
-  oracle_beta_Ys <- beta_Y_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, asymmetry = asymmetry, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
+  oracle_beta_Xs <- beta_X_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
+  oracle_beta_Ys <- beta_Y_levels_formula(num_conf = c, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
   
   oracle_causal  <- coef_data[ match("y", var_labels), "X" ]
   mean_X         <- mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ])
@@ -1850,7 +1893,7 @@ run <- function(n_scenario        = NULL,
                 "data_split",
                 "target_r_sq_X",
                 "target_r_sq_Y",
-                "asymmetry",
+                "dissimilarity",
                 "l_zero_X",
                 "l_zero_Y"),
     value  <- c(n_obs,
@@ -1859,7 +1902,7 @@ run <- function(n_scenario        = NULL,
                 null_string_catch(data_split),
                 target_r_sq_X,
                 target_r_sq_Y,
-                asymmetry,
+                dissimilarity,
                 l_zero_X,
                 l_zero_Y)
   )
