@@ -90,6 +90,7 @@ scenarios <- list(c(1,  16, 0))
 
 for (simulation in simulations) {
   for (scenario in scenarios) {
+    
     # extract simulation param values
     n_simulation       <- simulation[1]
     n_obs_init         <- simulation[2]
@@ -100,12 +101,12 @@ for (simulation in simulations) {
     dissimilarity_init <- simulation[7]
     
     # extract scenario param values
-    n_scenario         <- scenario[1]
-    c                  <- scenario[2]
-    num_unmeas_conf    <- scenario[3]
+    n_scenario      <- scenario[1]
+    num_conf        <- scenario[2]
+    num_unmeas_conf <- scenario[3]
     
     # initialise DAG
-    coef_data      <- generate_coef_data(c             = c,
+    coef_data      <- generate_coef_data(num_conf      = num_conf,
                                          target_r_sq_X = target_r_sq_X_init,
                                          target_r_sq_Y = target_r_sq_Y_init,
                                          dissimilarity = dissimilarity_init,
@@ -136,7 +137,7 @@ for (simulation in simulations) {
       target_r_sq_Y   = target_r_sq_Y_init,
       causal_effect   = causal_effect_init,
       dissimilarity   = dissimilarity_init,
-      c               = c,
+      num_conf        = num_conf,
       num_unmeas_conf = num_unmeas_conf,
       
       # data and tech
