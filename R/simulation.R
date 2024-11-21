@@ -639,6 +639,7 @@ generate_dataset <- function(coef_data         = NULL,
                              n_obs             = NULL,
                              oracle_error_mean = NULL,
                              oracle_error_sd   = NULL,
+                             Z_correlation     = NULL,
                              labels            = NULL,
                              target_r_sq_Y     = NULL) {
   # initialize
@@ -659,9 +660,27 @@ generate_dataset <- function(coef_data         = NULL,
     }
   }
   
+  # generate unseen prior U for all Zs
+  # shared for all Z
+  prior_U <- rnorm(n = n_obs, mean = 0, sd = 1)
+  
   # generate un-caused variables
   for (i in uncaused) {
-    dataset[, i] <- rnorm(n = n_obs, mean = 0, sd = 1)
+    if (sjmisc::str_contains(labels[i], "Z") && (labels[i] != paste("Z", num_conf+1, sep=""))) {
+      # generate error term epsilon_Z_i
+      # independent for each Z
+      error_Z_i <- rnorm(n = n_obs, mean = 0, sd = 1)
+      
+      # determine alpha, beta
+      Z_alpha <- sqrt(Z_correlation)
+      Z_beta  <- sqrt(1 - Z_correlation)
+      
+      # generate Z_i
+      dataset[, i] <- (Z_alpha * prior_U) + (Z_beta * error_Z_i)
+    }
+    else {
+      dataset[, i] <- rnorm(n = n_obs, mean = 0, sd = 1)
+    }
   }
   
   # iteratively generate caused variables
@@ -692,14 +711,6 @@ generate_dataset <- function(coef_data         = NULL,
                                                 beta_Ys       = as.numeric(coef_data[1, Zs]),
                                                 causal        = as.numeric(coef_data[1, 'X']),
                                                 target_r_sq_Y = target_r_sq_Y)
-          
-          # TESTING
-          # print(labels)
-          # print(Zs)
-          # print(as.numeric(coef_data[2, Zs]))
-          # print(as.numeric(coef_data[1, Zs]))
-          # print(as.numeric(coef_data[1, 'X']))
-          # print(var_error_Y)
           
           error        <- rnorm(n = n_obs, mean = oracle_error_mean, sd = sqrt(var_error_Y))
           dataset[, i] <- rowSums( cbind(dataset[, i], error), na.rm = TRUE)
@@ -829,6 +840,38 @@ var_Y_formula <- function(num_conf = NULL,
                           beta_Ys  = NULL,
                           causal   = NULL) {
   return ( ((num_conf/4) * sum(( causal*beta_Xs + beta_Ys )^2)) + causal^2 + 1 )
+}
+
+var_Z_i_formula <- function(correlation_U = NULL) {
+  alpha <- sqrt(correlation_U)
+  beta  <- sqrt(1 - correlation_U)
+  return (alpha^2 + beta^2)
+}
+
+
+analytic_cov_matrix <- function(num_conf      = num_conf,
+                                correlation_U = correlation_U,
+                                coef_data     = coef_data) {
+  
+  var_labels <- colnames(coef_data)[-c(1, 2)]
+  
+  analytic_cov           <- matrix(NaN, (num_conf+3), (num_conf+3))
+  rownames(analytic_cov) <- var_labels
+  colnames(analytic_cov) <- var_labels
+  
+  # variances
+  for (var in var_labels) {
+    # variances here
+  }
+  
+  # pairwise covariances
+  for (i in 1:3) {
+    for (j in 1:3) {
+      # covariances here
+    }
+  }
+  
+  return (analytic_cov)
 }
 
 
@@ -1287,6 +1330,7 @@ run <- function(
                                n_obs             = n_obs,
                                oracle_error_mean = oracle_error_mean,
                                oracle_error_sd   = oracle_error_sd,
+                               Z_correlation     = Z_correlation,
                                labels            = labels,
                                target_r_sq_Y     = target_r_sq_Y)
       
@@ -1305,6 +1349,7 @@ run <- function(
                                n_obs             = train_split,
                                oracle_error_mean = oracle_error_mean,
                                oracle_error_sd   = oracle_error_sd,
+                               Z_correlation     = Z_correlation,
                                labels            = labels,
                                target_r_sq_Y     = target_r_sq_Y)
       
@@ -1313,6 +1358,7 @@ run <- function(
                                     n_obs             = test_split,
                                     oracle_error_mean = oracle_error_mean,
                                     oracle_error_sd   = oracle_error_sd,
+                                    Z_correlation     = Z_correlation,
                                     labels            = labels,
                                     target_r_sq_Y     = target_r_sq_Y)
       
@@ -1840,6 +1886,17 @@ run <- function(
   writeLines("\n\n")
   print("Oracle Distribution")
   print(oracle_var)
+  
+  writeLines("\n\n")
+  print("Oracle Covariance")
+  print(analytic_cov_matrix(num_conf      = num_conf,
+                            correlation_U = correlation_U,
+                            coef_data     = coef_data))
+  
+  writeLines("\n\n")
+  print("Observed Covariance")
+  print(cov(representative_data))
+  
   
   writeLines("\n\n")
   print("Outcome Y Error")

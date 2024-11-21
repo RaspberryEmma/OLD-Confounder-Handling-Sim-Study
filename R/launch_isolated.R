@@ -85,7 +85,7 @@ simulations <- list(c(1, 1000, 0.0, 0.4, 0.6, 0.5, 2.0))
 #                  c(2,  8, 0),
 #                  c(3, 16, 0),
 #                  c(4, 16, 0))
-scenarios <- list(c(1,  16, 0))
+scenarios <- list(c(1,  4, 0))
 
 
 for (simulation in simulations) {
