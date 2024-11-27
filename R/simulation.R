@@ -637,11 +637,16 @@ all_priors_exist <- function(i = NULL, dataset = NULL, i_coef = NULL) {
 
 generate_dataset <- function(coef_data         = NULL,
                              n_obs             = NULL,
+                             num_unmeas_conf   = NULL,
                              oracle_error_mean = NULL,
                              oracle_error_sd   = NULL,
                              Z_correlation     = NULL,
+                             dissimilarity     = NULL,
                              labels            = NULL,
-                             target_r_sq_Y     = NULL) {
+                             target_r_sq_X     = NULL,
+                             target_r_sq_Y     = NULL,
+                             l_zero_X          = NULL,
+                             l_zero_Y          = NULL) {
   # initialize
   n_node            <- length(labels)
   dataset           <- data.frame(matrix(NA, nrow = n_obs, ncol = n_node))
@@ -663,6 +668,16 @@ generate_dataset <- function(coef_data         = NULL,
   # generate unseen prior U for all Zs
   # shared for all Z
   prior_U <- rnorm(n = n_obs, mean = 0, sd = 1)
+  
+  # generate unseen confounders Z_prime_i
+  # shared for X and Y
+  if (num_unmeas_conf > 0) {
+    unmeas_dataset <- data.frame(matrix(NA, nrow = n_obs, ncol = num_unmeas_conf))
+    for (i in 1:num_unmeas_conf) {
+      unmeas_i            <- rnorm(n = n_obs, mean = 0, sd = 1)
+      unmeas_dataset[, i] <- unmeas_i
+    }
+  }
   
   # generate un-caused variables
   for (i in uncaused) {
@@ -699,6 +714,64 @@ generate_dataset <- function(coef_data         = NULL,
           coef_p       <- coef_data[i, p+2]
           var_p        <- coef_p * dataset[, p]
           dataset[, i] <- rowSums( cbind(dataset[, i], var_p), na.rm = TRUE)
+        }
+        
+        # add beta_p * var_p for all unmeasured priors p
+        if (num_unmeas_conf > 0) {
+          if (labels[i] == 'X') {
+            beta_Xs <- beta_X_levels_formula(num_conf = num_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
+            for (p in 1:num_unmeas_conf) {
+              # generate coefficient
+              coef_p <- NaN
+              # LL group
+              if ((i >= 1) && (i <= (num_unmeas_conf/4))) {
+                coef_p <- beta_Xs[1]
+              }
+              # LH
+              if ((i >= (num_unmeas_conf/4)+1) && (i <= (num_unmeas_conf/2))) {
+                coef_p <- beta_Xs[2]
+              }
+              # HL
+              if ((i >= (num_unmeas_conf/2)+1) && i <= ((3/4)*num_unmeas_conf) ) {
+                coef_p <- beta_Xs[3]
+              }
+              # HH
+              if ((i >= ((3/4)*num_unmeas_conf+1)) && (i <= (num_unmeas_conf)) ) {
+                coef_p <- beta_Xs[4]
+              }
+              
+              # add unmeasured influence to variable
+              var_p        <- coef_p * unmeas_dataset[, i]
+              dataset[, i] <- rowSums( cbind(dataset[, i], var_p), na.rm = TRUE)
+            }
+          }
+          if (labels[i] == 'y') {
+            beta_Ys <- beta_Y_levels_formula(num_conf = num_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
+            for (p in 1:num_unmeas_conf) {
+              # generate coefficient
+              coef_p <- NaN
+              # LL group
+              if ((i >= 1) && (i <= (num_unmeas_conf/4))) {
+                coef_p <- beta_Ys[1]
+              }
+              # LH
+              if ((i >= (num_unmeas_conf/4)+1) && (i <= (num_unmeas_conf/2))) {
+                coef_p <- beta_Ys[2]
+              }
+              # HL
+              if ((i >= (num_unmeas_conf/2)+1) && i <= ((3/4)*num_unmeas_conf) ) {
+                coef_p <- beta_Ys[3]
+              }
+              # HH
+              if ((i >= ((3/4)*num_unmeas_conf+1)) && (i <= (num_unmeas_conf)) ) {
+                coef_p <- beta_Ys[4]
+              }
+              
+              # add unmeasured influence to variable
+              var_p        <- coef_p * unmeas_dataset[, i]
+              dataset[, i] <- rowSums( cbind(dataset[, i], var_p), na.rm = TRUE)
+            }
+          }
         }
         
         # error term
@@ -1328,11 +1401,16 @@ run <- function(
       # generate training data
       data <- generate_dataset(coef_data         = coef_data,
                                n_obs             = n_obs,
+                               num_unmeas_conf   = num_unmeas_conf,
                                oracle_error_mean = oracle_error_mean,
                                oracle_error_sd   = oracle_error_sd,
                                Z_correlation     = Z_correlation,
+                               dissimilarity     = dissimilarity,
                                labels            = labels,
-                               target_r_sq_Y     = target_r_sq_Y)
+                               target_r_sq_X     = target_r_sq_X,
+                               target_r_sq_Y     = target_r_sq_Y,
+                               l_zero_X          = l_zero_X,
+                               l_zero_Y          = l_zero_Y)
       
       # test on same data
       test_data <- data
@@ -1347,20 +1425,30 @@ run <- function(
       # generate training data
       data <- generate_dataset(coef_data         = coef_data,
                                n_obs             = train_split,
+                               num_unmeas_conf   = num_unmeas_conf,
                                oracle_error_mean = oracle_error_mean,
                                oracle_error_sd   = oracle_error_sd,
                                Z_correlation     = Z_correlation,
+                               dissimilarity     = dissimilarity,
                                labels            = labels,
-                               target_r_sq_Y     = target_r_sq_Y)
+                               target_r_sq_X     = target_r_sq_X,
+                               target_r_sq_Y     = target_r_sq_Y,
+                               l_zero_X          = l_zero_X,
+                               l_zero_Y          = l_zero_Y)
       
       # generate seperate testing data
       test_data <- generate_dataset(coef_data         = coef_data,
                                     n_obs             = test_split,
+                                    num_unmeas_conf   = num_unmeas_conf,
                                     oracle_error_mean = oracle_error_mean,
                                     oracle_error_sd   = oracle_error_sd,
                                     Z_correlation     = Z_correlation,
+                                    dissimilarity     = dissimilarity,
                                     labels            = labels,
-                                    target_r_sq_Y     = target_r_sq_Y)
+                                    target_r_sq_X     = target_r_sq_X,
+                                    target_r_sq_Y     = target_r_sq_Y,
+                                    l_zero_X          = l_zero_X,
+                                    l_zero_Y          = l_zero_Y)
       
       # record this data
       representative_data <- rbind(data, test_data)

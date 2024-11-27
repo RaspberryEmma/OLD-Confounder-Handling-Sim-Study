@@ -65,7 +65,7 @@ results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
 
 
 # top-level parameters held constant across all scenarios and simulation runs
-n_rep_init             <- 10 # 2000   # number of repetitions of each scenario
+n_rep_init             <- 2000   # number of repetitions of each scenario
 SE_req_init            <- 0.05  # target standard error (determines lower bound for n_rep)
 data_split_init        <- NULL  # determines whether we split test and training sets
 l_zero_X_init          <- FALSE # force 'L' subgroups affecting X to have an oracle coefficient of 0.0, set to FALSE to use dissimilarity
@@ -103,12 +103,16 @@ if (length(args) > 0) {
   scenarios <- all_scenarios
 }
 
+# reduced size scenario list for testing
+# scenarios <- list(
+#   c(1,  16,  0),
+#   c(2,  16,  4),
+#   c(3,  32,  0),
+#   c(4,  32,  8)
+# )
+
 message("The following scenarios will be run:")
 print(scenarios)
-
-# reduced size scenario list for testing
-#scenarios <- list(c(1,  4, 1))
-
 
 for (simulation in simulations) {
   for (scenario in scenarios) {
@@ -182,5 +186,6 @@ for (simulation in simulations) {
     
   } # end scenario loop
 } # end simulation loop
+
 
 
