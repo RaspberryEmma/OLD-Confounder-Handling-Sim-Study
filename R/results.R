@@ -43,7 +43,7 @@ detect_most_recent_timestamp <- function() {
 
 
 generate_all_plots <- function(case = NULL) {
-  case_string <- paste("s", case, sep = "")
+  case_string <- paste("sim-", n_simulation, "-scenario-", n_scenario, sep = "")
   
   # import
   data    <- read.csv(paste("../data/", case_string, "-dataset.csv", sep = ""))

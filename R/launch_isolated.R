@@ -64,8 +64,8 @@ results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
 # NB: system ill defined for suff. low n_obs
 
 
-# fixed top-level simulation parameters (constant across all scenarios and all runs)
-n_rep_init             <- 100   # number of repetitions of each scenario
+# top-level parameters held constant across all scenarios and simulation runs
+n_rep_init             <- 10 # 2000   # number of repetitions of each scenario
 SE_req_init            <- 0.05  # target standard error (determines lower bound for n_rep)
 data_split_init        <- NULL  # determines whether we split test and training sets
 l_zero_X_init          <- FALSE # force 'L' subgroups affecting X to have an oracle coefficient of 0.0, set to FALSE to use dissimilarity
@@ -76,16 +76,38 @@ oracle_error_sd_init   <- 1.0
 
 # top-level parameters held constant between scenarios but varied across simulation runs
 # simulation = c(n_simulation, n_obs, correlation_U, r_sq_X, r_sq_Y, causal, dissimilarity_rho)
-simulations <- list(c(1, 1000, 0.0, 0.4, 0.6, 0.5, 2.0))
+simulations <- list(c(1, 1000, 0.0, 0.4, 0.6, 0.5, 1.0))
 
 
 # top level parameters varied between scenarios
 # scenario = c(n_scenario, num_conf, unmeasured_conf)
-#scenarios <- list(c(1,  8, 0),
-#                  c(2,  8, 0),
-#                  c(3, 16, 0),
-#                  c(4, 16, 0))
-scenarios <- list(c(1,  4, 0))
+all_scenarios <- list(
+  c(1,  16,  0),
+  c(2,  16,  4),
+  c(3,  32,  0),
+  c(4,  32,  8),
+  c(5,  64,  0),
+  c(6,  64, 16),
+  c(7, 128,  0),
+  c(8, 128, 32)
+)
+
+
+# subset the scenarios if command line argument provided
+args = commandArgs(trailingOnly=TRUE)
+if (length(args) > 0) {
+  args <- stringr::str_split(args[1], ",")[[1]]
+  args <- as.numeric(args)
+  scenarios <- all_scenarios[args]
+} else {
+  scenarios <- all_scenarios
+}
+
+message("The following scenarios will be run:")
+print(scenarios)
+
+# reduced size scenario list for testing
+#scenarios <- list(c(1,  4, 1))
 
 
 for (simulation in simulations) {

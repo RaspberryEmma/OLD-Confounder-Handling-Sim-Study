@@ -1965,7 +1965,7 @@ run <- function(
   )
   
   if (record_results) {
-    case_string <- paste("s", n_scenario, sep = "")
+    case_string <- paste("sim-", n_simulation, "-scenario-", n_scenario, sep = "")
     
     if (using_shiny) { setwd("..") }
     
