@@ -1,0 +1,6795 @@
+cpu-bind=MASK - bp1-compute219, task  0  0 [3481903]: mask 0xff000000ff set
+
+***** START *****
+***** Confounder Handling Simulation Study - Simulation *****
+Scenarios: 3
+Start Time: Wed Nov 27 21:24:13 GMT 2024
+Working Directory: /user/home/aa22294/Confounder-Handling-Sim-Study/R
+JOB ID: 10709197
+SLURM ARRAY ID:
+
+Loading required package: dagitty
+Loading required package: dplyr
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Loading required package: ggcorrplot
+Loading required package: ggplot2
+Loading required package: glmnet
+Loading required package: Matrix
+Loaded glmnet 4.1-8
+Loading required package: igraph
+
+Attaching package: 'igraph'
+
+The following objects are masked from 'package:dplyr':
+
+    as_data_frame, groups, union
+
+The following object is masked from 'package:dagitty':
+
+    edges
+
+The following objects are masked from 'package:stats':
+
+    decompose, spectrum
+
+The following object is masked from 'package:base':
+
+    union
+
+Loading required package: lars
+Loaded lars 1.3
+
+Loading required package: matrixStats
+
+Attaching package: 'matrixStats'
+
+The following object is masked from 'package:dplyr':
+
+    count
+
+Loading required package: microbenchmark
+Loading required package: sjmisc
+Loading required package: tidyr
+
+Attaching package: 'tidyr'
+
+The following object is masked from 'package:sjmisc':
+
+    replace_na
+
+The following object is masked from 'package:igraph':
+
+    crossing
+
+The following objects are masked from 'package:Matrix':
+
+    expand, pack, unpack
+
+The following scenarios will be run:
+[[1]]
+[1]  3 32  0
+
+[1] "running!"
+
+Running Simulation Run 1, Scenario 3, Iteration 1/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 2/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 3/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 4/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 5/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 6/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 7/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 8/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 9/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 10/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 11/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 12/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 13/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 14/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 15/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 16/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 17/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 18/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 19/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 20/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 21/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 22/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 23/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 24/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 25/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 26/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 27/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 28/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 29/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 30/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 31/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 32/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 33/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 34/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 35/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 36/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 37/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 38/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 39/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 40/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 41/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 42/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 43/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 44/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 45/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 46/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 47/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 48/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 49/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 50/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 51/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 52/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 53/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 54/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 55/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 56/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 57/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 58/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 59/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 60/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 61/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 62/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 63/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 64/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 65/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 66/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 67/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 68/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 69/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 70/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 71/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 72/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 73/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 74/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 75/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 76/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 77/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 78/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 79/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 80/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 81/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 82/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 83/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 84/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 85/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 86/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 87/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 88/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 89/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 90/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 91/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 92/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 93/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 94/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 95/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 96/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 97/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 98/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 99/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 100/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 101/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 102/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 103/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 104/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 105/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 106/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 107/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 108/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 109/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 110/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 111/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 112/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 113/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 114/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 115/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 116/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 117/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 118/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 119/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 120/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 121/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 122/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 123/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 124/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 125/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 126/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 127/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 128/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 129/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 130/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 131/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 132/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 133/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 134/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 135/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 136/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 137/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 138/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 139/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 140/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 141/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 142/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 143/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 144/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 145/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 146/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 147/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 148/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 149/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 150/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 151/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 152/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 153/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 154/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 155/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 156/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 157/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 158/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 159/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 160/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 161/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 162/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 163/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 164/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 165/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 166/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 167/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 168/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 169/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 170/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 171/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 172/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 173/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 174/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 175/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 176/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 177/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 178/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 179/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 180/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 181/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 182/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 183/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 184/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 185/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 186/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 187/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 188/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 189/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 190/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 191/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 192/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 193/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 194/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 195/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 196/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 197/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 198/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 199/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 200/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 201/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 202/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 203/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 204/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 205/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 206/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 207/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 208/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 209/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 210/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 211/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 212/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 213/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 214/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 215/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 216/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 217/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 218/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 219/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 220/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 221/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 222/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 223/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 224/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 225/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 226/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 227/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 228/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 229/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 230/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 231/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 232/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 233/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 234/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 235/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 236/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 237/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 238/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 239/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 240/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 241/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 242/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 243/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 244/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 245/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 246/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 247/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 248/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 249/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 250/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 251/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 252/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 253/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 254/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 255/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 256/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 257/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 258/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 259/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 260/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 261/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 262/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 263/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 264/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 265/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 266/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 267/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 268/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 269/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 270/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 271/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 272/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 273/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 274/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 275/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 276/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 277/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 278/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 279/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 280/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 281/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 282/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 283/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 284/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 285/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 286/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 287/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 288/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 289/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 290/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 291/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 292/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 293/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 294/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 295/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 296/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 297/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 298/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 299/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 300/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 301/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 302/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 303/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 304/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 305/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 306/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 307/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 308/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 309/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 310/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 311/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 312/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 313/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 314/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 315/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 316/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 317/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 318/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 319/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 320/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 321/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 322/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 323/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 324/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 325/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 326/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 327/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 328/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 329/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 330/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 331/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 332/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 333/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 334/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 335/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 336/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 337/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 338/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 339/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 340/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 341/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 342/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 343/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 344/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 345/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 346/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 347/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 348/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 349/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 350/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 351/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 352/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 353/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 354/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 355/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 356/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 357/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 358/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 359/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 360/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 361/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 362/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 363/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 364/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 365/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 366/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 367/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 368/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 369/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 370/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 371/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 372/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 373/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 374/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 375/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 376/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 377/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 378/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 379/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 380/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 381/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 382/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 383/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 384/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 385/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 386/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 387/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 388/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 389/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 390/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 391/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 392/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 393/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 394/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 395/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 396/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 397/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 398/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 399/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 400/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 401/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 402/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 403/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 404/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 405/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 406/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 407/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 408/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 409/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 410/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 411/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 412/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 413/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 414/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 415/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 416/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 417/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 418/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 419/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 420/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 421/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 422/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 423/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 424/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 425/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 426/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 427/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 428/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 429/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 430/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 431/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 432/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 433/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 434/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 435/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 436/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 437/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 438/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 439/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 440/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 441/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 442/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 443/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 444/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 445/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 446/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 447/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 448/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 449/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 450/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 451/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 452/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 453/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 454/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 455/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 456/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 457/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 458/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 459/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 460/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 461/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 462/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 463/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 464/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 465/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 466/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 467/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 468/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 469/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 470/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 471/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 472/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 473/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 474/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 475/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 476/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 477/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 478/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 479/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 480/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 481/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 482/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 483/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 484/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 485/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 486/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 487/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 488/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 489/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 490/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 491/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 492/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 493/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 494/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 495/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 496/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 497/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 498/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 499/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 500/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 501/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 502/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 503/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 504/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 505/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 506/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 507/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 508/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 509/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 510/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 511/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 512/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 513/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 514/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 515/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 516/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 517/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 518/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 519/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 520/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 521/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 522/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 523/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 524/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 525/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 526/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 527/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 528/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 529/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 530/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 531/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 532/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 533/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 534/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 535/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 536/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 537/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 538/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 539/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 540/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 541/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 542/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 543/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 544/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 545/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 546/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 547/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 548/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 549/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 550/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 551/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 552/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 553/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 554/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 555/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 556/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 557/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 558/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 559/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 560/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 561/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 562/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 563/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 564/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 565/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 566/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 567/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 568/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 569/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 570/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 571/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 572/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 573/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 574/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 575/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 576/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 577/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 578/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 579/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 580/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 581/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 582/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 583/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 584/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 585/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 586/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 587/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 588/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 589/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 590/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 591/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 592/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 593/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 594/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 595/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 596/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 597/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 598/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 599/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 600/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 601/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 602/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 603/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 604/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 605/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 606/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 607/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 608/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 609/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 610/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 611/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 612/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 613/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 614/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 615/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 616/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 617/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 618/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 619/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 620/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 621/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 622/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 623/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 624/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 625/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 626/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 627/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 628/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 629/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 630/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 631/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 632/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 633/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 634/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 635/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 636/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 637/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 638/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 639/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 640/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 641/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 642/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 643/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 644/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 645/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 646/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 647/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 648/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 649/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 650/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 651/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 652/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 653/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 654/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 655/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 656/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 657/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 658/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 659/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 660/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 661/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 662/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 663/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 664/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 665/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 666/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 667/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 668/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 669/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 670/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 671/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 672/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 673/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 674/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 675/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 676/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 677/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 678/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 679/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 680/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 681/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 682/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 683/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 684/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 685/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 686/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 687/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 688/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 689/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 690/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 691/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 692/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 693/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 694/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 695/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 696/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 697/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 698/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 699/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 700/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 701/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 702/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 703/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 704/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 705/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 706/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 707/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 708/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 709/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 710/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 711/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 712/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 713/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 714/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 715/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 716/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 717/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 718/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 719/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 720/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 721/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 722/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 723/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 724/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 725/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 726/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 727/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 728/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 729/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 730/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 731/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 732/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 733/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 734/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 735/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 736/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 737/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 738/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 739/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 740/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 741/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 742/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 743/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 744/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 745/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 746/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 747/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 748/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 749/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 750/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 751/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 752/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 753/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 754/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 755/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 756/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 757/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 758/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 759/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 760/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 761/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 762/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 763/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 764/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 765/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 766/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 767/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 768/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 769/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 770/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 771/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 772/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 773/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 774/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 775/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 776/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 777/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 778/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 779/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 780/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 781/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 782/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 783/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 784/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 785/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 786/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 787/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 788/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 789/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 790/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 791/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 792/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 793/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 794/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 795/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 796/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 797/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 798/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 799/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 800/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 801/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 802/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 803/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 804/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 805/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 806/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 807/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 808/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 809/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 810/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 811/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 812/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 813/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 814/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 815/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 816/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 817/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 818/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 819/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 820/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 821/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 822/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 823/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 824/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 825/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 826/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 827/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 828/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 829/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 830/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 831/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 832/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 833/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 834/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 835/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 836/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 837/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 838/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 839/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 840/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 841/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 842/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 843/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 844/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 845/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 846/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 847/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 848/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 849/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 850/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 851/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 852/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 853/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 854/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 855/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 856/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 857/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 858/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 859/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 860/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 861/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 862/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 863/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 864/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 865/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 866/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 867/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 868/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 869/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 870/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 871/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 872/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 873/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 874/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 875/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 876/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 877/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 878/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 879/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 880/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 881/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 882/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 883/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 884/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 885/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 886/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 887/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 888/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 889/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 890/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 891/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 892/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 893/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 894/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 895/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 896/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 897/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 898/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 899/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 900/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 901/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 902/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 903/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 904/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 905/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 906/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 907/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 908/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 909/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 910/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 911/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 912/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 913/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 914/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 915/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 916/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 917/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 918/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 919/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 920/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 921/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 922/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 923/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 924/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 925/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 926/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 927/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 928/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 929/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 930/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 931/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 932/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 933/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 934/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 935/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 936/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 937/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 938/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 939/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 940/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 941/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 942/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 943/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 944/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 945/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 946/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 947/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 948/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 949/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 950/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 951/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 952/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 953/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 954/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 955/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 956/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 957/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 958/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 959/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 960/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 961/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 962/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 963/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 964/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 965/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 966/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 967/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 968/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 969/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 970/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 971/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 972/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 973/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 974/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 975/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 976/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 977/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 978/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 979/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 980/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 981/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 982/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 983/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 984/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 985/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 986/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 987/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 988/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 989/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 990/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 991/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 992/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 993/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 994/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 995/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 996/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 997/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 998/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 999/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1000/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1001/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1002/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1003/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1004/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1005/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1006/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1007/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1008/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1009/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1010/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1011/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1012/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1013/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1014/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1015/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1016/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1017/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1018/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1019/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1020/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1021/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1022/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1023/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1024/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1025/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1026/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1027/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1028/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1029/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1030/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1031/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1032/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1033/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1034/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1035/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1036/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1037/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1038/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1039/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1040/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1041/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1042/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1043/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1044/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1045/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1046/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1047/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1048/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1049/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1050/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1051/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1052/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1053/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1054/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1055/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1056/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1057/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1058/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1059/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1060/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1061/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1062/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1063/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1064/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1065/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1066/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1067/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1068/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1069/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1070/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1071/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1072/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1073/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1074/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1075/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1076/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1077/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1078/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1079/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1080/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1081/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1082/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1083/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1084/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1085/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1086/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1087/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1088/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1089/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1090/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1091/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1092/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1093/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1094/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1095/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1096/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1097/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1098/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1099/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1100/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1101/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1102/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1103/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1104/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1105/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1106/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1107/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1108/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1109/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1110/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1111/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1112/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1113/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1114/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1115/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1116/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1117/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1118/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1119/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1120/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1121/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1122/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1123/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1124/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1125/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1126/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1127/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1128/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1129/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1130/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1131/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1132/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1133/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1134/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1135/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1136/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1137/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1138/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1139/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1140/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1141/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1142/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1143/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1144/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1145/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1146/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1147/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1148/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1149/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1150/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1151/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1152/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1153/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1154/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1155/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1156/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1157/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1158/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1159/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1160/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1161/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1162/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1163/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1164/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1165/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1166/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1167/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1168/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1169/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1170/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1171/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1172/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1173/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1174/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1175/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1176/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1177/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1178/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1179/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1180/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1181/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1182/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1183/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1184/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1185/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1186/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1187/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1188/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1189/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1190/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1191/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1192/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1193/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1194/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1195/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1196/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1197/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1198/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1199/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1200/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1201/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1202/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1203/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1204/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1205/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1206/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1207/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1208/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1209/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1210/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1211/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1212/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1213/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1214/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1215/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1216/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1217/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1218/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1219/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1220/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1221/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1222/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1223/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1224/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1225/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1226/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1227/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1228/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1229/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1230/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1231/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1232/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1233/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1234/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1235/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1236/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1237/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1238/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1239/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1240/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1241/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1242/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1243/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1244/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1245/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1246/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1247/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1248/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1249/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1250/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1251/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1252/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1253/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1254/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1255/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1256/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1257/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1258/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1259/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1260/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1261/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1262/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1263/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1264/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1265/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1266/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1267/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1268/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1269/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1270/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1271/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1272/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1273/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1274/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1275/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1276/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1277/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1278/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1279/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1280/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1281/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1282/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1283/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1284/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1285/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1286/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1287/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1288/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1289/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1290/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1291/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1292/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1293/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1294/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1295/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1296/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1297/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1298/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1299/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1300/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1301/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1302/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1303/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1304/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1305/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1306/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1307/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1308/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1309/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1310/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1311/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1312/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1313/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1314/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1315/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1316/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1317/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1318/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1319/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1320/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1321/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1322/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1323/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1324/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1325/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1326/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1327/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1328/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1329/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1330/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1331/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1332/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1333/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1334/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1335/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1336/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1337/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1338/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1339/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1340/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1341/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1342/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1343/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1344/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1345/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1346/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1347/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1348/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1349/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1350/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1351/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1352/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1353/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1354/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1355/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1356/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1357/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1358/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1359/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1360/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1361/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1362/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1363/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1364/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1365/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1366/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1367/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1368/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1369/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1370/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1371/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1372/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1373/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1374/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1375/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1376/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1377/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1378/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1379/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1380/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1381/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1382/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1383/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1384/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1385/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1386/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1387/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1388/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1389/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1390/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1391/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1392/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1393/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1394/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1395/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1396/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1397/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1398/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1399/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1400/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1401/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1402/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1403/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1404/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1405/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1406/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1407/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1408/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1409/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1410/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1411/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1412/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1413/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1414/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1415/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1416/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1417/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1418/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1419/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1420/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1421/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1422/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1423/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1424/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1425/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1426/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1427/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1428/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1429/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1430/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1431/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1432/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1433/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1434/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1435/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1436/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1437/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1438/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1439/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1440/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1441/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1442/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1443/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1444/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1445/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1446/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1447/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1448/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1449/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1450/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1451/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1452/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1453/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1454/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1455/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1456/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1457/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1458/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1459/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1460/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1461/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1462/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1463/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1464/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1465/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1466/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1467/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1468/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1469/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1470/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1471/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1472/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1473/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1474/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1475/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1476/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1477/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1478/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1479/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1480/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1481/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1482/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1483/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1484/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1485/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1486/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1487/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1488/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1489/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1490/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1491/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1492/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1493/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1494/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1495/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1496/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1497/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1498/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1499/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1500/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1501/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1502/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1503/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1504/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1505/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1506/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1507/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1508/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1509/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1510/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1511/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1512/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1513/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1514/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1515/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1516/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1517/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1518/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1519/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1520/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1521/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1522/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1523/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1524/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1525/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1526/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1527/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1528/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1529/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1530/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1531/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1532/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1533/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1534/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1535/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1536/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1537/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1538/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1539/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1540/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1541/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1542/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1543/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1544/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1545/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1546/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1547/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1548/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1549/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1550/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1551/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1552/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1553/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1554/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1555/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1556/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1557/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1558/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1559/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1560/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1561/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1562/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1563/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1564/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1565/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1566/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1567/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1568/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1569/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1570/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1571/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1572/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1573/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1574/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1575/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1576/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1577/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1578/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1579/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1580/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1581/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1582/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1583/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1584/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1585/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1586/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1587/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1588/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1589/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1590/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1591/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1592/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1593/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1594/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1595/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1596/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1597/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1598/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1599/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1600/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1601/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1602/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1603/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1604/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1605/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1606/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1607/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1608/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1609/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1610/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1611/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1612/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1613/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1614/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1615/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1616/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1617/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1618/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1619/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1620/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1621/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1622/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1623/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1624/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1625/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1626/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1627/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1628/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1629/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1630/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1631/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1632/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1633/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1634/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1635/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1636/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1637/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1638/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1639/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1640/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1641/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1642/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1643/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1644/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1645/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1646/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1647/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1648/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1649/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1650/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1651/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1652/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1653/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1654/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1655/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1656/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1657/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1658/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1659/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1660/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1661/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1662/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1663/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1664/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1665/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1666/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1667/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1668/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1669/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1670/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1671/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1672/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1673/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1674/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1675/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1676/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1677/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1678/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1679/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1680/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1681/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1682/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1683/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1684/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1685/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1686/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1687/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1688/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1689/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1690/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1691/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1692/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1693/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1694/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1695/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1696/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1697/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1698/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1699/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1700/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1701/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1702/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1703/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1704/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1705/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1706/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1707/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1708/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1709/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1710/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1711/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1712/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1713/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1714/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1715/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1716/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1717/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1718/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1719/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1720/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1721/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1722/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1723/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1724/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1725/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1726/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1727/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1728/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1729/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1730/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1731/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1732/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1733/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1734/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1735/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1736/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1737/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1738/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1739/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1740/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1741/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1742/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1743/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1744/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1745/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1746/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1747/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1748/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1749/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1750/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1751/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1752/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1753/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1754/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1755/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1756/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1757/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1758/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1759/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1760/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1761/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1762/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1763/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1764/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1765/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1766/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1767/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1768/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1769/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1770/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1771/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1772/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1773/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1774/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1775/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1776/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1777/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1778/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1779/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1780/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1781/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1782/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1783/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1784/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1785/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1786/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1787/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1788/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1789/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1790/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1791/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1792/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1793/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1794/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1795/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1796/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1797/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1798/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1799/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1800/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1801/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1802/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1803/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1804/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1805/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1806/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1807/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1808/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1809/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1810/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1811/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1812/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1813/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1814/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1815/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1816/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1817/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1818/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1819/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1820/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1821/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1822/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1823/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1824/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1825/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1826/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1827/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1828/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1829/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1830/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1831/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1832/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1833/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1834/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1835/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1836/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1837/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1838/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1839/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1840/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1841/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1842/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1843/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1844/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1845/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1846/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1847/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1848/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1849/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1850/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1851/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1852/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1853/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1854/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1855/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1856/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1857/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1858/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1859/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1860/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1861/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1862/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1863/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1864/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1865/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1866/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1867/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1868/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1869/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1870/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1871/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1872/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1873/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1874/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1875/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1876/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1877/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1878/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1879/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1880/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1881/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1882/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1883/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1884/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1885/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1886/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1887/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1888/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1889/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1890/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1891/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1892/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1893/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1894/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1895/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1896/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1897/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1898/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1899/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1900/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1901/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1902/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1903/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1904/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1905/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1906/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1907/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1908/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1909/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1910/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1911/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1912/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1913/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1914/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1915/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1916/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1917/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1918/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1919/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1920/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1921/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1922/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1923/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1924/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1925/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1926/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1927/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1928/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1929/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1930/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1931/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1932/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1933/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1934/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1935/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1936/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1937/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1938/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1939/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1940/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1941/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1942/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1943/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1944/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1945/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1946/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1947/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1948/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1949/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1950/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1951/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1952/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1953/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1954/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1955/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1956/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1957/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1958/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1959/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1960/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1961/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1962/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1963/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1964/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1965/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1966/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1967/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1968/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1969/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1970/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1971/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1972/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1973/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1974/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1975/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1976/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1977/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1978/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1979/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1980/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1981/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1982/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1983/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1984/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1985/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1986/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1987/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1988/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1989/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1990/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1991/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1992/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1993/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1994/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1995/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1996/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1997/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1998/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 1999/2000
+
+
+Running Simulation Run 1, Scenario 3, Iteration 2000/2000
+
+
+Results of Simulation
+
+
+[1] "R2 Control Table"
+  Target_R2_X Analytic_R2_X   Sample R2_X   Target_R2_Y Analytic_R2_Y 
+    0.4000000     0.4000000     0.4194675     0.6000000     0.6000000 
+  Sample R2_Y 
+    0.6135781 
+
+
+
+[1] "Oracle Distribution"
+  mean_Y    var_Y   mean_X    var_X 
+1.500000 2.750000 1.000000 1.666667 
+
+
+
+[1] "Oracle Covariance"
+      y   X  Z1  Z2  Z3  Z4  Z5  Z6  Z7  Z8  Z9 Z10 Z11 Z12 Z13 Z14 Z15 Z16 Z17
+y   NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+X   NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z1  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z2  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z3  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z4  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z5  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z6  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z7  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z8  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z9  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z10 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z11 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z12 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z13 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z14 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z15 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z16 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z17 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z18 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z19 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z20 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z21 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z22 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z23 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z24 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z25 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z26 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z27 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z28 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z29 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z30 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z31 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z32 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z33 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+    Z18 Z19 Z20 Z21 Z22 Z23 Z24 Z25 Z26 Z27 Z28 Z29 Z30 Z31 Z32 Z33
+y   NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+X   NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z1  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z2  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z3  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z4  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z5  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z6  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z7  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z8  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z9  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z10 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z11 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z12 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z13 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z14 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z15 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z16 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z17 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z18 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z19 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z20 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z21 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z22 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z23 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z24 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z25 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z26 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z27 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z28 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z29 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z30 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z31 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z32 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+Z33 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+
+
+
+[1] "Observed Covariance"
+              y            X           Z1           Z2            Z3
+y    3.07501069  1.556754010  0.177000774  0.176701528  0.2580505678
+X    1.55675401  1.711455860  0.139177437  0.117189698  0.1589686536
+Z1   0.17700077  0.139177437  0.993801185 -0.031330643  0.0015995636
+Z2   0.17670153  0.117189698 -0.031330643  1.009334811 -0.0113711811
+Z3   0.25805057  0.158968654  0.001599564 -0.011371181  0.9471552828
+Z4   0.25834558  0.150325654  0.035136593 -0.017611521 -0.0162187781
+Z5   0.14749742  0.126408383 -0.013717492 -0.057355417  0.0208022771
+Z6   0.29011182  0.232571558  0.038660669  0.031491016  0.0474907714
+Z7   0.26678193  0.131837759 -0.009265200  0.029184811  0.0301848696
+Z8   0.24032131  0.178204525 -0.043387615 -0.013624926  0.0004466558
+Z9   0.32553889  0.181826780 -0.016491191 -0.010807690  0.0323168573
+Z10  0.21367897  0.143838658 -0.025035315  0.012454327 -0.0369272830
+Z11  0.22269069  0.126612613  0.037146847 -0.077031210  0.0235172188
+Z12  0.20253212  0.135542576 -0.042328074 -0.038315307  0.0195494338
+Z13  0.25244666  0.209676561  0.012985424  0.042195748  0.0158386143
+Z14  0.22998038  0.160529024  0.006765204 -0.061793617 -0.0208447975
+Z15  0.21332800  0.171786875 -0.018798126 -0.009512965 -0.0552774453
+Z16  0.26653651  0.179658923  0.046722804  0.017814498 -0.0067722893
+Z17  0.21321143  0.129763083 -0.046614518 -0.034734911 -0.0026913758
+Z18  0.24593298  0.186618636  0.011080808  0.045796602  0.0210417188
+Z19  0.11548208  0.139891176  0.016386306  0.006125123 -0.0425598457
+Z20  0.24189634  0.141793487  0.017696405 -0.004117851  0.0352297153
+Z21  0.22052147  0.139120446 -0.004225104 -0.001806229  0.0358907337
+Z22  0.22126554  0.151811299  0.005461541  0.043019430  0.0092664246
+Z23  0.17440009  0.126890931  0.035983414 -0.001115171 -0.0112554032
+Z24  0.21647642  0.102088268 -0.044490664 -0.013453510  0.0839935619
+Z25  0.24263462  0.183211632 -0.003758397  0.018145535  0.0309808718
+Z26  0.31521117  0.238624948  0.029092247 -0.069918971  0.0010593101
+Z27  0.43293729  0.288641481  0.052291040  0.030824735 -0.0016376414
+Z28  0.25265783  0.194205877  0.003652226  0.003147458  0.0348862974
+Z29  0.28687294  0.200921904 -0.015254984  0.027581571 -0.0323125709
+Z30  0.20283237  0.109034820  0.021384105  0.038643084  0.0369028430
+Z31  0.23775455  0.190630666 -0.006130909  0.027453752 -0.0003127500
+Z32  0.21328198  0.115957032 -0.033402830  0.059875886 -0.0081653650
+Z33 -0.08497051 -0.008871957  0.039079469 -0.030678092  0.0467921627
+               Z4            Z5            Z6            Z7            Z8
+y    0.2583455822  0.1474974206  0.2901118208  0.2667819314  0.2403213095
+X    0.1503256536  0.1264083831  0.2325715584  0.1318377592  0.1782045248
+Z1   0.0351365928 -0.0137174916  0.0386606690 -0.0092652005 -0.0433876154
+Z2  -0.0176115213 -0.0573554167  0.0314910158  0.0291848106 -0.0136249260
+Z3  -0.0162187781  0.0208022771  0.0474907714  0.0301848696  0.0004466558
+Z4   1.0987894102  0.0317485038 -0.0304870908 -0.0370348320  0.0004629741
+Z5   0.0317485038  1.0363631555  0.0138796817 -0.0435856916  0.0473486199
+Z6  -0.0304870908  0.0138796817  0.9854918719  0.0398534005  0.0311244870
+Z7  -0.0370348320 -0.0435856916  0.0398534005  1.0126398650  0.0310034845
+Z8   0.0004629741  0.0473486199  0.0311244870  0.0310034845  1.0295072798
+Z9  -0.0429899968 -0.0042311401  0.0121867584 -0.0178128427 -0.0193032858
+Z10  0.0355621303  0.0622945245  0.0389438043 -0.0285767372 -0.0072778824
+Z11 -0.0246925990 -0.0169387545 -0.0118884179 -0.0091887952 -0.0011480420
+Z12 -0.0434936349 -0.0104474926  0.0704386760  0.0160556909  0.0054454487
+Z13  0.0123451653  0.0019252176 -0.0334900223 -0.0006038727  0.0172322176
+Z14  0.0103646311 -0.0077583242 -0.0321332146 -0.0143279223 -0.0424489155
+Z15 -0.0140469125  0.0007105744  0.0176320457 -0.0613522640 -0.0279803581
+Z16 -0.0463218158 -0.0172698425 -0.0001311461  0.0329410648 -0.0207432744
+Z17  0.0148675417  0.0117177764 -0.0327165181  0.0340022682 -0.0173313324
+Z18  0.0254207314  0.0337109340  0.0479824594  0.0345703573 -0.0014330629
+Z19  0.0336751146  0.0267315270  0.0190478596 -0.0364625557 -0.0088031032
+Z20 -0.0624666599  0.0382244196  0.0247833471  0.0015258538  0.0027594132
+Z21  0.0493382188  0.0018023061  0.0275254824 -0.0307492852 -0.0036915056
+Z22  0.0268288854  0.0066940395  0.0207288399  0.0453408439 -0.0330214808
+Z23  0.0187926871 -0.0054724280  0.0328053643  0.0005767737 -0.0382649016
+Z24 -0.0309706510  0.0178879040 -0.0046855608  0.0282258866 -0.0043323582
+Z25  0.0044746367  0.0536233105 -0.0115973866  0.0221806752  0.0116861245
+Z26  0.0530190339  0.0131387445  0.0158757075 -0.0150715741 -0.0082479031
+Z27  0.0612633576 -0.0431669922  0.0869609525 -0.0155368943 -0.0596429931
+Z28  0.0457035158  0.0162270655  0.0071367266 -0.0369014084  0.0475439739
+Z29  0.0443849348 -0.0039632312  0.0329556183  0.0300381595  0.0324221436
+Z30 -0.0095657249  0.0109009254 -0.0022061474 -0.0509597167 -0.0319638041
+Z31  0.0255199411 -0.0296404290 -0.0151610828 -0.0194315138 -0.0280790179
+Z32  0.0046775587 -0.0226861369  0.0316753455 -0.0138600232  0.0213581613
+Z33  0.0107959345 -0.0309297534 -0.0422865877 -0.0373652739 -0.0022312097
+              Z9          Z10          Z11          Z12           Z13
+y    0.325538893  0.213678972  0.222690689  0.202532116  0.2524466596
+X    0.181826780  0.143838658  0.126612613  0.135542576  0.2096765612
+Z1  -0.016491191 -0.025035315  0.037146847 -0.042328074  0.0129854243
+Z2  -0.010807690  0.012454327 -0.077031210 -0.038315307  0.0421957484
+Z3   0.032316857 -0.036927283  0.023517219  0.019549434  0.0158386143
+Z4  -0.042989997  0.035562130 -0.024692599 -0.043493635  0.0123451653
+Z5  -0.004231140  0.062294524 -0.016938754 -0.010447493  0.0019252176
+Z6   0.012186758  0.038943804 -0.011888418  0.070438676 -0.0334900223
+Z7  -0.017812843 -0.028576737 -0.009188795  0.016055691 -0.0006038727
+Z8  -0.019303286 -0.007277882 -0.001148042  0.005445449  0.0172322176
+Z9   0.973453102  0.016977865 -0.009532835 -0.024284841 -0.0049175782
+Z10  0.016977865  0.961953083  0.003535061  0.038369125 -0.0208336927
+Z11 -0.009532835  0.003535061  1.007033988 -0.023965027  0.0207120227
+Z12 -0.024284841  0.038369125 -0.023965027  0.962816551 -0.0308905753
+Z13 -0.004917578 -0.020833693  0.020712023 -0.030890575  0.9901888034
+Z14 -0.001143588 -0.061343878 -0.025014822 -0.043532571  0.0243053302
+Z15  0.019928453 -0.003001455  0.041216430 -0.025355789 -0.0671073901
+Z16 -0.013668335  0.009741784  0.014489363 -0.006283429  0.0388746674
+Z17 -0.020248824 -0.018641294  0.002268481  0.028313685  0.0681296352
+Z18  0.008639041  0.007601404 -0.019138363  0.036193435 -0.0030385660
+Z19  0.031347702 -0.063806894 -0.039350113 -0.068392021  0.0335916566
+Z20  0.047000734 -0.001802176  0.035596284 -0.020838982  0.0062006241
+Z21 -0.003794590 -0.008860579  0.026186962 -0.005787704 -0.0171845409
+Z22  0.020000603 -0.017288971 -0.006217412  0.023889361 -0.0356410992
+Z23 -0.034286714  0.018381404  0.005910402 -0.054788118 -0.0074824287
+Z24  0.050049172 -0.048899440  0.030330984 -0.026566784 -0.0023752694
+Z25 -0.012013106 -0.000620702 -0.053182993 -0.032096001  0.0129168037
+Z26  0.042974309 -0.023273017  0.022613394  0.049106697  0.0425278914
+Z27  0.039644161  0.027315778 -0.019888260  0.002518701 -0.0099704610
+Z28 -0.003577591 -0.039394206 -0.023207101  0.008494925  0.0305954217
+Z29  0.028831409 -0.003450036 -0.024900522  0.045761277  0.0293244756
+Z30 -0.033888804  0.040720740  0.035028273  0.040034487  0.0392011654
+Z31  0.062606038  0.015778095  0.018163929  0.006243136 -0.0316841641
+Z32  0.005892683 -0.037230021 -0.023649327  0.010266277  0.0283191727
+Z33 -0.021648417 -0.017565934 -0.029786076  0.005301642  0.0425572833
+             Z14           Z15           Z16          Z17           Z18
+y    0.229980377  0.2133280031  0.2665365131  0.213211433  0.2459329766
+X    0.160529024  0.1717868751  0.1796589232  0.129763083  0.1866186363
+Z1   0.006765204 -0.0187981257  0.0467228038 -0.046614518  0.0110808083
+Z2  -0.061793617 -0.0095129648  0.0178144977 -0.034734911  0.0457966017
+Z3  -0.020844798 -0.0552774453 -0.0067722893 -0.002691376  0.0210417188
+Z4   0.010364631 -0.0140469125 -0.0463218158  0.014867542  0.0254207314
+Z5  -0.007758324  0.0007105744 -0.0172698425  0.011717776  0.0337109340
+Z6  -0.032133215  0.0176320457 -0.0001311461 -0.032716518  0.0479824594
+Z7  -0.014327922 -0.0613522640  0.0329410648  0.034002268  0.0345703573
+Z8  -0.042448915 -0.0279803581 -0.0207432744 -0.017331332 -0.0014330629
+Z9  -0.001143588  0.0199284534 -0.0136683346 -0.020248824  0.0086390406
+Z10 -0.061343878 -0.0030014546  0.0097417841 -0.018641294  0.0076014036
+Z11 -0.025014822  0.0412164297  0.0144893625  0.002268481 -0.0191383635
+Z12 -0.043532571 -0.0253557892 -0.0062834286  0.028313685  0.0361934350
+Z13  0.024305330 -0.0671073901  0.0388746674  0.068129635 -0.0030385660
+Z14  1.003773647  0.0146829176 -0.0215713899 -0.008951593 -0.0230971367
+Z15  0.014682918  0.9740856108 -0.0177680127  0.013105740 -0.0132112171
+Z16 -0.021571390 -0.0177680127  1.0153524955  0.002346412  0.0085722995
+Z17 -0.008951593  0.0131057405  0.0023464124  0.986965648  0.0033904565
+Z18 -0.023097137 -0.0132112171  0.0085722995  0.003390457  1.0394795211
+Z19 -0.023869015 -0.0381074214  0.0124244400 -0.005533217  0.0419663831
+Z20  0.012995716  0.0093618211 -0.0110398486  0.010856195 -0.0104569906
+Z21  0.024841136  0.0306969762 -0.0081349116 -0.010949393 -0.0359318424
+Z22 -0.026449993 -0.0025138237  0.0273685576 -0.055095151  0.0197388009
+Z23  0.020758068 -0.0067568656 -0.0250771152 -0.034111915 -0.0005954959
+Z24  0.009218930 -0.0447534576 -0.0259062665 -0.008982507  0.0115140040
+Z25  0.020434831  0.0422080601  0.0311837462 -0.008342066  0.0322348813
+Z26  0.071167006  0.0220217345 -0.0580388708  0.036387351 -0.0159246122
+Z27  0.094848052  0.0042411382 -0.0222094428  0.013597130  0.0322426231
+Z28  0.008634691 -0.0068462587 -0.0061455196  0.038729784  0.0398792128
+Z29 -0.042230682 -0.0100588914  0.0051509673 -0.015500372  0.0181000555
+Z30 -0.032686692  0.0430171967  0.0037347579  0.020155559 -0.0225273500
+Z31 -0.025337433  0.0342346254 -0.0050649392 -0.007420717 -0.0286676975
+Z32  0.040901006 -0.0078951863  0.0533591343  0.040635889  0.0039754068
+Z33 -0.028149117 -0.0035806554 -0.0241597318  0.014128068 -0.0157142146
+             Z19          Z20          Z21          Z22           Z23
+y    0.115482083  0.241896336  0.220521470  0.221265539  0.1744000904
+X    0.139891176  0.141793487  0.139120446  0.151811299  0.1268909309
+Z1   0.016386306  0.017696405 -0.004225104  0.005461541  0.0359834141
+Z2   0.006125123 -0.004117851 -0.001806229  0.043019430 -0.0011151707
+Z3  -0.042559846  0.035229715  0.035890734  0.009266425 -0.0112554032
+Z4   0.033675115 -0.062466660  0.049338219  0.026828885  0.0187926871
+Z5   0.026731527  0.038224420  0.001802306  0.006694040 -0.0054724280
+Z6   0.019047860  0.024783347  0.027525482  0.020728840  0.0328053643
+Z7  -0.036462556  0.001525854 -0.030749285  0.045340844  0.0005767737
+Z8  -0.008803103  0.002759413 -0.003691506 -0.033021481 -0.0382649016
+Z9   0.031347702  0.047000734 -0.003794590  0.020000603 -0.0342867138
+Z10 -0.063806894 -0.001802176 -0.008860579 -0.017288971  0.0183814037
+Z11 -0.039350113  0.035596284  0.026186962 -0.006217412  0.0059104017
+Z12 -0.068392021 -0.020838982 -0.005787704  0.023889361 -0.0547881176
+Z13  0.033591657  0.006200624 -0.017184541 -0.035641099 -0.0074824287
+Z14 -0.023869015  0.012995716  0.024841136 -0.026449993  0.0207580677
+Z15 -0.038107421  0.009361821  0.030696976 -0.002513824 -0.0067568656
+Z16  0.012424440 -0.011039849 -0.008134912  0.027368558 -0.0250771152
+Z17 -0.005533217  0.010856195 -0.010949393 -0.055095151 -0.0341119147
+Z18  0.041966383 -0.010456991 -0.035931842  0.019738801 -0.0005954959
+Z19  0.958963140  0.019107280  0.001882360 -0.021301046  0.0385861486
+Z20  0.019107280  1.012481296 -0.013735529 -0.018790292 -0.0647255764
+Z21  0.001882360 -0.013735529  1.060337836  0.017849877 -0.0049318170
+Z22 -0.021301046 -0.018790292  0.017849877  1.005712515  0.0280637493
+Z23  0.038586149 -0.064725576 -0.004931817  0.028063749  0.9926506361
+Z24 -0.008109796 -0.023008025 -0.016889514 -0.002668010 -0.0067486121
+Z25 -0.086959816 -0.051885583 -0.017618368  0.027448693  0.0395792851
+Z26  0.035862956  0.047440704 -0.006743690 -0.045452529 -0.0084196437
+Z27  0.036643378 -0.010929384  0.004094202  0.078891349  0.0055688187
+Z28  0.010849033 -0.004610454  0.031838640 -0.007367956 -0.0133936423
+Z29  0.044547757  0.007603595 -0.024752809 -0.004337575 -0.0059196157
+Z30  0.027468153 -0.016535866  0.003139125 -0.080478543 -0.0018946352
+Z31 -0.013530321  0.022117993  0.073918720  0.030016317  0.0355175078
+Z32 -0.026362375 -0.002641652 -0.026226733 -0.019447102  0.0417081636
+Z33  0.058198506 -0.015251608  0.008246164 -0.011774808  0.0734839607
+             Z24           Z25           Z26          Z27          Z28
+y    0.216476420  0.2426346225  0.3152111746  0.432937294  0.252657829
+X    0.102088268  0.1832116317  0.2386249479  0.288641481  0.194205877
+Z1  -0.044490664 -0.0037583973  0.0290922469  0.052291040  0.003652226
+Z2  -0.013453510  0.0181455351 -0.0699189710  0.030824735  0.003147458
+Z3   0.083993562  0.0309808718  0.0010593101 -0.001637641  0.034886297
+Z4  -0.030970651  0.0044746367  0.0530190339  0.061263358  0.045703516
+Z5   0.017887904  0.0536233105  0.0131387445 -0.043166992  0.016227065
+Z6  -0.004685561 -0.0115973866  0.0158757075  0.086960952  0.007136727
+Z7   0.028225887  0.0221806752 -0.0150715741 -0.015536894 -0.036901408
+Z8  -0.004332358  0.0116861245 -0.0082479031 -0.059642993  0.047543974
+Z9   0.050049172 -0.0120131055  0.0429743086  0.039644161 -0.003577591
+Z10 -0.048899440 -0.0006207020 -0.0232730165  0.027315778 -0.039394206
+Z11  0.030330984 -0.0531829933  0.0226133935 -0.019888260 -0.023207101
+Z12 -0.026566784 -0.0320960011  0.0491066971  0.002518701  0.008494925
+Z13 -0.002375269  0.0129168037  0.0425278914 -0.009970461  0.030595422
+Z14  0.009218930  0.0204348306  0.0711670059  0.094848052  0.008634691
+Z15 -0.044753458  0.0422080601  0.0220217345  0.004241138 -0.006846259
+Z16 -0.025906266  0.0311837462 -0.0580388708 -0.022209443 -0.006145520
+Z17 -0.008982507 -0.0083420662  0.0363873508  0.013597130  0.038729784
+Z18  0.011514004  0.0322348813 -0.0159246122  0.032242623  0.039879213
+Z19 -0.008109796 -0.0869598160  0.0358629562  0.036643378  0.010849033
+Z20 -0.023008025 -0.0518855827  0.0474407042 -0.010929384 -0.004610454
+Z21 -0.016889514 -0.0176183682 -0.0067436897  0.004094202  0.031838640
+Z22 -0.002668010  0.0274486928 -0.0454525291  0.078891349 -0.007367956
+Z23 -0.006748612  0.0395792851 -0.0084196437  0.005568819 -0.013393642
+Z24  0.942896662 -0.0162771375  0.0327627800  0.034581853  0.058861321
+Z25 -0.016277138  0.9950698131 -0.0003976028  0.030439929  0.012659751
+Z26  0.032762780 -0.0003976028  1.0287775094  0.063772374  0.071061549
+Z27  0.034581853  0.0304399293  0.0637723741  1.008325711  0.028342700
+Z28  0.058861321  0.0126597512  0.0710615488  0.028342700  1.009577596
+Z29 -0.016580054  0.0046592034  0.0219097904 -0.028578454 -0.045437829
+Z30  0.014771627 -0.0256915316  0.0051970718  0.005972617  0.020023832
+Z31  0.045129046  0.0023213851 -0.0133768315 -0.006247377 -0.026849189
+Z32  0.057938781  0.0274814642 -0.0184661186  0.032623500  0.048471063
+Z33 -0.039168525 -0.0067896846 -0.0292246720 -0.044980861 -0.035575275
+             Z29          Z30          Z31          Z32          Z33
+y    0.286872945  0.202832368  0.237754553  0.213281977 -0.084970509
+X    0.200921904  0.109034820  0.190630666  0.115957032 -0.008871957
+Z1  -0.015254984  0.021384105 -0.006130909 -0.033402830  0.039079469
+Z2   0.027581571  0.038643084  0.027453752  0.059875886 -0.030678092
+Z3  -0.032312571  0.036902843 -0.000312750 -0.008165365  0.046792163
+Z4   0.044384935 -0.009565725  0.025519941  0.004677559  0.010795934
+Z5  -0.003963231  0.010900925 -0.029640429 -0.022686137 -0.030929753
+Z6   0.032955618 -0.002206147 -0.015161083  0.031675345 -0.042286588
+Z7   0.030038160 -0.050959717 -0.019431514 -0.013860023 -0.037365274
+Z8   0.032422144 -0.031963804 -0.028079018  0.021358161 -0.002231210
+Z9   0.028831409 -0.033888804  0.062606038  0.005892683 -0.021648417
+Z10 -0.003450036  0.040720740  0.015778095 -0.037230021 -0.017565934
+Z11 -0.024900522  0.035028273  0.018163929 -0.023649327 -0.029786076
+Z12  0.045761277  0.040034487  0.006243136  0.010266277  0.005301642
+Z13  0.029324476  0.039201165 -0.031684164  0.028319173  0.042557283
+Z14 -0.042230682 -0.032686692 -0.025337433  0.040901006 -0.028149117
+Z15 -0.010058891  0.043017197  0.034234625 -0.007895186 -0.003580655
+Z16  0.005150967  0.003734758 -0.005064939  0.053359134 -0.024159732
+Z17 -0.015500372  0.020155559 -0.007420717  0.040635889  0.014128068
+Z18  0.018100055 -0.022527350 -0.028667697  0.003975407 -0.015714215
+Z19  0.044547757  0.027468153 -0.013530321 -0.026362375  0.058198506
+Z20  0.007603595 -0.016535866  0.022117993 -0.002641652 -0.015251608
+Z21 -0.024752809  0.003139125  0.073918720 -0.026226733  0.008246164
+Z22 -0.004337575 -0.080478543  0.030016317 -0.019447102 -0.011774808
+Z23 -0.005919616 -0.001894635  0.035517508  0.041708164  0.073483961
+Z24 -0.016580054  0.014771627  0.045129046  0.057938781 -0.039168525
+Z25  0.004659203 -0.025691532  0.002321385  0.027481464 -0.006789685
+Z26  0.021909790  0.005197072 -0.013376831 -0.018466119 -0.029224672
+Z27 -0.028578454  0.005972617 -0.006247377  0.032623500 -0.044980861
+Z28 -0.045437829  0.020023832 -0.026849189  0.048471063 -0.035575275
+Z29  0.976531614 -0.002161059  0.041190399 -0.002301512  0.005953156
+Z30 -0.002161059  1.008149535  0.007970766 -0.007807006 -0.045301191
+Z31  0.041190399  0.007970766  1.034362535 -0.016998314 -0.004136478
+Z32 -0.002301512 -0.007807006 -0.016998314  0.999470003  0.003633431
+Z33  0.005953156 -0.045301191 -0.004136478  0.003633431  1.019523276
+
+
+
+[1] "Outcome Y Error"
+          Analytic_var_error_Y Predictive_mean_square_error_Y 
+                      1.166667                       1.125067 
+
+
+[1] "Sample Distributions"
+                   y        X         Z1          Z2          Z3         Z4
+sample_mean 1.552926 1.047079 0.04941665 -0.00679901 -0.03394332 0.02079992
+sample_sd   1.753571 1.308226 0.99689577  1.00465656  0.97321903 1.04823156
+sample_var  3.075011 1.711456 0.99380119  1.00933481  0.94715528 1.09878941
+                     Z5          Z6         Z7         Z8          Z9
+sample_mean -0.03250421 -0.03982763 0.01749516 0.01871769 -0.05762022
+sample_sd    1.01801923  0.99271943 1.00630009 1.01464638  0.98663727
+sample_var   1.03636316  0.98549187 1.01263986 1.02950728  0.97345310
+                   Z10        Z11         Z12         Z13         Z14
+sample_mean 0.04029365 0.01211781 -0.03506361 0.007649712 -0.03482905
+sample_sd   0.98079207 1.00351083  0.98123216 0.995082310  1.00188505
+sample_var  0.96195308 1.00703399  0.96281655 0.990188803  1.00377365
+                    Z15         Z16          Z17        Z18         Z19
+sample_mean 0.003320698 -0.01236948 -0.005180838 0.01117643 0.006163385
+sample_sd   0.986957755  1.00764701  0.993461448 1.01954869 0.979266634
+sample_var  0.974085611  1.01535250  0.986965648 1.03947952 0.958963140
+                  Z20         Z21         Z22         Z23         Z24
+sample_mean 0.0186727 -0.07516031 -0.01466507 -0.02341355 -0.06051881
+sample_sd   1.0062213  1.02972707  1.00285219  0.99631854  0.97102866
+sample_var  1.0124813  1.06033784  1.00571252  0.99265064  0.94289666
+                    Z25        Z26        Z27        Z28         Z29
+sample_mean 0.003931785 0.03208108 0.02017995 0.03239461 -0.02102988
+sample_sd   0.997531861 1.01428670 1.00415423 1.00477739  0.98819614
+sample_var  0.995069813 1.02877751 1.00832571 1.00957760  0.97653161
+                    Z30         Z31         Z32       Z33
+sample_mean -0.03227855 0.001926895 -0.04068708 0.0133679
+sample_sd    1.00406650 1.017036152  0.99973497 1.0097145
+sample_var   1.00814954 1.034362535  0.99947000 1.0195233
+
+
+
+[1] "Key Oracle Coefficients"
+beta_X_LL beta_X_LH beta_X_HL beta_X_HH beta_Y_LL beta_Y_LH beta_Y_HL beta_Y_HH 
+0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 
+   causal 
+0.5000000 
+
+
+
+[1] "Oracle Coefficients"
+   cause intercept  y   X        Z1        Z2        Z3        Z4        Z5
+1      1         1 NA 0.5 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+2      1         1 NA  NA 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+3      0        NA NA  NA        NA        NA        NA        NA        NA
+4      0        NA NA  NA        NA        NA        NA        NA        NA
+5      0        NA NA  NA        NA        NA        NA        NA        NA
+6      0        NA NA  NA        NA        NA        NA        NA        NA
+7      0        NA NA  NA        NA        NA        NA        NA        NA
+8      0        NA NA  NA        NA        NA        NA        NA        NA
+9      0        NA NA  NA        NA        NA        NA        NA        NA
+10     0        NA NA  NA        NA        NA        NA        NA        NA
+11     0        NA NA  NA        NA        NA        NA        NA        NA
+12     0        NA NA  NA        NA        NA        NA        NA        NA
+13     0        NA NA  NA        NA        NA        NA        NA        NA
+14     0        NA NA  NA        NA        NA        NA        NA        NA
+15     0        NA NA  NA        NA        NA        NA        NA        NA
+16     0        NA NA  NA        NA        NA        NA        NA        NA
+17     0        NA NA  NA        NA        NA        NA        NA        NA
+18     0        NA NA  NA        NA        NA        NA        NA        NA
+19     0        NA NA  NA        NA        NA        NA        NA        NA
+20     0        NA NA  NA        NA        NA        NA        NA        NA
+21     0        NA NA  NA        NA        NA        NA        NA        NA
+22     0        NA NA  NA        NA        NA        NA        NA        NA
+23     0        NA NA  NA        NA        NA        NA        NA        NA
+24     0        NA NA  NA        NA        NA        NA        NA        NA
+25     0        NA NA  NA        NA        NA        NA        NA        NA
+26     0        NA NA  NA        NA        NA        NA        NA        NA
+27     0        NA NA  NA        NA        NA        NA        NA        NA
+28     0        NA NA  NA        NA        NA        NA        NA        NA
+29     0        NA NA  NA        NA        NA        NA        NA        NA
+30     0        NA NA  NA        NA        NA        NA        NA        NA
+31     0        NA NA  NA        NA        NA        NA        NA        NA
+32     0        NA NA  NA        NA        NA        NA        NA        NA
+33     0        NA NA  NA        NA        NA        NA        NA        NA
+34     0        NA NA  NA        NA        NA        NA        NA        NA
+35     0        NA NA  NA        NA        NA        NA        NA        NA
+          Z6        Z7        Z8        Z9       Z10       Z11       Z12
+1  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+2  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+3         NA        NA        NA        NA        NA        NA        NA
+4         NA        NA        NA        NA        NA        NA        NA
+5         NA        NA        NA        NA        NA        NA        NA
+6         NA        NA        NA        NA        NA        NA        NA
+7         NA        NA        NA        NA        NA        NA        NA
+8         NA        NA        NA        NA        NA        NA        NA
+9         NA        NA        NA        NA        NA        NA        NA
+10        NA        NA        NA        NA        NA        NA        NA
+11        NA        NA        NA        NA        NA        NA        NA
+12        NA        NA        NA        NA        NA        NA        NA
+13        NA        NA        NA        NA        NA        NA        NA
+14        NA        NA        NA        NA        NA        NA        NA
+15        NA        NA        NA        NA        NA        NA        NA
+16        NA        NA        NA        NA        NA        NA        NA
+17        NA        NA        NA        NA        NA        NA        NA
+18        NA        NA        NA        NA        NA        NA        NA
+19        NA        NA        NA        NA        NA        NA        NA
+20        NA        NA        NA        NA        NA        NA        NA
+21        NA        NA        NA        NA        NA        NA        NA
+22        NA        NA        NA        NA        NA        NA        NA
+23        NA        NA        NA        NA        NA        NA        NA
+24        NA        NA        NA        NA        NA        NA        NA
+25        NA        NA        NA        NA        NA        NA        NA
+26        NA        NA        NA        NA        NA        NA        NA
+27        NA        NA        NA        NA        NA        NA        NA
+28        NA        NA        NA        NA        NA        NA        NA
+29        NA        NA        NA        NA        NA        NA        NA
+30        NA        NA        NA        NA        NA        NA        NA
+31        NA        NA        NA        NA        NA        NA        NA
+32        NA        NA        NA        NA        NA        NA        NA
+33        NA        NA        NA        NA        NA        NA        NA
+34        NA        NA        NA        NA        NA        NA        NA
+35        NA        NA        NA        NA        NA        NA        NA
+         Z13       Z14       Z15       Z16       Z17       Z18       Z19
+1  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+2  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+3         NA        NA        NA        NA        NA        NA        NA
+4         NA        NA        NA        NA        NA        NA        NA
+5         NA        NA        NA        NA        NA        NA        NA
+6         NA        NA        NA        NA        NA        NA        NA
+7         NA        NA        NA        NA        NA        NA        NA
+8         NA        NA        NA        NA        NA        NA        NA
+9         NA        NA        NA        NA        NA        NA        NA
+10        NA        NA        NA        NA        NA        NA        NA
+11        NA        NA        NA        NA        NA        NA        NA
+12        NA        NA        NA        NA        NA        NA        NA
+13        NA        NA        NA        NA        NA        NA        NA
+14        NA        NA        NA        NA        NA        NA        NA
+15        NA        NA        NA        NA        NA        NA        NA
+16        NA        NA        NA        NA        NA        NA        NA
+17        NA        NA        NA        NA        NA        NA        NA
+18        NA        NA        NA        NA        NA        NA        NA
+19        NA        NA        NA        NA        NA        NA        NA
+20        NA        NA        NA        NA        NA        NA        NA
+21        NA        NA        NA        NA        NA        NA        NA
+22        NA        NA        NA        NA        NA        NA        NA
+23        NA        NA        NA        NA        NA        NA        NA
+24        NA        NA        NA        NA        NA        NA        NA
+25        NA        NA        NA        NA        NA        NA        NA
+26        NA        NA        NA        NA        NA        NA        NA
+27        NA        NA        NA        NA        NA        NA        NA
+28        NA        NA        NA        NA        NA        NA        NA
+29        NA        NA        NA        NA        NA        NA        NA
+30        NA        NA        NA        NA        NA        NA        NA
+31        NA        NA        NA        NA        NA        NA        NA
+32        NA        NA        NA        NA        NA        NA        NA
+33        NA        NA        NA        NA        NA        NA        NA
+34        NA        NA        NA        NA        NA        NA        NA
+35        NA        NA        NA        NA        NA        NA        NA
+         Z20       Z21       Z22       Z23       Z24       Z25       Z26
+1  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+2  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+3         NA        NA        NA        NA        NA        NA        NA
+4         NA        NA        NA        NA        NA        NA        NA
+5         NA        NA        NA        NA        NA        NA        NA
+6         NA        NA        NA        NA        NA        NA        NA
+7         NA        NA        NA        NA        NA        NA        NA
+8         NA        NA        NA        NA        NA        NA        NA
+9         NA        NA        NA        NA        NA        NA        NA
+10        NA        NA        NA        NA        NA        NA        NA
+11        NA        NA        NA        NA        NA        NA        NA
+12        NA        NA        NA        NA        NA        NA        NA
+13        NA        NA        NA        NA        NA        NA        NA
+14        NA        NA        NA        NA        NA        NA        NA
+15        NA        NA        NA        NA        NA        NA        NA
+16        NA        NA        NA        NA        NA        NA        NA
+17        NA        NA        NA        NA        NA        NA        NA
+18        NA        NA        NA        NA        NA        NA        NA
+19        NA        NA        NA        NA        NA        NA        NA
+20        NA        NA        NA        NA        NA        NA        NA
+21        NA        NA        NA        NA        NA        NA        NA
+22        NA        NA        NA        NA        NA        NA        NA
+23        NA        NA        NA        NA        NA        NA        NA
+24        NA        NA        NA        NA        NA        NA        NA
+25        NA        NA        NA        NA        NA        NA        NA
+26        NA        NA        NA        NA        NA        NA        NA
+27        NA        NA        NA        NA        NA        NA        NA
+28        NA        NA        NA        NA        NA        NA        NA
+29        NA        NA        NA        NA        NA        NA        NA
+30        NA        NA        NA        NA        NA        NA        NA
+31        NA        NA        NA        NA        NA        NA        NA
+32        NA        NA        NA        NA        NA        NA        NA
+33        NA        NA        NA        NA        NA        NA        NA
+34        NA        NA        NA        NA        NA        NA        NA
+35        NA        NA        NA        NA        NA        NA        NA
+         Z27       Z28       Z29       Z30       Z31       Z32 Z33
+1  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376  NA
+2  0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376  NA
+3         NA        NA        NA        NA        NA        NA  NA
+4         NA        NA        NA        NA        NA        NA  NA
+5         NA        NA        NA        NA        NA        NA  NA
+6         NA        NA        NA        NA        NA        NA  NA
+7         NA        NA        NA        NA        NA        NA  NA
+8         NA        NA        NA        NA        NA        NA  NA
+9         NA        NA        NA        NA        NA        NA  NA
+10        NA        NA        NA        NA        NA        NA  NA
+11        NA        NA        NA        NA        NA        NA  NA
+12        NA        NA        NA        NA        NA        NA  NA
+13        NA        NA        NA        NA        NA        NA  NA
+14        NA        NA        NA        NA        NA        NA  NA
+15        NA        NA        NA        NA        NA        NA  NA
+16        NA        NA        NA        NA        NA        NA  NA
+17        NA        NA        NA        NA        NA        NA  NA
+18        NA        NA        NA        NA        NA        NA  NA
+19        NA        NA        NA        NA        NA        NA  NA
+20        NA        NA        NA        NA        NA        NA  NA
+21        NA        NA        NA        NA        NA        NA  NA
+22        NA        NA        NA        NA        NA        NA  NA
+23        NA        NA        NA        NA        NA        NA  NA
+24        NA        NA        NA        NA        NA        NA  NA
+25        NA        NA        NA        NA        NA        NA  NA
+26        NA        NA        NA        NA        NA        NA  NA
+27        NA        NA        NA        NA        NA        NA  NA
+28        NA        NA        NA        NA        NA        NA  NA
+29        NA        NA        NA        NA        NA        NA  NA
+30        NA        NA        NA        NA        NA        NA  NA
+31        NA        NA        NA        NA        NA        NA  NA
+32        NA        NA        NA        NA        NA        NA  NA
+33        NA        NA        NA        NA        NA        NA  NA
+34        NA        NA        NA        NA        NA        NA  NA
+35        NA        NA        NA        NA        NA        NA  NA
+
+
+[1] "Sample Coefficients for Y Table"
+                 intercept         X        Z1        Z2        Z3        Z4
+true_values      1.0000000 0.5000000 0.1443376 0.1443376 0.1443376 0.1443376
+linear           1.0004380 0.5001706 0.1450029 0.1446165 0.1437737 0.1453094
+stepwise         0.9998149 0.5007605 0.1448245 0.1444365 0.1435819 0.1451403
+stepwise_X       1.0002648 0.5003330 0.1447876 0.1444590 0.1433295 0.1452022
+two_step_LASSO   1.0004278 0.5001796 0.1449995 0.1446114 0.1437715 0.1453081
+two_step_LASSO_X 1.0004433 0.5001697 0.1449829 0.1446318 0.1436985 0.1453221
+                        Z5        Z6        Z7        Z8        Z9       Z10
+true_values      0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+linear           0.1441507 0.1448648 0.1456579 0.1439967 0.1464598 0.1453013
+stepwise         0.1439257 0.1447758 0.1453415 0.1437015 0.1462770 0.1450255
+stepwise_X       0.1440863 0.1447790 0.1452877 0.1438677 0.1461617 0.1449393
+two_step_LASSO   0.1441418 0.1448631 0.1456539 0.1439919 0.1464579 0.1453003
+two_step_LASSO_X 0.1441389 0.1448604 0.1456752 0.1439917 0.1464644 0.1453117
+                       Z11       Z12       Z13       Z14       Z15       Z16
+true_values      0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+linear           0.1444031 0.1450391 0.1440400 0.1450663 0.1430949 0.1441730
+stepwise         0.1442315 0.1447907 0.1438038 0.1449602 0.1427806 0.1440236
+stepwise_X       0.1442454 0.1449024 0.1439239 0.1448184 0.1427563 0.1441135
+two_step_LASSO   0.1444006 0.1450356 0.1440410 0.1450632 0.1430935 0.1441698
+two_step_LASSO_X 0.1444069 0.1450583 0.1440386 0.1450710 0.1430951 0.1441585
+                       Z17       Z18       Z19       Z20       Z21       Z22
+true_values      0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+linear           0.1440951 0.1438107 0.1439430 0.1454253 0.1446781 0.1442935
+stepwise         0.1438187 0.1436800 0.1437114 0.1451889 0.1444937 0.1441088
+stepwise_X       0.1438471 0.1436604 0.1439282 0.1453860 0.1444436 0.1440038
+two_step_LASSO   0.1440916 0.1438058 0.1439375 0.1454206 0.1446771 0.1442920
+two_step_LASSO_X 0.1440985 0.1438203 0.1439282 0.1454343 0.1446737 0.1442831
+                       Z23       Z24       Z25       Z26       Z27       Z28
+true_values      0.1443376 0.1443376 0.1443376 0.1443376 0.1443376 0.1443376
+linear           0.1438181 0.1439928 0.1447861 0.1438831 0.1453761 0.1436776
+stepwise         0.1436100 0.1437503 0.1445602 0.1436305 0.1451905 0.1433800
+stepwise_X       0.1435091 0.1437132 0.1446617 0.1437699 0.1453090 0.1433760
+two_step_LASSO   0.1438155 0.1439920 0.1447825 0.1438814 0.1453725 0.1436671
+two_step_LASSO_X 0.1438014 0.1439769 0.1447659 0.1438863 0.1453587 0.1436760
+                       Z29       Z30       Z31       Z32          Z33
+true_values      0.1443376 0.1443376 0.1443376 0.1443376           NA
+linear           0.1445589 0.1438234 0.1442032 0.1430186 0.0007181303
+stepwise         0.1444173 0.1436062 0.1439813 0.1427844 0.0005235935
+stepwise_X       0.1444765 0.1436658 0.1441874 0.1429232 0.0001840626
+two_step_LASSO   0.1445523 0.1438206 0.1442008 0.1430156 0.0007900143
+two_step_LASSO_X 0.1445592 0.1438332 0.1441982 0.1430105 0.0004209298
+
+
+[1] "Grouped Sample Coefficients for Y Table"
+                 intercept         X      Z_LL      Z_LH      Z_HL      Z_HH
+true_values      1.0000000 0.5000000 0.1443376 0.1443376 0.1443376 0.1443376
+linear           1.0004380 0.5001706 0.1446716 0.1446972 0.1442571 0.1441659
+stepwise         0.9998149 0.5007605 0.1444659 0.1444866 0.1440452 0.1439438
+stepwise_X       1.0002648 0.5003330 0.1444749 0.1444826 0.1440614 0.1440462
+two_step_LASSO   1.0004278 0.5001796 0.1446677 0.1446952 0.1442540 0.1441616
+two_step_LASSO_X 1.0004433 0.5001697 0.1446627 0.1447006 0.1442520 0.1441610
+                      Z_dummy
+true_values                NA
+linear           0.0007181303
+stepwise         0.0005235935
+stepwise_X       0.0001840626
+two_step_LASSO   0.0007900143
+two_step_LASSO_X 0.0004209298
+
+
+[1] "Individual Covariate Selection Table"
+                 X     Z1    Z2     Z3     Z4     Z5     Z6     Z7     Z8
+linear           1 1.0000 1.000 1.0000 1.0000 1.0000 1.0000 1.0000 1.0000
+stepwise         1 0.9975 0.997 0.9970 0.9985 0.9970 0.9995 0.9950 0.9945
+stepwise_X       1 0.9990 0.999 0.9970 0.9995 1.0000 0.9995 0.9975 0.9995
+two_step_LASSO   1 1.0000 1.000 1.0000 1.0000 0.9995 1.0000 1.0000 1.0000
+two_step_LASSO_X 1 1.0000 1.000 0.9995 1.0000 1.0000 1.0000 1.0000 1.0000
+                     Z9    Z10   Z11   Z12    Z13   Z14    Z15   Z16    Z17
+linear           1.0000 1.0000 1.000 1.000 1.0000 1.000 1.0000 1.000 1.0000
+stepwise         0.9980 0.9945 0.997 0.995 0.9965 1.000 0.9935 0.999 0.9950
+stepwise_X       0.9985 0.9980 0.999 0.999 0.9995 0.999 0.9975 1.000 0.9985
+two_step_LASSO   1.0000 1.0000 1.000 1.000 1.0000 1.000 1.0000 1.000 1.0000
+two_step_LASSO_X 1.0000 1.0000 1.000 1.000 1.0000 1.000 1.0000 1.000 1.0000
+                   Z18    Z19    Z20    Z21   Z22    Z23    Z24    Z25    Z26
+linear           1.000 1.0000 1.0000 1.0000 1.000 1.0000 1.0000 1.0000 1.0000
+stepwise         0.998 0.9960 0.9960 0.9975 0.996 0.9970 0.9965 0.9970 0.9960
+stepwise_X       0.999 1.0000 0.9995 0.9985 0.998 0.9985 0.9985 0.9995 0.9995
+two_step_LASSO   1.000 0.9995 0.9995 1.0000 1.000 1.0000 1.0000 1.0000 1.0000
+two_step_LASSO_X 1.000 1.0000 1.0000 1.0000 1.000 1.0000 1.0000 1.0000 1.0000
+                   Z27    Z28    Z29    Z30    Z31   Z32    Z33
+linear           1.000 1.0000 1.0000 1.0000 1.0000 1.000 1.0000
+stepwise         0.998 0.9940 0.9980 0.9960 0.9965 0.996 0.1575
+stepwise_X       1.000 0.9985 1.0000 0.9985 1.0000 0.999 0.1820
+two_step_LASSO   1.000 0.9995 0.9995 1.0000 1.0000 1.000 0.8325
+two_step_LASSO_X 1.000 1.0000 1.0000 1.0000 1.0000 1.000 0.8050
+
+
+[1] "Grouped Covariate Selection Table"
+                 X      Z_LL      Z_LH      Z_HL      Z_HH Z_dummy
+linear           1 1.0000000 1.0000000 1.0000000 1.0000000  1.0000
+stepwise         1 0.9970000 0.9966875 0.9965000 0.9964375  0.1575
+stepwise_X       1 0.9988750 0.9988125 0.9988125 0.9993750  0.1820
+two_step_LASSO   1 0.9999375 1.0000000 0.9998750 0.9998750  0.8325
+two_step_LASSO_X 1 0.9999375 1.0000000 1.0000000 1.0000000  0.8050
+
+
+[1] "Covariate Selection Dispersion Within Groups Table"
+                 X         Z_LL         Z_LH         Z_HL         Z_HH Z_dummy
+linear           0 0.000000e+00 0.000000e+00 0.000000e+00 0.000000e+00       0
+stepwise         0 2.714286e-06 5.138393e-06 9.285714e-07 1.674107e-06       0
+stepwise_X       0 1.125000e-06 6.383929e-07 4.241071e-07 4.107143e-07       0
+two_step_LASSO   0 3.125000e-08 0.000000e+00 5.357143e-08 5.357143e-08       0
+two_step_LASSO_X 0 3.125000e-08 0.000000e+00 0.000000e+00 0.000000e+00       0
+
+
+[1] "Results Table"
+                 pred_mse r_squared_X r_squared_Y   model_SE     emp_SE
+linear           1.125067   0.4194675   0.6135781 0.03477029 0.03409123
+stepwise         1.125709   0.4194675   0.6133573 0.03470468 0.03441670
+stepwise_X       1.126736   0.4194675   0.6130054 0.03477254 0.03409449
+two_step_LASSO   1.125071   0.4194675   0.6135769 0.03476290 0.03409087
+two_step_LASSO_X 1.125311   0.4194675   0.6134944 0.03477046 0.03409301
+                 causal_effect_est causal_effect_mcse causal_effect_bias
+linear                   0.5001706       0.0007624841       0.0001705813
+stepwise                 0.5007605       0.0007695853       0.0007604757
+stepwise_X               0.5003330       0.0007625303       0.0003330408
+two_step_LASSO           0.5001796       0.0007624751       0.0001795785
+two_step_LASSO_X         0.5001697       0.0007625240       0.0001696661
+                 avg_abs_param_bias coverage open_paths blocked_paths
+linear                   0.02830451    0.958         32       32.0000
+stepwise                 0.02794944    0.954         32       31.8930
+stepwise_X               0.02776587    0.959         32       31.9670
+two_step_LASSO           0.02828633    0.958         32       31.9975
+two_step_LASSO_X         0.02814636    0.958         32       31.9995
+
+Saving results to file
+
+[1] "finished!"
+NULL
+
+End Time: Wed Nov 27 21:42:20 GMT 2024
+***** END *****
+
