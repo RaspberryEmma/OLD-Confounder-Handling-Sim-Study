@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          18/09/2024
-# Most Recent Edit: 18/09/2024
+# Most Recent Edit: 04/12/2024
 # ****************************************
 
 echo ""
@@ -27,9 +27,12 @@ cd bash
 
 # submit simulation to BP HPC
 #sbatch launch_BP.sh
-for ((i=1;i<5;i++));do
-	echo "Submitting job: launch_BP_"$i".sh"
-	sbatch "launch_BP_"$i".sh"
+for ((i=1;i<3;i++));do
+	for ((j=5;j<7;j++));do
+		python generate_BP_job_file.py $i $j
+		echo "Submitting job: launch_BP_run_"$i"_scenario_"$j".txt"
+		sbatch "launch_BP_run_"$i"_scenario_"$j".sh"
+	done
 done
 
 # check jobs submitted correctly
