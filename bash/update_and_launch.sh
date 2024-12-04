@@ -25,6 +25,9 @@ git clone https://github.com/RaspberryEmma/Confounder-Handling-Sim-Study
 cd Confounder-Handling-Sim-Study
 cd bash
 
+# import python
+module load languages/python/3.12.3
+
 # submit simulation to BP HPC
 #sbatch launch_BP.sh
 for ((i=1;i<3;i++));do
