@@ -1,6 +1,0 @@
-"","X","Z_LL","Z_LH","Z_HL","Z_HH","Z_dummy"
-"linear",1,1,1,1,1,1
-"stepwise",1,1,1,1,1,0.159
-"stepwise_X",1,1,1,1,1,0.161
-"two_step_LASSO",1,1,1,1,1,0.757
-"two_step_LASSO_X",1,1,1,1,1,0.728
