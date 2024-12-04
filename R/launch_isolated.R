@@ -76,7 +76,8 @@ oracle_error_sd_init   <- 1.0
 
 # top-level parameters held constant between scenarios but varied across simulation runs
 # simulation = c(n_simulation, n_obs, correlation_U, r_sq_X, r_sq_Y, causal, dissimilarity_rho)
-simulations <- list(c(1, 1000, 0.0, 0.4, 0.6, 0.5, 1.0))
+all_simulations <- list(c(1, 1000, 0.0, 0.4, 0.6, 0.50, 1.0),
+                        c(2, 1000, 0.0, 0.4, 0.6, 0.25, 1.0))
 
 
 # top level parameters varied between scenarios
@@ -93,15 +94,24 @@ all_scenarios <- list(
 )
 
 
-# subset the scenarios if command line argument provided
+# subset the runs and scenarios to be computed
+# we do so only if subsets are provided in cmd
 args = commandArgs(trailingOnly=TRUE)
+
 if (length(args) > 0) {
-  args <- stringr::str_split(args[1], ",")[[1]]
-  args <- as.numeric(args)
-  scenarios <- all_scenarios[args]
+  args_simulations <- stringr::str_split(args[1], ",")[[1]]
+  args_simulations <- as.numeric(args_simulations)
+  simulations      <- all_simulations[args_simulations]
+  
+  args_scenarios <- stringr::str_split(args[2], ",")[[1]]
+  args_scenarios <- as.numeric(args_scenarios)
+  scenarios      <- all_scenarios[args_scenarios]
+  
 } else {
-  scenarios <- all_scenarios
+  simulations <- all_simulations
+  scenarios   <- all_scenarios
 }
+
 
 # reduced size scenario list for testing
 # scenarios <- list(
@@ -111,7 +121,11 @@ if (length(args) > 0) {
 #   c(4,  32,  8)
 # )
 
-message("The following scenarios will be run:")
+
+message("***** Confounder Handling Simulation Study *****")
+message("Simulation Runs:")
+print(simulations)
+message("Simulation Scenarios:")
 print(scenarios)
 
 for (simulation in simulations) {
