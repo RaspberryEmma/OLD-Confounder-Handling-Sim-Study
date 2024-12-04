@@ -25,8 +25,7 @@ sim_scenarios_no_commas = sys.argv[2].replace(",", "_")
 date_string     = datetime.today().strftime('%d/%m/%Y')
 job_name_string = f"conf_sim_study_run_{sim_runs_no_commas}_scenario_{sim_scenarios_no_commas}"
 
-job_file_output = f"""
-#!/bin/bash
+job_file_output = f"""#!/bin/bash
 #
 # ****************************************
 # Confounder Handling Simulation Study
