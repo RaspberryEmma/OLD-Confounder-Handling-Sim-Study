@@ -30,7 +30,7 @@ module load languages/python/3.12.3
 
 # submit simulation to BP HPC
 #sbatch launch_BP.sh
-for ((i=1;i<3;i++));do
+for ((i=1;i<4;i++));do
 	for ((j=5;j<7;j++));do
 		python generate_BP_job_file.py $i $j
 		echo "Submitting job: launch_BP_run_"$i"_scenario_"$j".sh"
