@@ -10,16 +10,12 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 14/11/2024
+# Most Recent Edit: 10/12/2024
 # ****************************************
 
 
 # clear R memory
 rm(list=ls())
-
-
-# fix RNG for reproducibility
-set.seed(2024)
 
 
 # check all external libraries
@@ -77,7 +73,8 @@ oracle_error_sd_init   <- 1.0
 # top-level parameters held constant between scenarios but varied across simulation runs
 # simulation = c(n_simulation, n_obs, correlation_U, r_sq_X, r_sq_Y, causal, dissimilarity_rho)
 all_simulations <- list(c(1, 1000, 0.0, 0.4, 0.6, 0.50, 1.0),
-                        c(2, 1000, 0.0, 0.4, 0.6, 0.25, 1.0))
+                        c(2, 1000, 0.0, 0.4, 0.6, 0.25, 1.0),
+                        c(3, 1000, 0.0, 0.6, 0.8, 0.25, 1.0))
 
 
 # top level parameters varied between scenarios
@@ -110,6 +107,9 @@ if (length(args) > 0) {
 } else {
   simulations <- all_simulations
   scenarios   <- all_scenarios
+  
+  args_simulations <- c(1:length(all_simulations))
+  args_scenarios   <- c(1:length(all_scenarios))
 }
 
 
@@ -121,12 +121,20 @@ if (length(args) > 0) {
 #   c(4,  32,  8)
 # )
 
+# fix RNG seed based on current run and scenario
+seeds_df <- read.csv(file = "../data/precomputed_RNG_seeds.csv")
+seed     <- seeds_df %>%
+  filter(simulation_run == min(args_simulations)) %>%
+  filter(simulation_scenario == min(args_scenarios))
+set.seed(seed$seed)
 
 message("***** Confounder Handling Simulation Study *****")
 message("Simulation Runs:")
 print(simulations)
 message("Simulation Scenarios:")
 print(scenarios)
+message("Locally starting from precomputed seed:")
+print(seed)
 
 for (simulation in simulations) {
   for (scenario in scenarios) {
