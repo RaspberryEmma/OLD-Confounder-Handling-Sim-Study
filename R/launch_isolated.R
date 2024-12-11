@@ -74,7 +74,8 @@ oracle_error_sd_init   <- 1.0
 # simulation = c(n_simulation, n_obs, correlation_U, r_sq_X, r_sq_Y, causal, dissimilarity_rho)
 all_simulations <- list(c(1, 1000, 0.0, 0.4, 0.6, 0.50, 1.0),
                         c(2, 1000, 0.0, 0.4, 0.6, 0.25, 1.0),
-                        c(3, 1000, 0.0, 0.6, 0.8, 0.25, 1.0))
+                        c(3, 1000, 0.0, 0.6, 0.8, 0.25, 1.0),
+                        c(4, 1000, 0.0, 0.1, 0.2, 0.25, 1.0))
 
 
 # top level parameters varied between scenarios

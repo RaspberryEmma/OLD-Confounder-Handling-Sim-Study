@@ -13,7 +13,7 @@
 # ****************************************
 #
 #SBATCH --partition=compute
-#SBATCH --job-name=conf_sim_study_run_2_scenario_5
+#SBATCH --job-name=conf_sim_study_run_3_scenario_6
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
@@ -24,10 +24,10 @@
 #SBATCH --mail-user=aa22294@bristol.ac.uk
 
 # Runs
-RUNS="2"
+RUNS="3"
 
 # Scenarios
-SCENARIOS="5"
+SCENARIOS="6"
 
 # Change into working directory
 cd ${SLURM_SUBMIT_DIR}
