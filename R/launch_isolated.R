@@ -75,11 +75,6 @@ oracle_error_sd_init   <- 1.0
 
 # top-level parameters held constant between scenarios but varied across simulation runs
 # simulation = c(n_simulation, n_obs, correlation_U, r_sq_X, r_sq_Y, causal, dissimilarity_rho)
-# all_simulations <- list(c(1, 1000, 0.0, 0.4, 0.6, 0.50, 1.0),
-#                         c(2, 1000, 0.0, 0.4, 0.6, 0.25, 1.0),
-#                         c(3, 1000, 0.0, 0.6, 0.8, 0.25, 1.0),
-#                         c(4, 1000, 0.0, 0.1, 0.2, 0.25, 1.0))
-
 all_simulations <- list(
   c(1, 1000, 0.0, 0.5, 0.7, 0.50, 1.0),
   c(2, 1000, 0.0, 0.6, 0.8, 0.50, 1.0)
@@ -88,19 +83,15 @@ all_simulations <- list(
 
 # top level parameters varied between scenarios
 # scenario = c(n_scenario, num_total_conf, measured_conf, unmeasured_conf)
-# all_scenarios <- list(
-#   c(1,  16,  0),
-#   c(2,  16,  4),
-#   c(3,  32,  0),
-#   c(4,  32,  8),
-#   c(5,  64,  0),
-#   c(6,  64, 16),
-#   c(7, 128,  0),
-#   c(8, 128, 32)
-# )
 all_scenarios <- list(
-  c(5, 64, 64, 0),
-  c(6, 64, 48, 16)
+  c(1,  16,  0),
+  c(2,  12,  4),
+  c(3,  32,  0),
+  c(4,  24,  8),
+  c(5,  64,  0),
+  c(6,  48, 16),
+  c(7, 128,  0),
+  c(8,  96, 32)
 )
 
 
