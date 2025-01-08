@@ -84,14 +84,14 @@ all_simulations <- list(
 # top level parameters varied between scenarios
 # scenario = c(n_scenario, num_total_conf, measured_conf, unmeasured_conf)
 all_scenarios <- list(
-  c(1,  16,  0),
-  c(2,  12,  4),
-  c(3,  32,  0),
-  c(4,  24,  8),
-  c(5,  64,  0),
-  c(6,  48, 16),
-  c(7, 128,  0),
-  c(8,  96, 32)
+  c(1,  16,  16,  0),
+  c(2,  16,  12,  4),
+  c(3,  32,  32,  0),
+  c(4,  32,  24,  8),
+  c(5,  64,  64,  0),
+  c(6,  64,  48, 16),
+  c(7, 128, 128,  0),
+  c(8, 128,  96, 32)
 )
 
 
