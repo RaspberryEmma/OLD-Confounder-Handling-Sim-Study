@@ -185,10 +185,8 @@ model_SE <- function(model = NULL) {
 
 # Empirical standard error of the variable of the causal effect
 # i.e genuine measure across iterations
-emp_SE <- function(n_rep = NULL, causal_effect_estimates = NULL, oracle_causal_effect = NULL) {
-  errors        <- causal_effect_estimates - oracle_causal_effect
-  sum_sq_errors <- sum(errors^2)
-  emp_SE_value  <- sqrt(sum_sq_errors / (n_rep)) # not (n_rep - 1) in this case!
+emp_SE <- function(causal_effect_estimates = NULL) {
+  emp_SE_value <- sd(causal_effect_estimates)
   return (emp_SE_value)
 }
 
@@ -681,7 +679,7 @@ generate_dataset <- function(coef_data         = NULL,
   
   # generate un-caused variables
   for (i in uncaused) {
-    if (sjmisc::str_contains(labels[i], "Z") && (labels[i] != paste("Z", num_conf+1, sep=""))) {
+    if (sjmisc::str_contains(labels[i], "Z") && (labels[i] != paste("Z", num_total_conf+1, sep=""))) {
       # generate error term epsilon_Z_i
       # independent for each Z
       error_Z_i <- rnorm(n = n_obs, mean = 0, sd = 1)
@@ -716,70 +714,12 @@ generate_dataset <- function(coef_data         = NULL,
           dataset[, i] <- rowSums( cbind(dataset[, i], var_p), na.rm = TRUE)
         }
         
-        # add beta_p * var_p for all unmeasured priors p
-        if (num_unmeas_conf > 0) {
-          if (labels[i] == 'X') {
-            beta_Xs <- beta_X_levels_formula(num_conf = num_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
-            for (p in 1:num_unmeas_conf) {
-              # generate coefficient
-              coef_p <- NaN
-              # LL group
-              if ((i >= 1) && (i <= (num_unmeas_conf/4))) {
-                coef_p <- beta_Xs[1]
-              }
-              # LH
-              if ((i >= (num_unmeas_conf/4)+1) && (i <= (num_unmeas_conf/2))) {
-                coef_p <- beta_Xs[2]
-              }
-              # HL
-              if ((i >= (num_unmeas_conf/2)+1) && i <= ((3/4)*num_unmeas_conf) ) {
-                coef_p <- beta_Xs[3]
-              }
-              # HH
-              if ((i >= ((3/4)*num_unmeas_conf+1)) && (i <= (num_unmeas_conf)) ) {
-                coef_p <- beta_Xs[4]
-              }
-              
-              # add unmeasured influence to variable
-              var_p        <- coef_p * unmeas_dataset[, i]
-              dataset[, i] <- rowSums( cbind(dataset[, i], var_p), na.rm = TRUE)
-            }
-          }
-          if (labels[i] == 'y') {
-            beta_Ys <- beta_Y_levels_formula(num_conf = num_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
-            for (p in 1:num_unmeas_conf) {
-              # generate coefficient
-              coef_p <- NaN
-              # LL group
-              if ((i >= 1) && (i <= (num_unmeas_conf/4))) {
-                coef_p <- beta_Ys[1]
-              }
-              # LH
-              if ((i >= (num_unmeas_conf/4)+1) && (i <= (num_unmeas_conf/2))) {
-                coef_p <- beta_Ys[2]
-              }
-              # HL
-              if ((i >= (num_unmeas_conf/2)+1) && i <= ((3/4)*num_unmeas_conf) ) {
-                coef_p <- beta_Ys[3]
-              }
-              # HH
-              if ((i >= ((3/4)*num_unmeas_conf+1)) && (i <= (num_unmeas_conf)) ) {
-                coef_p <- beta_Ys[4]
-              }
-              
-              # add unmeasured influence to variable
-              var_p        <- coef_p * unmeas_dataset[, i]
-              dataset[, i] <- rowSums( cbind(dataset[, i], var_p), na.rm = TRUE)
-            }
-          }
-        }
-        
         # error term
         if (labels[i] == 'y') {
-          num_conf <- length(labels) - 3
-          Zs       <- paste("Z", c(1, (1 + 0.25*num_conf), (1 + 0.5*num_conf), (1 + 0.75*num_conf)), sep='')
+          num_total_conf <- length(labels) - 3
+          Zs       <- paste("Z", c(1, (1 + 0.25*num_total_conf), (1 + 0.5*num_total_conf), (1 + 0.75*num_total_conf)), sep='')
           
-          var_error_Y  <- determine_var_error_Y(num_conf      = num_conf,
+          var_error_Y  <- determine_var_error_Y(num_total_conf      = num_total_conf,
                                                 beta_Xs       = as.numeric(coef_data[2, Zs]),
                                                 beta_Ys       = as.numeric(coef_data[1, Zs]),
                                                 causal        = as.numeric(coef_data[1, 'X']),
@@ -803,14 +743,37 @@ generate_dataset <- function(coef_data         = NULL,
     }
   }
   
+  # remove unmeasured variables from data-set
+  if (num_unmeas_conf > 0) {
+    HH_indices <- seq.int(from       = (2 + (0.75 * num_total_conf) + 1),
+                          to         = (2 + num_total_conf),
+                          length.out = (num_total_conf/4))
+    
+    unmeas_indices <- tail(HH_indices, num_unmeas_conf)
+    
+    # print(labels)
+    # print(HH_indices)
+    # print(unmeas_indices)
+    # print(labels[HH_indices])
+    # print(labels[unmeas_indices])
+    
+    # erase
+    dataset <- dataset[ , !(names(dataset) %in% labels[unmeas_indices])]
+    
+    # replace with NaN
+    # for (index in unmeas_indices) {
+    #   dataset[, index] <- rep(NaN, n_obs)
+    # }
+  }
+  
   return (dataset)
 }
 
 
 # The value for all beta coefficients used for generating X
-beta_X_formula <- function(num_conf = NULL, target_r_sq_X = NULL) {
+beta_X_formula <- function(num_total_conf = NULL, target_r_sq_X = NULL) {
   # short-hand
-  m   <- num_conf
+  m   <- num_total_conf
   r_X <- target_r_sq_X
   
   value <- sqrt( (1/m) * (r_X/(1 - r_X)) )
@@ -819,11 +782,11 @@ beta_X_formula <- function(num_conf = NULL, target_r_sq_X = NULL) {
 }
 
 
-beta_X_levels_condition <- function(num_conf      = NULL,
+beta_X_levels_condition <- function(num_total_conf      = NULL,
                                     target_r_sq_X = NULL,
                                     beta_Xs       = NULL) {
   # short-hand
-  m   <- num_conf
+  m   <- num_total_conf
   r_X <- target_r_sq_X
   
   LHS     <- sum(beta_Xs^2)
@@ -836,12 +799,12 @@ beta_X_levels_condition <- function(num_conf      = NULL,
 
 # The values for all beta coefficients used for generating Y
 # Tuned to induce the given value of R2_X in generated data-sets
-beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, dissimilarity = NULL, l_zero_X = NULL, l_zero_Y = NULL) {
+beta_X_levels_formula <- function(num_total_conf = NULL, target_r_sq_X = NULL, dissimilarity = NULL, l_zero_X = NULL, l_zero_Y = NULL) {
   
   # short-hand
-  m   <- num_conf
+  m   <- num_total_conf
   r_X <- target_r_sq_X
-  b   <- beta_X_formula(num_conf = m, target_r_sq_X = r_X) # symmetric value
+  b   <- beta_X_formula(num_total_conf = m, target_r_sq_X = r_X) # symmetric value
   
   if (l_zero_X) {
     b_1 <- 0
@@ -863,12 +826,12 @@ beta_X_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, dissimi
 
 
 # The values for all beta coefficients used for generating Y
-beta_Y_levels_formula <- function(num_conf = NULL, target_r_sq_X = NULL, dissimilarity = NULL, l_zero_X = NULL, l_zero_Y = NULL) {
+beta_Y_levels_formula <- function(num_total_conf = NULL, target_r_sq_X = NULL, dissimilarity = NULL, l_zero_X = NULL, l_zero_Y = NULL) {
   
   # short-hand
-  m   <- num_conf
+  m   <- num_total_conf
   r_X <- target_r_sq_X
-  b   <- beta_X_formula(num_conf = m, target_r_sq_X = r_X) # symmetric value
+  b   <- beta_X_formula(num_total_conf = m, target_r_sq_X = r_X) # symmetric value
   
   if (l_zero_Y) {
     d_1 <- 0
@@ -896,8 +859,8 @@ mean_X_formula <- function(intercept_X = NULL) {
 
 
 # Variance for X we induce
-var_X_formula <- function(num_conf = NULL, beta_Xs = NULL) {
-  return (((num_conf/4) * sum(beta_Xs^2)) + 1)
+var_X_formula <- function(num_total_conf = NULL, beta_Xs = NULL) {
+  return (((num_total_conf/4) * sum(beta_Xs^2)) + 1)
 }
 
 
@@ -908,11 +871,11 @@ mean_Y_formula <- function(intercept_Y = NULL, causal = NULL, mean_X = NULL) {
 
 
 # Variance for Y we induce
-var_Y_formula <- function(num_conf = NULL,
+var_Y_formula <- function(num_total_conf = NULL,
                           beta_Xs  = NULL,
                           beta_Ys  = NULL,
                           causal   = NULL) {
-  return ( ((num_conf/4) * sum(( causal*beta_Xs + beta_Ys )^2)) + causal^2 + 1 )
+  return ( ((num_total_conf/4) * sum(( causal*beta_Xs + beta_Ys )^2)) + causal^2 + 1 )
 }
 
 var_Z_i_formula <- function(correlation_U = NULL) {
@@ -922,13 +885,13 @@ var_Z_i_formula <- function(correlation_U = NULL) {
 }
 
 
-analytic_cov_matrix <- function(num_conf      = num_conf,
+analytic_cov_matrix <- function(num_total_conf      = num_total_conf,
                                 correlation_U = correlation_U,
                                 coef_data     = coef_data) {
   
   var_labels <- colnames(coef_data)[-c(1, 2)]
   
-  analytic_cov           <- matrix(NaN, (num_conf+3), (num_conf+3))
+  analytic_cov           <- matrix(NaN, (num_total_conf+3), (num_total_conf+3))
   rownames(analytic_cov) <- var_labels
   colnames(analytic_cov) <- var_labels
   
@@ -948,35 +911,35 @@ analytic_cov_matrix <- function(num_conf      = num_conf,
 }
 
 
-analytic_r_sq_X <- function(num_conf    = NULL,
+analytic_r_sq_X <- function(num_total_conf    = NULL,
                             beta_Xs     = NULL,
                             var_error_X = NULL) {
   
-  numerator   <- ((num_conf/4) * sum(beta_Xs^2))
-  denominator <- ((num_conf/4) * sum(beta_Xs^2)) + var_error_X
+  numerator   <- ((num_total_conf/4) * sum(beta_Xs^2))
+  denominator <- ((num_total_conf/4) * sum(beta_Xs^2)) + var_error_X
   return (numerator / denominator)
 }
 
 
-analytic_r_sq_Y <- function(num_conf    = NULL,
+analytic_r_sq_Y <- function(num_total_conf    = NULL,
                             beta_Xs     = NULL,
                             beta_Ys     = NULL,
                             causal      = NULL,
                             var_error_Y = NULL) {
   
-  numerator   <- ((num_conf/4) * sum( ((causal*beta_Xs) + beta_Ys)^2 )) + causal^2
-  denominator <- ((num_conf/4) * sum( ((causal*beta_Xs) + beta_Ys)^2 )) + causal^2 + var_error_Y
+  numerator   <- ((num_total_conf/4) * sum( ((causal*beta_Xs) + beta_Ys)^2 )) + causal^2
+  denominator <- ((num_total_conf/4) * sum( ((causal*beta_Xs) + beta_Ys)^2 )) + causal^2 + var_error_Y
   
   return (numerator / denominator)
 }
 
 
-analytic_levels_causal_effect <- function(num_conf      = NULL,
+analytic_levels_causal_effect <- function(num_total_conf      = NULL,
                                           beta_Xs       = NULL,
                                           beta_Ys       = NULL,
                                           target_r_sq_Y = NULL) {
   # short-hand
-  m   <- num_conf
+  m   <- num_total_conf
   r_Y <- target_r_sq_Y
   
   quad_a <- ((m/4) * (r_Y - 1) * sum( beta_Xs^2 )) + r_Y - 1
@@ -995,7 +958,7 @@ analytic_levels_causal_effect <- function(num_conf      = NULL,
 
 
 # Building the table of coefficients we use for data-set generation
-generate_coef_data <- function(num_conf      = NULL,
+generate_coef_data <- function(num_total_conf      = NULL,
                                target_r_sq_X = NULL,
                                target_r_sq_Y = NULL,
                                dissimilarity = NULL,
@@ -1004,8 +967,8 @@ generate_coef_data <- function(num_conf      = NULL,
   
   var_labels <- c("y", "X", "Z1")
   
-  if (num_conf > 0) {
-    Z_list     <- c(2:(num_conf+1))
+  if (num_total_conf > 0) {
+    Z_list     <- c(2:(num_total_conf+1))
     for (i in Z_list) {
       # add label corresponding to variable i
       new_label <- paste("Z", i, sep = "")
@@ -1017,13 +980,13 @@ generate_coef_data <- function(num_conf      = NULL,
   
   cause <- rep(0,  times = n_var)
   cause[ match("y", var_labels) ] <- 1
-  if (num_conf > 0) {
+  if (num_total_conf > 0) {
     cause[ match("X", var_labels) ] <- 1
   }
   
   intercept <- rep(NA, times = n_var)
   intercept[ match("y", var_labels) ] <- 1
-  if (num_conf > 0) {
+  if (num_total_conf > 0) {
     intercept[ match("X", var_labels) ] <- 1
   }
   
@@ -1038,7 +1001,7 @@ generate_coef_data <- function(num_conf      = NULL,
   coef_data[ match("y", var_labels),  "X" ] <- 1
   
   # index change guarantees dummy variable is always last
-  for (i in seq.int(from = 1, to = (num_conf), length.out = num_conf)) {
+  for (i in seq.int(from = 1, to = (num_total_conf), length.out = num_total_conf)) {
     # from confounder i to y
     coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- 1
     
@@ -1047,9 +1010,9 @@ generate_coef_data <- function(num_conf      = NULL,
   }
   
   # Adjust all beta values in order to control R2
-  beta_Xs               <- beta_X_levels_formula(num_conf = num_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
-  beta_Ys               <- beta_Y_levels_formula(num_conf = num_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
-  oracle_causal_effect  <- analytic_levels_causal_effect(num_conf = num_conf, beta_Xs = beta_Xs, beta_Ys = beta_Ys, target_r_sq_Y = target_r_sq_Y)
+  beta_Xs               <- beta_X_levels_formula(num_total_conf = num_total_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
+  beta_Ys               <- beta_Y_levels_formula(num_total_conf = num_total_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
+  oracle_causal_effect  <- analytic_levels_causal_effect(num_total_conf = num_total_conf, beta_Xs = beta_Xs, beta_Ys = beta_Ys, target_r_sq_Y = target_r_sq_Y)
   
   # subset by caused / uncaused
   all_vars        <- var_labels
@@ -1060,25 +1023,25 @@ generate_coef_data <- function(num_conf      = NULL,
     var_index    <- which(all_vars == var)
     
     # LL group
-    for (i in seq.int(from = 1, to = (num_conf/4), length.out = num_conf/4)) {
+    for (i in seq.int(from = 1, to = (num_total_conf/4), length.out = num_total_conf/4)) {
       coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[1]
       coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[1]
     }
     
     # LH
-    for (i in seq.int(from = ((num_conf/4)+1), to = (num_conf/2), length.out = num_conf/4)) {
+    for (i in seq.int(from = ((num_total_conf/4)+1), to = (num_total_conf/2), length.out = num_total_conf/4)) {
       coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[2]
       coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[2]
     }
     
     # HL
-    for (i in seq.int(from = ((num_conf/2)+1), to = ((3/4)*num_conf), length.out = num_conf/4)) {
+    for (i in seq.int(from = ((num_total_conf/2)+1), to = ((3/4)*num_total_conf), length.out = num_total_conf/4)) {
       coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[3]
       coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[3]
     }
     
     # HH
-    for (i in seq.int(from = ((3/4)*num_conf+1), to = (num_conf), length.out = num_conf/4)) {
+    for (i in seq.int(from = ((3/4)*num_total_conf+1), to = (num_total_conf), length.out = num_total_conf/4)) {
       coef_data[ match("y", var_labels), paste("Z", i, sep = "") ] <- beta_Ys[4]
       coef_data[ match("X", var_labels), paste("Z", i, sep = "") ] <- beta_Xs[4]
     }
@@ -1228,12 +1191,12 @@ var_across_groups <- function(table = NULL, case = NULL) {
 
 
 # NB: beta_Xs gives only the unique values from each of the 4 subgroups
-# hence multiplying by (num_conf/4) to get total variance
-determine_var_error_X <- function(num_conf = NULL, beta_Xs = NULL, target_r_sq_X = NULL) {
+# hence multiplying by (num_total_conf/4) to get total variance
+determine_var_error_X <- function(num_total_conf = NULL, beta_Xs = NULL, target_r_sq_X = NULL) {
   r_sq_X <- target_r_sq_X
   
   LHS <- ((1 - r_sq_X) / r_sq_X)
-  RHS <- (num_conf / 4) * sum(beta_Xs^2)
+  RHS <- (num_total_conf / 4) * sum(beta_Xs^2)
   
   return (LHS * RHS)
 }
@@ -1242,14 +1205,14 @@ determine_var_error_X <- function(num_conf = NULL, beta_Xs = NULL, target_r_sq_X
 # determines the variance of the error term for the outcome Y to be used in data-set generation
 # the idea is to scale var(epsilon_Y) up and down as we scale the causal effect c
 # s.t. the values for r_squared_X and r_squared_Y can remain constant
-determine_var_error_Y <- function(num_conf = NULL, beta_Xs = NULL, beta_Ys = NULL, causal = NULL, target_r_sq_Y = NULL) {
+determine_var_error_Y <- function(num_total_conf = NULL, beta_Xs = NULL, beta_Ys = NULL, causal = NULL, target_r_sq_Y = NULL) {
   r_sq_Y <- target_r_sq_Y
   
   sum_sq_coefs <- 0.0
   for (i in 1:4) {
     sum_sq_coefs <- sum_sq_coefs + ( (causal * beta_Xs[i]) + beta_Ys[i] )^2
   }
-  sum_sq_coefs <- (num_conf / 4) * sum_sq_coefs
+  sum_sq_coefs <- (num_total_conf / 4) * sum_sq_coefs
   
   top <- (sum_sq_coefs) + (causal^2) + (-1 * r_sq_Y * sum_sq_coefs) + (-1 * r_sq_Y * causal^2)
   btm <- r_sq_Y
@@ -1272,7 +1235,8 @@ run_once <- function(
   target_r_sq_Y   = NULL,
   causal_effect   = NULL,
   dissimilarity   = NULL,
-  num_conf        = NULL,
+  num_total_conf  = NULL,
+  num_meas_conf   = NULL,
   num_unmeas_conf = NULL,
   
   # data and tech
@@ -1306,7 +1270,8 @@ run_once <- function(
     target_r_sq_Y   = target_r_sq_Y,
     causal_effect   = causal_effect,
     dissimilarity   = dissimilarity,
-    num_conf        = num_conf,
+    num_total_conf  = num_total_conf,
+    num_meas_conf   = num_meas_conf,
     num_unmeas_conf = num_unmeas_conf,
     
     # data and tech
@@ -1343,7 +1308,8 @@ run <- function(
   target_r_sq_Y   = NULL,
   causal_effect   = NULL,
   dissimilarity   = NULL,
-  num_conf        = NULL,
+  num_total_conf  = NULL,
+  num_meas_conf   = NULL,
   num_unmeas_conf = NULL,
   
   # data and tech
@@ -1474,12 +1440,33 @@ run <- function(
         model <- lm(y ~ ., data = data)
         
         # Record coefficients
-        model_coefs[m, , i] <- model$coefficients
+        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_conf,
+        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
                                                          method = method,
                                                          model  = model)
+      }
+      
+      else if (method == "linear_no_Z") {
+        dummy_var     <- paste("Z", num_total_conf + 1, sep = '')
+        model_formula <- paste("y ~ X + ", dummy_var, sep = '')
+        model         <- lm(model_formula, data = data)
+        
+        # Record coefficients
+        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        
+        # Record covariate selection
+        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
+                                                         method = method,
+                                                         model  = model)
+        
+        # print(model)
+        # print(fill_in_blanks(model$coefficients, beta_names))
+        # print(determine_cov_selection(case   = num_total_conf,
+        #                               method = method,
+        #                               model  = model))
+        
       }
       
       else if (method == "stepwise") {
@@ -1493,7 +1480,7 @@ run <- function(
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_conf,
+        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
                                                          method = method,
                                                          model  = model)
       }
@@ -1522,7 +1509,7 @@ run <- function(
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_conf,
+        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
                                                          method = method,
                                                          model  = model)
       }
@@ -1537,7 +1524,7 @@ run <- function(
         model_coefs[m, , i] <- lars_coefs(model = model)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_conf,
+        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
                                                          method = method,
                                                          model  = model)
       }
@@ -1564,7 +1551,7 @@ run <- function(
         model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_conf,
+        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
                                                          method = method,
                                                          model  = model)
       }
@@ -1593,7 +1580,7 @@ run <- function(
         model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_conf,
+        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
                                                          method = method,
                                                          model  = model)
       }
@@ -1762,11 +1749,12 @@ run <- function(
           result_value <- NaN # not implemented
         }
         
-        else if (result == "causal_effect_est") {
-          result_value <- NaN # calculated afterwards
+        else if (result == "causal_true_val") {
+          var_labels <- colnames(coef_data)[-c(1, 2)]
+          result_value <- coef_data[ match("y", var_labels), "X" ]
         }
         
-        else if (result == "causal_effect_mcse") {
+        else if (result == "causal_effect_est") {
           result_value <- NaN # calculated afterwards
         }
         
@@ -1774,6 +1762,10 @@ run <- function(
           result_value <- causal_effect_bias(model_method = method,
                                model        = model,
                                true_value   = coef_data[1, "X"])
+        }
+        
+        else if (result == "causal_effect_mcse") {
+          result_value <- NaN # calculated afterwards
         }
         
         else if (result == "open_paths") {
@@ -1859,7 +1851,7 @@ run <- function(
       # hence n = n_rep in the context of sampling this random variable
       method                                <- model_methods[m]
       causal_effect_estimates               <- model_coefs[method, 'X', ]
-      results_aggr[m, "causal_effect_mcse"] <- sqrt( var(causal_effect_estimates)/n_rep )
+      results_aggr[m, "causal_effect_mcse"] <- sd(causal_effect_estimates)/n_rep
     }
   }
   
@@ -1868,9 +1860,7 @@ run <- function(
     for (m in 1:M) {
       method                      <- model_methods[m]
       causal_effect_estimates     <- model_coefs[method, 'X', ]
-      results_aggr[m, "emp_SE"]   <- emp_SE(n_rep                   = n_rep,
-                                            causal_effect_estimates = causal_effect_estimates,
-                                            oracle_causal_effect    = coef_data[1, "X"])
+      results_aggr[m, "emp_SE"]   <- emp_SE(causal_effect_estimates = causal_effect_estimates)
     }
   }
   
@@ -1884,23 +1874,23 @@ run <- function(
   coefs_aggr            <- rbind(true_values, coefs_aggr)
   
   # Generate grouped coefficients table
-  coefs_group_aggr <- mean_across_groups(table = coefs_aggr, case = num_conf)
+  coefs_group_aggr <- mean_across_groups(table = coefs_aggr, case = num_total_conf)
   
   # Generate covariate selection table
   cov_selection_aggr <- apply(cov_selection, c(1, 2), mean)
   
   # Generate grouped covariate selection table
-  cov_selection_group_aggr <- mean_across_groups(table = cov_selection_aggr, case = num_conf)
+  cov_selection_group_aggr <- mean_across_groups(table = cov_selection_aggr, case = num_total_conf)
   
   # Generate grouped covariate selection table
-  cov_dispersion_group <- var_across_groups(table = cov_selection_aggr, case = num_conf)
+  cov_dispersion_group <- var_across_groups(table = cov_selection_aggr, case = num_total_conf)
   
   # Generate oracle variances table
   var_labels    <- colnames(coef_data)[-c(1, 2)]
   metric_names  <- c("mean_Y", "var_Y", "mean_X", "var_X")
   
-  oracle_beta_Xs <- beta_X_levels_formula(num_conf = num_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
-  oracle_beta_Ys <- beta_Y_levels_formula(num_conf = num_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
+  oracle_beta_Xs <- beta_X_levels_formula(num_total_conf = num_total_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
+  oracle_beta_Ys <- beta_Y_levels_formula(num_total_conf = num_total_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
   
   oracle_causal  <- coef_data[ match("y", var_labels), "X" ]
   mean_X         <- mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ])
@@ -1908,12 +1898,12 @@ run <- function(
   oracle_var <- c(mean_Y_formula(intercept_Y = coef_data[ match("y", var_labels), "intercept" ],
                                  causal      = oracle_causal,
                                  mean_X      = mean_X),
-                  var_Y_formula(num_conf = num_conf,
+                  var_Y_formula(num_total_conf = num_total_conf,
                                 beta_Xs  = oracle_beta_Xs,
                                 beta_Ys  = oracle_beta_Ys,
                                 causal   = oracle_causal),
                   mean_X,
-                  var_X_formula(num_conf      = num_conf,
+                  var_X_formula(num_total_conf      = num_total_conf,
                                 beta_Xs       = oracle_beta_Xs)
   )
   names(oracle_var) <- metric_names
@@ -1935,18 +1925,18 @@ run <- function(
   
   # Generate R2 Table
   r2_values        <- c(target_r_sq_X,
-                        analytic_r_sq_X(num_conf    = num_conf,
+                        analytic_r_sq_X(num_total_conf    = num_total_conf,
                                         beta_Xs     = oracle_beta_Xs,
-                                        var_error_X = determine_var_error_X(num_conf      = num_conf,
+                                        var_error_X = determine_var_error_X(num_total_conf      = num_total_conf,
                                                                             beta_Xs       = oracle_beta_Xs,
                                                                             target_r_sq_X = target_r_sq_X)),
                         results_aggr[1, 'r_squared_X'],
                         target_r_sq_Y,
-                        analytic_r_sq_Y(num_conf    = num_conf,
+                        analytic_r_sq_Y(num_total_conf    = num_total_conf,
                                         beta_Xs     = oracle_beta_Xs,
                                         beta_Ys     = oracle_beta_Ys,
                                         causal      = oracle_causal,
-                                        var_error_Y = determine_var_error_Y(num_conf      = num_conf,
+                                        var_error_Y = determine_var_error_Y(num_total_conf      = num_total_conf,
                                                                             beta_Xs       = oracle_beta_Xs,
                                                                             beta_Ys       = oracle_beta_Ys,
                                                                             causal        = oracle_causal,
@@ -1955,7 +1945,7 @@ run <- function(
   names(r2_values) <- c("Target_R2_X", "Analytic_R2_X", "Sample R2_X", "Target_R2_Y", "Analytic_R2_Y", "Sample R2_Y")
   
   # Generate error sub-table
-  error_subtable        <- c(determine_var_error_Y(num_conf      = num_conf,
+  error_subtable        <- c(determine_var_error_Y(num_total_conf      = num_total_conf,
                                                    beta_Xs       = oracle_beta_Xs,
                                                    beta_Ys       = oracle_beta_Ys,
                                                    causal        = oracle_causal,
@@ -1977,7 +1967,7 @@ run <- function(
   
   writeLines("\n\n")
   print("Oracle Covariance")
-  print(analytic_cov_matrix(num_conf      = num_conf,
+  print(analytic_cov_matrix(num_total_conf      = num_total_conf,
                             correlation_U = correlation_U,
                             coef_data     = coef_data))
   
@@ -2026,9 +2016,15 @@ run <- function(
   print("Covariate Selection Dispersion Within Groups Table")
   print(cov_dispersion_group)
   
+  # NB: Hard-coded indices here, not very general!
   writeLines("\n")
-  print("Results Table")
-  print(results_aggr)
+  print("Results Tables")
+  writeLines("\n")
+  print(results_aggr[, c(1:5)])
+  writeLines("\n")
+  print(results_aggr[, c(6:9)])
+  writeLines("\n")
+  print(results_aggr[, c(10:length(colnames(results_aggr)))])
   
   # Sim parameters
   params <- data.frame(

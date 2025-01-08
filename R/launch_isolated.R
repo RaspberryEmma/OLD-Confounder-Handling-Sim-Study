@@ -45,16 +45,19 @@ source("results.R")
 
 
 # define model types to fit and results metrics to measure
-model_methods   <- c("linear", "stepwise", "stepwise_X", "two_step_LASSO", "two_step_LASSO_X")
+model_methods   <- c("linear", "linear_no_Z",
+                     "stepwise", "stepwise_X",
+                     "two_step_LASSO", "two_step_LASSO_X")
+
 results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
                      "model_SE", "emp_SE",
-                     "causal_effect_est", "causal_effect_mcse", "causal_effect_bias",
+                     "causal_true_val", "causal_effect_est", "causal_effect_bias", "causal_effect_mcse",
                      "avg_abs_param_bias", "coverage",
                      "open_paths", "blocked_paths")
 
 
-# NB: num_conf must be an integer multiple of 4
-# NB: notation for num_conf is c in rest of code, difficult refactor TBC
+# NB: num_total_conf must be an integer multiple of 4
+# NB: notation for num_total_conf is c in rest of code, difficult refactor TBC
 # NB: important that rX < rY for numerical reasons
 # NB: you may create c <= 0 for suff. high values of dissimilarity - watch carefully!
 # NB: system ill defined for suff. low n_obs
@@ -72,29 +75,42 @@ oracle_error_sd_init   <- 1.0
 
 # top-level parameters held constant between scenarios but varied across simulation runs
 # simulation = c(n_simulation, n_obs, correlation_U, r_sq_X, r_sq_Y, causal, dissimilarity_rho)
-all_simulations <- list(c(1, 1000, 0.0, 0.4, 0.6, 0.50, 1.0),
-                        c(2, 1000, 0.0, 0.4, 0.6, 0.25, 1.0),
-                        c(3, 1000, 0.0, 0.6, 0.8, 0.25, 1.0),
-                        c(4, 1000, 0.0, 0.1, 0.2, 0.25, 1.0))
+# all_simulations <- list(c(1, 1000, 0.0, 0.4, 0.6, 0.50, 1.0),
+#                         c(2, 1000, 0.0, 0.4, 0.6, 0.25, 1.0),
+#                         c(3, 1000, 0.0, 0.6, 0.8, 0.25, 1.0),
+#                         c(4, 1000, 0.0, 0.1, 0.2, 0.25, 1.0))
+
+all_simulations <- list(
+  c(1, 1000, 0.0, 0.5, 0.7, 0.50, 1.0),
+  c(2, 1000, 0.0, 0.6, 0.8, 0.50, 1.0)
+)
 
 
 # top level parameters varied between scenarios
-# scenario = c(n_scenario, num_conf, unmeasured_conf)
+# scenario = c(n_scenario, num_total_conf, measured_conf, unmeasured_conf)
+# all_scenarios <- list(
+#   c(1,  16,  0),
+#   c(2,  16,  4),
+#   c(3,  32,  0),
+#   c(4,  32,  8),
+#   c(5,  64,  0),
+#   c(6,  64, 16),
+#   c(7, 128,  0),
+#   c(8, 128, 32)
+# )
 all_scenarios <- list(
-  c(1,  16,  0),
-  c(2,  16,  4),
-  c(3,  32,  0),
-  c(4,  32,  8),
-  c(5,  64,  0),
-  c(6,  64, 16),
-  c(7, 128,  0),
-  c(8, 128, 32)
+  c(5, 64, 64, 0),
+  c(6, 64, 48, 16)
 )
 
 
 # subset the runs and scenarios to be computed
 # we do so only if subsets are provided in cmd
 args = commandArgs(trailingOnly=TRUE)
+
+# TESTING ONLY
+# manually set args
+# args = c("1", "1")
 
 if (length(args) > 0) {
   args_simulations <- stringr::str_split(args[1], ",")[[1]]
@@ -113,14 +129,6 @@ if (length(args) > 0) {
   args_scenarios   <- c(1:length(all_scenarios))
 }
 
-
-# reduced size scenario list for testing
-# scenarios <- list(
-#   c(1,  16,  0),
-#   c(2,  16,  4),
-#   c(3,  32,  0),
-#   c(4,  32,  8)
-# )
 
 # fix RNG seed based on current run and scenario
 seeds_df <- read.csv(file = "../data/precomputed_RNG_seeds.csv")
@@ -151,11 +159,12 @@ for (simulation in simulations) {
     
     # extract scenario param values
     n_scenario      <- scenario[1]
-    num_conf        <- scenario[2]
-    num_unmeas_conf <- scenario[3]
+    num_total_conf  <- scenario[2]
+    num_meas_conf   <- scenario[3]
+    num_unmeas_conf <- scenario[4]
     
     # initialise DAG
-    coef_data      <- generate_coef_data(num_conf      = num_conf,
+    coef_data      <- generate_coef_data(num_total_conf      = num_total_conf,
                                          target_r_sq_X = target_r_sq_X_init,
                                          target_r_sq_Y = target_r_sq_Y_init,
                                          dissimilarity = dissimilarity_init,
@@ -186,7 +195,8 @@ for (simulation in simulations) {
       target_r_sq_Y   = target_r_sq_Y_init,
       causal_effect   = causal_effect_init,
       dissimilarity   = dissimilarity_init,
-      num_conf        = num_conf,
+      num_total_conf  = num_total_conf,
+      num_meas_conf   = num_meas_conf,
       num_unmeas_conf = num_unmeas_conf,
       
       # data and tech
