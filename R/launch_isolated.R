@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 10/12/2024
+# Most Recent Edit: 15/01/2025
 # ****************************************
 
 
@@ -84,15 +84,19 @@ all_simulations <- list(
 
 # top level parameters varied between scenarios
 # scenario = c(n_scenario, num_total_conf, measured_conf, unmeasured_conf)
+# all_scenarios <- list(
+#   c(1,  16,  16,  0),
+#   c(2,  16,  12,  4),
+#   c(3,  32,  32,  0),
+#   c(4,  32,  24,  8),
+#   c(5,  64,  64,  0),
+#   c(6,  64,  48, 16),
+#   c(7, 128, 128,  0),
+#   c(8, 128,  96, 32)
+# )
 all_scenarios <- list(
-  c(1,  16,  16,  0),
-  c(2,  16,  12,  4),
-  c(3,  32,  32,  0),
-  c(4,  32,  24,  8),
-  c(5,  64,  64,  0),
-  c(6,  64,  48, 16),
-  c(7, 128, 128,  0),
-  c(8, 128,  96, 32)
+  c(1, 4, 4, 0),
+  c(2, 4, 3, 1)
 )
 
 
@@ -102,7 +106,7 @@ args = commandArgs(trailingOnly=TRUE)
 
 # TESTING ONLY
 # manually set args
-args = c("1", "1")
+args = c("1", "1,2")
 
 if (length(args) > 0) {
   args_simulations <- stringr::str_split(args[1], ",")[[1]]

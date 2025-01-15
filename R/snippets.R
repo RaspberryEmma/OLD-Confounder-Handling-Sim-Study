@@ -6,7 +6,7 @@
 # Emma Tarmey
 #
 # Started:          09/04/2024
-# Most Recent Edit: 01/05/2024
+# Most Recent Edit: 15/01/2025
 # ****************************************
 
 
@@ -81,5 +81,29 @@
 #                         ui    = opt_A,
 #                         ci    = opt_b)
 # View(opt_vals)
+
+
+
+
+# stop("dev")
+# 
+# # Fit all models
+# 
+# cont_full_model <- lm(formula = "y ~ .", data = dataset)
+# cont_null_model <- lm(formula = "y ~ 1", data = dataset)
+# 
+# message("\nContinuous Full Model")
+# summary(cont_full_model)
+# 
+# message("\nContinuous Null Model")
+# summary(cont_null_model)
+# 
+# spaMM::spfit <- fitme(sr ~ pop15+pop75+dpi+ddpi , data = LifeCycleSavings)
+# spaMM::pseudoR2(spfit)  # consistent with summary(lmfit)
+# 
+# stop("dev")
+# 
+# binary_full_model <- NULL
+# binary_null_model <- NULL
 
 

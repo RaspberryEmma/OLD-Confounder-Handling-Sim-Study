@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 14/11/2024
+# Most Recent Edit: 15/01/2025
 # ****************************************
 
 
@@ -740,6 +740,23 @@ generate_dataset <- function(coef_data         = NULL,
           dataset[, i] <- rowSums( cbind(dataset[, i], error), na.rm = TRUE)
         }
         
+        # binarise as appropriate
+        if (labels[i] == 'X') {
+          if (binary_X) {
+            logit_prob_X  <- dataset[, i]                              # interpret existing values of logit(probability)
+            prob_X        <- inverse_logit(logit_prob_X)               # apply inverse to obtain prob values
+            binary_vals_X <- rbinom(n = 1000, size = 1, prob = prob_X) # re-sample to obtain X
+            dataset[, i]  <- binary_vals_X
+            
+            # message("\nBinary from continuous X")
+            # print(head( binary_vals_X ))
+            # print(summary(binary_vals_X))
+            # print(var(binary_vals_X))
+            # 
+            # stop("dev")
+          }
+        }
+        
         # remove i from "caused" list
         caused <- caused[ !caused == i]
       }
@@ -771,23 +788,6 @@ generate_dataset <- function(coef_data         = NULL,
     # for (index in unmeas_indices) {
     #   dataset[, index] <- rep(NaN, n_obs)
     # }
-  }
-  
-  # binarize X
-  if (binary_X) {
-    inv_logit_X <- inverse_logit(real_values = dataset[, 'X'])
-    
-    message("Continuous X")
-    print(head(dataset[, 'X']))
-    print(summary(dataset[, 'X']))
-    print(var(dataset[, 'X']))
-    
-    message("\nAlmost-binary X")
-    print(head( inv_logit_X ))
-    print(summary(inv_logit_X))
-    print(var(dataset[, 'X']))
-    
-    stop("dev")
   }
   
   return (dataset)
