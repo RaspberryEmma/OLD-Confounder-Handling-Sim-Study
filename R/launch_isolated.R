@@ -70,6 +70,7 @@ data_split_init        <- NULL  # determines whether we split test and training 
 l_zero_X_init          <- FALSE # force 'L' subgroups affecting X to have an oracle coefficient of 0.0, set to FALSE to use dissimilarity
 l_zero_Y_init          <- FALSE # force 'L' subgroups affecting Y to have an oracle coefficient of 0.0, set to FALSE to use dissimilarity
 binary_X_init          <- TRUE
+binary_Y_init          <- TRUE
 oracle_error_mean_init <- 0.0
 oracle_error_sd_init   <- 1.0
 
@@ -106,7 +107,7 @@ args = commandArgs(trailingOnly=TRUE)
 
 # TESTING ONLY
 # manually set args
-args = c("1", "1,2")
+args = c("1", "1")
 
 if (length(args) > 0) {
   args_simulations <- stringr::str_split(args[1], ",")[[1]]
@@ -206,6 +207,7 @@ for (simulation in simulations) {
       l_zero_X        = l_zero_X_init,
       l_zero_Y        = l_zero_Y_init,
       binary_X        = binary_X_init,
+      binary_Y        = binary_Y_init,
       oracle_error_mean = oracle_error_mean_init,
       oracle_error_sd   = oracle_error_sd_init,
       record_results  = TRUE

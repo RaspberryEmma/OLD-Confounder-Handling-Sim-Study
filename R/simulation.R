@@ -651,7 +651,8 @@ generate_dataset <- function(coef_data         = NULL,
                              target_r_sq_Y     = NULL,
                              l_zero_X          = NULL,
                              l_zero_Y          = NULL,
-                             binary_X          = NULL) {
+                             binary_X          = NULL,
+                             binary_Y          = NULL) {
   # initialize
   n_node            <- length(labels)
   dataset           <- data.frame(matrix(NA, nrow = n_obs, ncol = n_node))
@@ -747,13 +748,17 @@ generate_dataset <- function(coef_data         = NULL,
             prob_X        <- inverse_logit(logit_prob_X)               # apply inverse to obtain prob values
             binary_vals_X <- rbinom(n = 1000, size = 1, prob = prob_X) # re-sample to obtain X
             dataset[, i]  <- binary_vals_X
-            
-            # message("\nBinary from continuous X")
-            # print(head( binary_vals_X ))
-            # print(summary(binary_vals_X))
-            # print(var(binary_vals_X))
-            # 
-            # stop("dev")
+          }
+        }
+        
+        if (labels[i] == 'y') {
+          if (binary_Y) {
+            logit_prob_Y  <- dataset[, i]                              # interpret existing values of logit(probability)
+            prob_Y        <- inverse_logit(logit_prob_Y)               # apply inverse to obtain prob values
+            binary_vals_Y <- rbinom(n = 1000, size = 1, prob = prob_Y) # re-sample to obtain Y
+            dataset[, i]  <- binary_vals_Y
+            #print(binary_vals_Y)
+            #stop("binary Y")
           }
         }
         
@@ -1274,6 +1279,7 @@ run_once <- function(
   l_zero_X        = NULL,
   l_zero_Y        = NULL,
   binary_X        = NULL,
+  binary_Y        = NULL,
   oracle_error_mean = NULL,
   oracle_error_sd   = NULL,
   record_results  = NULL,
@@ -1310,6 +1316,7 @@ run_once <- function(
     l_zero_X        = l_zero_X,
     l_zero_Y        = l_zero_Y,
     binary_X        = binary_X,
+    binary_Y        = binary_Y,
     oracle_error_mean = oracle_error_mean,
     oracle_error_sd   = oracle_error_sd,
     record_results  = FALSE,
@@ -1349,6 +1356,7 @@ run <- function(
   l_zero_X        = NULL,
   l_zero_Y        = NULL,
   binary_X        = NULL,
+  binary_Y        = NULL,
   oracle_error_mean = NULL,
   oracle_error_sd   = NULL,
   record_results  = NULL,
@@ -1404,7 +1412,8 @@ run <- function(
                                target_r_sq_Y     = target_r_sq_Y,
                                l_zero_X          = l_zero_X,
                                l_zero_Y          = l_zero_Y,
-                               binary_X          = binary_X)
+                               binary_X          = binary_X,
+                               binary_Y          = binary_Y)
       
       # test on same data
       test_data <- data
@@ -1429,7 +1438,8 @@ run <- function(
                                target_r_sq_Y     = target_r_sq_Y,
                                l_zero_X          = l_zero_X,
                                l_zero_Y          = l_zero_Y,
-                               binary_X          = binary_X)
+                               binary_X          = binary_X,
+                               binary_Y          = binary_Y)
       
       # generate seperate testing data
       test_data <- generate_dataset(coef_data         = coef_data,
@@ -1444,7 +1454,8 @@ run <- function(
                                     target_r_sq_Y     = target_r_sq_Y,
                                     l_zero_X          = l_zero_X,
                                     l_zero_Y          = l_zero_Y,
-                                    binary_X          = binary_X)
+                                    binary_X          = binary_X,
+                                    binary_Y          = binary_Y)
       
       # record this data
       representative_data <- rbind(data, test_data)
