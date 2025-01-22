@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 15/01/2025
+# Most Recent Edit: 17/01/2025
 # ****************************************
 
 
@@ -267,6 +267,22 @@ avg_abs_param_bias <- function(model_method = NULL,
 }
 
 
+extract_causal_effect_est <- function(model_method = NULL, model = NULL) {
+  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
+  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
+  
+  if (model_method %in% lasso_variants) {
+    model_betas <- lars_coefs(model = model)
+    value <- model_betas['X']
+  }
+  else {
+    value <- model$coefficients['X']
+  }
+  
+  return (unname(value))
+}
+
+
 causal_effect_bias <- function(model_method = NULL, model = NULL, true_value  = NULL) {
   error <- 0.0
   
@@ -282,6 +298,91 @@ causal_effect_bias <- function(model_method = NULL, model = NULL, true_value  = 
   }
   
   return (error)
+}
+
+
+model_odds_ratio <- function(model_method = NULL, model = NULL) {
+  causal_effect_est <- extract_causal_effect_est(model_method = model_method, model = model)
+  odds_ratio_est    <- exp(causal_effect_est)
+  return (odds_ratio_est)
+}
+
+
+data_odds_ratio <- function(test_data = NULL, binary_X = NULL, binary_Y = NULL) {
+  if (binary_X && binary_Y) {
+    # extract binary X and binary Y columns from data
+    exposures <- test_data[, 'X']
+    outcomes  <- test_data[, 'y']
+    
+    # sort the rows from the data by their combination of exposure and outcome
+    # NB: A + B + c + D = #observations in data
+    boolean_A <- as.integer( (exposures == 1) & (outcomes == 1) )
+    boolean_B <- as.integer( (exposures == 1) & (outcomes == 0) )
+    boolean_C <- as.integer( (exposures == 0) & (outcomes == 1) )
+    boolean_D <- as.integer( (exposures == 0) & (outcomes == 0) )
+    
+    OR_A  <- sum(boolean_A)
+    OR_B  <- sum(boolean_B)
+    OR_C  <- sum(boolean_C)
+    OR_D  <- sum(boolean_D)
+    
+    value <- (OR_A * OR_D) / (OR_B * OR_C)
+    
+    # print(OR_A)
+    # print(OR_B)
+    # print(OR_C)
+    # print(OR_D)
+    # print(OR_A + OR_B + OR_C + OR_D)
+    # print(value)
+    # stop("dev")
+  }
+  else {
+    value <- NaN
+  }
+  
+  return (value)
+}
+
+
+generate_contingency_table <- function(test_data = NULL, binary_X = NULL, binary_Y = NULL) {
+  if (binary_X && binary_Y) {
+    # extract binary X and binary Y columns from data
+    exposures <- test_data[, 'X']
+    outcomes  <- test_data[, 'y']
+    
+    # sort the rows from the data by their combination of exposure and outcome
+    # NB: A + B + c + D = #observations in data
+    boolean_A <- as.integer( (exposures == 1) & (outcomes == 1) )
+    boolean_B <- as.integer( (exposures == 1) & (outcomes == 0) )
+    boolean_C <- as.integer( (exposures == 0) & (outcomes == 1) )
+    boolean_D <- as.integer( (exposures == 0) & (outcomes == 0) )
+    
+    OR_A  <- sum(boolean_A)
+    OR_B  <- sum(boolean_B)
+    OR_C  <- sum(boolean_C)
+    OR_D  <- sum(boolean_D)
+    
+    outcome_Y_1 <- c(OR_A, OR_C)
+    outcome_Y_0 <- c(OR_B, OR_D)
+    
+    contingency_table <- data.frame(outcome_Y_1, outcome_Y_0)
+    
+    row_totals <- rowSums(contingency_table)
+    col_totals <- colSums(contingency_table)
+    all_total  <- sum(row_totals)
+    
+    contingency_table <- cbind(contingency_table, row_totals)
+    contingency_table <- rbind(contingency_table, c(col_totals, all_total))
+    
+    colnames(contingency_table) <- c("outcome_Y_1", "outcome_Y_0", "exposure_totals")
+    rownames(contingency_table) <- c("exposed_X_1", "not_exposed_X_0", "outcome_totals")
+    
+  }
+  else {
+    contingency_table <- NULL
+  }
+  
+  return (contingency_table)
 }
 
 
@@ -724,17 +825,19 @@ generate_dataset <- function(coef_data         = NULL,
         
         # error term
         if (labels[i] == 'y') {
-          num_total_conf <- length(labels) - 3
-          Zs       <- paste("Z", c(1, (1 + 0.25*num_total_conf), (1 + 0.5*num_total_conf), (1 + 0.75*num_total_conf)), sep='')
-          
-          var_error_Y  <- determine_var_error_Y(num_total_conf      = num_total_conf,
-                                                beta_Xs       = as.numeric(coef_data[2, Zs]),
-                                                beta_Ys       = as.numeric(coef_data[1, Zs]),
-                                                causal        = as.numeric(coef_data[1, 'X']),
-                                                target_r_sq_Y = target_r_sq_Y)
-          
-          error        <- rnorm(n = n_obs, mean = oracle_error_mean, sd = sqrt(var_error_Y))
-          dataset[, i] <- rowSums( cbind(dataset[, i], error), na.rm = TRUE)
+          if (!binary_Y) {
+            num_total_conf <- length(labels) - 3
+            Zs       <- paste("Z", c(1, (1 + 0.25*num_total_conf), (1 + 0.5*num_total_conf), (1 + 0.75*num_total_conf)), sep='')
+            
+            var_error_Y  <- determine_var_error_Y(num_total_conf      = num_total_conf,
+                                                  beta_Xs       = as.numeric(coef_data[2, Zs]),
+                                                  beta_Ys       = as.numeric(coef_data[1, Zs]),
+                                                  causal        = as.numeric(coef_data[1, 'X']),
+                                                  target_r_sq_Y = target_r_sq_Y)
+            
+            error        <- rnorm(n = n_obs, mean = oracle_error_mean, sd = sqrt(var_error_Y))
+            dataset[, i] <- rowSums( cbind(dataset[, i], error), na.rm = TRUE)
+          }
         }
         else {
           error        <- rnorm(n = n_obs, mean = oracle_error_mean, sd = oracle_error_sd)
@@ -1394,7 +1497,7 @@ run <- function(
   # run simulation repetitions
   for (i in 1:n_rep) {
     # progress
-    message( paste("\nRunning Simulation Run ", n_simulation, ", Scenario ", n_scenario, ", Iteration ", i, "/", n_rep, "\n", sep = "") )
+    message( paste("\n\nRunning Simulation Run ", n_simulation, ", Scenario ", n_scenario, ", Iteration ", i, "/", n_rep, "\n", sep = "") )
     
     # generate data according to split parameter
     # if NULL, use the same data for testing and training
@@ -1478,7 +1581,14 @@ run <- function(
       method  <- model_methods[m]
       
       if (method == "linear") {
-        model <- lm(y ~ ., data = data)
+        if (binary_Y) {
+          model <- glm(y ~ ., data = data, family = "binomial")
+          #View(model)
+          #stop("dev")
+        }
+        else {
+          model <- lm(y ~ ., data = data)
+        }
         
         # Record coefficients
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
@@ -1492,7 +1602,13 @@ run <- function(
       else if (method == "linear_no_Z") {
         dummy_var     <- paste("Z", num_total_conf + 1, sep = '')
         model_formula <- paste("y ~ X + ", dummy_var, sep = '')
-        model         <- lm(model_formula, data = data)
+        
+        if (binary_Y) {
+          model <- glm(model_formula, data = data, family = "binomial")
+        }
+        else {
+          model <- lm(model_formula, data = data)
+        }
         
         # Record coefficients
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
@@ -1501,21 +1617,23 @@ run <- function(
         cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
                                                          method = method,
                                                          model  = model)
-        
-        # print(model)
-        # print(fill_in_blanks(model$coefficients, beta_names))
-        # print(determine_cov_selection(case   = num_total_conf,
-        #                               method = method,
-        #                               model  = model))
-        
       }
       
       else if (method == "stepwise") {
-        model <- step(object    = lm(y ~ ., data = data),                 # all variable base
-                      direction = "both",                                 # stepwise, not fwd or bwd
-                      scope     = list(upper = "y ~ .", lower = "y ~ X"), # exposure X always included
-                      trace     = 0                                       # suppress output
-                      )
+        if (binary_Y) {
+          model <- step(object    = glm(y ~ ., data = data, family = "binomial"), # all variable base
+                        direction = "both",                                       # stepwise, not fwd or bwd
+                        scope     = list(upper = "y ~ .", lower = "y ~ X"),       # exposure X always included
+                        trace     = 0                                             # suppress output
+          )
+        }
+        else {
+          model <- step(object    = lm(y ~ ., data = data),                 # all variable base
+                        direction = "both",                                 # stepwise, not fwd or bwd
+                        scope     = list(upper = "y ~ .", lower = "y ~ X"), # exposure X always included
+                        trace     = 0                                       # suppress output
+          )
+        }
         
         # Record coefficients
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
@@ -1529,11 +1647,21 @@ run <- function(
       else if (method == "stepwise_X") {
         # fit stepwise model for X
         X_data  <- data[, -c(1)] # drop Y
-        X_model <- step(object    = lm(X ~ ., data = X_data),               # all variable base
-                        direction = "both",                                 # stepwise, not fwd or bwd
-                        scope     = list(upper = "X ~ .", lower = "X ~ 0"), # effectively empty model as lower
-                        trace     = 0                                       # suppress output
-        )
+        
+        if (binary_X) {
+          X_model <- step(object    = glm(X ~ ., data = X_data, family="binomial"), # all variable base
+                          direction = "both",                                     # stepwise, not fwd or bwd
+                          scope     = list(upper = "X ~ .", lower = "X ~ 0"),     # effectively empty model as lower
+                          trace     = 0                                           # suppress output
+          )
+        }
+        else {
+          X_model <- step(object    = lm(X ~ ., data = X_data),               # all variable base
+                          direction = "both",                                 # stepwise, not fwd or bwd
+                          scope     = list(upper = "X ~ .", lower = "X ~ 0"), # effectively empty model as lower
+                          trace     = 0                                       # suppress output
+          )
+        }
         
         # determine vars to include
         vars_selected <- find_vars_in_model(model_method = method, model = X_model)
@@ -1544,7 +1672,12 @@ run <- function(
           formula_string <- paste(formula_string, " + ", var, sep = "")
         }
         formula <- as.formula( formula_string )
-        model   <- lm(formula = formula, data = data)
+        if (binary_Y) {
+          model <- glm(formula = formula, data = data, family = "binomial")
+        }
+        else {
+          model <- lm(formula = formula, data = data)
+        }
         
         # Record coefficients
         model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
@@ -1571,11 +1704,22 @@ run <- function(
       }
       
       else if (method == "two_step_LASSO") {
-        # fit LASSO model
-        model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
-                      y         = data_y,            # outcome
-                      type      = "lasso",
-                      intercept = TRUE)
+        if (binary_Y) {
+          print(model.matrix(y~., data)[-1])
+          stop("dev")
+          model <- glmnet(x = model.matrix(y~., data)[-1],
+                          y = data[, 'y'],
+                          family = "binomial", alpha = 1, lambda = NULL)
+          View(model)
+          stop("dev")
+        }
+        else {
+          # fit LASSO model
+          model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+                        y         = data_y,            # outcome
+                        type      = "lasso",
+                        intercept = TRUE)
+        }
         
         # find vars in model
         vars_selected <- lasso_selection(model_method = method, model = model)
@@ -1796,13 +1940,25 @@ run <- function(
         }
         
         else if (result == "causal_effect_est") {
-          result_value <- NaN # calculated afterwards
+          result_value <- extract_causal_effect_est(model_method = method,
+                                                    model        = model)
         }
         
         else if (result == "causal_effect_bias") {
           result_value <- causal_effect_bias(model_method = method,
-                               model        = model,
-                               true_value   = coef_data[1, "X"])
+                                             model        = model,
+                                             true_value   = coef_data[1, "X"])
+        }
+        
+        else if (result == "data_odds_ratio") {
+          result_value <- data_odds_ratio(test_data = test_data,
+                                     binary_X  = binary_X,
+                                     binary_Y  = binary_Y)
+        }
+        
+        else if (result == "model_odds_ratio") {
+          result_value <- model_odds_ratio(model_method = method,
+                                           model        = model)
         }
         
         else if (result == "causal_effect_mcse") {
@@ -1847,22 +2003,36 @@ run <- function(
       
     }
     
-    if (messages) {
-      print("Data-set Size")
-      data        %>% dim()    %>% print()
-      writeLines("\nData")
-      data        %>% head()   %>% print()
-      writeLines("\ny")
-      data[,  1]  %>% head()   %>% print()
-      writeLines("\nX")
-      data[, -1]  %>% head()   %>% print()
-      writeLines("\n")
-      
-      print("Penalty Factors (for LASSO)")
-      print(labels.no.y)
-      print(penalty.factor)
-      writeLines("\n")
+    # if (messages) {
+    #   print("Data-set Size")
+    #   data        %>% dim()    %>% print()
+    #   writeLines("\nData")
+    #   data        %>% head()   %>% print()
+    #   writeLines("\ny")
+    #   data[,  1]  %>% head()   %>% print()
+    #   writeLines("\nX")
+    #   data[, -1]  %>% head()   %>% print()
+    #   writeLines("\n")
+    #   
+    #   print("Penalty Factors (for LASSO)")
+    #   print(labels.no.y)
+    #   print(penalty.factor)
+    #   writeLines("\n")
+    # }
+    
+    message("\nCalculated Model Odds Ratio:")
+    print(model_odds_ratio(model_method = method, model = model))
+    message("\nCalculated Data Odds Ratio:")
+    print(data_odds_ratio(test_data = test_data, binary_X = binary_X, binary_Y = binary_Y))
+    message("\nExternal Data Odds Ratio:")
+    if (binary_X & binary_Y) {
+      print(questionr::odds.ratio(table(test_data[, 'X'], test_data[, 'y'])))
     }
+    else {
+      print("X and/or Y not binary")
+    }
+    message("\nContingency Table:")
+    print(generate_contingency_table(test_data = test_data, binary_X = binary_X, binary_Y = binary_Y))
   }
   
   # Generate Results Table
@@ -1873,15 +2043,6 @@ run <- function(
   for (m in 1:M) {
       method                       <- model_methods[m]
       results_aggr[m, "benchmark"] <- benchmark(model_method = method, data = data, times = 10)
-    }
-  }
-  
-  # Monte carlo standard error of causal effect
-  if ("causal_effect_est" %in% results_methods) {
-    for (m in 1:M) {
-      method                               <- model_methods[m]
-      causal_effect_estimates              <- model_coefs[method, 'X', ]
-      results_aggr[m, "causal_effect_est"] <- mean(causal_effect_estimates)
     }
   }
   
@@ -1996,7 +2157,7 @@ run <- function(
   names(error_subtable) <- c("Analytic_var_error_Y",
                              "Predictive_mean_square_error_Y")
   
-  message("\nResults of Simulation")
+  message("\n\nResults of Simulation")
   
   writeLines("\n")
   print("R2 Control Table")
@@ -2057,15 +2218,23 @@ run <- function(
   print("Covariate Selection Dispersion Within Groups Table")
   print(cov_dispersion_group)
   
+  writeLines("\n")
+  print("Contingency Table")
+  print(generate_contingency_table(test_data = test_data,
+                                   binary_X  = binary_X,
+                                   binary_Y  = binary_Y))
+  
   # NB: Hard-coded indices here, not very general!
   writeLines("\n")
   print("Results Tables")
-  writeLines("\n")
+  writeLines("")
   print(results_aggr[, c(1:5)])
-  writeLines("\n")
-  print(results_aggr[, c(6:9)])
-  writeLines("\n")
-  print(results_aggr[, c(10:length(colnames(results_aggr)))])
+  writeLines("")
+  print(results_aggr[, c(6:7)])
+  writeLines("")
+  print(results_aggr[, c(8:11)])
+  writeLines("")
+  print(results_aggr[, c(12:length(colnames(results_aggr)))])
   
   # Sim parameters
   params <- data.frame(

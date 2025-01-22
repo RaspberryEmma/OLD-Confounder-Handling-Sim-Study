@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 15/01/2025
+# Most Recent Edit: 17/01/2025
 # ****************************************
 
 
@@ -29,7 +29,8 @@ using<-function(...) {
   }
 }
 using("dagitty", "dplyr", "ggcorrplot", "ggplot2", "glmnet",
-      "igraph", "lars", "matrixStats", "microbenchmark", "sjmisc", "tidyr")
+      "igraph", "lars", "MASS", "matrixStats", "microbenchmark",
+      "questionr", "sjmisc", "tidyr")
 
 
 # fix wd issue
@@ -51,6 +52,7 @@ model_methods   <- c("linear", "linear_no_Z",
 
 results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
                      "model_SE", "emp_SE",
+                     "data_odds_ratio", "model_odds_ratio",
                      "causal_true_val", "causal_effect_est", "causal_effect_bias", "causal_effect_mcse",
                      "avg_abs_param_bias", "coverage",
                      "open_paths", "blocked_paths")
@@ -64,13 +66,13 @@ results_methods <- c("pred_mse", "r_squared_X", "r_squared_Y",
 
 
 # top-level parameters held constant across all scenarios and simulation runs
-n_rep_init             <- 2000   # number of repetitions of each scenario
+n_rep_init             <- 100 # 2000   # number of repetitions of each scenario
 SE_req_init            <- 0.05  # target standard error (determines lower bound for n_rep)
 data_split_init        <- NULL  # determines whether we split test and training sets
 l_zero_X_init          <- FALSE # force 'L' subgroups affecting X to have an oracle coefficient of 0.0, set to FALSE to use dissimilarity
 l_zero_Y_init          <- FALSE # force 'L' subgroups affecting Y to have an oracle coefficient of 0.0, set to FALSE to use dissimilarity
-binary_X_init          <- TRUE
-binary_Y_init          <- TRUE
+binary_X_init          <- TRUE # TRUE
+binary_Y_init          <- TRUE # TRUE
 oracle_error_mean_init <- 0.0
 oracle_error_sd_init   <- 1.0
 
