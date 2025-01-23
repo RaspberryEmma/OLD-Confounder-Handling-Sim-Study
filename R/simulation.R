@@ -10,7 +10,7 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 17/01/2025
+# Most Recent Edit: 23/01/2025
 # ****************************************
 
 
@@ -386,7 +386,7 @@ generate_contingency_table <- function(test_data = NULL, binary_X = NULL, binary
 }
 
 
-find_vars_in_model <- function(model_method = NULL, model = NULL) {
+find_vars_in_model <- function(model_method = NULL, model = NULL, binary_Y = NULL) {
   vars <- c()
   
   lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
@@ -404,14 +404,9 @@ find_vars_in_model <- function(model_method = NULL, model = NULL) {
     vars <- vars[vars != "X"]
   }
   
-  else if (model_method == "CBPS") {
-    # epsilon    <- 0.01 # TODO: Autotune this value!
-    # cbps_coefs <- model$coefficients[,1]
-    # cbps_coefs <- cbps_coefs[abs(cbps_coefs) > epsilon]
-    # 
-    # vars <- names(cbps_coefs)
-    # vars <- vars[vars != "(Intercept)"]
-    # vars <- vars[vars != "X"]
+  else if (model_method == "glmnet_LASSO") {
+    var_names    <- rownames(model$beta)
+    vars         <- vars[vars != "X"]
   }
   
   # linear, prop_score_based
@@ -445,6 +440,14 @@ lasso_selection <- function(model_method = NULL, model = NULL) {
 }
 
 
+glmnet_lasso_selection <- function(model_method = NULL, model = NULL) {
+  all_vars <- find_vars_in_model(model_method = "glmnet_LASSO", model = model)
+  var_non_zero  <- as.vector(model$beta) != 0.0
+  vars_selected <- all_vars[var_non_zero]
+  return (vars_selected)
+}
+
+
 find_vars_in_path <- function(path = NULL) {
   vars <- strsplit(path, "\\s+")[[1]]
   vars <- vars[vars != "<-"]
@@ -469,7 +472,7 @@ open_paths <- function(adj_DAG = NULL) {
 }
 
 
-blocked_paths <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
+blocked_paths <- function(model_method = NULL, model = NULL, adj_DAG = NULL, binary_Y = NULL) {
   paths <- 0
   
   # convert graph to dagitty DAG
@@ -483,7 +486,7 @@ blocked_paths <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
   open_DAG_paths <- open_DAG_paths[open_DAG_paths != "X -> y"]
   
   # identify all covariates included in model
-  vars_in_model <- find_vars_in_model(model_method = model_method, model = model)
+  vars_in_model <- find_vars_in_model(model_method = model_method, model = model, binary_Y = binary_Y)
   
   
   # determine whether open paths are blocked properly in model
@@ -1583,8 +1586,6 @@ run <- function(
       if (method == "linear") {
         if (binary_Y) {
           model <- glm(y ~ ., data = data, family = "binomial")
-          #View(model)
-          #stop("dev")
         }
         else {
           model <- lm(y ~ ., data = data)
@@ -1705,13 +1706,17 @@ run <- function(
       
       else if (method == "two_step_LASSO") {
         if (binary_Y) {
-          print(model.matrix(y~., data)[-1])
-          stop("dev")
-          model <- glmnet(x = model.matrix(y~., data)[-1],
-                          y = data[, 'y'],
-                          family = "binomial", alpha = 1, lambda = NULL)
-          View(model)
-          stop("dev")
+          reshaped_data <- model.matrix(y~., data)
+          reshaped_data <- reshaped_data[, -c(1)]
+          
+          model <- glmnet(x      = reshaped_data,
+                          y      = data[, 'y'],
+                          family = "binomial",
+                          alpha  = 1,
+                          lambda = cv.glmnet(reshaped_data, data[, 'y'])$lambda.1se)
+          
+          # find vars in model
+          vars_selected <- glmnet_lasso_selection(model_method = method, model = model)
         }
         else {
           # fit LASSO model
@@ -1719,10 +1724,10 @@ run <- function(
                         y         = data_y,            # outcome
                         type      = "lasso",
                         intercept = TRUE)
+          
+          # find vars in model
+          vars_selected <- lasso_selection(model_method = method, model = model)
         }
-        
-        # find vars in model
-        vars_selected <- lasso_selection(model_method = method, model = model)
         
         # fit new model on the subset of covariates selected
         formula_string <- "y ~ X"
@@ -1730,7 +1735,12 @@ run <- function(
           formula_string <- paste(formula_string, " + ", var, sep = "")
         }
         formula <- as.formula( formula_string )
-        model   <- lm(formula = formula, data = data)
+        if (binary_Y) {
+          model <- glm(formula = formula, data = data, family = "binomial")
+        }
+        else {
+          model <- lm(formula = formula, data = data)
+        }
         
         # Record coefficients
         model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)

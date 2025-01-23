@@ -10,9 +10,14 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 17/01/2025
+# Most Recent Edit: 23/01/2025
 # ****************************************
 
+# TODO:
+# (1) Fix var selection extraction by making methods object-based implementing agnostic object identification
+# (2) Fix / audit model fitting
+# (3) Interrogate variance estimation, true coef value for binary case
+# (4) Look at numbers, then circulate to supervisors
 
 # clear R memory
 rm(list=ls())
