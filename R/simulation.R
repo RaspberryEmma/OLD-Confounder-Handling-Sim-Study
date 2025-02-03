@@ -10,8 +10,17 @@
 # Emma Tarmey
 #
 # Started:          13/02/2024
-# Most Recent Edit: 23/01/2025
+# Most Recent Edit: 03/02/2025
 # ****************************************
+
+
+round_df <- function(df, digits) {
+  nums <- vapply(df, is.numeric, FUN.VALUE = logical(1))
+  
+  df[,nums] <- round(df[,nums], digits = digits)
+  
+  (df)
+}
 
 
 normalise <- function(column = NULL) {
@@ -88,14 +97,22 @@ dagitty_from_adjacency_matrix <- function(adj_DAG  = NULL,
 
 mse <- function(model          = NULL,
                 optimal_lambda = NULL,
-                model_method   = NULL,
+                model_type     = NULL,
                 test_data      = NULL) {
   value <- NaN
   
-  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
-  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
-  
-  if (model_method %in% lasso_variants) {
+  if (model_type  == "lm") {
+    value <- mean(model$residuals^2)
+  }
+  else if (model_type  == "glm") {
+    value <- mean(model$residuals^2)
+  }
+  else if (model_type  == "glmnet") {
+    value <- NaN
+    View(model)
+    stop("dev")
+  }
+  else if (model_type  == "lars") {
     # separate outcome from other covariates
     test_X    <- test_data[, -1]
     test_y    <- test_data[,  1]
@@ -105,9 +122,7 @@ mse <- function(model          = NULL,
     residuals   <- test_y - pred_y
     value       <- mean(residuals^2)
   }
-  else {
-    value <- mean(model$residuals^2)
-  }
+  
   
   return (value)
 }
@@ -115,25 +130,31 @@ mse <- function(model          = NULL,
 
 r_squared_X <- function(model          = NULL, # NEW model for predicting X in terms of Z
                         optimal_lambda = NULL,
-                        model_method   = NULL,
+                        model_type     = NULL,
                         test_data      = NULL) {
   R2 <- NaN
-
-  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
-  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
-
+  
   # exclude Y altogether, seperate exposure X from Z's
   test_Zs <- test_data[, -c(1, 2), drop = F]
   test_X  <- test_data[, 2]
-
+  
   # generate predicted value vector for each model type
   pred_X <- c()
-  if (model_method %in% lasso_variants) {
+  
+  if (model_type == "lm") {
+    pred_X <- predict( model, test_Zs ) %>% as.vector()
+  }
+  else if (model_type == "glm") {
+    pred_X <- predict( model, test_Zs ) %>% as.vector()
+  }
+  else if (model_type == "glmnet") {
+    pred_X <- NaN
+    View(model)
+    stop("dev")
+  }
+  else if (model_type == "lars") {
     model_stats <- summary(model)
     pred_X      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_Zs) )$fit
-  }
-  else {
-    pred_X <- predict( model, test_Zs ) %>% as.vector()
   }
   
   SSR <- sum((pred_X - test_X)^2)
@@ -146,12 +167,9 @@ r_squared_X <- function(model          = NULL, # NEW model for predicting X in t
 
 r_squared_Y <- function(model          = NULL,
                         optimal_lambda = NULL,
-                        model_method   = NULL,
+                        model_type     = NULL,
                         test_data      = NULL) {
   R2 <- NaN
-  
-  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
-  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
   
   # separate outcome from other covariates
   test_X <- test_data[, -1, drop = F]
@@ -159,12 +177,21 @@ r_squared_Y <- function(model          = NULL,
   
   # generate predicted value vector for each model type
   pred_y <- c()
-  if (model_method %in% lasso_variants) {
+  
+  if (model_type == "lm") {
+    pred_y <- predict( model, test_X ) %>% as.vector()
+  }
+  else if (model_type == "glm") {
+    pred_y <- predict( model, test_X ) %>% as.vector()
+  }
+  else if (model_type == "glmnet") {
+    pred_Y <- NaN
+    View(model)
+    stop("dev")
+  }
+  else if (model_type == "lars") {
     model_stats <- summary(model)
     pred_y      <- predict( model, s = which.min(model_stats$Cp), newx = as.matrix(test_X) )$fit
-  }
-  else {
-    pred_y <- predict( model, test_X ) %>% as.vector()
   }
   
   SSR <- sum((pred_y - test_y)^2)
@@ -216,22 +243,10 @@ errors <- function(fitted_params = NULL, true_params = NULL) {
 }
 
 
-param_bias <- function(model_method = NULL,
-                       model        = NULL,
+param_bias <- function(model        = NULL,
                        true_values  = NULL) {
-  
-  coefs <- c()
-  
-  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
-  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
-  
-  if (model_method %in% lasso_variants) {
-    coefs <- lars_coefs(model = model)
-  }
-  else {
-    coefs <- model$coefficients
-  }
-  
+  coefs <- model$coefficients
+
   # fix intercept name differences
   names(coefs)[names(coefs) == "(Intercept)"] <- "intercept"
   
@@ -241,22 +256,10 @@ param_bias <- function(model_method = NULL,
 }
 
 
-avg_abs_param_bias <- function(model_method = NULL,
-                                        model        = NULL,
-                                        true_values  = NULL) {
-  
-  coefs <- c()
-  
-  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
-  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
-  
-  if (model_method %in% lasso_variants) {
-    coefs <- lars_coefs(model = model)
-  }
-  else {
-    coefs <- model$coefficients
-  }
-  
+avg_abs_param_bias <- function(model       = NULL,
+                               true_values = NULL) {
+  coefs <- model$coefficients
+
   # fix intercept name differences
   names(coefs)[names(coefs) == "(Intercept)"] <- "intercept"
   
@@ -267,42 +270,20 @@ avg_abs_param_bias <- function(model_method = NULL,
 }
 
 
-extract_causal_effect_est <- function(model_method = NULL, model = NULL) {
-  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
-  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
-  
-  if (model_method %in% lasso_variants) {
-    model_betas <- lars_coefs(model = model)
-    value <- model_betas['X']
-  }
-  else {
-    value <- model$coefficients['X']
-  }
-  
+extract_causal_effect_est <- function(model = NULL) {
+  value <- model$coefficients['X']
   return (unname(value))
 }
 
 
-causal_effect_bias <- function(model_method = NULL, model = NULL, true_value  = NULL) {
-  error <- 0.0
-  
-  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
-  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
-  
-  if (model_method %in% lasso_variants) {
-    model_betas <- lars_coefs(model = model)
-    error <- (model_betas['X'] - true_value)
-  }
-  else {
-    error <- (model$coefficients['X'] - true_value)
-  }
-  
+causal_effect_bias <- function(model = NULL, true_value  = NULL) {
+  error <- (model$coefficients['X'] - true_value)
   return (error)
 }
 
 
-model_odds_ratio <- function(model_method = NULL, model = NULL) {
-  causal_effect_est <- extract_causal_effect_est(model_method = model_method, model = model)
+model_odds_ratio <- function(model = NULL) {
+  causal_effect_est <- extract_causal_effect_est(model = model)
   odds_ratio_est    <- exp(causal_effect_est)
   return (odds_ratio_est)
 }
@@ -386,32 +367,25 @@ generate_contingency_table <- function(test_data = NULL, binary_X = NULL, binary
 }
 
 
-find_vars_in_model <- function(model_method = NULL, model = NULL, binary_Y = NULL) {
+find_vars_in_model <- function(model_type = NULL, model = NULL) {
   vars <- c()
   
-  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
-  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
-  
-  if (model_method %in% lasso_variants) {
+  if (model_type == "lm") {
+    vars <- names(model$coefficients)
+    vars <- vars[vars != "(Intercept)"]
+    vars <- vars[vars != "X"]
+  }
+  else if (model_type == "glm") {
+    vars <- names(model$coefficients)
+    vars <- vars[vars != "(Intercept)"]
+    vars <- vars[vars != "X"]
+  }
+  else if (model_type == "glmnet") {
+    vars <- rownames(model$beta)
+    vars <- vars[vars != "X"]
+  }
+  else if (model_type == "lars") {
     vars <- names(lars_coefs(model = model))
-    vars <- vars[vars != "(Intercept)"]
-    vars <- vars[vars != "X"]
-  }
-  
-  else if (model_method %in% two_step_variants) {
-    vars <- names(model$coefficients)
-    vars <- vars[vars != "(Intercept)"]
-    vars <- vars[vars != "X"]
-  }
-  
-  else if (model_method == "glmnet_LASSO") {
-    var_names    <- rownames(model$beta)
-    vars         <- vars[vars != "X"]
-  }
-  
-  # linear, prop_score_based
-  else {
-    vars <- names(model$coefficients)
     vars <- vars[vars != "(Intercept)"]
     vars <- vars[vars != "X"]
   }
@@ -419,33 +393,51 @@ find_vars_in_model <- function(model_method = NULL, model = NULL, binary_Y = NUL
   return (vars)
 }
 
-lasso_selection <- function(model_method = NULL, model = NULL) {
-  all_vars <- find_vars_in_model(model_method = "LASSO", model = model)
+
+find_coefs_in_model <- function(model_type = NULL, model = NULL) {
+  coefs <- c()
   
-  if (model_method == "two_step_LASSO_X") {
-    all_coefs <- lars_coefs(model = model)[-c(1)] # remove intercept
+  if (model_type == "lm") {
+    coefs <- model$coefficients
   }
-  else if (model_method == "two_step_LASSO") {
-    all_coefs <- lars_coefs(model = model)[-c(1, 2)] # remove intercept and X
+  else if (model_type == "glm") {
+    coefs <- model$coefficients
+  }
+  else if (model_type == "glmnet") {
+    stop("find_coefs_in_model - glmnet")
+    coefs <- model$beta
+  }
+  else if (model_type == "lars") {
+    coefs <- lars_coefs(model = model)
   }
   
-  # keep all variables whose coefs have not shrunk to zero
-  vars_selected <- all_vars[ (all_coefs != 0.0) ]
-  
-  # print(all_vars)
-  # print(all_coefs)
-  # print(vars_selected)
-  
-  return (vars_selected)
+  return (coefs)
 }
 
 
-glmnet_lasso_selection <- function(model_method = NULL, model = NULL) {
-  all_vars <- find_vars_in_model(model_method = "glmnet_LASSO", model = model)
-  var_non_zero  <- as.vector(model$beta) != 0.0
-  vars_selected <- all_vars[var_non_zero]
-  return (vars_selected)
-}
+# lasso_selection <- function(model_method = NULL, model = NULL) {
+#   all_vars <- find_vars_in_model(model_method = "LASSO", model = model)
+#   
+#   if (model_method == "two_step_LASSO_X") {
+#     all_coefs <- lars_coefs(model = model)[-c(1)] # remove intercept
+#   }
+#   else if (model_method == "two_step_LASSO") {
+#     all_coefs <- lars_coefs(model = model)[-c(1, 2)] # remove intercept and X
+#   }
+#   
+#   # keep all variables whose coefs have not shrunk to zero
+#   vars_selected <- all_vars[ (all_coefs != 0.0) ]
+#   
+#   return (vars_selected)
+# }
+
+
+# glmnet_lasso_selection <- function(model_method = NULL, model = NULL) {
+#   all_vars <- find_vars_in_model(model_method = "glmnet_LASSO", model = model)
+#   var_non_zero  <- as.vector(model$beta) != 0.0
+#   vars_selected <- all_vars[var_non_zero]
+#   return (vars_selected)
+# }
 
 
 find_vars_in_path <- function(path = NULL) {
@@ -472,7 +464,7 @@ open_paths <- function(adj_DAG = NULL) {
 }
 
 
-blocked_paths <- function(model_method = NULL, model = NULL, adj_DAG = NULL, binary_Y = NULL) {
+blocked_paths <- function(model_type = NULL, model = NULL, adj_DAG = NULL, binary_Y = NULL) {
   paths <- 0
   
   # convert graph to dagitty DAG
@@ -486,7 +478,8 @@ blocked_paths <- function(model_method = NULL, model = NULL, adj_DAG = NULL, bin
   open_DAG_paths <- open_DAG_paths[open_DAG_paths != "X -> y"]
   
   # identify all covariates included in model
-  vars_in_model <- find_vars_in_model(model_method = model_method, model = model, binary_Y = binary_Y)
+  vars_in_model <- find_vars_in_model(model_type = model_type,
+                                      model      = model)
   
   
   # determine whether open paths are blocked properly in model
@@ -509,11 +502,11 @@ blocked_paths <- function(model_method = NULL, model = NULL, adj_DAG = NULL, bin
 }
 
 
-z_inclusion <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
+z_inclusion <- function(model_type = NULL, model = NULL, adj_DAG = NULL) {
   included <- 0.0
   
   # identify all covariates included in model
-  vars_in_model <- find_vars_in_model(model_method = model_method, model = model)
+  vars_in_model <- find_vars_in_model(model_type = model_type, model = model)
   
   # convert graph to dagitty DAG
   dagitty_DAG <- dagitty_from_adjacency_matrix(adj_DAG)
@@ -539,134 +532,125 @@ z_inclusion <- function(model_method = NULL, model = NULL, adj_DAG = NULL) {
 }
 
 
-coverage <- function(model_method = NULL, model = NULL, true_value = NULL) {
+coverage <- function(model = NULL, true_value = NULL) {
   within_CI <- 0.0
   
-  lasso_variants    <- c("LASSO", "least_angle", "inf_fwd_stage")
-  two_step_variants <- c("two_step_LASSO", "two_step_least_angle", "two_step_inf_fwd_stage")
-  
-  if (model_method %in% lasso_variants) {
-    within_CI <- NaN
-  }
-  
-  else {
-    CI <- confint(model, 'X', level = 0.95)
-    if ((true_value > CI[1]) && (true_value < CI[2])) {
-      within_CI <- 1.0
-    }
+  CI <- confint(model, 'X', level = 0.95)
+  if ((true_value > CI[1]) && (true_value < CI[2])) {
+    within_CI <- 1.0
   }
   
   return (within_CI)
 }
 
 
-benchmark <- function(model_method = NULL, data = NULL, times = NULL) {
-  time <- NaN
-  
-  data_X <- data[, -1, drop = F]
-  data_y <- data[,  1]
-  
-  if (model_method == "linear") {
-    bench <- microbenchmark::microbenchmark(
-      model <- lm(y ~ ., data = data),
-      times = times
-    ) %>% invisible()
-  }
-
-  else if (model_method == "stepwise") {
-    bench <- microbenchmark::microbenchmark(
-      model <- step(object = lm(y ~ ., data = data), direction = "both",
-                    scope = list(upper = "y ~ .", lower = "y ~ X")),
-      times = times
-    ) %>% invisible()
-  }
-
-  else if (model_method == "LASSO") {
-    bench <- microbenchmark::microbenchmark(
-      model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
-                    y         = data_y,            # outcome
-                    type      = "lasso",
-                    intercept = TRUE),
-      times = times
-    ) %>% invisible()
-  }
-
-  else if (model_method == "least_angle") {
-    bench <- microbenchmark::microbenchmark(
-      model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
-                    y         = data_y,            # outcome
-                    type      = "lar",
-                    intercept = TRUE),
-      times = times
-    ) %>% invisible()
-  }
-
-  else if (model_method == "inf_fwd_stage") {
-    bench <- microbenchmark::microbenchmark(
-      model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
-                    y         = data_y,            # outcome
-                    type      = "forward.stagewise",
-                    intercept = TRUE),
-      times = times
-    ) %>% invisible()
-  }
-
-  else if (model_method == "two_step_LASSO") {
-    bench <- microbenchmark::microbenchmark(
-      model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
-                    y         = data_y,            # outcome
-                    type      = "lasso",
-                    intercept = TRUE),
-      model <- lm(y ~ ., data = data),
-      times = times
-    ) %>% invisible()
-  }
-
-  else if (model_method == "two_step_least_angle") {
-    bench <- microbenchmark::microbenchmark(
-      model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
-                    y         = data_y,            # outcome
-                    type      = "lar",
-                    intercept = TRUE),
-      model <- lm(y ~ ., data = data),
-      times = times
-    ) %>% invisible()
-  }
-
-  else if (model_method == "two_step_inf_fwd_stage") {
-    bench <- microbenchmark::microbenchmark(
-      model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
-                    y         = data_y,            # outcome
-                    type      = "forward.stagewise",
-                    intercept = TRUE),
-      model <- lm(y ~ ., data = data),
-      times = times
-    ) %>% invisible()
-  }
-  
-  else if (model_method == "iv_2sls") {
-    bench <- microbenchmark::microbenchmark(
-      model <- ivreg(y ~ ., data = data),
-      times = times
-    )
-  }
-  
-  else if (model_method == "prop_score_based") {
-    bench <- microbenchmark::microbenchmark(
-      cbps_model <- CBPS(y ~ ., data = data, ATT = TRUE),
-      model      <- lm(y ~ ., data = data),
-      times = times
-    )
-  }
-  
-  else {
-    message("Unrecognised model type!")
-    bench <- data.frame(time <- c(NaN))
-  }
-
-  time <- mean(bench$time)
-  return (time)
-}
+# benchmark <- function(model_method = NULL, data = NULL, times = NULL) {
+#   time <- NaN
+#   
+#   data_X <- data[, -1, drop = F]
+#   data_y <- data[,  1]
+#   
+#   if (model_method == "linear") {
+#     bench <- microbenchmark::microbenchmark(
+#       model <- lm(y ~ ., data = data),
+#       times = times
+#     ) %>% invisible()
+#   }
+# 
+#   else if (model_method == "stepwise") {
+#     bench <- microbenchmark::microbenchmark(
+#       model <- step(object = lm(y ~ ., data = data), direction = "both",
+#                     scope = list(upper = "y ~ .", lower = "y ~ X")),
+#       times = times
+#     ) %>% invisible()
+#   }
+# 
+#   else if (model_method == "LASSO") {
+#     bench <- microbenchmark::microbenchmark(
+#       model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+#                     y         = data_y,            # outcome
+#                     type      = "lasso",
+#                     intercept = TRUE),
+#       times = times
+#     ) %>% invisible()
+#   }
+# 
+#   else if (model_method == "least_angle") {
+#     bench <- microbenchmark::microbenchmark(
+#       model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+#                     y         = data_y,            # outcome
+#                     type      = "lar",
+#                     intercept = TRUE),
+#       times = times
+#     ) %>% invisible()
+#   }
+# 
+#   else if (model_method == "inf_fwd_stage") {
+#     bench <- microbenchmark::microbenchmark(
+#       model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+#                     y         = data_y,            # outcome
+#                     type      = "forward.stagewise",
+#                     intercept = TRUE),
+#       times = times
+#     ) %>% invisible()
+#   }
+# 
+#   else if (model_method == "two_step_LASSO") {
+#     bench <- microbenchmark::microbenchmark(
+#       model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+#                     y         = data_y,            # outcome
+#                     type      = "lasso",
+#                     intercept = TRUE),
+#       model <- lm(y ~ ., data = data),
+#       times = times
+#     ) %>% invisible()
+#   }
+# 
+#   else if (model_method == "two_step_least_angle") {
+#     bench <- microbenchmark::microbenchmark(
+#       model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+#                     y         = data_y,            # outcome
+#                     type      = "lar",
+#                     intercept = TRUE),
+#       model <- lm(y ~ ., data = data),
+#       times = times
+#     ) %>% invisible()
+#   }
+# 
+#   else if (model_method == "two_step_inf_fwd_stage") {
+#     bench <- microbenchmark::microbenchmark(
+#       model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
+#                     y         = data_y,            # outcome
+#                     type      = "forward.stagewise",
+#                     intercept = TRUE),
+#       model <- lm(y ~ ., data = data),
+#       times = times
+#     ) %>% invisible()
+#   }
+#   
+#   else if (model_method == "iv_2sls") {
+#     bench <- microbenchmark::microbenchmark(
+#       model <- ivreg(y ~ ., data = data),
+#       times = times
+#     )
+#   }
+#   
+#   else if (model_method == "prop_score_based") {
+#     bench <- microbenchmark::microbenchmark(
+#       cbps_model <- CBPS(y ~ ., data = data, ATT = TRUE),
+#       model      <- lm(y ~ ., data = data),
+#       times = times
+#     )
+#   }
+#   
+#   else {
+#     message("Unrecognised model type!")
+#     bench <- data.frame(time <- c(NaN))
+#   }
+# 
+#   time <- mean(bench$time)
+#   return (time)
+# }
 
 
 fill_in_blanks <- function(coefs = NULL, labels = NULL) {
@@ -784,8 +768,16 @@ generate_dataset <- function(coef_data         = NULL,
   if (num_unmeas_conf > 0) {
     unmeas_dataset <- data.frame(matrix(NA, nrow = n_obs, ncol = num_unmeas_conf))
     for (i in 1:num_unmeas_conf) {
-      unmeas_i            <- rnorm(n = n_obs, mean = 0, sd = 1)
-      unmeas_dataset[, i] <- unmeas_i
+      # generate error term epsilon_Z_i
+      # independent for each Z
+      error_Z_i <- rnorm(n = n_obs, mean = 0, sd = 1)
+      
+      # determine alpha, beta
+      Z_alpha <- sqrt(Z_correlation)
+      Z_beta  <- sqrt(1 - Z_correlation)
+      
+      # generate Z_i
+      unmeas_dataset[, i] <- (Z_alpha * prior_U) + (Z_beta * error_Z_i)
     }
   }
   
@@ -850,21 +842,19 @@ generate_dataset <- function(coef_data         = NULL,
         # binarise as appropriate
         if (labels[i] == 'X') {
           if (binary_X) {
-            logit_prob_X  <- dataset[, i]                              # interpret existing values of logit(probability)
-            prob_X        <- inverse_logit(logit_prob_X)               # apply inverse to obtain prob values
-            binary_vals_X <- rbinom(n = 1000, size = 1, prob = prob_X) # re-sample to obtain X
+            logit_prob_X  <- dataset[, i]                               # interpret existing values of logit(probability)
+            prob_X        <- inverse_logit(logit_prob_X)                # apply inverse to obtain prob values
+            binary_vals_X <- rbinom(n = n_obs, size = 1, prob = prob_X) # re-sample to obtain X
             dataset[, i]  <- binary_vals_X
           }
         }
         
         if (labels[i] == 'y') {
           if (binary_Y) {
-            logit_prob_Y  <- dataset[, i]                              # interpret existing values of logit(probability)
-            prob_Y        <- inverse_logit(logit_prob_Y)               # apply inverse to obtain prob values
-            binary_vals_Y <- rbinom(n = 1000, size = 1, prob = prob_Y) # re-sample to obtain Y
+            logit_prob_Y  <- dataset[, i]                               # interpret existing values of logit(probability)
+            prob_Y        <- inverse_logit(logit_prob_Y)                # apply inverse to obtain prob values
+            binary_vals_Y <- rbinom(n = n_obs, size = 1, prob = prob_Y) # re-sample to obtain Y
             dataset[, i]  <- binary_vals_Y
-            #print(binary_vals_Y)
-            #stop("binary Y")
           }
         }
         
@@ -906,12 +896,18 @@ generate_dataset <- function(coef_data         = NULL,
 
 
 # The value for all beta coefficients used for generating X
-beta_X_formula <- function(num_total_conf = NULL, target_r_sq_X = NULL) {
-  # short-hand
-  m   <- num_total_conf
-  r_X <- target_r_sq_X
+beta_X_formula <- function(num_total_conf = NULL,
+                           target_r_sq_X  = NULL,
+                           Z_correlation  = NULL) {
+  # un-correlated case
+  # # short-hand
+  # m   <- num_total_conf
+  # r_X <- target_r_sq_X
+  # value <- sqrt( (1/m) * (r_X/(1 - r_X)) )
   
-  value <- sqrt( (1/m) * (r_X/(1 - r_X)) )
+  numerator   <- -1 * target_r_sq_X
+  denominator <- (num_total_conf * (target_r_sq_X - 1)) + (factorial(num_total_conf-1) * Z_correlation^2 * (target_r_sq_X - 1))
+  value <- sqrt(numerator / denominator)
   
   return (value)
 }
@@ -934,12 +930,19 @@ beta_X_levels_condition <- function(num_total_conf      = NULL,
 
 # The values for all beta coefficients used for generating Y
 # Tuned to induce the given value of R2_X in generated data-sets
-beta_X_levels_formula <- function(num_total_conf = NULL, target_r_sq_X = NULL, dissimilarity = NULL, l_zero_X = NULL, l_zero_Y = NULL) {
+beta_X_levels_formula <- function(num_total_conf = NULL,
+                                  target_r_sq_X  = NULL,
+                                  dissimilarity  = NULL,
+                                  l_zero_X       = NULL,
+                                  l_zero_Y       = NULL,
+                                  Z_correlation  = NULL) {
   
   # short-hand
   m   <- num_total_conf
   r_X <- target_r_sq_X
-  b   <- beta_X_formula(num_total_conf = m, target_r_sq_X = r_X) # symmetric value
+  b   <- beta_X_formula(num_total_conf = m,
+                        target_r_sq_X  = r_X,
+                        Z_correlation  = Z_correlation) # symmetric value
   
   if (l_zero_X) {
     b_1 <- 0
@@ -961,12 +964,19 @@ beta_X_levels_formula <- function(num_total_conf = NULL, target_r_sq_X = NULL, d
 
 
 # The values for all beta coefficients used for generating Y
-beta_Y_levels_formula <- function(num_total_conf = NULL, target_r_sq_X = NULL, dissimilarity = NULL, l_zero_X = NULL, l_zero_Y = NULL) {
+beta_Y_levels_formula <- function(num_total_conf = NULL,
+                                  target_r_sq_X  = NULL,
+                                  dissimilarity  = NULL,
+                                  l_zero_X       = NULL,
+                                  l_zero_Y       = NULL,
+                                  Z_correlation  = NULL) {
   
   # short-hand
   m   <- num_total_conf
   r_X <- target_r_sq_X
-  b   <- beta_X_formula(num_total_conf = m, target_r_sq_X = r_X) # symmetric value
+  b   <- beta_X_formula(num_total_conf = m,
+                        target_r_sq_X  = r_X,
+                        Z_correlation  = Z_correlation) # symmetric value
   
   if (l_zero_Y) {
     d_1 <- 0
@@ -994,8 +1004,18 @@ mean_X_formula <- function(intercept_X = NULL) {
 
 
 # Variance for X we induce
-var_X_formula <- function(num_total_conf = NULL, beta_Xs = NULL) {
-  return (((num_total_conf/4) * sum(beta_Xs^2)) + 1)
+var_X_formula <- function(num_total_conf = NULL,
+                          Z_correlation  = NULL,
+                          beta_Xs        = NULL) {
+  
+  # un-correlated, sub-groups
+  # value = ((num_total_conf/4) * sum(beta_Xs^2)) + 1
+  
+  # correlated, no sub-groups
+  beta_X = beta_Xs[1]
+  value  =  (num_total_conf * beta_X^2) + 1 + (factorial(num_total_conf - 1) * beta_X^2 * Z_correlation^2)
+  
+  return (value)
 }
 
 
@@ -1007,38 +1027,111 @@ mean_Y_formula <- function(intercept_Y = NULL, causal = NULL, mean_X = NULL) {
 
 # Variance for Y we induce
 var_Y_formula <- function(num_total_conf = NULL,
-                          beta_Xs  = NULL,
-                          beta_Ys  = NULL,
-                          causal   = NULL) {
-  return ( ((num_total_conf/4) * sum(( causal*beta_Xs + beta_Ys )^2)) + causal^2 + 1 )
+                          Z_correlation  = NULL,
+                          beta_Xs        = NULL,
+                          beta_Ys        = NULL,
+                          causal         = NULL,
+                          target_r_sq_Y  = NULL) {
+  
+  # un-correlated, sub-groups
+  # value = ((num_total_conf/4) * sum(( causal*beta_Xs + beta_Ys )^2)) + causal^2 + 1
+  
+  # correlated, no sub-groups
+  beta_X = beta_Xs[1]
+  beta_Y = beta_Ys[1]
+  
+  var_error_Y  <- determine_var_error_Y(num_total_conf = num_total_conf,
+                                        beta_Xs        = beta_Xs,
+                                        beta_Ys        = beta_Ys,
+                                        causal         = causal,
+                                        target_r_sq_Y  = target_r_sq_Y)
+  
+  new_coef = ((causal*beta_X) + beta_Y)^2
+  
+  value    = (num_total_conf * new_coef) + (causal^2) + var_error_Y + (factorial(num_total_conf - 1) * new_coef * Z_correlation^2)
+  
+  return (value)
 }
 
-var_Z_i_formula <- function(correlation_U = NULL) {
-  alpha <- sqrt(correlation_U)
-  beta  <- sqrt(1 - correlation_U)
+var_Z_i_formula <- function(Z_correlation = NULL) {
+  alpha <- sqrt(Z_correlation)
+  beta  <- sqrt(1 - Z_correlation)
   return (alpha^2 + beta^2)
 }
 
+cov_Z_i_Z_j_formula <- function(Z_correlation = NULL) {
+  alpha <- sqrt(Z_correlation)
+  return (alpha^2)
+}
 
-analytic_cov_matrix <- function(num_total_conf      = num_total_conf,
-                                correlation_U = correlation_U,
-                                coef_data     = coef_data) {
+
+analytic_cov_matrix <- function(num_total_conf = NULL,
+                                Z_correlation  = NULL,
+                                coef_data      = NULL,
+                                beta_Xs        = NULL,
+                                beta_Ys        = NULL,
+                                causal         = NULL,
+                                target_r_sq_Y  = NULL) {
   
   var_labels <- colnames(coef_data)[-c(1, 2)]
+  num_vars   <- length(var_labels)
+  dummy_var  <- var_labels[num_vars] # dummy is always last and always fully independent
   
-  analytic_cov           <- matrix(NaN, (num_total_conf+3), (num_total_conf+3))
+  analytic_cov           <- matrix(NaN, num_vars, num_vars)
   rownames(analytic_cov) <- var_labels
   colnames(analytic_cov) <- var_labels
   
   # variances
-  for (var in var_labels) {
+  for (i in 1:num_vars) {
     # variances here
+    if (var_labels[i] == 'X') {
+      analytic_cov[i, i] <- var_X_formula(num_total_conf = num_total_conf,
+                                          Z_correlation  = Z_correlation,
+                                          beta_Xs        = beta_Xs)
+    }
+    else if (var_labels[i] == 'y') {
+      analytic_cov[i, i] <- var_Y_formula(num_total_conf = num_total_conf,
+                                          Z_correlation  = Z_correlation,
+                                          beta_Xs        = beta_Xs,
+                                          beta_Ys        = beta_Ys,
+                                          causal         = causal,
+                                          target_r_sq_Y  = target_r_sq_Y)
+    }
+    else {
+      analytic_cov[i, i] <- var_Z_i_formula(Z_correlation = Z_correlation)
+    }
   }
   
   # pairwise covariances
-  for (i in 1:3) {
-    for (j in 1:3) {
-      # covariances here
+  for (i in 1:num_vars) {
+    for (j in 1:num_vars) {
+      if (i == j) {
+        # diagonal, skip
+      }
+      else if (var_labels[i] == dummy_var | var_labels[j] == dummy_var) {
+        analytic_cov[i, j] <- 0.0
+      }
+      else if (var_labels[i] == 'X' & var_labels[j] == 'y') {
+        analytic_cov[i, j] <- NaN
+      }
+      else if (var_labels[i] == 'y' & var_labels[j] == 'X') {
+        analytic_cov[i, j] <- NaN
+      }
+      else if (var_labels[i] == 'X' & var_labels[j] != 'y') {
+        analytic_cov[i, j] <- NaN
+      }
+      else if (var_labels[i] == 'y' & var_labels[j] != 'X') {
+        analytic_cov[i, j] <- NaN
+      }
+      else if (var_labels[i] != 'X' & var_labels[j] == 'y') {
+        analytic_cov[i, j] <- NaN
+      }
+      else if (var_labels[i] != 'y' & var_labels[j] == 'X') {
+        analytic_cov[i, j] <- NaN
+      }
+      else {
+        analytic_cov[i, j] <- cov_Z_i_Z_j_formula(Z_correlation = Z_correlation)
+      }
     }
   }
   
@@ -1093,12 +1186,13 @@ analytic_levels_causal_effect <- function(num_total_conf      = NULL,
 
 
 # Building the table of coefficients we use for data-set generation
-generate_coef_data <- function(num_total_conf      = NULL,
-                               target_r_sq_X = NULL,
-                               target_r_sq_Y = NULL,
-                               dissimilarity = NULL,
-                               l_zero_X      = NULL,
-                               l_zero_Y      = NULL) {
+generate_coef_data <- function(num_total_conf = NULL,
+                               target_r_sq_X  = NULL,
+                               target_r_sq_Y  = NULL,
+                               dissimilarity  = NULL,
+                               l_zero_X       = NULL,
+                               l_zero_Y       = NULL,
+                               Z_correlation  = NULL) {
   
   var_labels <- c("y", "X", "Z1")
   
@@ -1145,8 +1239,20 @@ generate_coef_data <- function(num_total_conf      = NULL,
   }
   
   # Adjust all beta values in order to control R2
-  beta_Xs               <- beta_X_levels_formula(num_total_conf = num_total_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
-  beta_Ys               <- beta_Y_levels_formula(num_total_conf = num_total_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
+  beta_Xs               <- beta_X_levels_formula(num_total_conf = num_total_conf,
+                                                 target_r_sq_X  = target_r_sq_X,
+                                                 dissimilarity  = dissimilarity,
+                                                 l_zero_X       = l_zero_X,
+                                                 l_zero_Y       = l_zero_Y,
+                                                 Z_correlation  = Z_correlation)
+  
+  beta_Ys               <- beta_Y_levels_formula(num_total_conf = num_total_conf,
+                                                 target_r_sq_X  = target_r_sq_X,
+                                                 dissimilarity  = dissimilarity,
+                                                 l_zero_X       = l_zero_X,
+                                                 l_zero_Y       = l_zero_Y,
+                                                 Z_correlation  = Z_correlation)
+  
   oracle_causal_effect  <- analytic_levels_causal_effect(num_total_conf = num_total_conf, beta_Xs = beta_Xs, beta_Ys = beta_Ys, target_r_sq_Y = target_r_sq_Y)
   
   # subset by caused / uncaused
@@ -1189,9 +1295,9 @@ generate_coef_data <- function(num_total_conf      = NULL,
 }
 
 
-determine_cov_selection <- function(case   = NULL,
-                                    method = NULL,
-                                    model  = NULL) {
+determine_cov_selection <- function(case       = NULL,
+                                    model_type = NULL,
+                                    model      = NULL) {
   var_labels <- c("X", "Z1")
   if (case > 0) {
     Z_list     <- c(2:(case+1))
@@ -1204,8 +1310,9 @@ determine_cov_selection <- function(case   = NULL,
   
   selection        <- rep(0, times = length(var_labels))
   names(selection) <- var_labels
-  model_selection  <- names(model$coefficients[-c(1)])
+  model_selection  <- find_vars_in_model(model_type = model_type, model = model)
   
+  selection['X'] <- 1
   for (var in model_selection) {
     selection[var] <- 1
   }
@@ -1585,19 +1692,22 @@ run <- function(
       
       if (method == "linear") {
         if (binary_Y) {
-          model <- glm(y ~ ., data = data, family = "binomial")
+          model      <- glm(y ~ ., data = data, family = "binomial")
+          model_type <- "glm"
         }
         else {
-          model <- lm(y ~ ., data = data)
+          model      <- lm(y ~ ., data = data)
+          model_type <- "lm"
         }
         
         # Record coefficients
-        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        coefs <- find_coefs_in_model(model_type = model_type, model = model)
+        model_coefs[m, , i] <- fill_in_blanks(coefs, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
-                                                         method = method,
-                                                         model  = model)
+        cov_selection[m, , i] <- determine_cov_selection(case       = num_total_conf,
+                                                         model_type = model_type,
+                                                         model      = model)
       }
       
       else if (method == "linear_no_Z") {
@@ -1605,19 +1715,22 @@ run <- function(
         model_formula <- paste("y ~ X + ", dummy_var, sep = '')
         
         if (binary_Y) {
-          model <- glm(model_formula, data = data, family = "binomial")
+          model      <- glm(model_formula, data = data, family = "binomial")
+          model_type <- "glm"
         }
         else {
-          model <- lm(model_formula, data = data)
+          model      <- lm(model_formula, data = data)
+          model_type <- "lm"
         }
         
         # Record coefficients
-        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        coefs <- find_coefs_in_model(model_type = model_type, model = model)
+        model_coefs[m, , i] <- fill_in_blanks(coefs, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
-                                                         method = method,
-                                                         model  = model)
+        cov_selection[m, , i] <- determine_cov_selection(case       = num_total_conf,
+                                                         model_type = model_type,
+                                                         model      = model)
       }
       
       else if (method == "stepwise") {
@@ -1627,6 +1740,7 @@ run <- function(
                         scope     = list(upper = "y ~ .", lower = "y ~ X"),       # exposure X always included
                         trace     = 0                                             # suppress output
           )
+          model_type <- "lm"
         }
         else {
           model <- step(object    = lm(y ~ ., data = data),                 # all variable base
@@ -1634,15 +1748,17 @@ run <- function(
                         scope     = list(upper = "y ~ .", lower = "y ~ X"), # exposure X always included
                         trace     = 0                                       # suppress output
           )
+          model_type <- "lm"
         }
         
         # Record coefficients
-        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        coefs <- find_coefs_in_model(model_type = model_type, model = model)
+        model_coefs[m, , i] <- fill_in_blanks(coefs, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
-                                                         method = method,
-                                                         model  = model)
+        cov_selection[m, , i] <- determine_cov_selection(case       = num_total_conf,
+                                                         model_type = model_type,
+                                                         model      = model)
       }
       
       else if (method == "stepwise_X") {
@@ -1655,6 +1771,7 @@ run <- function(
                           scope     = list(upper = "X ~ .", lower = "X ~ 0"),     # effectively empty model as lower
                           trace     = 0                                           # suppress output
           )
+          model_type <- "lm"
         }
         else {
           X_model <- step(object    = lm(X ~ ., data = X_data),               # all variable base
@@ -1662,10 +1779,11 @@ run <- function(
                           scope     = list(upper = "X ~ .", lower = "X ~ 0"), # effectively empty model as lower
                           trace     = 0                                       # suppress output
           )
+          model_type <- "lm"
         }
         
         # determine vars to include
-        vars_selected <- find_vars_in_model(model_method = method, model = X_model)
+        vars_selected <- find_vars_in_model(model_type = model_type, model = X_model)
         
         # fit new model for Y on the subset of covariates selected
         formula_string <- "y ~ X"
@@ -1675,18 +1793,21 @@ run <- function(
         formula <- as.formula( formula_string )
         if (binary_Y) {
           model <- glm(formula = formula, data = data, family = "binomial")
+          model_type <- "glm"
         }
         else {
           model <- lm(formula = formula, data = data)
+          model_type <- "lm"
         }
         
         # Record coefficients
-        model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
+        coefs <- find_coefs_in_model(model_type = model_type, model = model)
+        model_coefs[m, , i] <- fill_in_blanks(coefs, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
-                                                         method = method,
-                                                         model  = model)
+        cov_selection[m, , i] <- determine_cov_selection(case       = num_total_conf,
+                                                         model_type = model_type,
+                                                         model      = model)
       }
 
       else if (method == "LASSO") {
@@ -1694,14 +1815,16 @@ run <- function(
                       y         = data_y,            # outcome
                       type      = "lasso",
                       intercept = TRUE)
+        model_type <- "lars"
         
         # Record coefficients
-        model_coefs[m, , i] <- lars_coefs(model = model)
+        coefs <- find_coefs_in_model(model_type = model_type, model = model)
+        model_coefs[m, , i] <- fill_in_blanks(coefs, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
-                                                         method = method,
-                                                         model  = model)
+        cov_selection[m, , i] <- determine_cov_selection(case       = num_total_conf,
+                                                         model_type = model_type,
+                                                         model      = model)
       }
       
       else if (method == "two_step_LASSO") {
@@ -1714,9 +1837,7 @@ run <- function(
                           family = "binomial",
                           alpha  = 1,
                           lambda = cv.glmnet(reshaped_data, data[, 'y'])$lambda.1se)
-          
-          # find vars in model
-          vars_selected <- glmnet_lasso_selection(model_method = method, model = model)
+          model_type <- "glmnet"
         }
         else {
           # fit LASSO model
@@ -1724,10 +1845,11 @@ run <- function(
                         y         = data_y,            # outcome
                         type      = "lasso",
                         intercept = TRUE)
-          
-          # find vars in model
-          vars_selected <- lasso_selection(model_method = method, model = model)
+          model_type <- "lars"
         }
+        
+        # find vars in model
+        vars_selected <- find_vars_in_model(model_type = model_type, model = model)
         
         # fit new model on the subset of covariates selected
         formula_string <- "y ~ X"
@@ -1736,32 +1858,51 @@ run <- function(
         }
         formula <- as.formula( formula_string )
         if (binary_Y) {
-          model <- glm(formula = formula, data = data, family = "binomial")
+          model      <- glm(formula = formula, data = data, family = "binomial")
+          model_type <- "glm"
         }
         else {
           model <- lm(formula = formula, data = data)
+          model_type <- "lm"
         }
         
         # Record coefficients
-        model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
+        coefs <- find_coefs_in_model(model_type = model_type, model = model)
+        model_coefs[m, , i] <- fill_in_blanks(coefs, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
-                                                         method = method,
-                                                         model  = model)
+        cov_selection[m, , i] <- determine_cov_selection(case       = num_total_conf,
+                                                         model_type = model_type,
+                                                         model      = model)
       }
       
       else if (method == "two_step_LASSO_X") {
         # fit LASSO model on X
-        X_data  <- data[, c(2)]     # outcome X
-        Z_data  <- data[, -c(1, 2)] # drop Y, X
-        X_model <- lars(x         = as.matrix(Z_data), # exposure and all other covariates
-                        y         = X_data,            # outcome
-                        type      = "lasso",
-                        intercept = TRUE)
+        X_data  <- data[, -c(1)] # drop Y, keep X
+        
+        if (binary_X) {
+          reshaped_X_data <- model.matrix(X~., X_data)
+          reshaped_X_data <- reshaped_data[, -c(1)]
+          
+          X_model <- glmnet(x      = reshaped_X_data,
+                            y      = X_data[, 'X'],
+                            family = "binomial",
+                            alpha  = 1,
+                            lambda = cv.glmnet(reshaped_X_data, X_data[, 'X'])$lambda.1se)
+          
+          model_type <- "glmnet"
+        }
+        else {
+          Z_data  <- X_data[, -c(1)] # Y previously dropped, drop X
+          X_model <- lars(x         = as.matrix(Z_data), # exposure and all other covariates
+                          y         = X_data[, 'X'],            # outcome
+                          type      = "lasso",
+                          intercept = TRUE)
+          model_type <- "lars"
+        }
         
         # find vars in model
-        vars_selected <- lasso_selection(model_method = method, model = X_model)
+        vars_selected <- find_vars_in_model(model_type = model_type, model = X_model)
         
         # fit new model for Y on the subset of covariates selected
         formula_string <- "y ~ X"
@@ -1769,130 +1910,25 @@ run <- function(
           formula_string <- paste(formula_string, " + ", var, sep = "")
         }
         formula <- as.formula( formula_string )
-        model   <- lm(formula = formula, data = data)
+        if (binary_Y) {
+          model      <- glm(formula = formula, data = data, family = "binomial")
+          model_type <- "glm"
+        }
+        else {
+          model <- lm(formula = formula, data = data)
+          model_type <- "lm"
+        }
         
         # Record coefficients
-        model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
+        coefs <- find_coefs_in_model(model_type = model_type, model = model)
+        model_coefs[m, , i] <- fill_in_blanks(coefs, beta_names)
         
         # Record covariate selection
-        cov_selection[m, , i] <- determine_cov_selection(case   = num_total_conf,
-                                                         method = method,
-                                                         model  = model)
+        cov_selection[m, , i] <- determine_cov_selection(case       = num_total_conf,
+                                                         model_type = model_type,
+                                                         model      = model)
       }
       
-      else if (method == "least_angle") {
-        # model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
-        #               y         = data_y,            # outcome
-        #               type      = "lar",
-        #               intercept = TRUE)
-        # 
-        # # Record coefficients
-        # model_coefs[m, , i] <- lars_coefs(model = model)
-        
-        # Record covariate selection
-        # TODO: implement
-        stop("run - covariate selection")
-      }
-      
-      else if (method == "two_step_least_angle") {
-        model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
-                      y         = data_y,            # outcome
-                      type      = "lar",
-                      intercept = TRUE)
-        
-        # # find vars in model
-        # vars_selected <- lasso_selection(model_method = method, model = model)
-        # 
-        # # fit new model on the subset of covariates selected
-        # formula_string <- "y ~ X"
-        # for (var in vars_selected) {
-        #   formula_string <- paste(formula_string, " + ", var, sep = "")
-        # }
-        # formula <- as.formula( formula_string )
-        # model   <- lm(formula = formula, data = data)
-        # 
-        # # Record coefficients
-        # model_coefs[m, , i] <-  fill_in_blanks(model$coefficients, beta_names)
-        
-        # Record covariate selection
-        # TODO: implement
-        stop("run - covariate selection")
-      }
-      
-      else if (method == "inf_fwd_stage") {
-        model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
-                      y         = data_y,            # outcome
-                      type      = "forward.stagewise",
-                      intercept = TRUE)
-        
-        # # Record coefficients
-        # model_coefs[m, , i] <- lars_coefs(model = model)
-        
-        # Record covariate selection
-        # TODO: implement
-        stop("run - covariate selection")
-      }
-      
-      else if (method == "two_step_inf_fwd_stage") {
-        model <- lars(x         = as.matrix(data_X), # exposure and all other covariates
-                      y         = data_y,            # outcome
-                      type      = "forward.stagewise",
-                      intercept = TRUE)
-        
-        # # find vars in model
-        # vars_selected <- lasso_selection(model_method = method, model = model)
-        # 
-        # # fit new model on the subset of covariates selected
-        # formula_string <- "y ~ X"
-        # for (var in vars_selected) {
-        #   formula_string <- paste(formula_string, " + ", var, sep = "")
-        # }
-        # formula <- as.formula( formula_string )
-        # model   <- lm(formula = formula, data = data)
-        # 
-        # # Record coefficients
-        # model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
-        
-        # Record covariate selection
-        # TODO: implement
-        stop("run - covariate selection")
-      }
-      
-      else if (method == "iv_2sls") {
-        # # instrumental variable based 2-stage least-squares regression
-        # model <- ivreg(y ~ ., data = data)
-        # 
-        # # Record coefficients
-        # model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
-        
-        # Record covariate selection
-        # TODO: implement
-        stop("run - covariate selection")
-      }
-      
-      else if (method == "prop_score_based") {
-        # # CBPS Covariate Balancing Propensity Score method
-        # cbps_model <- CBPS(y ~ ., data = data, ATT = TRUE)
-        # 
-        # # determine vars to include
-        # # model_method overwritten as this is stage 1 of 2 stage procedure
-        # vars_selected <- find_vars_in_model(model_method = "CBPS", model = cbps_model)
-        # 
-        # # fit new model on the subset of covariates selected
-        # formula_string <- "y ~ X"
-        # for (var in vars_selected) {
-        #   formula_string <- paste(formula_string, " + ", var, sep = "")
-        # }
-        # formula <- as.formula( formula_string )
-        # model   <- lm(formula = formula, data = data)
-        # 
-        # # Record coefficients
-        # model_coefs[m, , i] <- fill_in_blanks(model$coefficients, beta_names)
-        
-        # Record covariate selection
-        # TODO: implement
-        stop("run - covariate selection")
-      }
       
       # Record results
       for (r in 1:R) {
@@ -1902,21 +1938,21 @@ run <- function(
         if (result == "pred_mse") {
           result_value <- mse(model          = model,
                               optimal_lambda = optimal_lambda,
-                              model_method   = method,
+                              model_type     = model_type,
                               test_data      = test_data)
         }
         
         else if (result == "r_squared_X") {
           result_value <- r_squared_X(model          = lm(X ~ ., data = data[, -1, drop = F]),
                                       optimal_lambda = optimal_lambda,
-                                      model_method   = method,
+                                      model_type     = model_type,
                                       test_data      = test_data)
         }
         
         else if (result == "r_squared_Y") {
           result_value <- r_squared_Y(model          = model,
                                       optimal_lambda = optimal_lambda,
-                                      model_method   = method,
+                                      model_type     = model_type,
                                       test_data      = test_data)
         }
         
@@ -1929,15 +1965,14 @@ run <- function(
         }
         
         else if (result == "param_bias") {
-          result_value <- param_bias(model_method = method,
-                                     model        = model,
-                                     true_values  = coef_data[, -c(1, 3)]) # all beta terms
+          result_value <- param_bias(model_type  = model_type,
+                                     model       = model,
+                                     true_values = coef_data[, -c(1, 3)]) # all beta terms
         }
         
         else if (result == "avg_abs_param_bias") {
-          result_value <- avg_abs_param_bias(model_method = method,
-                                                      model        = model,
-                                                      true_values  = coef_data[, -c(1, 3)]) # all beta terms
+          result_value <- avg_abs_param_bias(model       = model,
+                                             true_values = coef_data[, -c(1, 3)]) # all beta terms
         }
         
         else if (result == "causal_effect_precision") {
@@ -1950,25 +1985,22 @@ run <- function(
         }
         
         else if (result == "causal_effect_est") {
-          result_value <- extract_causal_effect_est(model_method = method,
-                                                    model        = model)
+          result_value <- extract_causal_effect_est(model = model)
         }
         
         else if (result == "causal_effect_bias") {
-          result_value <- causal_effect_bias(model_method = method,
-                                             model        = model,
-                                             true_value   = coef_data[1, "X"])
+          result_value <- causal_effect_bias(model      = model,
+                                             true_value = coef_data[1, "X"])
         }
         
         else if (result == "data_odds_ratio") {
           result_value <- data_odds_ratio(test_data = test_data,
-                                     binary_X  = binary_X,
-                                     binary_Y  = binary_Y)
+                                          binary_X  = binary_X,
+                                          binary_Y  = binary_Y)
         }
         
         else if (result == "model_odds_ratio") {
-          result_value <- model_odds_ratio(model_method = method,
-                                           model        = model)
+          result_value <- model_odds_ratio(model = model)
         }
         
         else if (result == "causal_effect_mcse") {
@@ -1984,23 +2016,22 @@ run <- function(
         else if (result == "blocked_paths") {
           adj_DAG           <- as_adj(graph = graph)
           colnames(adj_DAG) <- labels
-          result_value      <- blocked_paths(model_method = method,
-                                             model        = model,
-                                             adj_DAG      = adj_DAG)
+          result_value      <- blocked_paths(model_type = model_type,
+                                             model      = model,
+                                             adj_DAG    = adj_DAG)
         }
         
         else if (result == "z_inclusion") {
           adj_DAG           <- as_adj(graph = graph)
           colnames(adj_DAG) <- labels
-          result_value      <- z_inclusion(model_method = method,
-                                           model        = model,
-                                           adj_DAG      = adj_DAG)
+          result_value      <- z_inclusion(model_type = model_type,
+                                           model      = model,
+                                           adj_DAG    = adj_DAG)
         }
         
         else if (result == "coverage") {
-          result_value      <- coverage(model_method = method,
-                                        model        = model,
-                                        true_value   = coef_data[1, "X"])
+          result_value      <- coverage(model      = model,
+                                        true_value = coef_data[1, "X"])
         }
         
         else if (result == "benchmark") {
@@ -2013,36 +2044,20 @@ run <- function(
       
     }
     
-    # if (messages) {
-    #   print("Data-set Size")
-    #   data        %>% dim()    %>% print()
-    #   writeLines("\nData")
-    #   data        %>% head()   %>% print()
-    #   writeLines("\ny")
-    #   data[,  1]  %>% head()   %>% print()
-    #   writeLines("\nX")
-    #   data[, -1]  %>% head()   %>% print()
-    #   writeLines("\n")
-    #   
-    #   print("Penalty Factors (for LASSO)")
-    #   print(labels.no.y)
-    #   print(penalty.factor)
-    #   writeLines("\n")
+    # message("\nCalculated Model Odds Ratio:")
+    # print(model_odds_ratio(model = model))
+    # message("\nCalculated Data Odds Ratio:")
+    # print(data_odds_ratio(test_data = test_data, binary_X = binary_X, binary_Y = binary_Y))
+    # message("\nExternal Data Odds Ratio:")
+    # if (binary_X & binary_Y) {
+    #   print(questionr::odds.ratio(table(test_data[, 'X'], test_data[, 'y'])))
     # }
+    # else {
+    #   print("X and/or Y not binary")
+    # }
+    # message("\nContingency Table:")
+    # print(generate_contingency_table(test_data = test_data, binary_X = binary_X, binary_Y = binary_Y))
     
-    message("\nCalculated Model Odds Ratio:")
-    print(model_odds_ratio(model_method = method, model = model))
-    message("\nCalculated Data Odds Ratio:")
-    print(data_odds_ratio(test_data = test_data, binary_X = binary_X, binary_Y = binary_Y))
-    message("\nExternal Data Odds Ratio:")
-    if (binary_X & binary_Y) {
-      print(questionr::odds.ratio(table(test_data[, 'X'], test_data[, 'y'])))
-    }
-    else {
-      print("X and/or Y not binary")
-    }
-    message("\nContingency Table:")
-    print(generate_contingency_table(test_data = test_data, binary_X = binary_X, binary_Y = binary_Y))
   }
   
   # Generate Results Table
@@ -2101,8 +2116,19 @@ run <- function(
   var_labels    <- colnames(coef_data)[-c(1, 2)]
   metric_names  <- c("mean_Y", "var_Y", "mean_X", "var_X")
   
-  oracle_beta_Xs <- beta_X_levels_formula(num_total_conf = num_total_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
-  oracle_beta_Ys <- beta_Y_levels_formula(num_total_conf = num_total_conf, target_r_sq_X = target_r_sq_X, dissimilarity = dissimilarity, l_zero_X = l_zero_X, l_zero_Y = l_zero_Y)
+  oracle_beta_Xs <- beta_X_levels_formula(num_total_conf = num_total_conf,
+                                          target_r_sq_X  = target_r_sq_X,
+                                          dissimilarity  = dissimilarity,
+                                          l_zero_X       = l_zero_X,
+                                          l_zero_Y       = l_zero_Y,
+                                          Z_correlation  = Z_correlation)
+  
+  oracle_beta_Ys <- beta_Y_levels_formula(num_total_conf = num_total_conf,
+                                          target_r_sq_X  = target_r_sq_X,
+                                          dissimilarity  = dissimilarity,
+                                          l_zero_X       = l_zero_X,
+                                          l_zero_Y       = l_zero_Y,
+                                          Z_correlation  = Z_correlation)
   
   oracle_causal  <- coef_data[ match("y", var_labels), "X" ]
   mean_X         <- mean_X_formula(intercept_X = coef_data[ match("X", var_labels), "intercept" ])
@@ -2111,12 +2137,15 @@ run <- function(
                                  causal      = oracle_causal,
                                  mean_X      = mean_X),
                   var_Y_formula(num_total_conf = num_total_conf,
-                                beta_Xs  = oracle_beta_Xs,
-                                beta_Ys  = oracle_beta_Ys,
-                                causal   = oracle_causal),
+                                Z_correlation  = Z_correlation,
+                                beta_Xs        = oracle_beta_Xs,
+                                beta_Ys        = oracle_beta_Ys,
+                                causal         = oracle_causal,
+                                target_r_sq_Y  = target_r_sq_Y),
                   mean_X,
-                  var_X_formula(num_total_conf      = num_total_conf,
-                                beta_Xs       = oracle_beta_Xs)
+                  var_X_formula(num_total_conf = num_total_conf,
+                                Z_correlation  = Z_correlation,
+                                beta_Xs        = oracle_beta_Xs)
   )
   names(oracle_var) <- metric_names
   
@@ -2167,6 +2196,15 @@ run <- function(
   names(error_subtable) <- c("Analytic_var_error_Y",
                              "Predictive_mean_square_error_Y")
   
+  # Generate covariance matrix
+  analytic_cov <- analytic_cov_matrix(num_total_conf = num_total_conf,
+                                      Z_correlation  = Z_correlation,
+                                      coef_data      = coef_data,
+                                      beta_Xs        = oracle_beta_Xs,
+                                      beta_Ys        = oracle_beta_Ys,
+                                      causal         = oracle_causal,
+                                      target_r_sq_Y  = target_r_sq_Y)
+  
   message("\n\nResults of Simulation")
   
   writeLines("\n")
@@ -2174,19 +2212,16 @@ run <- function(
   print(r2_values)
   
   writeLines("\n\n")
-  print("Oracle Distribution")
+  print("Analytic Distribution")
   print(oracle_var)
   
   writeLines("\n\n")
-  print("Oracle Covariance")
-  print(analytic_cov_matrix(num_total_conf      = num_total_conf,
-                            correlation_U = correlation_U,
-                            coef_data     = coef_data))
+  print("Analytic Covariance")
+  print(round_df(as.data.frame(analytic_cov), digits=3))
   
   writeLines("\n\n")
   print("Observed Covariance")
-  print(cov(representative_data))
-  
+  print(round_df(as.data.frame(cov(representative_data)), digits=3))
   
   writeLines("\n\n")
   print("Outcome Y Error")
@@ -2197,15 +2232,15 @@ run <- function(
   print(sample_vars)
   
   writeLines("\n\n")
-  print("Key Oracle Coefficients")
+  print("Key Coefficients")
   print(coef_subtable)
   
   writeLines("\n\n")
-  print("Oracle Coefficients")
+  print("Coefficients")
   print(coef_data)
   
   writeLines("\n")
-  print("Sample Coefficients for Y Table")
+  print("Observed Coefficients for Y Table")
   print(coefs_aggr)
   
   writeLines("\n")

@@ -10,14 +10,9 @@
 # Emma Tarmey
 #
 # Started:          19/03/2024
-# Most Recent Edit: 23/01/2025
+# Most Recent Edit: 30/01/2025
 # ****************************************
 
-# TODO:
-# (1) Fix var selection extraction by making methods object-based implementing agnostic object identification
-# (2) Fix / audit model fitting
-# (3) Interrogate variance estimation, true coef value for binary case
-# (4) Look at numbers, then circulate to supervisors
 
 # clear R memory
 rm(list=ls())
@@ -76,17 +71,24 @@ SE_req_init            <- 0.05  # target standard error (determines lower bound 
 data_split_init        <- NULL  # determines whether we split test and training sets
 l_zero_X_init          <- FALSE # force 'L' subgroups affecting X to have an oracle coefficient of 0.0, set to FALSE to use dissimilarity
 l_zero_Y_init          <- FALSE # force 'L' subgroups affecting Y to have an oracle coefficient of 0.0, set to FALSE to use dissimilarity
-binary_X_init          <- TRUE # TRUE
-binary_Y_init          <- TRUE # TRUE
 oracle_error_mean_init <- 0.0
 oracle_error_sd_init   <- 1.0
 
 
 # top-level parameters held constant between scenarios but varied across simulation runs
-# simulation = c(n_simulation, n_obs, correlation_U, r_sq_X, r_sq_Y, causal, dissimilarity_rho)
+# simulation = c(n_simulation, n_obs, Z_correlation, r_sq_X, r_sq_Y, causal, dissimilarity_rho, binary_X, binary_Y, binary_Z)
+# all_simulations <- list(
+#   c(1, 10000, 0.0, 0.2, 0.4, 0.50, 1.0, FALSE, FALSE, FALSE),
+#   c(2, 10000, 0.0, 0.4, 0.4, 0.50, 1.0, FALSE, FALSE, FALSE),
+#   c(3, 10000, 0.0, 0.4, 0.4, 0.50, 1.5, FALSE, FALSE, FALSE),
+#   c(4, 10000, 0.2, 0.4, 0.4, 0.50, 1.5, FALSE, FALSE, FALSE),
+#   c(5, 10000, 0.2, 0.4, 0.4, 0.50, 1.5, FALSE, FALSE, FALSE),
+#   c(6, 10000, 0.2, 0.4, 0.4, 0.50, 1.5,  TRUE, FALSE, FALSE),
+#   c(7, 10000, 0.2, 0.4, 0.4, 0.50, 1.5,  TRUE,  TRUE, FALSE),
+#   c(8, 10000, 0.2, 0.4, 0.4, 0.50, 1.5,  TRUE,  TRUE,  TRUE),
+# )
 all_simulations <- list(
-  c(1, 1000, 0.0, 0.5, 0.7, 0.50, 1.0),
-  c(2, 1000, 0.0, 0.6, 0.8, 0.50, 1.0)
+  c(1, 10000, 0.2, 0.2, 0.4, 0.50, 1.0, FALSE, FALSE, FALSE)
 )
 
 
@@ -160,6 +162,9 @@ for (simulation in simulations) {
     target_r_sq_Y_init <- simulation[5]
     causal_effect      <- simulation[6]
     dissimilarity_init <- simulation[7]
+    binary_X_init      <- simulation[8]
+    binary_Y_init      <- simulation[9]
+    #binary_Z_init      <- simulation[10]
     
     # extract scenario param values
     n_scenario      <- scenario[1]
@@ -168,12 +173,13 @@ for (simulation in simulations) {
     num_unmeas_conf <- scenario[4]
     
     # initialise DAG
-    coef_data      <- generate_coef_data(num_total_conf      = num_total_conf,
-                                         target_r_sq_X = target_r_sq_X_init,
-                                         target_r_sq_Y = target_r_sq_Y_init,
-                                         dissimilarity = dissimilarity_init,
-                                         l_zero_X      = l_zero_X_init,
-                                         l_zero_Y      = l_zero_Y_init)
+    coef_data      <- generate_coef_data(num_total_conf = num_total_conf,
+                                         target_r_sq_X  = target_r_sq_X_init,
+                                         target_r_sq_Y  = target_r_sq_Y_init,
+                                         dissimilarity  = dissimilarity_init,
+                                         l_zero_X       = l_zero_X_init,
+                                         l_zero_Y       = l_zero_Y_init,
+                                         Z_correlation  = Z_correlation_init)
     
     # replace initial causal effect with target value
     coef_data[1, 'X'] <- causal_effect
